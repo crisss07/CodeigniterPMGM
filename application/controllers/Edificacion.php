@@ -43,6 +43,7 @@ class Edificacion extends CI_Controller
             $data['tipo_planta'] = $this->Edificacion_model->get_tipo_planta();
             $data['cod_catastral'] = $this->Edificacion_model->get_cod_catastral($predio_id);
             //$data['cod_catastral'] = 12;
+            
             $data['predio_id'] = $predio_id;
             $this->load->view('admin/header');
             $this->load->view('admin/menu');
@@ -85,6 +86,7 @@ class Edificacion extends CI_Controller
             $data['nro_bloque'] = $total_bloq;
             $data['anio_actual'] = $anio_act;
             $data['predio_id'] = $predio_id;
+            $data['estado_fis']  = array('Bueno', 'Regular', 'Malo','Muy Malo (En ruinas)');
             $this->load->view('admin/header');
             $this->load->view('admin/menu');
             $this->load->view('bloque/bloque_nuevo', $data);
@@ -202,7 +204,9 @@ class Edificacion extends CI_Controller
             $data['destino_bloque'] = $this->Edificacion_model->get_Destino_bloque();
             $data['destino_uso'] = $this->Edificacion_model->get_Uso_bloque();
             $data['tipo_planta'] = $this->Edificacion_model->get_tipo_planta();
-            $data['cod_catastral'] = $this->Edificacion_model->get_cod_catastral($predio_id);            
+            $data['cod_catastral'] = $this->Edificacion_model->get_cod_catastral($predio_id); 
+            
+            $data['estado_fis']  = array('Bueno', 'Regular', 'Malo','Muy Malo (En ruinas)');
             $this->load->view('admin/header');
             $this->load->view('admin/menu');
             $this->load->view('bloque/bloque_edicion', $data);

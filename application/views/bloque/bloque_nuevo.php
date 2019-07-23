@@ -435,7 +435,7 @@
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label for="wfirstName2">Año de remodelacion: <span class="text-danger"> *</span></label>
+                                            <label for="wfirstName2">Año de reposicion: <span class="text-danger"> *</span></label>
                                             <input type="number" size="4" class="form-control required" id="anio_remo" name="anio_remo" min="1000" max="<?php echo $anio_actual; ?>"  required>
                                         </div>
                                     </div>
@@ -443,7 +443,7 @@
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label for="wfirstName2">Porcentaje de remodelacion: <span class="text-danger"> *<small> entre (0 y 100) % </small> </span>   </label>
+                                            <label for="wfirstName2">Porcentaje de reposicion: <span class="text-danger"> *<small> entre (0 y 100) % </small> </span>   </label>
                                             <input type="number" size="3" class="form-control required" id="porcentaje_remo" name="porcentaje_remo" min="0" max="100" oninput = "(validity.valid) || (value = ' ');" required>                                          
                                         </div>
                                     </div>
@@ -451,7 +451,7 @@
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label for="location1">Destino :<span class="text-danger"> *</span></label>
+                                            <label for="location1">Destino :<span class="text-danger"> *<small> (destino inicial del bloque)</small></span></label>
                                             <select class="custom-select form-control" id="destino_bloque_id" name="destino_bloque_id" required>
                                                 <option value="">Seleccione destino</option>
                                                 <?php foreach ($destino_bloque as $d) : ?>
@@ -464,7 +464,7 @@
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label for="location1">Uso :<span class="text-danger"> *</span></label>
+                                            <label for="location1">Uso :<span class="text-danger"> * <small>(uso actual del bloque)</small></span></label>
                                             <select class="custom-select form-control" id="uso_bloque_id" name="uso_bloque_id" required>
                                                 <option value="">Seleccione Uso</option>
                                                 <?php foreach ($destino_uso as $du) : ?>
@@ -478,7 +478,12 @@
                                     <div class="col-md-8">
                                         <div class="form-group">                                            
                                             <label for="wfirstName2">Estado Fisico : <span class="text-danger"> *  <small> </small> </span> </label>
-                                            <input type="text" class="form-control"  id="estado_fisico" name="estado_fisico"  required>
+                                            <select class="custom-select form-control" id="estado_fisico" name="estado_fisico" required>                                            
+                                                <?php foreach ($estado_fis as $ef) : ?>                                             
+                                                <option value="<?php echo $ef; ?>"><?php echo $ef; ?></option>                                            
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <!--<input type="text" class="form-control"  id="estado_fisico" name="estado_fisico"  required>-->
                                         </div>
                                     </div>
                                 </div>
