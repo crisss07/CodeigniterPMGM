@@ -39,7 +39,7 @@
                                         <tbody>
                                             <?php $i=1;?>
                                             <?php foreach ($data_org as $row) {
-    $datos = $row->organigrama_id."||".
+                                               $datos = $row->organigrama_id."||".
                                                $row->padre_id."||".
                                                $row->unidad."||".
                                                $row->cite_id."||".

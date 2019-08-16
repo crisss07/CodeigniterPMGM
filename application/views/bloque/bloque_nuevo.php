@@ -73,11 +73,8 @@
                                     $cant = $longgrupo / 3;
                                     $cantgrupos = round($cant, 0);
 
-
                                     $count2 = 0; //contador de los ciclos
-
-                                    $pos = 0; //posicion final de la ultima grid                                                                        
-
+                                    $pos = 0; //posicion final de la ultima grid
 
                                     for ($i = 0; $i < $max; $i++) { ?>
 

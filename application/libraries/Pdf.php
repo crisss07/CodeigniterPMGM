@@ -1,16 +1,17 @@
-<?php 
-if (!defined('BASEPATH')) exit('No direct script access allowed');  
- 
-require_once 'dompdf/autoload.inc.php';
 
+
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+// Dompdf namespace
 use Dompdf\Dompdf;
 
-class Pdf extends Dompdf
-{
-	public function __construct()
-	{
-		 parent::__construct();
-	} 
-}
 
+
+class Pdf{
+	public function __construct(){
+		require_once dirname(__FILE__).'/dompdf/autoload.inc.php';
+		$pdf = new DOMPDF();
+		$CI = & get_instance();
+		$CI->dompdf = $pdf;
+	}
+}
 ?>
