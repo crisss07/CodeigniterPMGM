@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Ficha Tecnica</title>
+    <title>Certificacion Tecnica</title>
 
     <style type="text/css">
         @page {

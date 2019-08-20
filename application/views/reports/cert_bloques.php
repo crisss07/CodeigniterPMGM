@@ -35,7 +35,7 @@
         }
         table, th, td {
           border-collapse: collapse;
-          border: 1px solid black;
+          border: 1px solid white;
         }
         .salto {
           border-collapse: collapse;
@@ -187,13 +187,14 @@
       </td>  
   </tr>
 </table>
+<br>
 
  <table width="100%">     
       <tr >   
       <td align="left"  class="titulo" height="0">
-       PROPIETARIO<br>
+       PROPIETARIOS <br>
        HERNAN YUCRA MASIAS <br> <p>
-       CONDICION DEL TITULAR <br><p>
+       
         NOMBRE DE VIA <br>
         Calle San jose <br><p>
 
@@ -204,8 +205,9 @@
        
       </td>  
         <td align="left"  class="titulo" height="0">
-      &nbsp; <br>
-       &nbsp;<br> <p>
+  
+   
+        CONDICION DEL TITULAR <br>
        PROPIETARIO UNICO <br> <p>
        Nro <br>
        59<br> <p>
@@ -219,6 +221,7 @@
 
       </td> 
         <td align="left"  class="titulo" height="0">
+            &nbsp; <br>
      CI <br>
        9341120 CBBA  <br><p>
        &nbsp; <br>
@@ -231,144 +234,97 @@
        &nbsp;
 
       </td>
-        <td align="center"  class="titulo_tres" height="0"  width="30%">
+        <td align="center"  class="titulo_tres" height="0"  width="35%">
+          VISTA FOTOGRAFICA <br>
       <img src="<?php echo base_url(); ?>public/assets/images/reportes/fachada.jpg" alt="Logo" width="350"  class="logo"/>
       </td>  
   </tr>
 
 </table>
 
-  <table width="100%"> 
-
-
-      <tr >   
-      <td align="justify"  class="titulo" height="0">
-        Solicitado por:  <br>
-        Mediante memorial de <br>  
-        Matricula: <br>
-        Propietario (s): 
-
-      </td>  
-       <td align="justify"  class="titulo" height="0">
-         con C.l. Nº <br>
-        fecha 06/02/2018  <br>
-        3.01.1.01.0060862 <br>
-        DENIS MARTIN BARRIGA LOPEZ , SATURNINO CALDERON NINA 
-
-      </td>   
-  </tr>  
-</table> 
+ 
 <br>     
 
   <table width="100%">     
       <tr >   
-      <td align="center"  class="titulo_dos" height="0">
-    CERTIFICACIÓN TÉCNICA        
+      <td align="center"  class="titulo_tres" height="0">
+    CONSTRUCCIONES     
       </td>    
   </tr>  
-       <tr >   
-      <td align="center"  class="titulo" height="0">
-    DE CONFORMIDAD A LA LEY Nº 247/2012 Y LEY DE MODIFICACIONES 803/2016
-      </td>    
-  </tr>
+
 </table> 
 <br>
 
- <table width="100%">     
-      <tr >   
-      <td align="left"  class="titulo" height="0">
-        Verificado el sistema informático de Registro Catastral, el Archivo documentado del Registro Catastral y planos de acuerdo a lo solicitado, se informa:
-      </td>    
-  </tr>  
-       <tr >   
-      <td align="center"  class="titulo_tres" height="0" >
-  LA INEXISTENCIA DE REGISTRO CATASTRAL UBICADO EN:
-      </td>    
-  </tr>
-</table>
-<br>
-
- <table width="100%">     
-      <tr >   
-      <td align="justify"  class="titulo" height="0">
-        Distrito Nº: 08 
-      </td>  
-       <td align="justify"  class="titulo" height="0">
-        Sub-distrito N^: 34 
-      </td>   
-        <td align="justify"  class="titulo" height="0">
-  Zona: USPHA USPHA 
-      </td>
-        <td align="justify"  class="titulo" height="0">
-      Manzana Act.: 125
-      </td>
-  </tr>  
-       <tr >   
-      <td align="justify"  class="titulo" height="0">
-        Predio: 024
-      </td>  
-       <td align="justify"  class="titulo" height="0">
-        Lote: Nº24
-      </td>   
-        <td align="justify"  class="titulo" height="0">
-        Calle : INNOMINADA
-      </td>
-        <td align="justify"  class="titulo" height="0">
-     
-      </td>
-  </tr>
-</table>
-<br>
- <table width="100%">     
-      <tr >   
-      <td align="justify"  class="titulo" height="0">
-       Urbanizacion: LOMA PAMPA
-      </td>  
-  </tr>
-</table>
-
-<br>
- <table width="100%">     
-      <tr >   
-      <td align="justify"  class="titulo" height="0">
-    Según plano de -URBANIZACION-. aprobado en fecha 16/04/2015 mediante R.M. N9 338/2014 de 21/10/2014 se tiene la siguiente información:
-      </td>  
-  </tr>
-</table>
-
-
-<br>
- <table width="100%">     
-      <tr >   
-      <td align="center"  class="titulo" height="0" width="50%">
-          <img src="<?php echo base_url(); ?>public/assets/images/reportes/predio.png" alt="Logo" width="350"  class="logo"/>
-      </td>  
-      <td align="justify"  class="titulo" height="0">
-        <u> DATOS TECNICOS</u>  <p>
-          RELACION DE SUPERFICIES<p>
-          Sup. Lote N924  200.00 m2 <p>
-          Sup. Total útil: N924  200.00 m2 <p>
-            <br>
-        LIMITES Y COLINDANTES<p>
-          Norte:    Lote    N9  11<p>
-            Este:   Lote    N9  25<p>
-            Sud:    Calle   Innominada<p>
-            Oeste:  Lote    N9  23
-      </td>  
-  </tr>
-</table>
-
-
- <table width="100%">     
-      <tr >   
-      <td align="justify"  class="titulo" height="0">
-      <u>CROQUIS DE UBICACION DEL PREDIO  </u>  
-      </td>  
-        <td align="justify"  class="titulo" height="0">
+     <table width="100%" >
+        <thead>
+            <tr>
+              
+                <th>numero</th> 
+                <th>nombre</th>
+                <th>estado</th>
+                <th>altura</th>
+                <th>destino</th>
+                <th>uso</th>
    
+            </tr>
+        </thead>
+        <tbody>            
+            <?php foreach ($data_bloques as $row) { ?>
+                <tr>                    
+             
+                    <td><?php echo $row->nro_bloque; ?></td>                                                      
+                    <td><?php echo $row->nom_bloque; ?></td> 
+                   
+                    <td><?php echo $row->estado_fisico; ?></td>    
+                     <td><?php echo $row->altura; ?></td> 
+                         <td><?php echo $row->descripcion; ?></td> 
+                             <td><?php echo $row->uso; ?></td> 
+                     
+                </tr>
+                <?php 
+            } ?>
+        </tbody>
+    </table>
+<br>
+
+ <table width="100%">     
+        
+
+
+  
+
+    <tr>     
+      <td align="left"  class="titulo" height="0">
+       OBSERVACIONES:<br>
+     
+      </td> 
+        <td align="center"  class="titulo_tres" height="0"  width="60%"  rowspan="3">
+          PLANO CATASTRAL <br>
+      <img src="<?php echo base_url(); ?>public/assets/images/reportes/predio.png" alt="Logo" width="350"  class="logo"/>
       </td>  
   </tr>
+
+      <tr>     
+      <td align="left"  class="titulo" height="0">
+       SE EXPIDE EL SIGUIENTE CERTIFICADO A SOLICITUD DE: <br>   
+       HERNAN YUCRA MASIAS <br>   
+      </td> 
+  
+  </tr>
+        <tr>     
+      <td align="center"  class="titulo" height="0">
+       FIRMA Y SELLO<br>
+
+      </td> 
+  
+  </tr>
+
+
 </table>
+
+
+
+
 
 <br>
  <table width="100%">     

@@ -141,7 +141,16 @@ class Reporteseicu extends CI_Controller
         ini_set('memory_limit','1024M');
 
 
-        $data['data_bloques'] = $this->db->query("SELECT * FROM catastro.bloque_mat_item where activo=1")->result_array(); 
+        $data['data_bloques'] = $this->db->query("SELECT b.*,d.descripcion,u.descripcion as uso FROM catastro.bloque b
+LEFT JOIN
+catastro.destino_bloque d
+on b.destino_bloque_id=d.destino_bloque_id
+LEFT JOIN
+catastro.uso_bloque u
+on b.uso_bloque_id=u.uso_bloque_id
+
+
+WHERE predio_id=50 ORDER BY b.nro_bloque")->result(); 
         $data['data_grupos'] = $this->db->query("SELECT * FROM catastro.bloque_grupo_mat where activo=1")->result_array(); 
         $data['num_grupos'] = $this->db->query("SELECT count(grupo_mat_id) as total from catastro.bloque_grupo_mat where activo=1 ")->row();
         $data['num_bloques'] = $this->db->query("SELECT count(grupo_mat_id) as total from catastro.bloque_mat_item where activo=1  ")->row();
