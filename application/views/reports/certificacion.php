@@ -34,8 +34,7 @@
 
         }
         table, th, td {
-          border-collapse: collapse;
-          border: 1px solid white;
+      
         }
         .salto {
           border-collapse: collapse;
@@ -141,8 +140,12 @@
           border-collapse: collapse;
           border-bottom: 1px solid white;
           border-top: 1px solid white;
-          border-right:  1px solid white;
-          
+          border-right:  1px solid white;          
+        }
+
+
+          .no_bordes {   
+          border: 0px ;          
         }
     </style>
 
@@ -150,15 +153,15 @@
 </head>
 <body>
     <div class="encabezado">
-        <table width="100%" class="bordes">
-            <tr class="bordes">
-                  <td align="left" class="bordes">
+        <table width="100%" class="no_bordes" >
+            <tr class="no_bordes" >
+                  <td align="left" class="no_bordes" >
               <b > GOBIERNO AUTONOMO MUNICIPAL “EL TORNO”</b>
               <br>
               Tramite No 321456, <br>
                 <b> Certificacion de Datos Tecnicos No. 1245/2019 </b>
           </td>
-                <td align="left" style="width: 20%;" class="bordes">             
+                <td align="left" style="width: 20%;" class="no_bordes">             
                  <img src="<?php echo base_url(); ?>public/assets/images/reportes/tornologo.png" alt="Logo" width="66" class="logo"/>
              </td>
     </tr>

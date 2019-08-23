@@ -37,8 +37,7 @@
         }
 
         table, th, td {
-          border-collapse: collapse;
-          border: 1px solid black;
+         
         }
 
         .salto {
@@ -100,6 +99,9 @@
         .columnas {
             font-size: 10px;
             line-height:14px;
+
+             border-collapse: collapse;
+          border: 1px solid black; 
         }
 
         .titulos_tabla {
@@ -115,7 +117,20 @@
             font-size: 10px;
             line-height:14px;
             font-weight: bold;
+
+            border-collapse: collapse;
+          border: 1px solid black;
         }
+
+         .titulo_blanco {
+            font-size: 10px;
+            line-height:14px;
+            font-weight: bold;
+
+           
+        }
+
+
         .encabezado {
             background-color: #CCDFC6;
             color: #000000;
@@ -133,27 +148,33 @@
           border-collapse: collapse;
           border-bottom: 1px solid white;
           border-top: 1px solid white;
-          border-right:  1px solid white;
-          
+          border-right:  1px solid white;          
         }
+
+        .bordes_tabla {   
+         border-collapse: collapse;
+          border: 1px solid black;   
+        }
+
+
     </style>
 
 
 </head>
 <body>
 
-    <div class="encabezado">
-        <table width="100%" class="bordes">
-            <tr class="bordes">
-                <td align="left" style="width: 20%;" class="bordes">             
+    <div class="encabezado ">
+        <table width="100%" border="0">
+            <tr border="0">
+                <td align="left" style="width: 20%;" border="0">             
                  <img src="<?php echo base_url(); ?>public/assets/images/reportes/tornologo.png" alt="Logo" width="66" class="logo"/>
              </td>
-             <td align="center" class="bordes">
+             <td align="center" >
               <b > GOBIERNO AUTONOMO MUNICIPAL “EL TORNO”</b>
               <br>
               <u>FICHA TECNICA </u>    
           </td>
-          <td align="right" style="width: 20%;" class="bordes">
+          <td align="right" style="width: 20%;" border="0">
             FECHA   &nbsp;&nbsp;&nbsp;&nbsp;/  &nbsp;&nbsp;&nbsp;&nbsp; /20   &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
         </td>
     </tr>
@@ -161,21 +182,21 @@
 </div>
 
 <div class="invoice">        
-  <table width="100%">
+  <table width="100%" class="bordes_tabla">
         
 
 
                        <tr >   
-      <td align="justify"  class="titulo" height="0">
+      <td align="justify"  class="titulo " height="0">
         BLOQUES DEL PREDIO  
   
       </td>
-      <td align="justify" class="columnas" height="0"> 
+      <td align="justify" class="columnas " height="0"> 
 
       </td>
-      <td align="justify"  class="columnas" height="0">          
+      <td align="justify"  class="columnas " height="0">          
       </td>
-      <td align="justify" class="columnas" height="0">          
+      <td align="justify" class="columnas " height="0">          
       </td>
       <td align="justify"  class="salto_v" height="0">          
       </td>
@@ -183,7 +204,7 @@
 
     BLOQUES DEL PREDIO
       </td>
-      <td align="justify"  class="columnas" height="0">          
+      <td align="justify"  class="columnas " height="0">          
       </td>
       <td align="justify"  class="columnas" height="0">         
       </td>
@@ -308,7 +329,7 @@
 
 <table width="100%">
     <tr >   
-      <td align="center"  class="titulo" height="0">
+      <td align="center"  class="titulo_blanco" height="0">
        EN MI CALIDAD DE SUJETO PASIVO Y/O TERCERO RESPONSABLE, DECLARO QUE LA INFORMACION PROPORCIONADA FIEL Y EXACTAMENTE REFLEJE LA VERDAD,
         POR LO QUE JURO LA EXACTITUD DE LA PRESENTE DECLARACION
 

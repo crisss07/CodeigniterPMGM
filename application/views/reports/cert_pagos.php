@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>CERTIFICACION  CATASTRAL</title>
+    <title>CERTIFICACION IMPOSITIVA</title>
 
     <style type="text/css">
         @page {
@@ -34,6 +34,9 @@
 
         }
         table, th, td {
+          border-collapse: collapse;
+          border: 1px solid black;
+         
      
         }
         .salto {
@@ -107,7 +110,7 @@
             line-height:14px;
         }
         .titulo {
-            font-size: 10px;
+            font-size: 12px;
             line-height:14px;
             font-weight: bold;
         }
@@ -169,157 +172,92 @@
     <br>
           <table width="100%" >
            <tr >   
-      <td align="center"  class="titulo_tres" height="0">
-       CERTIFICADO CATASTRAL:    
+      <td align="center"  class="titulo" height="0">
+       NUMERO DE LIQUIDACION:    
       </td>  
+      <td align="center"  class="titulo" height="0">
+       CERTIFICADO CATASTRAL:    
+      </td> 
+      <td align="center"  class="titulo" height="0">
+       FECHA EMISION:    
+      </td> 
    
   </tr>
 </table>
-<br>
- <table width="100%">     
-      <tr >   
-      <td align="left"  class="titulo_tres" height="0">
-       CÓDIGO CATASTRAL:    
-      </td>  
-        <td align="left"  class="titulo_tres" height="0">
-      00-34-125-024-0-00-000-000
-      </td>  
-  </tr>
-</table>
-<br>
 
+
+<br>
  <table width="100%">     
       <tr >   
       <td align="left"  class="titulo" height="0">
-       PROPIETARIOS <br>
-       HERNAN YUCRA MASIAS <br> <p>
-       
-        NOMBRE DE VIA <br>
-        Calle San jose <br><p>
-
-        USO DEL INMUEBLE   <br>
-        Particular<br><p>
-        ESTADO DEL INMUEBLE <br>
-        BUENO
-       
+       RESPONSABLE:  <br> 
+       DOMICILIO FISCAL:  
       </td>  
-        <td align="left"  class="titulo" height="0">
-  
-   
-        CONDICION DEL TITULAR <br>
-       PROPIETARIO UNICO <br> <p>
-       Nro <br>
-       59<br> <p>
-
-        &nbsp; <br>
-       &nbsp;<br> <p>
-         &nbsp; <br>
-       &nbsp;
-
-       
-
-      </td> 
-        <td align="left"  class="titulo" height="0">
-            &nbsp; <br>
-     CI <br>
-       9341120 CBBA  <br><p>
-       &nbsp; <br>
-       &nbsp; <br>
-       &nbsp;<br> <p>
-      
-       &nbsp; <br>
-       &nbsp;<br> <p>
-         &nbsp; <br>
-       &nbsp;
-
-      </td>
-        <td align="center"  class="titulo_tres" height="0"  width="35%">
-          VISTA FOTOGRAFICA <br>
-      <img src="<?php echo base_url(); ?>public/assets/images/reportes/fachada.jpg" alt="Logo" width="350"  class="logo"/>
+       <td align="left"  class="titulo" height="0">
+         De Pascual Fernando <br>
+         Valparaiso 5096, CP: 5010, Cordoba, Cordoba
       </td>  
+     
   </tr>
 
 </table>
+<br>
+
+ <table width="100%">     
+ 
+       <tr >   
+      <td align="left"  class="titulo" height="0">
+      CONCEPTO TASA:  <br> 
+       ENTE EMISOR:  
+      </td>  
+       <td align="left"  class="titulo" height="0">
+         CERTIFICACION CATASTRAL <br>
+        DIRECCIÓN GENERAL DE CATASTRO
+      </td>  
+     
+  </tr>
+</table>
+<br>
 
  
-<br>     
+    
 
   <table width="100%">     
       <tr >   
-      <td align="center"  class="titulo_tres" height="0">
-    CONSTRUCCIONES     
-      </td>    
-  </tr>  
+      <td align="center"  class="titulo" height="0">
+    COD CATASTRAL <br>
+    00-34-125-024-0-00-000-000     
+      </td>  
+         <td align="center"  class="titulo" height="0">
+    CUENTA <br>
+    130127400831     
+      </td>   
+      </tr>  
 
 </table> 
+
 <br>
 
-     <table width="100%" >
-        <thead>
-            <tr>
-              
-                <th>numero</th> 
-                <th>nombre</th>
-                <th>estado</th>
-                <th>altura</th>
-                <th>destino</th>
-                <th>uso</th>
-   
-            </tr>
-        </thead>
-        <tbody>            
-            <?php foreach ($data_bloques as $row) { ?>
-                <tr>                    
-             
-                    <td><?php echo $row->nro_bloque; ?></td>                                                      
-                    <td><?php echo $row->nom_bloque; ?></td> 
-                   
-                    <td><?php echo $row->estado_fisico; ?></td>    
-                     <td><?php echo $row->altura; ?></td> 
-                         <td><?php echo $row->descripcion; ?></td> 
-                             <td><?php echo $row->uso; ?></td> 
-                     
-                </tr>
-                <?php 
-            } ?>
-        </tbody>
-    </table>
-<br>
-
- <table width="100%">     
-        
-
-
-  
-
-    <tr>     
-      <td align="left"  class="titulo" height="0">
-       OBSERVACIONES:<br>
-     
-      </td> 
-        <td align="center"  class="titulo_tres" height="0"  width="60%"  rowspan="3">
-          PLANO CATASTRAL <br>
-      <img src="<?php echo base_url(); ?>public/assets/images/reportes/predio.png" alt="Logo" width="350"  class="logo"/>
-      </td>  
-  </tr>
-
-      <tr>     
-      <td align="left"  class="titulo" height="0">
-       SE EXPIDE EL SIGUIENTE CERTIFICADO A SOLICITUD DE: <br>   
-       HERNAN YUCRA MASIAS <br>   
-      </td> 
-  
-  </tr>
-        <tr>     
+  <table width="100%">     
+      <tr >   
+        <td align="center"  class="titulo" height="0">
+    &nbsp;&nbsp;&nbsp; <br>
+    &nbsp;    
+      </td>
       <td align="center"  class="titulo" height="0">
-       FIRMA Y SELLO<br>
+    IMPORTE TOTAL <br>
+    $ 85.00    
+      </td>  
+         <td align="center"  class="titulo" height="0">
+    VENCIMIENTO DE PAGO <br>
+    27/07/2017     
+      </td>   
+      </tr>  
 
-      </td> 
-  
-  </tr>
+</table> 
 
 
-</table>
+ 
 
 
 
@@ -329,8 +267,8 @@
  <table width="100%">     
       <tr >   
       <td align="justify"  class="titulo" height="0">
-      NOTA.- Se aclara, que la manzana S-968 pertenece a la codificación ANTIGUA, actualmente corresponde a la manzana 125 de acuerdo al Plano General del Área Urbana de Cbba aprobado según Ley Municipal 0159/2016 del 2/09/2016 La presente certificación no define el derecho Propietario.
-        es cuanto se certifica para fines consiguientes.
+   Este importe esta sujeto a las modificaciones de la Ley Impositiva Anual. En caso que al momento de su presentación ante
+la Dirección General de Catastro, la misma tuviera variación, la diferencia deberá reponerse o integrarse a lo ya abonado.
       </td>       
   </tr>
 </table>

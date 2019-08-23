@@ -47,15 +47,19 @@
                 <div class="row">
                     <!-- Column -->
                     <div class="col-md-6 col-lg-3 col-xlg-3">
+                         <img src="<?php echo base_url(); ?>public/assets/images/reportes/certificado_tec.png" class="light-logo" alt="homepage" width="100%"/>
                         <div class="card card-inverse card-info">
+
                             <div class="box bg-info text-center">
                                 <h1 class="font-light text-white"></h1>
-                                <a href="<?php echo base_url(); ?>Reporteseicu/certificacion" target=blank><h6 class="text-white"> CERTIFICACION TECNICA</h6></a>
+                                <a href="<?php echo base_url(); ?>Reporteseicu/certificacion" target=blank><h6 class="text-white">
+                                CERTIFICACION TECNICA</h6></a>
                             </div>
                         </div>
                     </div>
                     <!-- Column -->
                     <div class="col-md-6 col-lg-3 col-xlg-3">
+                        <img src="<?php echo base_url(); ?>public/assets/images/reportes/ficha_tec.png" class="light-logo" alt="homepage" width="100%"/>
                         <div class="card card-primary card-inverse">
                             <div class="box text-center">
                                 <h1 class="font-light text-white"></h1>
@@ -65,6 +69,7 @@
                     </div>
                     <!-- Column -->
                     <div class="col-md-6 col-lg-3 col-xlg-3">
+                        <img src="<?php echo base_url(); ?>public/assets/images/reportes/certificado_cat.png" class="light-logo" alt="homepage" width="100%"/>
                         <div class="card card-inverse card-success">
                             <div class="box text-center">
                                 <h1 class="font-light text-white"></h1>
@@ -73,14 +78,7 @@
                         </div>
                     </div>
                     <!-- Column -->
-                    <div class="col-md-6 col-lg-3 col-xlg-3">
-                        <div class="card card-inverse card-warning">
-                            <div class="box text-center">
-                                <h1 class="font-light text-white"></h1>
-                                <h6 class="text-white">Bounce Rate</h6>
-                            </div>
-                        </div>
-                    </div>
+               
                 </div>
         
         
