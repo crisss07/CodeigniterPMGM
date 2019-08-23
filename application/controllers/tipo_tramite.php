@@ -314,6 +314,24 @@ class Tipo_tramite extends CI_Controller {
         $this->load->view('predios/index_js');
 	}
 
+	public function ajax_verifica1(){
+		$ci = $this->input->get("param1");
+		// $this->db->where()
+		//$this->db->where('ci', $ci);
+		$respuesta = $this->db->query("SELECT requisito_id, descripcion FROM tramite.requisito WHERE tipo_tramite_id = '".$ci."'")->result();
+		
+		//var_dump($respuesta);
+		
+		// echo json_encode($respuesta);
+		// $respuesta = array('ci'=>$ci, 'nombres' =>$datos_persona['Nombres'], 'paterno' =>$datos_persona['PrimerApellido'], 'materno' =>$datos_persona['SegundoApellido'], 'fec_nacimiento'=>$datos_persona['FechaNacimiento'], 'estado'=>'segip');
+		// echo json_encode($respuesta);
+		
+		// $respuesta = array('ci'=>$ci, 'estado'=>'no');
+		echo json_encode($respuesta);
+			
+	}
+
+
 
 }
 
