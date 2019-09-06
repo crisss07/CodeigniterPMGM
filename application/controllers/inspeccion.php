@@ -112,32 +112,27 @@ class Inspeccion extends CI_Controller {
 	}
 
 	public function listado_user()
-	{
-		
+	{		
 			if($this->session->userdata("login")){
 			// $this->db->order_by('tramite.derivacion.fec_creacion', 'DESC');
 			$id = $this->session->userdata("persona_perfil_id");
 			$resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
 			$dato = $resi->persona_id;
-			$res = $this->db->get_where('persona', array('persona_id' => $dato))->row();
-			
+			$res = $this->db->get_where('persona', array('persona_id' => $dato))->row();			
 			//obtiene el perfil del usuario para los casos 1=superadmin,,2 =inspector
 			$perfil_user = $this->db->get_where('persona_perfil', array('persona_id' => $dato))->row();
 			$rol_user=$perfil_user->perfil_id;
-
 			if($rol_user==1)//rol de adm
 			{
 				$data['lista'] = $this->inspecciones_model->get_lista();  
-
 				$this->load->view('admin/header');
 				$this->load->view('admin/menu');
 				$this->load->view('inspecciones/lista_admin', $data);
 				$this->load->view('admin/footer');
 				$this->load->view('predios/index_js');
-
 			}
 
-			if($rol_user==5)//rol de inspector
+			if($rol_user==7)//rol de inspector
 			{
 				$data['lista'] = $this->inspecciones_model->get_lista_id($dato);  
 	
@@ -164,7 +159,15 @@ class Inspeccion extends CI_Controller {
 		$res = $this->db->get_where('persona', array('persona_id' => $dato))->row();
 		//$id_user=$resi[0]['persona_id'];
 		//$data['lista'] = $this->inspecciones_model->get_lista(); 
-		$data['lista'] = $this->inspecciones_model->get_lista_asign(); 
+		$perfil_user = $this->db->get_where('persona_perfil', array('persona_id' => $dato))->row();
+		$rol_user=$perfil_user->perfil_id;
+
+		$data['lista'] = $this->inspecciones_model->get_lista_asign_id($dato); 
+		//rol de adm
+		if($rol_user==1){
+			$data['lista'] = $this->inspecciones_model->get_lista_asign(); 
+		}
+
 		$data['verifica'] = $this->rol_model->verifica();  
 		$this->db->where('perfil_id', 5);
 		$inspectores = $this->db->get('persona_perfil')->result();
@@ -315,11 +318,8 @@ class Inspeccion extends CI_Controller {
 	                	{
 	                        $data = array('upload_data' => $this->upload->data());
 							redirect('prueba/lis1/');
-                        }
-	                
+                        }	                
             	}
-                    
-                ///
                 redirect(base_url().'prueba/lis1/');                  
 
 			}

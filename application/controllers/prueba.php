@@ -208,7 +208,6 @@ class Prueba extends CI_Controller {
 
     public function lis1(){//listado de asignaciones pendientes no concluidas
         if($this->session->userdata("login")){
-
         $lista['verifica'] = $this->rol_model->verifica();
         $lista['asignacion'] = $this->inspeccion_model->index();
         $this->load->view('admin/header');
