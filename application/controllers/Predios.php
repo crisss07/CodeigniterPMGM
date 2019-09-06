@@ -616,4 +616,15 @@ class Predios extends CI_Controller {
 		$this->load->view('predios/registra_js');
 	}
 
+	public function form_fusion(){
+
+		$this->load->view('admin/header');
+		$this->load->view('admin/menu');
+		// $this->load->view('predios/nuevo', $data);
+		$this->load->view('predios/form_fusion');
+		$this->load->view('admin/footer');
+		$this->load->view('predios/registra_js');
+
+	}
+
 }
