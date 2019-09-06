@@ -69,4 +69,84 @@
     <!-- ============================================================== -->
     <!-- Style switcher -->
     <!-- ============================================================== -->
+
+    <script src="<?php echo base_url(); ?>public/assets/plugins/sweetalert/sweetalert.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="<?php echo base_url(); ?>public/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+
+     <script type="text/javascript">
+        var m= <?php echo $msj; ?>;
+         //var m=0;
+
+          if(m==1){
+             swal("Buen Trabajo!", "El registro se guardo correctamente", "success");
+          }
+      
+
+ function borrar(id,id2) {
+
+          swal({
+          title: "Are you sure?",
+          text: "Once deleted, you will not be able to recover this imaginary file!",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then(
+            function (isConfirm){
+          if (isConfirm) {
+
+
+            console.log('CONFIRMED');
+
+
+       
+          } else {
+              
+            swal("Your imaginary file is safe!");
+          }
+        });
+
+}
+
+
+        
+        </script>
+
+
+        <script type="text/javascript">
+    $(".remove").click(function(){
+        var id = 13;
+    
+       swal({
+        title: "Are you sure?",
+        text: "You will not be able to recover this imaginary file!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel plx!",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      },
+      function(isConfirm) {
+        if (isConfirm) {
+          $.ajax({
+             url: '/item-list/'+id,
+             type: 'DELETE',
+             error: function() {
+                alert('Something is wrong');
+             },
+             success: function(data) {
+                  $("#"+id).remove();
+                  swal("Deleted!", "Your imaginary file has been deleted.", "success");
+             }
+          });
+        } else {
+          swal("Cancelled", "Your imaginary file is safe :)", "error");
+        }
+      });
+     
+    });
+    
+</script>

@@ -34,8 +34,7 @@
 
         }
         table, th, td {
-          border-collapse: collapse;
-          border: 1px solid white;
+     
         }
         .salto {
           border-collapse: collapse;
@@ -183,7 +182,8 @@
        CÓDIGO CATASTRAL:    
       </td>  
         <td align="left"  class="titulo_tres" height="0">
-      00-34-125-024-0-00-000-000
+     
+         <?php echo $datos_predio->distrito.'-'.$datos_predio->manzana.'-'.$datos_predio->predio; ?>
       </td>  
   </tr>
 </table>
@@ -192,48 +192,48 @@
  <table width="100%">     
       <tr >   
       <td align="left"  class="titulo" height="0">
-       PROPIETARIOS <br>
-       HERNAN YUCRA MASIAS <br> <p>
+       PROPIETARIOS: <br>
+
+       <?php foreach ($propietarios as $keys) {
+        echo $keys->nombres_pro;
+        ?>
+        <br>
+
+       <?php  } ?>
+
+
+        <p>
        
         NOMBRE DE VIA <br>
         Calle San jose <br><p>
 
         USO DEL INMUEBLE   <br>
-        Particular<br><p>
-        ESTADO DEL INMUEBLE <br>
-        BUENO
+        Particular<br>
        
       </td>  
-        <td align="left"  class="titulo" height="0">
-  
-   
-        CONDICION DEL TITULAR <br>
-       PROPIETARIO UNICO <br> <p>
-       Nro <br>
-       59<br> <p>
-
-        &nbsp; <br>
-       &nbsp;<br> <p>
-         &nbsp; <br>
-       &nbsp;
-
        
-
-      </td> 
         <td align="left"  class="titulo" height="0">
-            &nbsp; <br>
-     CI <br>
-       9341120 CBBA  <br><p>
-       &nbsp; <br>
-       &nbsp; <br>
-       &nbsp;<br> <p>
+        
+     CI:<br>
+        <?php foreach ($propietarios as $k) {
+        echo $k->ci;
+        ?>
+        <br>
+
+       <?php  } ?>
+        <br>
+        N° <br>
+        <?php echo $datos_predio->nro_inmueble ?> <br><p>  
+
+        ESTADO DEL INMUEBLE <br>
+        BUENO
       
-       &nbsp; <br>
-       &nbsp;<br> <p>
-         &nbsp; <br>
-       &nbsp;
+
+      
+    
 
       </td>
+
         <td align="center"  class="titulo_tres" height="0"  width="35%">
           VISTA FOTOGRAFICA <br>
       <img src="<?php echo base_url(); ?>public/assets/images/reportes/fachada.jpg" alt="Logo" width="350"  class="logo"/>
@@ -243,6 +243,44 @@
 </table>
 
  
+
+
+<br>
+
+ <table width="100%">     
+        
+
+
+  
+
+    <tr>     
+      <td align="left"  class="titulo" height="0">
+       OBSERVACIONES:<br>
+     
+      </td> 
+        <td align="center"  class="titulo_tres" height="0"  width="60%"  rowspan="3">
+          PLANO CATASTRAL <br>
+      <img src="<?php echo base_url(); ?>public/assets/images/reportes/predio.png" alt="Logo" width="350"  class="logo"/>
+      </td>  
+  </tr>
+
+      <tr>     
+      <td align="left"  class="titulo" height="0">
+       SE EXPIDE EL SIGUIENTE CERTIFICADO A SOLICITUD DE: <br>   
+       HERNAN YUCRA MASIAS <br>   
+      </td> 
+  
+  </tr>
+        <tr>     
+      <td align="center"  class="titulo" height="0">
+       FIRMA Y SELLO<br>
+
+      </td> 
+  
+  </tr>
+
+
+</table>
 <br>     
 
   <table width="100%">     
@@ -285,43 +323,6 @@
             } ?>
         </tbody>
     </table>
-<br>
-
- <table width="100%">     
-        
-
-
-  
-
-    <tr>     
-      <td align="left"  class="titulo" height="0">
-       OBSERVACIONES:<br>
-     
-      </td> 
-        <td align="center"  class="titulo_tres" height="0"  width="60%"  rowspan="3">
-          PLANO CATASTRAL <br>
-      <img src="<?php echo base_url(); ?>public/assets/images/reportes/predio.png" alt="Logo" width="350"  class="logo"/>
-      </td>  
-  </tr>
-
-      <tr>     
-      <td align="left"  class="titulo" height="0">
-       SE EXPIDE EL SIGUIENTE CERTIFICADO A SOLICITUD DE: <br>   
-       HERNAN YUCRA MASIAS <br>   
-      </td> 
-  
-  </tr>
-        <tr>     
-      <td align="center"  class="titulo" height="0">
-       FIRMA Y SELLO<br>
-
-      </td> 
-  
-  </tr>
-
-
-</table>
-
 
 
 
@@ -330,7 +331,7 @@
  <table width="100%">     
       <tr >   
       <td align="justify"  class="titulo" height="0">
-      NOTA.- Se aclara, que la manzana S-968 pertenece a la codificación ANTIGUA, actualmente corresponde a la manzana 125 de acuerdo al Plano General del Área Urbana de Cbba aprobado según Ley Municipal 0159/2016 del 2/09/2016 La presente certificación no define el derecho Propietario.
+      NOTA.- Se aclara, que la manzana S-968 pertenece a la codificación ANTIGUA, actualmente corresponde a la manzana <?php echo $datos_predio->manzana ?> de acuerdo al Plano General del Área Urbana de Cbba aprobado según Ley Municipal 0159/2016 del 2/09/2016 <br> <p></p> La presente certificación no define el derecho Propietario.
         es cuanto se certifica para fines consiguientes.
       </td>       
   </tr>
@@ -348,7 +349,7 @@
      
              GOBIERNO AUTÓNOMO MUNICIPAL DE EL TORNO<br>
              DEPARTAMENTO DE SERVICIOS CATASTRALES<br>
-             Telf.: (591H-4258030 Int: 4363 / Pasaje Sucre s/n 
+             Telf.: 591-4258030 Int: 4363 / Pasaje Sucre s/n 
          
                 
              

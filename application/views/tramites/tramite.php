@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="<?php echo base_url(); ?>public/assets/plugins/dropify/dist/css/dropify.min.css">
+
+N<link rel="stylesheet" href="<?php echo base_url(); ?>public/assets/plugins/dropify/dist/css/dropify.min.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>public/assets/plugins/wizard/steps.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/pasos.css">
 <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.js"></script> -->
@@ -25,139 +26,108 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="card-body">
-                            <!-- <h4 class="card-title">
-                                Registro de Predio
-                                <button type="button" class="btn waves-effect waves-light btn-success" id="btn_sel_predio">Seleccionar predio</button>
-                            </h4> -->
-                            <!-- <h6 class="card-subtitle">Ingrese los datos del predio </h6> -->
-                            <!-- <form action="#" class="validation-wizard wizard-circle"> -->
-                            <?php // echo form_open('predios/guarda', array('method'=>'POST', 'enctype'=>"multipart/form-data")); ?>
                             <?php echo form_open_multipart('tipo_tramite/do_upload', array('method'=>'POST')); ?>
                                 <h4 class="card-title">Registro de Tramite</h4>
-                                <div class="form-row">
-                                    <div class="col-md-4 mb-3">
-                                        <label for="validationCustom01">Persona</label>
-                                        <!-- CONSULTA POR LA TABLA ORGANIGRAMA PERSONA -->
+                                <div class="floating-labels mt-5">
+                                    <div class="form-row">
                                         <?php $lista = $this->db->query("SELECT op.organigrama_persona_id, op.persona_id, p.persona_id, p.nombres, p.paterno, p.materno FROM tramite.organigrama_persona op, public.persona p WHERE op.organigrama_persona_id = '$idss' AND op.persona_id = p.persona_id")->row();
                                         ?>  
                                         <input type="hidden" name="organigrama_persona_id" value="<?php echo $lista->organigrama_persona_id ?>" >
-                                        <input type="text" class="form-control" name="nombre" value="<?php echo $lista->nombres ?> <?php echo $lista->paterno ?> <?php echo $lista->materno ?>">
-                                        <div class="invalid-feedback">
-                                            Please provide a valid city.
-                                        </div>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="validationCustom02">Tipo de Documento</label>
-                                        <!-- CONSULTA POR LA TABLA TIPO DE DOCUMENTO -->
-                                        <?php $lista1 = $this->db->query("SELECT * FROM tramite.tipo_documento  WHERE activo = '1' ORDER BY tipo_documento_id ASC")->result();
-                                        ?> 
-                                        <select class="custom-select form-control" id="tipo_documento_id" name="tipo_documento_id" required />
-                                            <option value="">Seleccione tipo</option>
-                                            <?php foreach ($lista1 as $td): ?>
-                                                <option value="<?php echo $td->tipo_documento_id; ?>"><?php echo $td->documento; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>  
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="validationCustomUsername">Tipo de Tramite</label>
-                                        <!-- CONSULTA POR LA TABLA TIPO DE DOCUMENTO -->
-                                        <?php $lista2 = $this->db->query("SELECT * FROM tramite.tipo_tramite  WHERE activo = '1' ORDER BY tipo_tramite_id ASC")->result();
-                                        ?> 
-                                        <div class="input-group">
-                                            <select class="custom-select form-control" id="tipo_tramite_id" name="tipo_tramite_id" required />
-                                                <option value="">Seleccione tipo</option>
+                                        <div class="col-md-6 form-group mb-5">
+                                            <!-- CONSULTA POR LA TABLA TIPO DE DOCUMENTO -->
+                                            <?php $lista2 = $this->db->query("SELECT * FROM tramite.tipo_tramite  WHERE activo = '1' ORDER BY tipo_tramite_id ASC")->result();
+                                            ?> 
+                                            <select class="custom-select form-control" id="tipo_tramite_id" name="tipo_tramite_id"  onchange="CargarProductos(this.value);" required />
+                                                <option value=""></option>
                                                 <?php foreach ($lista2 as $tc): ?>
                                                     <option value="<?php echo $tc->tipo_tramite_id; ?>"><?php echo $tc->tramite; ?></option>
                                                 <?php endforeach; ?>
                                             </select>  
-                                            <div class="invalid-feedback">
-                                                Please choose a username.
+                                            <label>Tipo de Tramite</label>
+                                        </div>
+                                        <div class="col-md-12 form-group mb-5" id="listas">    
+                                            
+                                        </div>
+                                        <div class="col-md-6 form-group mb-5">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="remitente" name="remitente" required>
+                                                <label > Nombre del solicitante<span class="text-danger">*</span> </label>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <?php 
-                                        $año = date("Y");
-                                        $cite = $this->db->query("SELECT * FROM tramite.numero_tramite WHERE gestion = '$año' AND activo = '1'")->row();
-                                        $numero = $cite->correlativo + 1 ;
-                                        $numeroConCeros = str_pad($numero, 5, "0", STR_PAD_LEFT);
-                                    ?> 
-                                    <div>
-                                        <input hidden type="integer" name="cite_sin" value="<?php echo $cite->tipo ?><?php echo $cite->gestion ?>-<?php echo $numeroConCeros ?>" >
-                                    </div>
-                                    <div>
-                                        <input hidden type="integer" name="gestion" value="<?php echo $año; ?>" >
-                                    </div>
-                                    <div>
-                                        <input hidden type="integer" name="correlativo" value="<?php echo $numero; ?>" >
-                                    </div>
-                                    <div>
-                                        <input hidden type="text" name="cite" value="<?php echo $cite->tipo ?>/<?php echo $cite->gestion ?>-<?php echo $numeroConCeros ?>" >
-                                    </div>
-                                    <div>
-                                        <input hidden type="date" name="fecha" value="<?php echo date('Y-m-d'); ?>">
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <div class="form-group">
-                                            <div class="card">
-                                                <label for="recipient-name" class="control-label">Adjuntar</label>
-                                                <label for="input-file-now">
-                                                    <button type="button" class="btn waves-effect waves-light btn-sm btn-info">
-                                                        <i class="fas fa-exclamation"></i>
-                                                    </button>
-                                                    OJO Solo archivos pdf
-                                                </label>
-                                                <input type="file" id="input-file-now" class="dropify" name="adjunto" data-allowed-file-extensions="pdf" required />
+                                        <div class="form-group mb-5 col-md-6">
+                                            <div class="form-group">
+                                                <input type="integer" class="form-control" id="" name="" required pattern="[0-9]{1,40}">
+                                                <label > Cedula de identidad del solicitante <span class="text-danger">*</span> </label>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <div class="form-group">
-                                            <label for="codigo_catastral"> Fojas<span class="text-danger">*</span> </label>
-                                            <input type="integer" class="form-control" id="fojas" name="fojas" required pattern="[0-9]{1,40}">
-                                            <small id="msg_error_catastral" class="form-control-feedback"></small>
+                                        <div class="col-md-12 mb-form-group mb-5">
+                                            <input type="text" class="form-control" id="referencia" name="referencia" required>
+                                            <label >Observaciones<span class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="col-md-6 form-group mb-5"> 
+                                            <select class="custom-select form-control" id="destino" name="destino" required />
+                                                <option value=""></option>
+                                                <?php foreach ($personas as $key => $p): ?>
+                                                    <option value="<?php echo $p['id'] ?>"><?php echo $p['nombre']; ?> - <?php echo $p['cargo']; ?> (<?php echo $p['unidad']; ?>)</option>
+                                                <?php endforeach ?>
+                                            </select>  
+                                            <label >Derivar a </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 mb-3">
-                                        <div class="form-group">
-                                            <label for="codigo_catastral"> Anexos<span class="text-danger">*</span> </label>
-                                            <input type="integer" class="form-control" id="anexos" name="anexos" required pattern="[0-9]{1,40}">
-                                            <small id="msg_error_catastral" class="form-control-feedback"></small>
+                                    <div class="form-row">
+                                        <?php 
+                                            $año = date("Y");
+                                            $cite = $this->db->query("SELECT * FROM tramite.numero_tramite WHERE gestion = '$año' AND activo = '1'")->row();
+                                            $numero = $cite->correlativo + 1 ;
+                                            $numeroConCeros = str_pad($numero, 5, "0", STR_PAD_LEFT);
+                                        ?> 
+                                        <div>
+                                            <input hidden type="integer" name="cite_sin" value="<?php echo $cite->tipo ?><?php echo $cite->gestion ?>-<?php echo $numeroConCeros ?>" >
                                         </div>
-                                    </div>                                                                              
+                                        <div>
+                                            <input hidden type="integer" name="gestion" value="<?php echo $año; ?>" >
+                                        </div>
+                                        <div>
+                                            <input hidden type="integer" name="correlativo" value="<?php echo $numero; ?>" >
+                                        </div>
+                                        <div>
+                                            <input hidden type="text" name="cite" value="<?php echo $cite->tipo ?>/<?php echo $cite->gestion ?>-<?php echo $numeroConCeros ?>" >
+                                        </div>
+                                        <div>
+                                            <input hidden type="date" name="fecha" value="<?php echo date('Y-m-d'); ?>">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button type="submit" name="boton" value="generar" class="btn waves-effect waves-light btn-block btn-info">Generar</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="submit" name="boton" value="derivar" class="btn waves-effect waves-light btn-block btn-success">Generar y derivar</button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-md-12 mb-3">
-                                        <label for="validationCustom03">Remitente<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="validationCustom03" name="remitente" placeholder="Remitente" required>
-                                        <div class="invalid-feedback">
-                                            Por Favor Ingrese el Remitente.
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 mb-3">
-                                        <label for="validationCustom03">Procedencia<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="validationCustom03" name="procedencia" placeholder="Procedencia" required>
-                                        <div class="invalid-feedback">
-                                            Por Favor Ingrese el Procedencia.
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 mb-3">
-                                        <label for="validationCustom03">Referencia<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="validationCustom03" name="referencia" placeholder="Referencia" required>
-                                        <div class="invalid-feedback">
-                                            Por Favor Ingrese el Referencia.
-                                        </div>
-                                    </div>
-                                </div>
-                                <button class="btn btn-primary" type="submit">Guardar</button>
                             </form>
+                            <script>
+                                function CargarProductos(val)
+                                {   
+
+                                    $.ajax({
+                                        type: "GET",
+                                        url: '<?php echo base_url(); ?>tipo_tramite/ajax_verifica/',
+                                        data: 'param1='+val,
+                                        success: function(resp){
+                                            //alert(resp[resp.length]);
+                                            asistente = JSON.parse(resp);
+                                            $('.borrar').remove();
+                                            for (var i = 0; i < asistente.length; i++) {
+
+                                                $('#listas').append('<div class="borrar"> <input type="checkbox" id="requisitos['+i+']" name="requisitos['+i+']" value="'+asistente[i]['requisito_id']+'"> '+asistente[i]['descripcion']+' </div>');
+                                                //console.log(asistente[i]['descripcion']);
+                                            }
+                                        }
+                                    });
+                                }
+                            </script>
                             <script>
                             // Example starter JavaScript for disabling form submissions if there are invalid fields
                             (function() {

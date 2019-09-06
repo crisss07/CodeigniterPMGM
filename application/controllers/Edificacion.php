@@ -23,7 +23,7 @@ class Edificacion extends CI_Controller
             redirect(base_url());
         }
     }
-    public function nuevo($predio_id = null)
+    public function nuevo($predio_id = null, $msj=null)
     {
         if ($this->session->userdata("login")) {
             //
@@ -42,6 +42,11 @@ class Edificacion extends CI_Controller
             $data['destino_uso'] = $this->Edificacion_model->get_Uso_bloque();
             $data['tipo_planta'] = $this->Edificacion_model->get_tipo_planta();
             $data['cod_catastral'] = $this->Edificacion_model->get_cod_catastral($predio_id);
+            $data['msj'] = 1;
+
+            if($msj==null){
+                $data['msj'] = 0;
+            }            
             //$data['cod_catastral'] = 12;
             
             $data['predio_id'] = $predio_id;
@@ -175,7 +180,8 @@ class Edificacion extends CI_Controller
                 $this->db->insert('catastro.bloque_elemento_cons', $bloque_elem_cons);
             }
             // fin guardamos los servicios
-            redirect(base_url() . 'Edificacion/nuevo/' . $this->input->post('predio_id'));
+            redirect(base_url() . 'Edificacion/nuevo/' . $this->input->post('predio_id') .'/1');
+           
         } else {
             redirect(base_url());
         }

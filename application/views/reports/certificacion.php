@@ -34,8 +34,7 @@
 
         }
         table, th, td {
-          border-collapse: collapse;
-          border: 1px solid white;
+      
         }
         .salto {
           border-collapse: collapse;
@@ -141,8 +140,12 @@
           border-collapse: collapse;
           border-bottom: 1px solid white;
           border-top: 1px solid white;
-          border-right:  1px solid white;
-          
+          border-right:  1px solid white;          
+        }
+
+
+          .no_bordes {   
+          border: 0px ;          
         }
     </style>
 
@@ -150,15 +153,15 @@
 </head>
 <body>
     <div class="encabezado">
-        <table width="100%" class="bordes">
-            <tr class="bordes">
-                  <td align="left" class="bordes">
+        <table width="100%" class="no_bordes" >
+            <tr class="no_bordes" >
+                  <td align="left" class="no_bordes" >
               <b > GOBIERNO AUTONOMO MUNICIPAL “EL TORNO”</b>
               <br>
               Tramite No 321456, <br>
                 <b> Certificacion de Datos Tecnicos No. 1245/2019 </b>
           </td>
-                <td align="left" style="width: 20%;" class="bordes">             
+                <td align="left" style="width: 20%;" class="no_bordes">             
                  <img src="<?php echo base_url(); ?>public/assets/images/reportes/tornologo.png" alt="Logo" width="66" class="logo"/>
              </td>
     </tr>
@@ -173,18 +176,40 @@
         Solicitado por:  <br>
         Mediante memorial de <br>  
         Matricula: <br>
-        Propietario (s): 
+        
 
       </td>  
        <td align="justify"  class="titulo" height="0">
         RUDDY HERNAN YUCRA MASIAS con C.l. Nº 9341120 CBBA<br>
         fecha 06/02/2018  <br>
         3.01.1.01.0060862 <br>
-        DENIS MARTIN BARRIGA LOPEZ , SATURNINO CALDERON NINA 
+      
 
       </td>   
   </tr>  
 </table> 
+
+  <table width="100%">     
+      <tr >   
+      <td align="left"  class="titulo" height="0"> 
+        Propietario (s): 
+      </td>  
+       <td align="left"  class="titulo" height="0">  
+        <?php foreach ($propietarios as $rowd){
+        echo $rowd->nombres_pro; ?>
+        <br>
+        <?php   } ?>
+      </td> 
+       <td align="left"  class="titulo" height="0">  
+        <?php foreach ($propietarios as $rowd){
+        echo 'CI: '.$rowd->ci; ?>
+        <br>
+        <?php   } ?>
+      </td> 
+  </tr>  
+</table>
+
+
 <br>     
 
   <table width="100%">     
@@ -218,21 +243,22 @@
  <table width="100%">     
       <tr >   
       <td align="justify"  class="titulo" height="0">
-        Distrito Nº: 08 
+        Distrito Nº: <?php echo $datos_predio->distrito; ?>
       </td>  
+         <td align="justify"  class="titulo" height="0">
+      Manzana : <?php echo $datos_predio->manzana; ?>
+      </td>
+        <td align="justify"  class="titulo" height="0">
+      Zona: CENTRAL 
+      </td>
+       
        <td align="justify"  class="titulo" height="0">
-        Sub-distrito N^: 34 
-      </td>   
-        <td align="justify"  class="titulo" height="0">
-  Zona: USPHA USPHA 
-      </td>
-        <td align="justify"  class="titulo" height="0">
-      Manzana Act.: 125
-      </td>
+        Nº de puerta: <?php echo $datos_predio->nro_puerta; ?>
+      </td> 
   </tr>  
        <tr >   
       <td align="justify"  class="titulo" height="0">
-        Predio: 024
+        Predio:    <?php echo $datos_predio->predio; ?>
       </td>  
        <td align="justify"  class="titulo" height="0">
         Lote: Nº24
@@ -241,26 +267,21 @@
         Calle : INNOMINADA
       </td>
         <td align="justify"  class="titulo" height="0">
-     
+      Urbanizacion: LOMA PAMPA
       </td>
   </tr>
 </table>
-<br>
- <table width="100%">     
-      <tr >   
-      <td align="justify"  class="titulo" height="0">
-       Urbanizacion: LOMA PAMPA
-      </td>  
-  </tr>
-</table>
+
+
 <br>
  <table width="100%">     
       <tr >   
       <td align="center"  class="titulo_tres" height="0">
        CÓDIGO CATASTRAL:    
       </td>  
-        <td align="center"  class="titulo_tres" height="0">
-      00-34-125-024-0-00-000-000
+        <td align="left"  class="titulo_tres" height="0">
+ 
+         <?php echo $datos_predio->distrito.'-'.$datos_predio->manzana.'-'.$datos_predio->predio; ?>
       </td>  
   </tr>
 </table>
@@ -283,14 +304,14 @@
       <td align="justify"  class="titulo" height="0">
         <u> DATOS TECNICOS</u>  <p>
           RELACION DE SUPERFICIES<p>
-          Sup. Lote N924  200.00 m2 <p>
-          Sup. Total útil: N924  200.00 m2 <p>
+          Sup. Geografica: <?php echo $datos_predio->superficie_geo ?> m2 <p>
+          Sup. Legal: <?php echo $datos_predio->superficie_legal ?> m2 <p>
             <br>
-        LIMITES Y COLINDANTES<p>
-          Norte:    Lote    N9  11<p>
-            Este:   Lote    N9  25<p>
-            Sud:    Calle   Innominada<p>
-            Oeste:  Lote    N9  23
+        UBICACION<p>
+           <?php echo $datos_predio->desc_ubi ?><p>
+       <p>
+            <p>
+           
       </td>  
   </tr>
 </table>
@@ -311,7 +332,9 @@
  <table width="100%">     
       <tr >   
       <td align="justify"  class="titulo" height="0">
-      NOTA.- Se aclara, que la manzana S-968 pertenece a la codificación ANTIGUA, actualmente corresponde a la manzana 125 de acuerdo al Plano General del Área Urbana de Cbba aprobado según Ley Municipal 0159/2016 del 2/09/2016 La presente certificación no define el derecho Propietario.
+      NOTA.- Se aclara, que la manzana S-968 pertenece a la codificación ANTIGUA, actualmente corresponde a la manzana <?php echo $datos_predio->manzana; ?> de acuerdo al Plano General del Área Urbana de El Torno aprobado según Ley Municipal 0159/2016 del 2/09/2016.
+      <p></p>
+      <br> La presente certificación no define el derecho Propietario.
         es cuanto se certifica para fines consiguientes.
       </td>       
   </tr>
@@ -329,7 +352,7 @@
      
              GOBIERNO AUTÓNOMO MUNICIPAL DE EL TORNO<br>
              DEPARTAMENTO DE SERVICIOS CATASTRALES<br>
-             Telf.: (591H-4258030 Int: 4363 / Pasaje Sucre s/n 
+             Telf.: 591H-4258030 Int: 4363 / Pasaje Sucre s/n 
          
                 
              

@@ -32,9 +32,9 @@ class Organigrama extends CI_Controller
             $data['data_grupo'] = $this->organigrama_model->get_grupo();
             $data['verifica'] = $this->rol_model->verifica();           
             $this->load->view('admin/header');
-			$this->load->view('admin/menu');
+            $this->load->view('admin/menu');
             $this->load->view('crud/organigrama', $data);           
-			$this->load->view('organigrama/footer_js');            
+            $this->load->view('organigrama/footer_js');            
         } else {
             redirect(base_url());
         }
@@ -243,9 +243,9 @@ class Organigrama extends CI_Controller
             $data['datos'] = $this->organigrama_model->get_datos($id);
             $data['data_grupo'] = $this->organigrama_model->get_grupo();
             $this->load->view('admin/header');
-			$this->load->view('admin/menu');
+            $this->load->view('admin/menu');
             $this->load->view('crud/organigrama_edicion', $data);            
-			$this->load->view('organigrama/footer_js');            
+            $this->load->view('organigrama/footer_js');            
         } else {
             redirect(base_url());
         }
@@ -258,10 +258,10 @@ class Organigrama extends CI_Controller
             $data['data_chart_nombre'] = $this->organigrama_model->get_datos_nombre_chart();
             $data['data_chart_img'] = $this->organigrama_model->get_datos_chart_img();
             $this->load->view('charts/header');
-			$this->load->view('admin/menu');
+            $this->load->view('admin/menu');
             $this->load->view('charts/organigrama_chart', $data);
             $this->load->view('charts/footer');
-                       			       
+                                       
         } else {
             redirect(base_url());
         }

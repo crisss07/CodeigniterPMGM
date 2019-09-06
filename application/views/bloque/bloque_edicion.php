@@ -634,7 +634,10 @@
 
 
                                 <div class="col-md-12" align="right">
-                            
+                                    <br>
+                                 <div class="alert alert-warning"> <i class="ti-info-alt"></i> Debera almenos agregar un nivel al bloque para poder guardar los cambios 
+                                            
+                                        </div>
                                 </div>
 
                                 <div class="col-md-12" align="right">

@@ -77,7 +77,15 @@
                                                     </a>
                                                 <?php endif ?>
 
-                                                <a <?php echo $verifica['imprimir'];?>="<?php echo base_url(); ?>predios/certificado/<?php echo $lp->predio_id; ?>" class="btn btn-success footable-edit">
+                                                <a <?php echo $verifica['imprimir'];?>="<?php echo base_url(); ?>predios/certificado/<?php echo $lp->predio_id; ?>" class="btn btn-success footable-edit" >
+                                                    <span class="fas fas fa-print" aria-hidden="true"></span>
+                                                </a> 
+
+                                                <a <?php echo $verifica['imprimir'];?>="<?php echo base_url(); ?>Reporteseicu/certificacion_bloques/<?php echo $lp->predio_id; ?>" class="btn btn-info footable-edit" title="CERTIFICACION CATASTRAL" target="_blank">
+                                                    <span class="fas fas fa-print" aria-hidden="true"></span>
+                                                </a> 
+
+                                                <a <?php echo $verifica['imprimir'];?>="<?php echo base_url(); ?>Reporteseicu/certificacion/<?php echo $lp->predio_id; ?>" class="btn btn-warning footable-edit" title="CERTIFICACION TECNICA"  target="_blank">
                                                     <span class="fas fas fa-print" aria-hidden="true"></span>
                                                 </a> 
                                                 <a <?php echo $verifica['baja'];?>="" type="button" class="btn btn-danger footable-delete">
