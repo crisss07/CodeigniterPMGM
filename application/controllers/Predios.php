@@ -46,7 +46,6 @@ class Predios extends CI_Controller {
 			$perfil = $persona_perfil->perfil_id;
 
 
-
 					$this->load->view('admin/header');
 					$this->load->view('admin/menu');
 					$this->load->view('admin/index');
