@@ -12,6 +12,7 @@ class Reporteseicu extends CI_Controller
         $this->load->helper('url_helper');
         $this->load->helper('vayes_helper'); 
         $this->load->helper('url');   
+        $this->load->model("Reportes_model");
     }
 
     public function index()
@@ -30,6 +31,25 @@ class Reporteseicu extends CI_Controller
             redirect(base_url());
         }
     }
+
+    public function reporte_vista()
+    {
+        if ($this->session->userdata("login")) {
+            
+            
+
+            $this->load->view('admin/header');
+            $this->load->view('admin/menu');
+            $this->load->view('reports/panel');
+            $this->load->view('bloque/validar');       
+            $this->load->view('bloque/jtables');
+      
+        } else {
+            redirect(base_url());
+        }
+    }
+
+
 
     public function ficha_tecnica()    
     {
@@ -83,19 +103,12 @@ class Reporteseicu extends CI_Controller
     } 
 
 
-    public function certificacion()    
+    public function certificacion($id=null)    
     {
         date_default_timezone_set('America/La_Paz');
         set_time_limit(0);
         ini_set('memory_limit','1024M');
 
-
-        $data['data_bloques'] = $this->db->query("SELECT * FROM catastro.bloque_mat_item where activo=1")->result_array(); 
-        $data['data_grupos'] = $this->db->query("SELECT * FROM catastro.bloque_grupo_mat where activo=1")->result_array(); 
-        $data['num_grupos'] = $this->db->query("SELECT count(grupo_mat_id) as total from catastro.bloque_grupo_mat where activo=1 ")->row();
-         $data['num_bloques'] = $this->db->query("SELECT count(grupo_mat_id) as total from catastro.bloque_mat_item where activo=1  ")->row();
-
-        // Define key-value array
         $days_dias = array(
             'Monday'=>'Lunes',
             'Tuesday'=>'Martes',
@@ -124,6 +137,15 @@ class Reporteseicu extends CI_Controller
         $data['mes_l']= $mes;
         $data['anio']=date('Y');         
         $dia =  $days_dias[date('l')];
+
+
+
+        $data['datos_predio'] = $this->Reportes_model->get_data($id);
+         $data['propietarios'] = $this->Reportes_model->get_propietarios($id);
+
+
+
+
         $this->load->view('reports/certificacion',$data);
         $html = $this->output->get_output();
         $this->load->library('pdf');
@@ -134,7 +156,9 @@ class Reporteseicu extends CI_Controller
         $this->dompdf->stream("welcome.pdf", array("Attachment"=>0));
     } 
 
-       public function certificacion_bloques()    
+
+
+    public function certificacion_bloques($id=null)    
     {
         date_default_timezone_set('America/La_Paz');
         set_time_limit(0);
@@ -150,10 +174,8 @@ catastro.uso_bloque u
 on b.uso_bloque_id=u.uso_bloque_id
 
 
-WHERE predio_id=50 ORDER BY b.nro_bloque")->result(); 
-        $data['data_grupos'] = $this->db->query("SELECT * FROM catastro.bloque_grupo_mat where activo=1")->result_array(); 
-        $data['num_grupos'] = $this->db->query("SELECT count(grupo_mat_id) as total from catastro.bloque_grupo_mat where activo=1 ")->row();
-        $data['num_bloques'] = $this->db->query("SELECT count(grupo_mat_id) as total from catastro.bloque_mat_item where activo=1  ")->row();
+WHERE predio_id=$id ORDER BY b.nro_bloque")->result(); 
+    
 
         // Define key-value array
         $days_dias = array(
@@ -184,6 +206,10 @@ WHERE predio_id=50 ORDER BY b.nro_bloque")->result();
         $data['mes_l']= $mes;
         $data['anio']=date('Y');         
         $dia =  $days_dias[date('l')];
+
+        $data['datos_predio'] = $this->Reportes_model->get_data($id);
+        $data['propietarios'] = $this->Reportes_model->get_propietarios($id);
+
         $this->load->view('reports/cert_bloques',$data);
         $html = $this->output->get_output();
         $this->load->library('pdf');

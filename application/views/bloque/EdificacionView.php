@@ -57,7 +57,16 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title">Bloques Registrados</h4>
+
+                                        <div class="card-body">
+                                <h4 class="card-title">A basic message <small>(Click on image)</small> </h4>
+                            
+                            </div>
+
+
                                         <h6 class="card-subtitle">...</h6>
+
+                                     
                                         <div class="table-responsive m-t-40">
                                             <table id="bloque_table" class="table table-bordered table-striped">
                                                 <thead>
@@ -86,7 +95,13 @@
                                                         <td><?php echo $row->desc_bloque_uso; ?> </td>
                                                         <td>
                                                             <a <?php echo $verifica['modificacion1'];?>="<?php echo site_url('edificacion/update'); ?>/<?php echo $row->bloque_id; ?>/<?php echo $row->predio_id; ?>"><button type="button" class="btn btn-warning"><span class="fas fas fa-edit" aria-hidden="true"></span></button></a>
-                                                            <a <?php echo $verifica['baja'];?>="<?php echo site_url('edificacion/delete'); ?>/<?php echo $row->bloque_id; ?>/<?php echo $row->predio_id; ?>"><button type="button" class="btn btn-danger"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></a>
+
+                                                            <a <?php echo $verifica['baja'];?>="<?php echo site_url('edificacion/delete'); ?>/<?php echo $row->bloque_id; ?>/<?php echo $row->predio_id; ?>"><button type="button" class="btn btn-danger" ><span class="fas fa-trash-alt" aria-hidden="true"></span></button></a>
+                                                       
+
+                                                               <button type="submit" class="btn btn-danger remove"  >
+                                                                <span class="fas fa-trash-alt" aria-hidden="true"></span>
+                                                              </button>
                                                         </td>
                                                     </tr>
                                                     <?php 

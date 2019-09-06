@@ -96,6 +96,11 @@
      
     <script src="<?php echo base_url(); ?>public/assets/plugins/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
     <script src="<?php echo base_url(); ?>public/js/mask.init.js"></script>
+    
+    <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="../assets/plugins/sweetalert/jquery.sweet-alert.custom.js"></script>
+
+
     <script src="<?php echo base_url(); ?>public/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
 
     <script src="<?php echo base_url(); ?>public/assets/fullcalendar/lib/moment.min.js"></script>
