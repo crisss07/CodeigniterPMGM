@@ -1,132 +1,92 @@
-<style type="text/css">
-	.col-form-label{
-		text-align: right;
-		font-weight: 500;
-	}
-	p{
-        display: inline-block;
-    }
-</style>
-<div class="page-wrapper">
-    <div class="container-fluid">
-        <div class="row page-titles">
-            <div class="col-md-6 col-8 align-self-center">
-                <h3 class="text-themecolor mb-0 mt-0">Iniciar tramite</h3>
-                <!-- <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                    <li class="breadcrumb-item active">Stylish Tooltips</li>
-                </ol> -->
-            </div>
-            <div class="col-md-6 col-4 align-self-center">
-                <button class="btn float-right hidden-sm-down btn-success"> 
-                    <p id="diaSemana" class="diaSemana">Martes</p>
-                    <p id="dia" class="dia">27</p>
-                    <p>de </p>
-                    <p id="mes" class="mes">Octubre</p>
-                    <p>del </p>
-                    <p id="year" class="year">2015</p>
-                </button>
-                <button class="float-right mr-2 hidden-sm-down btn btn-secondary" type="button"   > 
-                    <p id="horas" class="horas">11</p>
-                    <p>:</p>
-                    <p id="minutos" class="minutos">48</p>
-                    <p>:</p>
-                    <p id="segundos" class="segundos">12</p>
-                    <p id="ampm" class="ampm">AM</p>
-                </button>    
-            </div>
+
+<section class="breadcrumb_area blog_banner_two">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle f_48">Elements</h2>
+            <ol class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Elements</li>
+            </ol>
         </div>
-        <div class="row">
-            <div class="col-lg-9">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Llenar formulario para iniciar su tramite</h4>
-                                <h5 class="card-subtitle"> El llenado de este formulario podra ser validado	 con papeles originales </h5>
-                                <form class="form">
-                                	<div class="form-group row">
-                                        <label for="example-month-input2" class="col-2 col-form-label">Tramite</label>
-                                        <div class="col-10">
-                                            <select class="custom-select col-12" id="example-month-input2">
-                                            	<option selected="">Escoger</option>
-                                            	<?php foreach ($tramites as $valores): ?>
-                                            		<option value="1"><?php echo $valores->tramite; ?></option>
-                                            	<?php endforeach ?>
-                                            </select>
-                                        </div>
+    </div>
+</section>
+
+<section class="blog_area">
+    <div class="whole-wrap">
+    <div class="container">
+        <div class="section-top-border">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <h3 class="mb-30 title_color">Iniciar tramite</h3>
+                    <form action="#">
+                        <div class="row row_alinaer">
+                            <div class="col-lg-2 alinear">Tramite : </div>
+                            <div class="col-lg-10">
+                                <div class="input-group-icon mt-10">
+                                    <div class="form-select" id="default-select">
+                                        <select>
+                                            <option selected="">Escoger</option>
+                                            <?php foreach ($tramites as $valores): ?>
+                                                <option value="1"><?php echo $valores->tramite; ?></option>
+                                            <?php endforeach ?>
+                                        </select>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="example-search-input" class="col-2 col-form-label">Propietario</label>
-                                        <div class="col-10">
-                                            <input class="form-control" type="search" id="example-search-input">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="example-search-input" class="col-2 col-form-label">Nro. folio</label>
-                                        <div class="col-10">
-                                            <input class="form-control" type="search" id="example-search-input">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="example-search-input" class="col-2 col-form-label">......</label>
-                                        <div class="col-10">
-                                            <input class="form-control" type="search" id="example-search-input">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="example-search-input" class="col-2 col-form-label">......</label>
-                                        <div class="col-10">
-                                            <input class="form-control" type="search" id="example-search-input">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="example-search-input" class="col-2 col-form-label">.........</label>
-                                        <div class="col-10">
-                                            <input class="form-control" type="search" id="example-search-input">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="example-search-input" class="col-2 col-form-label">.......</label>
-                                        <div class="col-10">
-                                            <input class="form-control" type="search" id="example-search-input">
-                                        </div>
-                                    </div>                                                                    
-                                </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="row row_alinaer">
+                            <div class="col-lg-2 alinear">Propietario</div>
+                            <div class="col-lg-10">
+                                <input type="text" name="first_name" required class="single-input">
+                            </div>
+                        </div>
+                        <div class="row row_alinaer">
+                            <div class="col-lg-2 alinear">Nro folio</div>
+                            <div class="col-lg-10">
+                                <input type="text" name="first_name" required class="single-input">
+                            </div>
+                        </div>
+                        <div class="row row_alinaer">
+                            <div class="col-lg-2 alinear">.................</div>
+                            <div class="col-lg-10">
+                                <input type="text" name="first_name" required class="single-input">
+                            </div>
+                        </div>
+                        <div class="row row_alinaer">
+                            <div class="col-lg-2 alinear">...................</div>
+                            <div class="col-lg-10">
+                                <input type="text" name="first_name" required class="single-input">
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-12" >
-                <div class="card" style="background: #0489B1;">
-                    <div class="card-body">
-                        <div class="d-flex flex-row">
-                            <div class=""><img src="<?php echo base_url(); ?>public/assets/images/users/1.jpg" alt="user" class="img-circle" width="100"></div>
-                            <div class="pl-3">
-                                <h3 style="color: white;" class="font-medium">Daniel Kristeen</h3>
-                                <h6 style="color: white;">UIUX Designer</h6>
-                                
-                            </div>
-                        </div>
-                        <div class="row mt-5">
-                            <div class="col border-right">
-                                <h2 style="color: white;" class="font-light">14</h2>
-                                <h6 style="color: white;" >Photos</h6></div>
-                            <div class="col border-right">
-                                <h2 style="color: white;" class="font-light">54</h2>
-                                <h6 style="color: white;">Videos</h6></div>
-                            <div class="col">
-                                <h2 style="color: white;" class="font-light">145</h2>
-                                <h6 style="color: white;" >Tasks</h6></div>
-                        </div>
+                <div class="col-lg-3 col-md-4 mt-sm-30 element-wrap">
+                    <div class="blog_right_sidebar">
+                
+                        <aside class="single-sidebar-widget newsletter_widget">
+                            <h4 class="widget_title">Newsletter</h4>
+                            <p>
+                            Here, I focus on a range of items and features that we use in life without giving them a second thought.
+                            </p>
+                            <div class="br"></div>                          
+                        </aside>
+                        
                     </div>
-                    <div>
-                        <hr>
-                    </div>
-                    
                 </div>
             </div>
         </div>
     </div>
 </div>
+</section>
+<style type="text/css">
+    .alinear{
+        display: flex; 
+        align-items: center;
+        padding-bottom: 10px;
+    }
+    .row_alinaer{
+        padding-bottom: 10px;
+    }
+</style>
+    

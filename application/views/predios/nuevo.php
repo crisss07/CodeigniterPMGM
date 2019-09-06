@@ -281,7 +281,7 @@
 
                                         <div class="modal-body">
                                             <!--<form action="<?php //echo base_url();?>persona/insertar" method="POST">-->
-                                            <?php echo form_open('persona/insertar', array('method' => 'GET')); ?>
+                                            <!-- <?php //echo form_open('persona/insertar', array('method' => 'GET')); ?> -->
                                             <!--<input type="hidden" id="<?php //echo $this->security->get_csrf_token_name(); ?>" name="<?php //echo $this->security->get_csrf_token_name(); ?>" value="<?php //echo $this->security->get_csrf_hash(); ?>" />-->
                                                 <div class="form-body">
                                                     <div class="row">
@@ -376,7 +376,7 @@
                                                     <button class="btn waves-effect waves-light btn-info" type="button" onclick="confirma()"> <i class="fa fa-check"></i>Guardar</button>
                                                     <button class="btn btn-danger" type="button"  data-dismiss="modal">Cerrar</button>
                                                 </div>
-                                            <?php echo form_close(); ?>
+                                            <!-- <?php //echo form_close(); ?> -->
                                         </div> 
                                     </div>
                                 </div>
@@ -504,14 +504,14 @@
         var telefono_celular = $('#telefono_celular1').val();
         var csrf_test_name = $('#csrf_test_name').val();
         var lqs=document.cookie.split('=');
-        var tok = lqs[1];
+        var token = lqs[1];
         var cod_catastral = $('#cod_catastral').val();
 
         $.ajax({
             type:'POST',
-            url:"<?php echo base_url();?>persona/insertar",
+            url:"<?php echo base_url();?>Persona/insertar/",
             dataType: 'json',
-            data:{ci:ci,nombres:nombres,paterno:paterno,materno:materno,fec_nacimiento:fec_nacimiento,porcen_parti:porcen_parti,'<?php echo $this->security->get_csrf_token_name(); ?>' : tok, direccion:direccion, email:email, telefono_fijo:telefono_fijo, telefono_celular:telefono_celular ,cod_catastral:cod_catastral},
+            data:{ci:ci,nombres:nombres,paterno:paterno,materno:materno,fec_nacimiento:fec_nacimiento,porcen_parti:porcen_parti,'<?php echo $this->security->get_csrf_token_name(); ?>': '<?PHP echo $this->security->get_csrf_hash(); ?>', direccion:direccion, email:email, telefono_fijo:telefono_fijo, telefono_celular:telefono_celular ,cod_catastral:cod_catastral},
             success: function (data, textStatus, jqXHR){
                 if (data.estado == 'sobrepasa') {
                     $("#msg_error_catastral").hide();

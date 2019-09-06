@@ -5,57 +5,46 @@ class Tramite_model extends CI_Model {
 
 	public $variable;
 	
-	public function __construct()
-	{
+	public function __construct(){
 		parent::__construct();
 	}
 
-
-	public function index()
-	{
+	public function index(){
 		$lista = $this->db->query("SELECT * FROM catastro.zona_urbana WHERE activo = '1' ORDER BY zonaurb_id ASC")->result();
 
 		if ($lista > 0) {
 			return $lista;
-		}
-		else{
+		}else{
 			return false;
 		}
 	}
 
-	public function insertar_tramite($organigrama_persona_id, $tipo_documento_id, $tipo_tramite_id, $cite, $fecha, $fojas, $anexos, $remitente, $procedencia, $referencia, $usu_creacion, $adjunto, $correlativo, $gestion)
-	{	
+	public function insertar_tramite($organigrama_persona_id,  $tipo_tramite_id, $cite, $fecha,  $remitente,  $referencia, $usu_creacion, $adjunto, $correlativo, $gestion, $requisitos){	
 		$this->load->helper('vayes_helper');
 		$array = array(
 			'organigrama_persona_id' =>$organigrama_persona_id,
-			'tipo_documento_id' =>$tipo_documento_id,
+			'tipo_documento_id' =>1,
 			'tipo_tramite_id' =>$tipo_tramite_id,
 			'cite' =>$cite,
 			'fecha' =>$fecha,
-			'fojas' =>$fojas,
-			'anexos' =>$anexos,
+			'fojas' =>1,
+			'anexos' =>1,
 			'remitente' =>$remitente,
-			'procedencia' =>$procedencia,
+			'procedencia' =>1,
 			'referencia' =>$referencia,
 			'usu_creacion' =>$usu_creacion,
 			'adjunto' =>$adjunto
-			);
+		);
 		$this->db->insert('tramite.tramite', $array);
-		
-			$tramite_id = $this->db->query("SELECT *
-	                                    FROM tramite.numero_tramite
-	                                    WHERE gestion = '$gestion'
-	                                    AND activo = '1'")->row();
-			$numero_tramite_id = $tramite_id->numero_tramite_id;
 
-			$data = array(
-            'correlativo' => $correlativo
+		$tramite_id = $this->db->query("SELECT * FROM tramite.numero_tramite WHERE gestion = '$gestion' AND activo = '1'")->row();
+		$numero_tramite_id = $tramite_id->numero_tramite_id;
+		$data = array(
+        	'correlativo' => $correlativo
         );
 		$id_tramite = $this->db->insert_id();
 		$this->db->where('numero_tramite_id', $numero_tramite_id);
 		$this->db->update('tramite.numero_tramite', $data);
-
-
 		$tramite = $this->db->get_where('tramite.tramite', array('tramite_id'=>$id_tramite))->row();
 		if($tramite->tipo_tramite_id == 10){
 			// $this->db->where('perfil_id', 5);
@@ -132,7 +121,7 @@ class Tramite_model extends CI_Model {
 			on p.perfil_id=o.perfil_id
 			WHERE o.perfil='Inspector' or o.perfil='inspector' or o.perfil='INSPECTOR' and p.activo=1  and o.activo=1
 			GROUP BY p.persona_id) as f
-			on g.persona_id=f.persona_id			
+			on g.persona_id=f.persona_id
 			) as d
 			LEFT JOIN
 			(SELECT  A.persona_id,COUNT(A.persona_id) as total FROM inspeccion.asignacion A
@@ -141,22 +130,13 @@ class Tramite_model extends CI_Model {
 			ORDER BY total ASC
 			) as b
 			on b.persona_id=d.persona_id
-			ORDER BY b.total ASC			
+			ORDER BY b.total ASC
 			) as j) as k
 			ORDER BY k.total asc limit 1
-			")->result();
-								
-			//fin de la consulta para asignar inspector	
-
-
-
-
-
-			
+			")->result();		
+			//fin de la consulta para asignar inspector			
 			$ditrict = $this->db->query("SELECT * FROM catastro.geo_distritos ORDER BY  random()  limit 1")->row();
-
 			$dia_siguiente = date('Y-m-d', strtotime(' +1 day'));
-
 			$data = array(
 				'tramite_id'=>$id_tramite,
 				'persona_id'=>$contador_asignaciones[0]->persona_id,
@@ -167,18 +147,96 @@ class Tramite_model extends CI_Model {
 				'distrito'=>$ditrict->distrito,
 			);
 			$this->db->insert('inspeccion.asignacion', $data);
-
+			foreach ($requisitos as $valores) {
+				$requi=array(
+					'requisito_id'=>1,
+					'tramite_id'=>$id_tramite,
+					'fecha'=>$fecha,
+					'usu_creacion'=>$usu_creacion,
+				);
+				$this->db->insert('tramite.tramite_requisito', $requi);
+			}
 		}
-		
 /*		vdebug($dia_siguiente, false, false, true);
 		vdebug($array_inspectores, false, false, true);
 		vdebug($elegido, true, false, true);
 */
-
 	}
 
-	public function login($usuario, $contrasenia)
-	{
+	public function insertar_tramite_nuevo($organigrama_persona_id, $tipo_documento_id, $tipo_tramite_id, $cite, $fecha, $fojas, $anexos, $remitente, $procedencia, $referencia, $usu_creacion, $adjunto, $destino, $correlativo, $gestion, $tipo_solicitante, $via_solicitud, $solicitante_id, $observaciones, $requisitos){	
+		$this->load->helper('vayes_helper');
+		$array = array(
+			'organigrama_persona_id' =>$organigrama_persona_id,
+			'tipo_documento_id' =>$tipo_documento_id,
+			'tipo_tramite_id' =>$tipo_tramite_id,
+			'cite' =>$cite,
+			'fecha' =>$fecha,
+			'fojas' =>$fojas,
+			'anexos' =>$anexos,
+			'remitente' =>$remitente,
+			'procedencia' =>$procedencia,
+			'referencia' =>$referencia,
+			'usu_creacion' =>$usu_creacion,
+			'adjunto' =>$adjunto,
+			'tipo_solicitante' => $tipo_solicitante,
+			'via_solicitud' => $via_solicitud,
+			'solicitante_id' => $solicitante_id,
+			'observaciones' => $observaciones
+			);
+		$this->db->insert('tramite.tramite', $array);
+		$tramite_id = $this->db->query("SELECT * FROM tramite.numero_tramite WHERE gestion = '$gestion' AND activo = '1'")->row();
+		$numero_tramite_id = $tramite_id->numero_tramite_id;
+		$data = array(
+        	'correlativo' => $correlativo
+        );
+		$id_tramite = $this->db->insert_id();
+		$this->db->where('numero_tramite_id', $numero_tramite_id);
+		$this->db->update('tramite.numero_tramite', $data);
+		$tramite = $this->db->get_where('tramite.tramite', array('tramite_id'=>$id_tramite))->row();
+		if($tramite->tipo_tramite_id == 10){
+			$contador_asignaciones = $this->db->query("SELECT k.*  FROM
+			(SELECT j.persona_id,(CASE WHEN j.total IS NULL THEN 0 ELSE j.total	END) FROM 
+			(SELECT d.*,b.total FROM 
+			(SELECT g.* FROM (SELECT persona_id FROM tramite.organigrama_persona WHERE cargo_id= (SELECT cargo_id FROM tramite.cargo WHERE descripcion in ('inspector','Inspector','INSPECTOR'))) AS g INNER JOIN
+				(SELECT p.persona_id FROM persona_perfil p LEFT JOIN perfil o ON p.perfil_id=o.perfil_id WHERE o.perfil='Inspector' or o.perfil='inspector' or o.perfil='INSPECTOR' and p.activo=1  and o.activo=1 GROUP BY p.persona_id) 
+				as f on g.persona_id=f.persona_id) as d
+			LEFT JOIN
+			(SELECT  A.persona_id,COUNT(A.persona_id) as total FROM inspeccion.asignacion A	WHERE A.activo=1 GROUP BY A.persona_id ORDER BY total ASC) as b
+			on b.persona_id=d.persona_id ORDER BY b.total ASC) as j) as k ORDER BY k.total asc limit 1")->result();	
+			//fin de la consulta para asignar inspector			
+			$ditrict = $this->db->query("SELECT * FROM catastro.geo_distritos ORDER BY  random()  limit 1")->row();
+			$dia_siguiente = date('Y-m-d', strtotime(' +1 day'));
+			$data = array(
+				'tramite_id'=>$id_tramite,
+				'persona_id'=>$contador_asignaciones[0]->persona_id,
+				'tipo_asignacion_id'=>1,
+				'inicio'=>$dia_siguiente.' 08:30:00',
+				'fin'=>$dia_siguiente.' 12:30:00',
+				'activo'=>1,
+				'distrito'=>$ditrict->distrito,
+			);
+			$this->db->insert('inspeccion.asignacion', $data);
+		}
+		foreach ($requisitos as $valores) {
+			$requi=array(
+				'requisito_id'=>$valores,
+				'tramite_id'=>$id_tramite,
+				'fecha'=>$fecha,
+				'usu_creacion'=>$usu_creacion,
+			);
+			$this->db->insert('tramite.tramite_requisito', $requi);
+		}
+		$derivacion=array(
+			'tramite_id' => $id_tramite,
+			'fuente' => $organigrama_persona_id,
+			'destino' => $destino,
+			'fecha' => $fecha,
+			'descripcion' => $observaciones
+		);
+		$this->db->insert('tramite.derivacion', $derivacion);
+	}
+
+	public function login($usuario, $contrasenia){
 		$this->db->where('usuario', $usuario);
 		$this->db->where('contrasenia', $contrasenia);
 		
@@ -186,16 +244,12 @@ class Tramite_model extends CI_Model {
 
 		if ($resultado->num_rows() > 0) {
 			return $resultado->row();
-		}
-		else{
+		}else{
 			return false;
 		}
-
 	}
 
-
-	public function eliminar($id, $usu_eliminacion, $fec_eliminacion)
-	{
+	public function eliminar($id, $usu_eliminacion, $fec_eliminacion){
 		$data = array(
             'activo' => 0,
             'usu_eliminacion' => $usu_eliminacion,
@@ -205,8 +259,7 @@ class Tramite_model extends CI_Model {
         return $this->db->update('catastro.zona_urbana', $data);
     }
 
-    public function actualizar($zonaurb_id, $descripcion, $usu_modificacion, $fec_modificacion)
-    {
+    public function actualizar($zonaurb_id, $descripcion, $usu_modificacion, $fec_modificacion){
         $data = array(
             'descripcion' => $descripcion,
             'usu_modificacion' => $usu_modificacion,

@@ -1,178 +1,256 @@
-
-<div class="page-wrapper" style="padding-top: -1000px;">
-    <div class="col-lg-12" >                  
-        <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel" >
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators3" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators3" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators3" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner" role="listbox" style="background-color: #ffffff; border: 1px solid black; opacity: 0.6; filter: alpha(opacity=60); /* For IE8 and earlier */">
-                <div class="carousel-item active" >
-                    <img class="img-responsive" src="<?php echo base_url(); ?>public/assets/images/oficina/noticia1.jpg" alt="First slide">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h3 class="text-white">First title goes here</h3>
-                        <p>this is the subcontent you can use this</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img class="img-responsive" src="<?php echo base_url(); ?>public/assets/images/oficina/noticia4.jpg" alt="Second slide">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h3 class="text-white">Second title goes here</h3>
-                        <p>this is the subcontent you can use this</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img class="img-responsive" src="<?php echo base_url(); ?>public/assets/images/oficina/noticia3.jpg" alt="Third slide">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h3 class="text-white">Third title goes here</h3>
-                        <p>this is the subcontent you can use this</p>
-                    </div>
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators3" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators3" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-    </div>
-
-    <div class="container-fluid" >
-        <div class="row page-titles">
-            <div class="col-md-6 col-8 align-self-center">
-                <h3 class="text-themecolor mb-0 mt-0">Noticias</h3>
-                <!-- <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol> -->
-            </div>
-            <!-- <div class="col-md-6 col-4 align-self-center">
-                <button class="right-side-toggle waves-effect waves-light btn-info btn-circle btn-sm float-right ml-2"><i class="ti-settings text-white"></i></button>
-                <button class="btn float-right hidden-sm-down btn-success"><i class="mdi mdi-plus-circle"></i> Create</button>
-                <div class="dropdown float-right mr-2 hidden-sm-down">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> January 2019 </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a class="dropdown-item" href="#">February 2019</a> <a class="dropdown-item" href="#">March 2019</a> <a class="dropdown-item" href="#">April 2019</a> </div>
-                </div>
-            </div> -->
-        </div>        
-        <div class="row">
-            <div class="col-lg-9 col-md-12">
+        <!--================banner Area =================-->
+        <section class="banner_area d-flex text-center">
+            <div class="container align-self-center">
                 <div class="row">
-                    <div class="col-lg-6 col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <img class="img-responsive" src="<?php echo base_url(); ?>public/assets/images/oficina/noticia2.jpg" alt="Third slide">
-                                <h4 class="card-title">Sales of the Month</h4>
-                                <div style="text-align: justify;">
-                                    Para el pueblo lo que es del pueblo, porque el pueblo se lo ganó. Para el pueblo lo que es del pueblo; para el pueblo liberación”, dice la canción que cientos de veces fue interpretada por el cantautor Piero, y que la juventud y los trabajadores que se enfrentaron a las dictaduras militares cantaron durante las movilizaciones protagonizadas por ellos en Bolivia
-                                </div> 
-                            </div>
+                    <div class="col-md-12">
+                        <div class="banner_content">
+                            <h6>Who Created us</h6>
+                            <h1>Keep faith always</h1>
+                            <p>If you are looking at blank cassettes on the web, you may be very confused at<br> the difference in price. You may see some for as low as $.17 each.</p>
+                            <a href="#" class="btn_hover btn_hover_two">Get Started</a>
                         </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                 <img class="img-responsive" src="<?php echo base_url(); ?>public/assets/images/oficina/noticia5.jpg" alt="Third slide">
-                                <h4 class="card-title">Sales of the Month</h4>
-                                <div style="text-align: justify;">
-                                    Para el pueblo lo que es del pueblo, porque el pueblo se lo ganó. Para el pueblo lo que es del pueblo; para el pueblo liberación”, dice la canción que cientos de veces fue interpretada por el cantautor Piero, y que la juventud y los trabajadores que se enfrentaron a las dictaduras militares cantaron durante las movilizaciones protagonizadas por ellos en Bolivia
-                                </div>  
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Sales of the Month</h4>
-                        <div id="sales-donute" style="width:100%; height:300px;"></div>
-                        <div class="round-overlap mt-3"><i class="mdi mdi-cart"></i></div>
-                        <ul class="list-inline mt-4 text-center">
-                            <li><i class="fa fa-circle text-purple"></i> Item A</li>
-                            <li><i class="fa fa-circle text-success"></i> Item B</li>
-                            <li><i class="fa fa-circle text-info"></i> Item C</li>
-                        </ul>
                     </div>
                 </div>
             </div>
-            
-            <div class="col-lg-3 col-md-12" >
-                <div class="card" style="background: #0489B1;">
-                    <div class="card-body">
-                        <div class="d-flex flex-row">
-                            <div class=""><img src="<?php echo base_url(); ?>public/assets/images/users/1.jpg" alt="user" class="img-circle" width="100"></div>
-                            <div class="pl-3">
-                                <h3 style="color: white;" class="font-medium">Daniel Kristeen</h3>
-                                <h6 style="color: white;">UIUX Designer</h6>
-                                
-                            </div>
-                        </div>
-                        <div class="row mt-5">
-                            <div class="col border-right">
-                                <h2 style="color: white;" class="font-light">14</h2>
-                                <h6 style="color: white;" >Photos</h6></div>
-                            <div class="col border-right">
-                                <h2 style="color: white;" class="font-light">54</h2>
-                                <h6 style="color: white;">Videos</h6></div>
-                            <div class="col">
-                                <h2 style="color: white;" class="font-light">145</h2>
-                                <h6 style="color: white;" >Tasks</h6></div>
-                        </div>
-                    </div>
-                    <div>
-                        <hr>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
+        </section>
+        <!--================banner Area =================-->
         
-    </div>
-    <div class="col-lg-12" >                  
-        <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel" >
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators3" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators3" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators3" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner" role="listbox" style="
-  background-color: #ffffff;
-  border: 1px solid black;
-  opacity: 0.6;
-  filter: alpha(opacity=60); /* For IE8 and earlier */">
-                <div class="carousel-item active" >
-                    <img class="img-responsive" src="<?php echo base_url(); ?>public/assets/images/oficina/noticia2.jpg" alt="First slide">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h3 class="text-white">First title goes here</h3>
-                        <p>this is the subcontent you can use this</p>
+        <!--================Event Date Area =================-->
+        <section class="event_date_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 d_flex">
+                        <div class="evet_location flex">
+                            <h3>Spreading the faith to all</h3>
+                            <p><span class="lnr lnr-calendar-full"></span>5th may, 2018</p>
+                            <p><span class="lnr lnr-clock"></span>Saturday, 09.00 am to 05.00 pm</p>
+                        </div>
                     </div>
-                </div>
-                <div class="carousel-item">
-                    <img class="img-responsive" src="<?php echo base_url(); ?>public/assets/images/oficina/noticia5.jpg" alt="Second slide">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h3 class="text-white">Second title goes here</h3>
-                        <p>this is the subcontent you can use this</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img class="img-responsive" src="<?php echo base_url(); ?>public/assets/images/oficina/noticia3.jpg" alt="Third slide">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h3 class="text-white">Third title goes here</h3>
-                        <p>this is the subcontent you can use this</p>
+                    <div class="col-md-6 event_time">
+                        <h4>Our Next Event Starts in</h4>
+                        <div id="timer" class="timer">
+                            <div class="timer__section days">
+                                <div class="timer__number"></div>
+                                <div class="timer__label">days</div>
+                            </div>
+                            <div class="timer__section hours">
+                                <div class="timer__number"></div>
+                                <div class="timer__label">hours</div>
+                            </div>
+                            <div class="timer__section minutes">
+                                <div class="timer__number"></div>
+                                <div class="timer__label">Minutes</div>
+                            </div>
+                            <div class="timer__section seconds">
+                                <div class="timer__number"></div>
+                                <div class="timer__label">seconds</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators3" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators3" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-    </div>
-</div>
+        </section>
+        <!--================Event Date Area =================-->
+        
+        <!--================About Area =================-->
+        <section class="about_area section_gap">
+            <div class="container">
+                <div class="section_title text-center">
+                    <h2>Welcome to Faith Church</h2>
+                    <p>The French Revolution constituted for the conscience of the dominant aristocratic class a fall from </p>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 d_flex">
+                        <div class="about_content flex">
+                            <h3 class="title_color">Did not find your Package Feel free to ask us. We‘ll make it for you</h3>
+                            <p>inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially in the workplace. That’s why it’s crucial that, as women, our behavior on the job is beyond reproach. inappropriate behavior is often laughed.</p>
+                            <a href="#" class="about_btn btn_hover">Read Full Story</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="image/about.jpg" alt="abou_img">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--================About Area =================-->
+        
+        <!--================Features Area =================-->
+        <section class="features_area">
+            <div class="row m0">
+                <div class="col-md-3 features_item">
+                    <h3>Spreading Light to world</h3>
+                    <p>The French Revolution constituted for the conscience of the dominant aristocratic class a fall from innocence and upturning of the natural.</p>
+                    <a href="#" class="btn_hover view_btn">View Details</a>
+                </div>
+                <div class="col-md-3 features_item">
+                    <h3>Spreading Light to world</h3>
+                    <p>The French Revolution constituted for the conscience of the dominant aristocratic class a fall from innocence and upturning of the natural.</p>
+                    <a href="#" class="btn_hover view_btn">View Details</a>
+                </div>
+                <div class="col-md-3 features_item">
+                    <h3>Spreading Light to world</h3>
+                    <p>The French Revolution constituted for the conscience of the dominant aristocratic class a fall from innocence and upturning of the natural.</p>
+                    <a href="#" class="btn_hover view_btn">View Details</a>
+                </div>
+                <div class="col-md-3 features_item">
+                    <h3>Spreading Light to world</h3>
+                    <p>The French Revolution constituted for the conscience of the dominant aristocratic class a fall from innocence and upturning of the natural.</p>
+                    <a href="#" class="btn_hover view_btn">View Details</a>
+                </div>
+            </div>
+        </section>
+        <!--================Features Area =================-->
+        
+        <!--================Sermons work Area =================-->
+        <section class="sermons_work_area section_gap">
+            <div class="container">
+                <div class="section_title text-center">
+                    <h2>Sermons This Week</h2>
+                    <p>The French Revolution constituted for the conscience of the dominant aristocratic class a fall from</p>
+                </div>
+                <div class="sermons_slider owl-carousel">
+                    <div class="item row">
+                        <div class="col-lg-8">
+                            <div class="sermons_image">
+                                <img src="image/sermns.jpg" alt="">
+                                <p>inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially in the workplace. That’s why it’s crucial that, as women, our behavior on the job is beyond reproach. inappropriate behavior is often laughed.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="sermons_content">
+                                <h3 class="title_color">Did not find your Package? Feel free to ask us. We‘ll make it for you</h3>
+                                <ul class="list_style sermons_category">
+                                    <li><i class="lnr lnr-user"></i><span>Categories: </span><a href="#"> Travor James</a></li>
+                                    <li><i class="lnr lnr-database"></i><span>Sermon Speaker: </span> Prayer</li>
+                                    <li><i class="lnr lnr-calendar-full"></i><span>Date:</span> 5th may, 2018</li>
+                                </ul>
+                                <a href="#" class="btn_hover">View More Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item row">
+                        <div class="col-lg-8">
+                            <div class="sermons_image">
+                                <img src="image/sermns.jpg" alt="">
+                                <p>inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially in the workplace. That’s why it’s crucial that, as women, our behavior on the job is beyond reproach. inappropriate behavior is often laughed.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="sermons_content">
+                                <h3 class="title_color">Did not find your Package? Feel free to ask us. We‘ll make it for you</h3>
+                                <ul class="list_style sermons_category">
+                                    <li><i class="lnr lnr-user"></i><span>Categories: </span><a href="#"> Travor James</a></li>
+                                    <li><i class="lnr lnr-database"></i><span>Sermon Speaker: </span> Prayer</li>
+                                    <li><i class="lnr lnr-calendar-full"></i><span>Date:</span> 5th may, 2018</li>
+                                </ul>
+                                <a href="#" class="btn_hover">View More Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item row">
+                        <div class="col-lg-8">
+                            <div class="sermons_image">
+                                <img src="image/sermns.jpg" alt="">
+                                <p>inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially in the workplace. That’s why it’s crucial that, as women, our behavior on the job is beyond reproach. inappropriate behavior is often laughed.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="sermons_content">
+                                <h3 class="title_color">Did not find your Package? Feel free to ask us. We‘ll make it for you</h3>
+                                <ul class="list_style sermons_category">
+                                    <li><i class="lnr lnr-user"></i><span>Categories: </span><a href="#"> Travor James</a></li>
+                                    <li><i class="lnr lnr-database"></i><span>Sermon Speaker: </span> Prayer</li>
+                                    <li><i class="lnr lnr-calendar-full"></i><span>Date:</span> 5th may, 2018</li>
+                                </ul>
+                                <a href="#" class="btn_hover btn_hover_two">View More Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--================Sermons work Area=================-->
+        <!--================Donate Area=================-->
+        <section class="donate_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 d-flex align-self-center">
+                        <div class="donate_content ">
+                            <h2>Your donation can save <br>many lives</h2>
+                            <p>The French Revolution constituted for the conscience of the dominant aristocratic class a fall from innocence.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="donation_form">
+                            <h3>How much would you like to donate?</h3>
+                            <div class="form-group">
+                                <input type='text' class="form-control" placeholder="$5"/>
+                            </div>
+                            <div class="form-group">
+                                <input type='text' class="form-control" placeholder="$5"/>
+                            </div>
+                            <div class="form-group">
+                                <input type='text' class="form-control" placeholder="$5"/>
+                            </div>
+                            <div class="form-group">
+                                <input type='text' class="form-control" placeholder="Any"/>
+                            </div>
+                            <a href="#" class="btn_hover btn_hover_two">Donate Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--================Donate Area=================-->
+        
+        <!--================Event Blog Area=================-->
+        <section class="event_blog_area section_gap">
+            <div class="container">
+                <div class="section_title text-center">
+                    <h2>Upcoming Events</h2>
+                    <p>We all live in an age that belongs to the young at heart. Life that is becoming extremely fast</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="event_post">
+                            <img src="image/blog1.jpg" alt="">
+                            <a href="#"><h2 class="event_title">Spreading Peace to world</h2></a>
+                            <ul class="list_style sermons_category event_category">
+                                <li><i class="lnr lnr-user"></i>Saturday, 5th may, 2018</li>
+                                <li><i class="lnr lnr-apartment"></i>Rocky beach Church</li>
+                                <li><i class="lnr lnr-location"></i>Santa monica, Los Angeles, USA</li>
+                            </ul>
+                            <a href="#" class="btn_hover">View Details</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="event_post">
+                            <img src="image/blog2.jpg" alt="">
+                            <a href="#"><h2 class="event_title">Spread Happyness to world</h2></a>
+                            <ul class="list_style sermons_category event_category">
+                                <li><i class="lnr lnr-user"></i>Saturday, 5th may, 2018</li>
+                                <li><i class="lnr lnr-apartment"></i>Rocky beach Church</li>
+                                <li><i class="lnr lnr-location"></i>Santa monica, Los Angeles, USA</li>
+                            </ul>
+                            <a href="#" class="btn_hover">View Details</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="event_post">
+                            <img src="image/blog3.jpg" alt="">
+                            <a href="#"><h2 class="event_title">Spreading Light to world</h2></a>
+                            <ul class="list_style sermons_category event_category">
+                                <li><i class="lnr lnr-user"></i>Saturday, 5th may, 2018</li>
+                                <li><i class="lnr lnr-apartment"></i>Rocky beach Church</li>
+                                <li><i class="lnr lnr-location"></i>Santa monica, Los Angeles, USA</li>
+                            </ul>
+                            <a href="#" class="btn_hover">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--================Blog Area=================-->
+        
+    

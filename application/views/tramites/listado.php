@@ -11,7 +11,9 @@
                                 <tr>
                                     <th>FECHA</th>
                                     <th>CITE</th>
-                                    <th>REFERENCIA</th>
+                                    <th>SOLICITANTE</th>
+                                    <th>TIPO DE SOLICITANTE</th>
+                                    <th>OBSERVACIONES</th>
                                     <th>ACCIONES</th>
                                 </tr>
                             </thead>
@@ -19,7 +21,9 @@
                                 <tr>
                                     <th>FECHA</th>
                                     <th>CITE</th>
-                                    <th>REFERENCIA</th>
+                                    <th>SOLICITANTE</th>
+                                    <th>TIPO DE SOLICITANTE</th>
+                                    <th>OBSERVACIONES</th>
                                     <th>ACCIONES</th>
                                 </tr>
                             </tfoot>
@@ -33,14 +37,16 @@
                                             ?>
                                         </td>
                                         <td><?php echo $mt->cite; ?></td>
-                                        <td><?php echo $mt->referencia; ?></td>
+                                        <td><?php echo $mt->remitente; ?></td>
+                                        <td><?php echo $mt->tipo_solicitante; ?></td>
+                                        <td><?php echo $mt->observaciones; ?></td>
                                         <!-- <td><?php //echo $mt->codcatas_anterior; ?></td> -->
                                         <td>
                                             <div class="btn-group btn-group-xs" role="group">
-                                                <a href="<?php echo base_url(); ?>derivaciones/nuevo/<?php echo $mt->tramite_id; ?>" class="btn btn-success footable-edit" title="Derivar">
+                                               <!--  <a href="<?php //echo base_url(); ?>derivaciones/nuevo/<?php //echo $mt->tramite_id; ?>" class="btn btn-success footable-edit" title="Derivar">
                                                     <span class="fas fa-paper-plane" aria-hidden="true"></span>
-                                                </a>
-                                                <a href="<?php echo base_url();?>derivaciones/ver/<?php echo $mt->tramite_id;?>" class="btn btn-primary footable-edit" title="Ver">
+                                                </a> -->
+                                                <a href="<?php echo base_url();?>tipo_tramite/ver/<?php echo $mt->tramite_id;?>" class="btn btn-primary footable-edit" title="Ver y editar">
                                                     <span class="fas fa-bars" aria-hidden="true"></span>
                                                 </a>
                                                 <a href="#" type="button" class="btn btn-danger footable-delete" title="Eliminar" >
