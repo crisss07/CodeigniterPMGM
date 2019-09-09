@@ -40,25 +40,33 @@
 
                                             $abc = $this->db->query("SELECT *
                                                 FROM archivo.hijo
-                                                WHERE raiz_id = $pre1->raiz_id")->result();
+                                                WHERE raiz_id = $pre1->raiz_id
+                                                AND activo = 1")->result();
+
+                                            $abcd = $this->db->query("SELECT *
+                                                FROM archivo.documento
+                                                WHERE raiz_id = $pre1->raiz_id
+                                                AND activo = 1")->result();
                                     }?>
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Archivos <b> <?php echo $pre1->nombre;  ?></b></h4>
+                        <h4 class="card-title">Archivos <b> <?php echo $pre1->nombre; ?></b></h4>
                         <nav class="navbar navbar-expand-lg navbar-light bg-light">
 						  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
 						    <span class="navbar-toggler-icon"></span>
 						  </button>
                           
 						  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-						    <a class="navbar-brand" href="#"><button type="button" class="btn btn-dark btn-circle btn-xl" data-toggle="modal" data-target="#modalAdicion"><i class="fas fa-folder-open"></i> </button> Carpeta</a>
-                            <a class="navbar-brand" href="#"><button type="button" class="btn btn-danger btn-circle btn-xl" data-toggle="modal" data-target="#modalAdicion"><i class="fas fa-file-pdf"></i> </button> Pdf</a>
-                            <a class="navbar-brand" href="#"><button type="button" class="btn btn-info btn-circle btn-xl" data-toggle="modal" data-target="#modalAdicion"><i class="fas fa-file-word"></i> </button> Word</a>
-                            <a class="navbar-brand" href="#"><button type="button" class="btn btn-success btn-circle btn-xl" data-toggle="modal" data-target="#modalAdicion"><i class="fas fa-file-excel"></i> </button> Excel</a>
-                            <a class="navbar-brand" href="#"><button type="button" class="btn btn-warning btn-circle btn-xl" data-toggle="modal" data-target="#modalAdicion"><i class="fas fa-file-powerpoint"></i> </button> PowerPoint</a>
-                            <a class="navbar-brand" href="#"><button type="button" class="btn btn-primary btn-circle btn-xl" data-toggle="modal" data-target="#modalAdicion"><i class="fas fa-file-image"></i> </button> Imagen</a>
+                                    
+                            
+						    <a class="navbar-brand" href="#"><button type="button" class="btn btn-dark btn-circle btn-xl" data-toggle="modal" data-target="#modalCarpeta"><i class="fas fa-folder-open"></i> </button> Carpeta</a>
+                            <a class="navbar-brand" href="#"><button type="button" class="btn btn-danger btn-circle btn-xl" data-toggle="modal" data-target="#modalPdf"><i class="fas fa-file-pdf"></i> </button> Pdf</a>
+                            <a class="navbar-brand" href="#"><button type="button" class="btn btn-info btn-circle btn-xl" data-toggle="modal" data-target="#modalWord"><i class="fas fa-file-word"></i> </button> Word</a>
+                            <a class="navbar-brand" href="#"><button type="button" class="btn btn-success btn-circle btn-xl" data-toggle="modal" data-target="#modalExcel"><i class="fas fa-file-excel"></i> </button> Excel</a>
+                            <a class="navbar-brand" href="#"><button type="button" class="btn btn-primary btn-circle btn-xl" data-toggle="modal" data-target="#modalImagen"><i class="fas fa-file-image"></i> </button> Imagen</a>
+                            <a class="navbar-brand" href="#"><button type="button" class="btn btn-secondary btn-circle btn-xl" data-toggle="modal" data-target="#modalOtros"><i class="fab fa-slack-hash"></i> </button> Otros</a>
                             
                              
 
@@ -66,15 +74,16 @@
                               
 						    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 						    </ul>
-						    <form class="form-inline my-2 my-lg-0">
-                               
-						          <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
-						          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-						    </form>
+						    <?php echo form_open('archivo/buscar', array('method'=>'POST', 'class'=>'form-inline my-2 my-lg-0')); ?>
+                            <!-- <a class="navbar-brand" href=""><button type="button" class="btn btn-warning btn-circle btn-xl" onclick="atras()"><i class="fas fa-arrow-left"></i> </button> Atr&aacute;s</a> -->
+                              <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" name="buscador" id="buscador">
+                              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                            </form>
 						  </div>
 						</nav>
 
-                        <div class="row el-element-overlay">
+                            <div class="row el-element-overlay">
+                                    <!-- VISTA DE CARPETAS -->
                                     <?php foreach ($abc as $pre) {
                                         $imagen = 'public/assets/images/archivo/'.$pre->tipo.'.jpg';
                                         $datos = $pre->hijo_id."||".
@@ -83,9 +92,7 @@
                                                  $pre->descripcion2."||".
                                                  $pre->tipo."||".
                                                  $pre->raiz_id;
-                                                 // $pre->carpeta;
-
-
+                                                 // $pre->hijo_id;
                                     ?>
                                         
                                         <div class="col-lg-4 col-md-6">
@@ -95,6 +102,7 @@
                                                         <div class="el-card-avatar el-overlay-1 col-md-4 col-lg-3 text-center"> <img src="<?php echo base_url(); ?><?php echo $imagen; ?>" alt="user" class="img-circle img-responsive">
                                                             <div class="el-overlay">
                                                                 <ul class="el-info">
+
                                                                     <!--  -->
                                                                     <li><a class="btn default btn-outline image-popup-vertical-fit" href="<?= base_url('archivo/ingresarhijo/'. $pre->hijo_id); ?>"><i class="icon-login"></i></a></li>
                                                                     <li><a class="btn default btn-outline" href="javascript:void(0);" data-toggle="modal" data-target="#modalEdicion" onclick="agregarform('<?php echo $datos ?>')"><i class="icon-pencil"></i></a></li>
@@ -110,28 +118,84 @@
                                                             <small>Descripcion 2: <?php echo $pre->descripcion2; ?></small>
                                                             <address>
                                                                 795 Folsom Ave, Suite 600 San Francisco, CADGE 94107
+                                                                 
                                                             </address>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    <?php } ?>   
+                                    <?php } ?>
+
+                                    <!-- VISTA DE ARCHIVOS -->
+
+                                     <?php foreach ($abcd as $pre2) {
+                                        $imagen = 'public/assets/images/archivo/'.$pre2->carpeta.'.jpg';
+                                        $datos1 = $pre2->documento_id."||".
+                                                 $pre2->nombre."||".
+                                                 $pre2->descripcion1."||".
+                                                 $pre2->descripcion2."||".
+                                                 $pre2->carpeta."||".
+                                                 $pre2->raiz_id."||".
+                                                 $pre2->hijo_id;
+
+                                    ?>
+
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="card">
+                                                <div class="el-card-item card card-body">
+                                                    <div class="row">
+                                                        <div class="el-card-avatar el-overlay-1 col-md-4 col-lg-3 text-center"> <img src="<?php echo base_url(); ?><?php echo $imagen; ?>" alt="user" class="img-circle img-responsive">
+                                                            <div class="el-overlay">
+                                                                <ul class="el-info">
+                                                                    <?php $varr = 'public/assets/archivos/'.$pre1->nombre.'/'.$pre2->nombre.'.'.$pre2->extension; 
+                                                                          $supervar = urldecode($varr);
+                                                                    ?>
+
+
+
+                                                                    <!--  -->
+                                                                    <li><a class="btn default btn-outline image-popup-vertical-fit" href="<?php echo base_url(); ?><?php echo $supervar; ?>" target="_blank"><i class="icon-login"></i></a></li>
+                                                                    <li><a class="btn default btn-outline" href="javascript:void(0);" data-toggle="modal" data-target="#modalEdicion1" onclick="agregarform1('<?php echo $datos1 ?>')"><i class="icon-pencil"></i></a></li>
+                                                                    <li><a class="btn default btn-outline" href="<?= base_url('archivo/eliminardocumento/'. $pre2->documento_id); ?>" alt="alert" class="img-responsive model_img" id="sa-params11" onclick="alerta('<?php echo $pre2->hijo_id ?>')"><i class="icon-trash"></i></a></li>
+                                                                    <li><a class="btn default btn-outline image-popup-vertical-fit" href="<?= base_url('archivo/ingresar/'. $pre2->hijo_id); ?>"><i class="icon-share-alt"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-8 col-lg-9">
+                                                            <h4 class="mb-0"><?php echo $pre2->nombre;  ?></h4> 
+                                                            <small>Descripcion 1: <?php echo $pre2->descripcion1; ?></small>
+                                                            <br>
+                                                            <small>Descripcion 2: <?php echo $pre2->descripcion2; ?></small>
+                                                            <address>
+                                                                795 Folsom Ave, Suite 600 San Francisco, CADGE 94107
+
+                                                             
+                                                            </address>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+
                             </div>
 
-                             <div id="modalEdicion" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                            <div id="modalCarpeta" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         
                                         <div class="modal-body">
-                                           <?php echo form_open('archivo/updatehijo', array('method'=>'POST')); ?>
+                                           <?php echo form_open('archivo/insertarhijo', array('method'=>'POST')); ?>
 
                                                 <div class="form-group">
-                                                    <input type="text" hidden="" id="raiz_id" name="raiz_id">
+                                                    <input type="text" hidden="" id="nombre_raiz" name="nombre_raiz" value="<?php echo $pre1->nombre; ?>">
                                                 </div>
-                                                <div class="form-group">
-                                                    <input type="text" hidden="" id="hijo_id" name="hijo_id">
+
+                                                 <div class="form-group">
+                                                    <input type="text" hidden="" id="raiz_id" name="raiz_id" value="<?php echo $pre1->raiz_id; ?>">
                                                 </div>
+                                              
                                                 <div class="form-group">
                                                     <label for="recipient-name" class="control-label">Nombre:</label>
                                                     <input type="text" class="form-control" id="nombre" name="nombre" required>
@@ -144,13 +208,52 @@
                                                     <label for="message-text" class="control-label">Descripcion 2:</label>
                                                     <textarea class="form-control" id="descripcion2" name="descripcion2" required></textarea>
                                                 </div>
+                                                
+                                                
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="modalEdicion" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        
+                                        <div class="modal-body">
+                                           <?php echo form_open('archivo/updatehijo', array('method'=>'POST')); ?>
+
+                                                <div class="form-group">
+                                                    <input type="text" hidden="" id="hijo_idc" name="hijo_id">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" hidden="" id="raiz_idc" name="raiz_id">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="control-label">Nombre:</label>
+                                                    <input type="text" class="form-control" id="nombrec" name="nombre" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="message-text" class="control-label">Descripcion 1:</label>
+                                                    <textarea class="form-control" id="descripcion1c" name="descripcion1" required></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="message-text" class="control-label">Descripcion 2:</label>
+                                                    <textarea class="form-control" id="descripcion2c" name="descripcion2" required></textarea>
+                                                </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="control-label">Tipo de Carpeta</label>
-                                                        <select class="form-control custom-select" data-placeholder="Choose a Category" tabindex="1" id="tipo" name="tipo">
-                                                            <option value="carpeta">Carpeta<img src="<?php echo base_url(); ?>public/assets/images/archivo/carpeta_llena.jpg"></option>
-                                                            <option value="carpeta_llena">Carpeta Llena<img src="<?php echo base_url(); ?>public/assets/images/archivo/carpeta_llena.jpg"></option>
-                                                            <option value="carpeta_vacia">Carpeta Vacia<img src="<?php echo base_url(); ?>public/assets/images/archivo/carpeta_vacia.jpg"></option>
+                                                        <select class="form-control custom-select" data-placeholder="Choose a Category" tabindex="1" id="tipoc" name="tipo">
+                                                            <option value="carpeta">Carpeta</option>
+                                                            <option value="carpeta_llena">Carpeta Llena</option>
+                                                            <option value="carpeta_vacia">Carpeta Vacia</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -166,6 +269,339 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div id="modalEdicion1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        
+                                        <div class="modal-body">
+                                           <?php echo form_open('archivo/updatedocumento', array('method'=>'POST')); ?>
+
+                                                <div class="form-group">
+                                                    <input type="text" hidden="" id="raiz_id1" name="raiz_id">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" hidden="" id="documento_id1" name="documento_id">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="control-label">Nombre:</label>
+                                                    <input type="text" class="form-control" id="nombre1" name="nombre" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="message-text" class="control-label">Descripcion 1:</label>
+                                                    <textarea class="form-control" id="descripcion11" name="descripcion1" required></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="message-text" class="control-label">Descripcion 2:</label>
+                                                    <textarea class="form-control" id="descripcion21" name="descripcion2" required></textarea>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div id="modalPdf" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        
+                                        <div class="modal-body">
+                                           <?php echo form_open_multipart('archivo/do_upload', array('method'=>'POST')); ?>
+
+                                                
+                                                <div class="form-group">
+                                                    <input type="text" hidden="" id="nombre_raiz" name="nombre_raiz" value="<?php echo $pre1->nombre; ?>">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <input type="text" hidden="" id="raiz_id" name="raiz_id" value="<?php echo $pre1->raiz_id; ?>">
+                                                </div>
+                                                
+                                                
+                                                <div class="form-group">
+                                                    <input type="text" hidden="" id="carpeta" name="carpeta" value="pdf">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="control-label">Nombre:</label>
+                                                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="message-text" class="control-label">Descripcion 1:</label>
+                                                    <textarea class="form-control" id="descripcion1" name="descripcion1" required></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="message-text" class="control-label">Descripcion 2:</label>
+                                                    <textarea class="form-control" id="descripcion2" name="descripcion2" required></textarea>
+                                                </div>
+                                                <div class="col-md-12 mb-6">
+                                                    <div class="form-group">
+                                                        <div class="card">
+                                                            <label for="recipient-name" class="control-label">Adjuntar</label>
+                                                            <label for="input-file-now">
+                                                                <button type="button" class="btn waves-effect waves-light btn-sm btn-info">
+                                                                    <i class="fas fa-exclamation"></i>
+                                                                </button>
+                                                                OJO Solo archivos Pdf
+                                                            </label>
+                                                            <input type="file" id="input-file-now" class="dropify" name="adjunto" accept=".pdf" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="modalWord" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        
+                                        <div class="modal-body">
+                                           <?php echo form_open_multipart('archivo/do_upload', array('method'=>'POST')); ?>
+
+                                                <div class="form-group">
+                                                    <input type="text" hidden="" id="nombre_raiz" name="nombre_raiz" value="<?php echo $pre1->nombre; ?>">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <input type="text" hidden="" id="raiz_id" name="raiz_id" value="<?php echo $pre1->raiz_id; ?>">
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <input type="text" hidden="" id="carpeta" name="carpeta" value="docx">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="control-label">Nombre:</label>
+                                                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="message-text" class="control-label">Descripcion 1:</label>
+                                                    <textarea class="form-control" id="descripcion1" name="descripcion1" required></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="message-text" class="control-label">Descripcion 2:</label>
+                                                    <textarea class="form-control" id="descripcion2" name="descripcion2" required></textarea>
+                                                </div>
+                                                <div class="col-md-12 mb-6">
+                                                    <div class="form-group">
+                                                        <div class="card">
+                                                            <label for="recipient-name" class="control-label">Adjuntar</label>
+                                                            <label for="input-file-now">
+                                                                <button type="button" class="btn waves-effect waves-light btn-sm btn-info">
+                                                                    <i class="fas fa-exclamation"></i>
+                                                                </button>
+                                                                OJO Solo archivos Word
+                                                            </label>
+                                                            <input type="file" id="input-file-now" class="dropify" name="adjunto" accept=".doc,.docx,.docm,.dotx,.dotm,.odt" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="modalExcel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        
+                                        <div class="modal-body">
+                                           <?php echo form_open_multipart('archivo/do_upload', array('method'=>'POST')); ?>
+
+                                                 <div class="form-group">
+                                                    <input type="text" hidden="" id="nombre_raiz" name="nombre_raiz" value="<?php echo $pre1->nombre; ?>">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <input type="text" hidden="" id="raiz_id" name="raiz_id" value="<?php echo $pre1->raiz_id; ?>">
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <input type="text" hidden="" id="carpeta" name="carpeta" value="xlsx">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="control-label">Nombre:</label>
+                                                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="message-text" class="control-label">Descripcion 1:</label>
+                                                    <textarea class="form-control" id="descripcion1" name="descripcion1" required></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="message-text" class="control-label">Descripcion 2:</label>
+                                                    <textarea class="form-control" id="descripcion2" name="descripcion2" required></textarea>
+                                                </div>
+                                                <div class="col-md-12 mb-6">
+                                                    <div class="form-group">
+                                                        <div class="card">
+                                                            <label for="recipient-name" class="control-label">Adjuntar</label>
+                                                            <label for="input-file-now">
+                                                                <button type="button" class="btn waves-effect waves-light btn-sm btn-info">
+                                                                    <i class="fas fa-exclamation"></i>
+                                                                </button>
+                                                                OJO Solo archivos Excel
+                                                            </label>
+                                                            <input type="file" id="input-file-now" class="dropify" name="adjunto"  accept=".xlsx,.xlsm,.xltx,.xltm,.xlsb,.xlam" required/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="modalImagen" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        
+                                        <div class="modal-body">
+                                          <?php echo form_open_multipart('archivo/do_upload', array('method'=>'POST')); ?>
+
+                                                <div class="form-group">
+                                                    <input type="text" hidden="" id="nombre_raiz" name="nombre_raiz" value="<?php echo $pre1->nombre; ?>">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <input type="text" hidden="" id="raiz_id" name="raiz_id" value="<?php echo $pre1->raiz_id; ?>">
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <input type="text" hidden="" id="carpeta" name="carpeta" value="jpg">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="control-label">Nombre:</label>
+                                                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="message-text" class="control-label">Descripcion 1:</label>
+                                                    <textarea class="form-control" id="descripcion1" name="descripcion1" required></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="message-text" class="control-label">Descripcion 2:</label>
+                                                    <textarea class="form-control" id="descripcion2" name="descripcion2" required></textarea>
+                                                </div>
+                                                <div class="col-md-12 mb-6">
+                                                    <div class="form-group">
+                                                        <div class="card">
+                                                            <label for="recipient-name" class="control-label">Adjuntar</label>
+                                                            <label for="input-file-now">
+                                                                <button type="button" class="btn waves-effect waves-light btn-sm btn-info">
+                                                                    <i class="fas fa-exclamation"></i>
+                                                                </button>
+                                                                OJO Solo Imagenes
+                                                            </label>
+                                                            <input type="file" id="input-file-now" class="dropify" name="adjunto" accept=".jpg,.jpeg,.png" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="modalOtros" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        
+                                        <div class="modal-body">
+                                           <?php echo form_open_multipart('archivo/do_upload', array('method'=>'POST')); ?>
+
+                                                <div class="form-group">
+                                                    <input type="text" hidden="" id="nombre_raiz" name="nombre_raiz" value="<?php echo $pre1->nombre; ?>">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <input type="text" hidden="" id="raiz_id" name="raiz_id" value="<?php echo $pre1->raiz_id; ?>">
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <input type="text" hidden="" id="carpeta" name="carpeta" value="otros">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="control-label">Nombre:</label>
+                                                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="message-text" class="control-label">Descripcion 1:</label>
+                                                    <textarea class="form-control" id="descripcion1" name="descripcion1" required></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="message-text" class="control-label">Descripcion 2:</label>
+                                                    <textarea class="form-control" id="descripcion2" name="descripcion2" required></textarea>
+                                                </div>
+                                                <div class="col-md-12 mb-6">
+                                                    <div class="form-group">
+                                                        <div class="card">
+                                                            <label for="recipient-name" class="control-label">Adjuntar</label>
+                                                            <label for="input-file-now">
+                                                            </label>
+                                                            <input type="file" id="input-file-now" class="dropify" name="adjunto" accept=".csv,.txt,.rtf,.html,.zip,.mp3,.wma,.mpg,.flv,.avi" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
 
                             <div id="modalAdicion" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
                                 <div class="modal-dialog">
@@ -212,42 +648,31 @@
                                 </div>
                             </div>
 
+                            <!-- Modal -->
+                            <div id="Modaluno" class="modal fade" role="dialog">
+                                <div class="modal-dialog modal-lg">
 
-                        <!-- <div class="card-body wizard-content">
-                            	 <div class="row">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h4 class="modal-title">Acta de inspeccion</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            
+                                        </div>
+                                        <div class="modal-body">
 
-                                    <?php foreach ($predios as $pre) { ?>
-				                  
-				                    <div class="col-md-6 col-lg-6 col-xlg-4">
-				                        <div class="card card-body">
-				                            <div class="row">
-				                                <div class="col-md-4 col-lg-3 text-center">
-				                                    <a href="<?= base_url('archivo/ingresar/'. $pre->hijo_id); ?>"><img src="<?php echo base_url(); ?>public/assets/images/users/carpeta.jpg" alt="user" class="img-circle img-responsive"></a>
-				                                </div>
-				                                <div class="col-md-8 col-lg-9">
-				                                    <h4 class="mb-0"><?php echo $pre->nombre;  ?></h4> 
-				                                     <small>Descripcion 1: <?php echo $pre->descripcion1; ?></small>
-                                                    <small>Descripcion 2: <?php echo $pre->descripcion2; ?></small>
-				                                    <address>
-				                                        795 Folsom Ave, Suite 600 San Francisco, CADGE 94107
-				                                        <br/>
-				                                        <br/>
-				                                        <abbr title="Phone">P:</abbr> (123) 456-7890
-				                                    </address>
-				                                </div>
-				                            </div>
-				                        </div>
-				                    </div>
-                                    
-                                    <?php } ?>
+                                            <embed src="<?php echo base_url().'public/assets/archivos/a' ?>"
+                                                   frameborder="0" width="100%" height="400px">
 
-				                  
-				                </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
 
-                           
+                                    </div>
+                                </div>
+                            </div>
 
-                            
-                        </div> -->
 
                     </div>
                 </div>
@@ -283,15 +708,29 @@
         function agregarform(datos)
         {
              d=datos.split('||');
-              $('#hijo_id').val(d[0]);
-              $('#nombre').val(d[1]);
-              $('#descripcion1').val(d[2]);
-              $('#descripcion2').val(d[3]);
-              $('#tipo').val(d[4]);
-              $('#raiz_id').val(d[5]);
+              $('#hijo_idc').val(d[0]);
+              $('#nombrec').val(d[1]);
+              $('#descripcion1c').val(d[2]);
+              $('#descripcion2c').val(d[3]);
+              $('#tipoc').val(d[4]);
+              $('#raiz_idc').val(d[5]);
         }
 
     </script>
+    
+    <script>
+    function agregarform1(datos1)
+        {
+             d1=datos1.split('||');
+              $('#documento_id1').val(d1[0]);
+              $('#nombre1').val(d1[1]);
+              $('#descripcion11').val(d1[2]);
+              $('#descripcion21').val(d1[3]);
+              $('#carpeta1').val(d1[4]);
+              $('#raiz_id1').val(d1[5]);
+
+        }
+     </script>
 
      <!-- Sweet-Alert  -->
     <script src="<?php echo base_url(); ?>public/assets/plugins/sweetalert/sweetalert.min.js"></script>
@@ -305,11 +744,13 @@
 
     <script src="<?php echo base_url(); ?>public/assets/plugins/bootstrap-switch/bootstrap-switch.min.js"></script>
     <script type="text/javascript">
-            function ver_boton(id)
-            {
-                alert(id);
-
-            }
+            function atras()
+        {
+            // window.history.go(-2) //dos atras
+            // window.history.back();//uno atras
+             // redirectPreviousPage();
+             back();
+        }
     </script>
 
     <!-- ============================================================== -->

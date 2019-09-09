@@ -116,7 +116,7 @@ class Tipo_tramite extends CI_Controller {
 				$id = $this->session->userdata("persona_perfil_id");
 	            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
 	            $usu_creacion = $resi->persona_id;
-
+	            //corregir error aqui organigrama
 				$organigrama_persona_id = 2;
 				$tipo_documento_id = 1;
 				$tipo_tramite_id = $datos['tipo_tramite_id'];

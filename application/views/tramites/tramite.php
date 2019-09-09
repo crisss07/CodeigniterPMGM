@@ -65,13 +65,13 @@
                                     
                                     <div class="form-group col-md-12">
                                         <div class="form-group">
-                                            <label > Cedula de identidad del solicitante <span class="text-danger">*</span> </label>
+                                            <label> Cedula de identidad del solicitante <span class="text-danger">*</span> </label>
                                             <input type="integer" class="form-control" id="cedula" name="cedula" required pattern="[0-9]{1,40}">
                                         </div>
                                     </div>
                                      <div class="col-md-12 form-group">
                                         <div class="form-group">
-                                            <label > Nombre del solicitante<span class="text-danger">*</span> </label>
+                                            <label> Nombre del solicitante<span class="text-danger">*</span> </label>
                                             <input type="text" class="form-control" id="remitente" name="remitente"  required >
                                             <input type="hidden" name="solicitante_id" id="solicitante_id">
                                         </div>

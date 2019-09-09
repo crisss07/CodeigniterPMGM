@@ -12,6 +12,12 @@
         padding-left: 10px;
         float:left;
     }
+
+    #busqueda{
+        color: orange;
+        font-size: 15px;
+
+    }
 </style>
 
 <div class="page-wrapper">
@@ -33,17 +39,18 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Archivos</h4>
+                        <h4 class="card-title">Archivos Encontrados en la Busqueda <b><?php echo $nom; ?></b></h4>
                         <nav class="navbar navbar-expand-lg navbar-light bg-light">
                           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                           </button>
                           <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                            <a class="navbar-brand" href="#"><button type="button" class="btn btn-dark btn-circle btn-xl" data-toggle="modal" data-target="#modalAdicion"><i class="fas fa-folder-open"></i> </button> Crear Carpeta </a>
+
                             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                             </ul>
                             <!-- <form class="form-inline my-2 my-lg-0"> -->
                             <?php echo form_open('archivo/buscar', array('method'=>'POST', 'class'=>'form-inline my-2 my-lg-0')); ?>
+<!--                             <a class="navbar-brand" href=""><button type="button" class="btn btn-warning btn-circle btn-xl" onclick="atras()"><i class="fas fa-arrow-left"></i> </button> Atr&aacute;s</a> -->
                               <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" name="buscador" id="buscador">
                               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                             </form>
@@ -53,7 +60,9 @@
                         
 
                             <div class="row el-element-overlay">
-                                    <?php foreach ($predios as $pre) {
+
+                                    <!-- VISTA DE CARPETAS RAIZ-->
+                                    <?php foreach ($raiz as $pre) {
                                         $imagen = 'public/assets/images/archivo/'.$pre->carpeta.'.jpg';
                                         $datos = $pre->raiz_id."||".
                                                  $pre->nombre."||".
@@ -80,10 +89,32 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-8 col-lg-9">
-                                                            <h4 class="mb-0"><?php echo $pre->nombre;  ?></h4> 
-                                                            <small>Descripcion 1: <?php echo $pre->descripcion1; ?></small>
+                                                            <?php 
+                                                            //se puede hacer la comparacion con 'false' o 'true' y los comparadores '===' o '!=='
+
+                                                            if (strpos($pre->nombre, $nom) === FALSE) {
+                                                                $si = '';
+                                                            }   else{
+                                                                $si = 'busqueda';
+                                                            }
+
+                                                            if (strpos($pre->descripcion1, $nom) === FALSE) {
+                                                                $si1 = '';
+                                                            }   else{
+                                                                $si1 = 'busqueda';
+                                                            }
+
+                                                            if (strpos($pre->descripcion2, $nom) === FALSE) {
+                                                                $si2 = '';
+                                                            }   else{
+                                                                $si2 = 'busqueda';
+                                                            }
+
+                                                             ?>
+                                                            <h4 class="mb-0" id="<?php echo $si; ?>"><?php echo $pre->nombre;  ?></h4> 
+                                                            <small id="<?php echo $si1; ?>">Descripcion 1: <?php echo $pre->descripcion1; ?></small>
                                                             <br>
-                                                            <small>Descripcion 2: <?php echo $pre->descripcion2; ?></small>
+                                                            <small id="<?php echo $si2; ?>">Descripcion 2: <?php echo $pre->descripcion2; ?></small>
                                                             <address>
                                                                 795 Folsom Ave, Suite 600 San Francisco, CADGE 94107
                                                             </address>
@@ -93,6 +124,150 @@
                                             </div>
                                         </div>
                                     <?php } ?>   
+                                    
+                                    <!-- VISTA DE CARPETAS HIJO -->
+                                    <?php foreach ($hijo as $pre1) {
+                                        $imagen = 'public/assets/images/archivo/'.$pre1->tipo.'.jpg';
+                                        $datos = $pre1->hijo_id."||".
+                                                 $pre1->nombre."||".
+                                                 $pre1->descripcion1."||".
+                                                 $pre1->descripcion2."||".
+                                                 $pre1->tipo."||".
+                                                 $pre1->raiz_id;
+                                                 // $pre->carpeta;
+                                    ?>
+                                        
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="card">
+                                                <div class="el-card-item card card-body">
+                                                    <div class="row">
+                                                        <div class="el-card-avatar el-overlay-1 col-md-4 col-lg-3 text-center"> <img src="<?php echo base_url(); ?><?php echo $imagen; ?>" alt="user" class="img-circle img-responsive">
+                                                            <div class="el-overlay">
+                                                                <ul class="el-info">
+
+                                                                    <!--  -->
+                                                                    <li><a class="btn default btn-outline image-popup-vertical-fit" href="<?= base_url('archivo/ingresarhijo/'. $pre1->hijo_id); ?>"><i class="icon-login"></i></a></li>
+                                                                    <li><a class="btn default btn-outline" href="javascript:void(0);" data-toggle="modal" data-target="#modalEdicion" onclick="agregarform('<?php echo $datos ?>')"><i class="icon-pencil"></i></a></li>
+                                                                    <li><a class="btn default btn-outline" href="<?= base_url('archivo/eliminarhijo/'. $pre1->hijo_id); ?>" alt="alert" class="img-responsive model_img" id="sa-params11" onclick="alerta('<?php echo $pre1->hijo_id ?>')"><i class="icon-trash"></i></a></li>
+                                                                    <li><a class="btn default btn-outline image-popup-vertical-fit" href="<?= base_url('archivo/ingresar/'. $pre1->hijo_id); ?>"><i class="icon-share-alt"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+                                                        <?php 
+
+                                                            if (strpos($pre1->nombre, $nom) === FALSE) {
+                                                                $si3 = '';
+                                                            }   else{
+                                                                $si3 = 'busqueda';
+                                                            }
+
+                                                            if (strpos($pre1->descripcion1, $nom) === FALSE) {
+                                                                $si4 = '';
+                                                            }   else{
+                                                                $si4 = 'busqueda';
+                                                            }
+
+                                                            if (strpos($pre1->descripcion2, $nom) === FALSE) {
+                                                                $si5 = '';
+                                                            }   else{
+                                                                $si5 = 'busqueda';
+                                                            }
+                                                             ?>
+
+                                                        <div class="col-md-8 col-lg-9">
+                                                            <h4 class="mb-0" id="<?php echo $si3; ?>"><?php echo $pre1->nombre;  ?></h4> 
+                                                            <small id="<?php echo $si4; ?>">Descripcion 1: <?php echo $pre1->descripcion1; ?></small>
+                                                            <br>
+                                                            <small id="<?php echo $si5; ?>">Descripcion 2: <?php echo $pre1->descripcion2; ?></small>
+                                                            <address>
+                                                                795 Folsom Ave, Suite 600 San Francisco, CADGE 94107
+                                                                 
+                                                            </address>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+
+                                    <!-- VISTA DE ARCHIVOS -->
+
+                                     <?php foreach ($documento as $pre2) {
+                                        $imagen = 'public/assets/images/archivo/'.$pre2->carpeta.'.jpg';
+                                        $datos1 = $pre2->documento_id."||".
+                                                 $pre2->nombre."||".
+                                                 $pre2->descripcion1."||".
+                                                 $pre2->descripcion2."||".
+                                                 $pre2->carpeta."||".
+                                                 $pre2->raiz_id."||".
+                                                 $pre2->url;
+
+                                    ?>
+
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="card">
+                                                <div class="el-card-item card card-body">
+                                                    <div class="row">
+                                                        <div class="el-card-avatar el-overlay-1 col-md-4 col-lg-3 text-center"> <img src="<?php echo base_url(); ?><?php echo $imagen; ?>" alt="user" class="img-circle img-responsive">
+                                                            <div class="el-overlay">
+                                                                <ul class="el-info">
+                                                                    <?php 
+                                                                        $varr = $pre2->url.'.'.$pre2->extension; 
+                                                                        $supervar = urldecode($varr);
+                                                                    ?>
+
+
+
+                                                                    <!--  -->
+                                                                    <li><a class="btn default btn-outline image-popup-vertical-fit" href="<?php echo base_url(); ?><?php echo $supervar; ?>" target="_blank"><i class="icon-login"></i></a></li>
+                                                                    <li><a class="btn default btn-outline" href="javascript:void(0);" data-toggle="modal" data-target="#modalEdicion1" onclick="agregarform1('<?php echo $datos1 ?>')"><i class="icon-pencil"></i></a></li>
+                                                                    <li><a class="btn default btn-outline" href="<?= base_url('archivo/eliminarhijo/'. $pre2->hijo_id); ?>" alt="alert" class="img-responsive model_img" id="sa-params11" onclick="alerta('<?php echo $pre2->hijo_id ?>')"><i class="icon-trash"></i></a></li>
+                                                                    <li><a class="btn default btn-outline image-popup-vertical-fit" href="<?= base_url('archivo/ingresar/'. $pre2->hijo_id); ?>"><i class="icon-share-alt"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+                                                        <?php 
+                                                            
+
+                                                            if (strpos($pre2->nombre, $nom) === FALSE) {
+                                                                $si6 = '';
+                                                            }   else{
+                                                                $si6 = 'busqueda';
+                                                            }
+
+                                                            if (strpos($pre2->descripcion1, $nom) === FALSE) {
+                                                                $si7 = '';
+                                                            }   else{
+                                                                $si7 = 'busqueda';
+                                                            }
+
+                                                            if (strpos($pre2->descripcion2, $nom) === FALSE) {
+                                                                $si8 = '';
+                                                            }   else{
+                                                                $si8 = 'busqueda';
+                                                            }
+
+                                                             ?>
+
+                                                        <div class="col-md-8 col-lg-9">
+                                                            <h4 class="mb-0" id="<?php echo $si6; ?>"><?php echo $pre2->nombre;  ?></h4> 
+                                                            <small id="<?php echo $si7; ?>">Descripcion 1: <?php echo $pre2->descripcion1; ?></small>
+                                                            <br>
+                                                            <small id="<?php echo $si8; ?>">Descripcion 2: <?php echo $pre2->descripcion2; ?></small>
+                                                            <address>
+                                                                795 Folsom Ave, Suite 600 San Francisco, CADGE 94107
+                                                            </address>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+
+
+
                             </div>
 
                             <div id="modalEdicion" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
@@ -260,6 +435,17 @@
               $('#descripcion1').val(d[2]);
               $('#descripcion2').val(d[3]);
               $('#carpeta').val(d[4]);
+              
+        }
+
+    </script>
+
+    <script>
+        function atras()
+        {
+            window.history.go(-2) //dos atras
+            // window.history.back();//uno atras
+             // redirectPreviousPage();
         }
 
     </script>
@@ -384,4 +570,3 @@
           }
         })
     </script> -->
-    

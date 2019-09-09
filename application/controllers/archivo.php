@@ -9,6 +9,8 @@ class Archivo extends CI_Controller {
 		$this->load->library('session');
 		$this->load->model("archivo_model");
 		$this->load->model("rol_model");
+        $this->load->helper('vayes_helper');
+        $this->load->helper(array('form', 'url'));
 	}
 
 	public function index()
@@ -18,6 +20,7 @@ class Archivo extends CI_Controller {
 		}
 		else{
 			redirect(base_url());
+			// redirectPreviousPage(); 
         }	
 		
 	}
@@ -57,7 +60,8 @@ class Archivo extends CI_Controller {
 						'descripcion1' =>'descripcion1',
 						'descripcion2' =>'descripcion2',
 						'raiz_id' =>$lista2->raiz_id,
-						'activo' =>1
+						'activo' =>1,
+						'tipo' => 'carpeta'
 						);
 						$this->db->insert('archivo.hijo', $array1);
 
@@ -66,7 +70,8 @@ class Archivo extends CI_Controller {
 						'descripcion1' =>'descripcion1',
 						'descripcion2' =>'descripcion2',
 						'raiz_id' =>$lista2->raiz_id,
-						'activo' =>1
+						'activo' =>1,
+						'tipo' => 'carpeta_llena'
 						);
 						$this->db->insert('archivo.hijo', $array2);
 
@@ -75,7 +80,8 @@ class Archivo extends CI_Controller {
 						'descripcion1' =>'descripcion1',
 						'descripcion2' =>'descripcion2',
 						'raiz_id' =>$lista2->raiz_id,
-						'activo' =>1
+						'activo' =>1,
+						'tipo' => 'carpeta_vacia'
 						);
 						$this->db->insert('archivo.hijo', $array3);
 
@@ -113,6 +119,8 @@ class Archivo extends CI_Controller {
 			$res['predios'] = $this->db->query("SELECT *
 									FROM archivo.raiz
 									WHERE raiz_id = $raiz_id
+									AND activo = 1
+									ORDER BY raiz_id
 									")->result();
 
 			$this->load->view('admin/header');
@@ -138,13 +146,20 @@ class Archivo extends CI_Controller {
 				$descripcion2 = $datos['descripcion2'];
 				$carpeta = $datos['carpeta'];
 
+				$veri = $this->db->query("SELECT *
+											FROM archivo.raiz
+											WHERE nombre = '$nombre'")->row();
 
-				$car = 'C:\xampp\htdocs\CodeigniterPMGM\public/assets/archivos/'.$nombre;
-				mkdir($car, 0777, true);
+				if ($veri->nombre) {
+					redirect('archivo');
+				}else{
+					$car = 'C:\xampp\htdocs\CodeigniterPMGM\public/assets/archivos/'.$nombre;
+					mkdir($car, 0777, true);
 
 
-				$this->archivo_model->insertarraiz($nombre, $descripcion1, $descripcion2, $carpeta);
-				redirect('archivo');
+					$this->archivo_model->insertarraiz($nombre, $descripcion1, $descripcion2, $carpeta);
+					redirect('archivo');
+				}
 
 			}
 		}
@@ -221,14 +236,10 @@ class Archivo extends CI_Controller {
 		if($this->session->userdata("login")){
 
 
-			// $res['predios'] = $this->db->query("SELECT *
-			// 						FROM archivo.hijo
-			// 						WHERE raiz_id = $raiz_id
-			// 						")->result();
-
 			$res['predios'] = $this->db->query("SELECT *
 									FROM archivo.hijo
 									WHERE hijo_id = $hijo_id
+									AND activo = 1
 									")->result();
 
 			$this->load->view('admin/header');
@@ -249,20 +260,29 @@ class Archivo extends CI_Controller {
 			
 			if(isset($datos))
 			{
+				$nombre_raiz = $datos['nombre_raiz'];
 				$nombre = $datos['nombre'];
 				$descripcion1 = $datos['descripcion1'];
 				$descripcion2 = $datos['descripcion2'];
-				$tipo = $datos['tipo'];
+				$tipo = 'carpeta';
 				$raiz_id = $datos['raiz_id'];
 
+				$veri = $this->db->query("SELECT *
+											FROM archivo.hijo
+											WHERE nombre = '$nombre'")->row();
 
-				$car = 'C:\xampp\htdocs\CodeigniterPMGM\public/assets/archivos/'.$nombre;
+				if ($veri->nombre) {
+					redirect('archivo/ingresarraiz/'.$raiz_id);
+				}else{
+
+
+				$car = 'C:\xampp\htdocs\CodeigniterPMGM\public/assets/archivos/'.$nombre_raiz.'/'.$nombre;
 				mkdir($car, 0777, true);
 
 
-				$this->archivo_model->insertarhijo($nombre, $descripcion1, $descripcion2, $tipo);
-				redirect('archivo/ingresarraiz'.$raiz_id);
-
+				$this->archivo_model->insertarhijo($nombre, $descripcion1, $descripcion2, $tipo, $raiz_id);
+				redirect('archivo/ingresarraiz/'.$raiz_id);
+				}
 			}
 		}
 		else{
@@ -284,24 +304,19 @@ class Archivo extends CI_Controller {
 	        $nom = $this->db->query("SELECT *
 	        						FROM archivo.hijo
 	        						WHERE hijo_id = '$hijo_id'")->row();
+	        $nomm = $this->db->query("SELECT *
+	        						FROM archivo.raiz
+	        						WHERE raiz_id = '$raiz_id'")->row();
+	        $nombre_raiz = $nomm->nombre;
 			$ant = $nom->nombre;
 			$nombre = $this->input->post('nombre');
 		    $descripcion1 = $this->input->post('descripcion1');
 		    $descripcion2 = $this->input->post('descripcion2');
 		    $tipo = $this->input->post('tipo');
 
-	        $antiguo = 'C:\xampp\htdocs\CodeigniterPMGM\public/assets/archivos/'.$ant;
-	        $nuevo = 'C:\xampp\htdocs\CodeigniterPMGM\public/assets/archivos/'.$nombre;
-
-			// $documentos = 'C:\xampp\htdocs\CodeigniterPMGM\public/assets/archivos/'.$val->codcatas.'-'.$val->predio_id.'/documentos';
-			// $imagenes = 'C:\xampp\htdocs\CodeigniterPMGM\public/assets/archivos/'.$val->codcatas.'-'.$val->predio_id.'/imagenes';
-			// $planos = 'C:\xampp\htdocs\CodeigniterPMGM\public/assets/archivos/'.$val->codcatas.'-'.$val->predio_id.'/planos';
-			// var_dump($carpeta);
-		    //		mkdir($carpeta, 0777, true);
-		    //  		mkdir($documentos, 0777, true);
-		    //  		mkdir($imagenes, 0777, true);
-		    //  		mkdir($planos, 0777, true);
-		    // rename ("viejo_nombre", "nuevo_nombre")
+	        $antiguo = 'C:/xampp/htdocs/CodeigniterPMGM/public/assets/archivos/'.$nombre_raiz.'/'.$ant;
+	        $nuevo = 'C:\xampp\htdocs\CodeigniterPMGM\public/assets/archivos/'.$nombre_raiz.'/'.$nombre;
+	     
 
 		    rename($antiguo, $nuevo);
 		    
@@ -322,8 +337,13 @@ class Archivo extends CI_Controller {
 		 	
 		 	// $id = $this->input->post("id");
 		 	$this->archivo_model->eliminarhijo($id);
+
+		 	$var = $this->db->query("SELECT *
+		 							FROM archivo.hijo
+		 							WHERE hijo_id = $id")->row();
+		 	$raiz_id = $var->raiz_id;
    
-		    redirect('archivo/ingresarraiz');
+		    redirect('archivo/ingresarraiz/'.$raiz_id);
 		}
 		else{
 			redirect(base_url());
@@ -331,13 +351,293 @@ class Archivo extends CI_Controller {
 
 	}
 
+	// ESTOS SON LOS CONTROLADORES DE LOS DOCUMENTOS PARA 
+
+	public function do_upload()
+	{
+		if($this->session->userdata("login")){
+			$datos = $this->input->post();
+			if(isset($datos))
+			{
+				//OBTENER EL ID DEL USUARIO LOGUEADO
+				$id = $this->session->userdata("persona_perfil_id");
+	            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+	            $usu_creacion = $resi->persona_id;
+
+	            $nombre_hijo = $datos['nombre_hijo'];
+				$nombre = $datos['nombre'];
+				$descripcion1 = $datos['descripcion1'];
+				$descripcion2 = $datos['descripcion2'];
+				$raiz_id = $datos['raiz_id'];
+				$hijo_id = $datos['hijo_id'];
+				$carpeta = $datos['carpeta'];
+				$adjunto = $datos['nombre'];
+
+
+				$nombrer = $this->db->query("SELECT *
+											FROM archivo.raiz
+											WHERE raiz_id = $raiz_id")->row();
+				$nombre_raiz = $nombrer->nombre;
+
+				// $this->archivo_model->insertardocumento($nombre, $descripcion1, $descripcion2, $raiz_id, $carpeta, $adjunto);
+
+				if($hijo_id){
+					// var_dump($nombre_hijo);
+						$con = $this->db->query("SELECT *
+													FROM archivo.hijo
+													WHERE hijo_id = $hijo_id")->row();
+						$con1 = $con->raiz_id;
+						$con2 = $this->db->query("SELECT *
+													FROM archivo.raiz
+													WHERE raiz_id = $con1")->row();
+						$nombre_raizz = $con2->nombre;
+
+						$config['upload_path']      = './public/assets/archivos/'.$nombre_raizz.'/'.$nombre_hijo;
+						$config['file_name']        = $adjunto;
+						$config['allowed_types']    = '*';
+						$config['overwrite']        = TRUE;
+						$config['max_size']         = 10000;
+
+						$this->load->library('upload', $config);
+						
+						if ( ! $this->upload->do_upload('adjunto'))
+							{
+								
+								redirect(base_url());
+								
+							}
+						else
+							{
+								$a =$this->upload->data();
+								$partes = explode(".", $a['client_name']); 
+								$extension = end($partes); 
+
+
+								$consulta = $this->db->query("SELECT *
+													FROM archivo.documento
+													WHERE nombre like '$adjunto'
+													AND extension like '$extension' 
+													AND hijo_id = '$hijo_id'")->row();
+								if ($consulta) {
+									redirect('archivo/ingresarhijo/'.$hijo_id);
+								}
+								else{
+								
+									$url = './public/assets/archivos/'.$nombre_raizz.'/'.$nombre_hijo.'/'.$adjunto;
+
+									$this->archivo_model->insertardocumentoh($nombre, $descripcion1, $descripcion2, $hijo_id, $carpeta, $adjunto, $extension, $url);
+									redirect('archivo/ingresarhijo/'.$hijo_id);
+								}
+							}
+
+				}
+				else{
+						$config['upload_path']      = './public/assets/archivos/'.$nombre_raiz;
+						$config['file_name']        = $adjunto;
+						$config['allowed_types']    = '*';
+						$config['overwrite']        = TRUE;
+						$config['max_size']         = 10000;
+
+						$this->load->library('upload', $config);
+						
+						if ( ! $this->upload->do_upload('adjunto'))
+							{
+								
+								redirect(base_url());
+								
+							}
+						else
+							{
+								$a =$this->upload->data();
+								$partes = explode(".", $a['client_name']); 
+								$extension = end($partes); 
+
+								$veri = $this->db->query("SELECT *
+															FROM archivo.documento
+															WHERE nombre like '$adjunto' 
+															AND extension like '$extension'
+															AND raiz_id = '$raiz_id'")->row();
+								if ($veri) {
+									redirect('archivo/ingresarraiz/'.$raiz_id);
+								}
+								else
+								{
+									$url = './public/assets/archivos/'.$nombre_raiz.'/'.$adjunto;
+
+									$this->archivo_model->insertardocumento($nombre, $descripcion1, $descripcion2, $raiz_id, $carpeta, $adjunto, $extension, $url);
+									redirect('archivo/ingresarraiz/'.$raiz_id);
+								}
+							}
+
+				}
+
+				
+
+			}
+			
+		}
+		else{
+			redirect(base_url());
+        }	
+
+	}
+
+
+	public function updatedocumento()     
+	{  
+		if($this->session->userdata("login")){      
+			//OBTENER EL ID DEL USUARIO LOGUEADO
+			$id = $this->session->userdata("persona_perfil_id");
+	        $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+	        $usu_modificacion = $resi->persona_id;
+	        $fec_modificacion = date("Y-m-d H:i:s");
+
+	        $raiz_id = $this->input->post('raiz_id');
+	        $hijo_id = $this->input->post('hijo_id');
+	        $documento_id = $this->input->post('documento_id');
+
+	        if ($hijo_id) {
+	        	$nom = $this->db->query("SELECT *
+	        						FROM archivo.documento
+	        						WHERE documento_id = '$documento_id'")->row();
+		        $nomm = $this->db->query("SELECT *
+		        						FROM archivo.hijo
+		        						WHERE hijo_id = '$hijo_id'")->row();
+
+		        $nomr = $this->db->query("SELECT *
+		        						FROM archivo.raiz
+		        						WHERE raiz_id = '$nomm->raiz_id'")->row();
+
+
+		        $nombre_hijo = $nomm->nombre;
+		        $nombre_raiz = $nomr->nombre;
+				$ant = $nom->nombre;
+				$ext = $nom->extension;
+				$nombre = $this->input->post('nombre');
+			    $descripcion1 = $this->input->post('descripcion1');
+			    $descripcion2 = $this->input->post('descripcion2');
+			    $adjunto = $this->input->post('nombre');
+
+			    $url = './public/assets/archivos/'.$nombre_raiz.'/'.$nombre_hijo.'/'.$adjunto;
+			   
+
+		        $antiguo = 'C:/xampp/htdocs/CodeigniterPMGM/public/assets/archivos/'.$nombre_raiz.'/'.$nombre_hijo.'/'.$ant.'.'.$ext;
+		        $nuevo = 'C:\xampp\htdocs\CodeigniterPMGM\public/assets/archivos/'.$nombre_raiz.'/'.$nombre_hijo.'/'.$nombre.'.'.$ext;
+			    rename($antiguo, $nuevo);
+			    
+			    $actualizar = $this->archivo_model->actualizardocumento($documento_id, $nombre, $descripcion1, $descripcion2, $adjunto, $url);
+
+			   redirect('archivo/ingresarhijo/'.$hijo_id);
+
+
+
+	        }
+	        else
+	        {
+	        	$nom = $this->db->query("SELECT *
+	        						FROM archivo.documento
+	        						WHERE documento_id = '$documento_id'")->row();
+		        $nomm = $this->db->query("SELECT *
+		        						FROM archivo.raiz
+		        						WHERE raiz_id = '$raiz_id'")->row();
+		        $nombre_raiz = $nomm->nombre;
+				$ant = $nom->nombre;
+				$ext = $nom->extension;
+				$nombre = $this->input->post('nombre');
+			    $descripcion1 = $this->input->post('descripcion1');
+			    $descripcion2 = $this->input->post('descripcion2');
+			    $adjunto = $this->input->post('nombre');
+
+			    $url = './public/assets/archivos/'.$nombre_raiz.'/'.$adjunto;
+			   
+
+		        $antiguo = 'C:/xampp/htdocs/CodeigniterPMGM/public/assets/archivos/'.$nombre_raiz.'/'.$ant.'.'.$ext;
+		        $nuevo = 'C:\xampp\htdocs\CodeigniterPMGM\public/assets/archivos/'.$nombre_raiz.'/'.$nombre.'.'.$ext;
+			    rename($antiguo, $nuevo);
+			    
+			    $actualizar = $this->archivo_model->actualizardocumento($documento_id, $nombre, $descripcion1, $descripcion2, $adjunto, $url);
+
+			   redirect('archivo/ingresarraiz/'.$raiz_id);
+
+
+
+	        }
+	       
+		}
+		else{
+			redirect(base_url());
+		}
+	}
+	
 	
 
-	public function adaptar()
+	public function eliminardocumento($id)
 	{
-		//$id = $this->db->get_where('persona', array('ci' => '9112739'))->row();
-		//var_dump($id->nombres);
-		$id = $this->db->query("SELECT * FROM persona WHERE ci = '9112739'")->result();
+		if($this->session->userdata("login")){
+		 	
+		 	// $id = $this->input->post("id");
+		 	$this->archivo_model->eliminardocumento($id);
+
+		 	$var = $this->db->query("SELECT *
+		 							FROM archivo.documento
+		 							WHERE documento_id = $id")->row();
+		 	$raiz_id = $var->raiz_id;
+   
+		    redirect('archivo/ingresarraiz/'.$raiz_id);
+		}
+		else{
+			redirect(base_url());
+        }	
+
+	}
+
+	public function buscar()
+	{
+		if($this->session->userdata("login")){
+
+		$buscador = $this->input->post('buscador');
+
+		$bus['nom'] = $buscador;
+
+		$bus['raiz'] = $this->db->query("SELECT *
+									FROM archivo.raiz
+									WHERE nombre like '%$buscador%'
+									OR descripcion1 like '%$buscador%'
+									OR descripcion2 like '%$buscador%' 
+									AND activo = 1")->result();
+		$bus['hijo'] = $this->db->query("SELECT *
+									FROM archivo.hijo
+									WHERE nombre like '%$buscador%'
+									OR descripcion1 like '%$buscador%'
+									OR descripcion2 like '%$buscador%' 
+									AND activo = 1")->result();
+		$bus['documento'] = $this->db->query("SELECT *
+									FROM archivo.documento
+									WHERE nombre like '%$buscador%'
+									OR descripcion1 like '%$buscador%'
+									OR descripcion2 like '%$buscador%' 
+									AND activo = 1")->result();
+
+		$this->load->view('admin/header');
+		$this->load->view('admin/menu');
+		$this->load->view('archivo/buscadores', $bus);
+		$this->load->view('admin/footer');
+		}
+		else{
+			redirect(base_url());
+        }	
+		
+	}
+
+	public function atras()
+	{
+		if($this->session->userdata("login")){
+		    history.back(); 
+		}
+		else{
+			redirect(base_url());
+        }	
+
 	}
 
 }
