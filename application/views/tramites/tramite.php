@@ -45,8 +45,7 @@
                                             </select>  
                                         </div>
                                     </div>
-                                     <div class="col-md-12 form-group" id="listas">    
-                                            
+                                    <div class="col-md-12 form-group" id="listas"> 
                                     </div>
                                     <div class="form-row col-md-12">
                                         <div class="col-sm-6">
@@ -81,7 +80,7 @@
                                 <div class="form-row">
                                     <?php 
                                         $año = date("Y");
-                                        $cite = $this->db->query("SELECT * FROM tramite.numero_tramite WHERE gestion = '$año' AND activo = '1'")->row();
+                                        $cite = $this->db->query("SELECT * FROM tramite.numero_tramite WHERE gestion='$año' AND activo = '1'")->row();
                                         $numero = $cite->correlativo + 1 ;
                                         $numeroConCeros = str_pad($numero, 5, "0", STR_PAD_LEFT);
                                     ?> 

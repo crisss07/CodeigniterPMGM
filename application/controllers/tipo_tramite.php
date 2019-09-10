@@ -13,6 +13,15 @@ class Tipo_tramite extends CI_Controller {
         $this->load->helper(array('form', 'url'));
 	}
 
+	public function index(){
+		if($this->session->userdata("login")){
+			redirect(base_url()."tipo_tramite/tipo_tramite");
+		}else{
+			redirect(base_url());
+        }	
+	}
+
+//++++++++++++++++++++++++CREAR TRAMITE++++++++++++++++++++++++++++++++
 	public function tipo_tramite(){
 		if($this->session->userdata("login")){
 			//$lista['verifica'] = $this->rol_model->verifica();
@@ -37,76 +46,6 @@ class Tipo_tramite extends CI_Controller {
 			redirect(base_url());
         }	
 	}
-
-	public function index(){
-		if($this->session->userdata("login")){
-			redirect(base_url()."tipo_tramite/tipo_tramite");
-		}else{
-			redirect(base_url());
-        }	
-	}	
-
-	public function update(){   
-		if($this->session->userdata("login")){
-			//OBTENER EL ID DEL USUARIO LOGUEADO
-			$id = $this->session->userdata("persona_perfil_id");
-	        $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
-	        $usu_modificacion = $resi->persona_id;
-	        $fec_modificacion = date("Y-m-d H:i:s"); 
-		    $zonaurb_id = $this->input->post('zonaurb_id');
-		    $descripcion = $this->input->post('descripcion');
-		   // var_dump($zonaurb_id);
-		    $actualizar = $this->zona_urbana_model->actualizar($zonaurb_id, $descripcion, $usu_modificacion, $fec_modificacion);
-		  	redirect('Zona_urbana');
-		}else{
-			redirect(base_url());
-        }	
-	}
-	
-	public function eliminar(){
-		if($this->session->userdata("login")){
-		 	//OBTENER EL ID DEL USUARIO LOGUEADO
-			$id = $this->session->userdata("persona_perfil_id");
-	        $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
-	        $usu_eliminacion = $resi->persona_id;
-	        $fec_eliminacion = date("Y-m-d H:i:s"); 
-
-		    $u = $this->uri->segment(3);
-		    $this->zona_urbana_model->eliminar($u, $usu_eliminacion, $fec_eliminacion);
-		    redirect('Zona_urbana');
-		}else{
-			redirect(base_url());
-        }	
-	}
-	 
-	public function listado(){
-		// $this->db->order_by('tramite.derivacion.fec_creacion', 'DESC');
-		$perfil_persona = $this->session->userdata('persona_perfil_id');
-		$datos_persona_perfil = $this->db->get_where('persona_perfil', array('persona_perfil_id'=>$perfil_persona))->result_array();
-		// vdebug($datos_persona_perfil, false, false, true);
-		$datos_organigrama_persona = $this->db->get_where('tramite.organigrama_persona', 
-		    array(
-		        'persona_id'=>$datos_persona_perfil[0]['persona_id'],
-		        'activo'=>1
-		    ))->result_array();
-
-		// vdebug($datos_organigrama_persona, false, false, true);
-		$fuente = $datos_organigrama_persona[0]['organigrama_persona_id'];
-		// vdebug($datos_organigrama_persona, true, false, true);
-		$this->db->where('tramite.tramite.organigrama_persona_id', $fuente);
-		$this->db->order_by('tramite.tramite.fec_creacion', 'DESC');
-		$query = $this->db->get('tramite.tramite');
-		// vdebug($query, false, false, true);
-		$data['mis_tramites'] = $query->result();
-		$data['verifica'] = $this->rol_model->verifica();
-		//var_dump($usu_creacion);
-		$this->load->view('admin/header');
-		$this->load->view('admin/menu');
-		$this->load->view('tramites/listado', $data);
-		$this->load->view('admin/footer');
-		$this->load->view('predios/index_js');
-	}
-
 
 	public function do_upload(){
 		if($this->session->userdata("login")){
@@ -157,7 +96,8 @@ class Tipo_tramite extends CI_Controller {
 					if($tipo_tramite->tramite == 'Inspeccion'){
 						redirect('Derivaciones/inspectores/'.$idTramite);
 					}else{
-						redirect('Derivaciones/nuevo/'.$idTramite);
+						// redirect('Derivaciones/nuevo/'.$idTramite);
+						redirect('Tipo_tramite/listado');
 					}
 				}
 				//$this->session->set_flashdata('in', $idTramite);	
@@ -165,6 +105,36 @@ class Tipo_tramite extends CI_Controller {
 		}else{
 			redirect(base_url());
         }	
+	}
+//++++++++++++++++++++FIN DE CREAR TRAMITE++++++++++++++++++++++++++++++++++++++++
+
+//+++++++++++++++++++LISTA DE TRAMITES++++++++++++++++++++++++++++++++++++++++++++
+	public function listado(){
+		// $this->db->order_by('tramite.derivacion.fec_creacion', 'DESC');
+		$perfil_persona = $this->session->userdata('persona_perfil_id');
+		$datos_persona_perfil = $this->db->get_where('persona_perfil', array('persona_perfil_id'=>$perfil_persona))->result_array();
+		// vdebug($datos_persona_perfil, false, false, true);
+		$datos_organigrama_persona = $this->db->get_where('tramite.organigrama_persona', 
+		    array(
+		        'persona_id'=>$datos_persona_perfil[0]['persona_id'],
+		        'activo'=>1
+		    ))->result_array();
+
+		// vdebug($datos_organigrama_persona, false, false, true);
+		$fuente = $datos_organigrama_persona[0]['organigrama_persona_id'];
+		// vdebug($datos_organigrama_persona, true, false, true);
+		$this->db->where('tramite.tramite.organigrama_persona_id', $fuente);
+		$this->db->order_by('tramite.tramite.fec_creacion', 'DESC');
+		$query = $this->db->get('tramite.tramite');
+		// vdebug($query, false, false, true);
+		$data['mis_tramites'] = $query->result();
+		$data['verifica'] = $this->rol_model->verifica();
+		//var_dump($usu_creacion);
+		$this->load->view('admin/header');
+		$this->load->view('admin/menu');
+		$this->load->view('tramites/listado', $data);
+		$this->load->view('admin/footer');
+		$this->load->view('predios/index_js');
 	}
 
 	public function ver($idTramite = null){
@@ -210,34 +180,9 @@ class Tipo_tramite extends CI_Controller {
             redirect(base_url());
         }
     }
+//++++++++++++++++++++++++FIN DE LISTA DE TRAMITES+++++++++++++++++++++++++++++++
 
-	public function muestra_asignaciones(){
-		if($this->session->userdata("login")){
-		// $this->db->order_by('tramite.derivacion.fec_creacion', 'DESC');
-			$id = $this->session->userdata("persona_perfil_id");
-			$resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
-			$dato = $resi->persona_id;
-			$res = $this->db->get_where('persona', array('persona_id' => $dato))->row();
-			//$id_user=$resi[0]['persona_id'];
-			//$data['lista'] = $this->inspecciones_model->get_lista(); 
-			// $data['lista'] = $this->inspecciones_model->get_lista();  
-			// $asignados = 
-			$this->db->select('persona_id, COUNT(persona_id) as total');
-			$this->db->where('activo',1);
-			$this->db->group_by('persona_id'); 
-			$this->db->order_by('total', 'desc'); 
-			$data['asignados'] = $this->db->get('inspeccion.asignacion')->result();
-			//vdebug($data['asignados'], true, false, true);
-			$this->load->view('admin/header');
-			$this->load->view('admin/menu');
-			$this->load->view('inspecciones/muestra_asignaciones', $data);
-			$this->load->view('admin/footer');
-			$this->load->view('predios/index_js');
-		}else{
-			redirect(base_url());
-		}		
-	}
-
+//++++++++++++++++++++++++BUSQUEDA DE TRAMITES+++++++++++++++++++++++++++++++++++
 	public function busqueda(){
 		if($this->session->userdata("login")){
 			$valores['cite']=NULL;
@@ -288,12 +233,10 @@ class Tipo_tramite extends CI_Controller {
 			 		}
 			 	}
 			 }
-		 	
 		 	$valores['cite']=$cite;
 		 	$valores['fecha']=$fecha;
 		 	$valores['remitente']=$remitente;
 		 	$valores['encontrados']=$encontrados;
-		 	
 		    $this->load->view('admin/header');
 			$this->load->view('admin/menu');
 			$this->load->view('tramites/busqueda', $valores);
@@ -319,6 +262,66 @@ class Tipo_tramite extends CI_Controller {
         $this->load->view('admin/footer');
         $this->load->view('predios/index_js');
 	}
+//++++++++++++++++++++++FIN DE BUSQUEDA DE TRAMITES++++++++++++++++++++++++++++++++
+		
+	public function update(){   
+		if($this->session->userdata("login")){
+			//OBTENER EL ID DEL USUARIO LOGUEADO
+			$id = $this->session->userdata("persona_perfil_id");
+	        $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+	        $usu_modificacion = $resi->persona_id;
+	        $fec_modificacion = date("Y-m-d H:i:s"); 
+		    $zonaurb_id = $this->input->post('zonaurb_id');
+		    $descripcion = $this->input->post('descripcion');
+		   // var_dump($zonaurb_id);
+		    $actualizar = $this->zona_urbana_model->actualizar($zonaurb_id, $descripcion, $usu_modificacion, $fec_modificacion);
+		  	redirect('Zona_urbana');
+		}else{
+			redirect(base_url());
+        }	
+	}
+	public function eliminar(){
+		if($this->session->userdata("login")){
+		 	//OBTENER EL ID DEL USUARIO LOGUEADO
+			$id = $this->session->userdata("persona_perfil_id");
+	        $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+	        $usu_eliminacion = $resi->persona_id;
+	        $fec_eliminacion = date("Y-m-d H:i:s"); 
+
+		    $u = $this->uri->segment(3);
+		    $this->zona_urbana_model->eliminar($u, $usu_eliminacion, $fec_eliminacion);
+		    redirect('Zona_urbana');
+		}else{
+			redirect(base_url());
+        }	
+	}
+	 
+	public function muestra_asignaciones(){
+		if($this->session->userdata("login")){
+		// $this->db->order_by('tramite.derivacion.fec_creacion', 'DESC');
+			$id = $this->session->userdata("persona_perfil_id");
+			$resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+			$dato = $resi->persona_id;
+			$res = $this->db->get_where('persona', array('persona_id' => $dato))->row();
+			//$id_user=$resi[0]['persona_id'];
+			//$data['lista'] = $this->inspecciones_model->get_lista(); 
+			// $data['lista'] = $this->inspecciones_model->get_lista();  
+			// $asignados = 
+			$this->db->select('persona_id, COUNT(persona_id) as total');
+			$this->db->where('activo',1);
+			$this->db->group_by('persona_id'); 
+			$this->db->order_by('total', 'desc'); 
+			$data['asignados'] = $this->db->get('inspeccion.asignacion')->result();
+			//vdebug($data['asignados'], true, false, true);
+			$this->load->view('admin/header');
+			$this->load->view('admin/menu');
+			$this->load->view('inspecciones/muestra_asignaciones', $data);
+			$this->load->view('admin/footer');
+			$this->load->view('predios/index_js');
+		}else{
+			redirect(base_url());
+		}		
+	}
 
 	public function ajax_verifica1(){
 		$ci = $this->input->get("param1");
@@ -334,5 +337,3 @@ class Tipo_tramite extends CI_Controller {
 		echo json_encode($respuesta);
 	}
 }
-
-	
