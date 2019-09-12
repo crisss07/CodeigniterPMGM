@@ -46,7 +46,7 @@ class Tramite_model extends CI_Model {
 		$this->db->where('numero_tramite_id', $numero_tramite_id);
 		$this->db->update('tramite.numero_tramite', $data);
 		$tramite = $this->db->get_where('tramite.tramite', array('tramite_id'=>$id_tramite))->row();
-		if($tramite->tipo_tramite_id == 10){
+		if($tramite->tipo_tramite_id == 15){
 			// $this->db->where('perfil_id', 5);
 			// $inspectores = $this->db->get('persona_perfil')->result();
 			// $array_inspectores = array();
