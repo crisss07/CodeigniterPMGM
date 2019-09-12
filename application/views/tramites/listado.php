@@ -46,15 +46,27 @@
                                                <!--  <a href="<?php //echo base_url(); ?>derivaciones/nuevo/<?php //echo $mt->tramite_id; ?>" class="btn btn-success footable-edit" title="Derivar">
                                                     <span class="fas fa-paper-plane" aria-hidden="true"></span>
                                                 </a> -->
-                                                <a href="<?php echo base_url();?>tipo_tramite/ver/<?php echo $mt->tramite_id;?>" class="btn btn-primary footable-edit" title="Ver y editar">
+                                            
+                                                <?php $valor=$this->db->query("SELECT * FROM tramite.derivacion WHERE tramite_id='$mt->tramite_id'")->row(); ?>
+                                                <?php if ($valor != NULL){ ?>
+                                                    <a href="<?php echo base_url();?>tipo_tramite/seguimiento/<?php echo $mt->tramite_id;?>" class="btn btn-primary footable-edit" title="Ver">
                                                     <span class="fas fa-bars" aria-hidden="true"></span>
                                                 </a>
-                                                <a href="#" type="button" class="btn btn-danger footable-delete" title="Eliminar" >
-                                                    <span class="fas fa-trash-alt" aria-hidden="true"></span>
-                                                </a>
-                                                <a href="<?php echo base_url(); ?>pdf_controller/pdf/<?php echo $mt->tramite_id; ?>" class="btn btn-warning footable-edit" title="Imprimir" target='_blank'>
+                                                
+                                                <?php }else{ ?>
+                                                    <a href="<?php echo base_url(); ?>derivaciones/nuevo/<?php echo $mt->tramite_id; ?>" class="btn btn-success footable-edit" title="Derivar">
+                                                        <span class="fas fa-paper-plane" aria-hidden="true"></span>
+                                                    </a>
+                                                    <a href="<?php echo base_url(); ?>tipo_tramite/ver/<?php echo $mt->tramite_id; ?>" class="btn btn-warning footable-edit" title="Editar" >
+                                                    <span class="fas fa-edit" aria-hidden="true"></span></a>
+                                                    <a href="<?php echo base_url(); ?>tipo_tramite/eliminar_tramite/<?php echo $mt->tramite_id;?>" type="button" class="btn btn-danger footable-delete" title="Eliminar" >
+                                                        <span class="fas fa-trash-alt" aria-hidden="true"></span>
+                                                    </a>
+                                                <?php } ?>
+                                                <a href="<?php echo base_url(); ?>pdf_controller/pdf/<?php echo $mt->tramite_id; ?>" class="btn btn-info footable-edit" title="Imprimir" target='_blank'>
                                                     <span class="fas fa-print" aria-hidden="true"></span>
                                                 </a>
+                                                
                                                 <a href="<?php echo base_url(); ?>pdf_controller/ruta_pdf/<?php echo $mt->tramite_id; ?>" class="btn btn-success footable-edit" title="Hoja de ruta" target="_blank">
                                                     <span class="fas fa-print" aria-hidden="true"></span>
                                                 </a>

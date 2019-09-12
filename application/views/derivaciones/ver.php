@@ -163,7 +163,7 @@
                                 </div>
                             </blockquote>   
                         <?php endforeach; ?>
-                        <center><a href="<?php echo base_url();?>tipo_tramite/listado" class="btn btn-info footable-edit" style="width: 50%;">Atras</a></center>  
+                        <center><a href="<?php echo base_url();?>derivaciones/listado" class="btn btn-info footable-edit" style="width: 50%;">Atras</a></center>  
                        
                     </div>
                 </div>

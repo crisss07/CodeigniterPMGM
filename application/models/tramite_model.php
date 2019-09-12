@@ -163,7 +163,7 @@ class Tramite_model extends CI_Model {
 */
 	}
 
-	public function insertar_tramite_nuevo($organigrama_persona_id, $tipo_documento_id, $tipo_tramite_id, $cite, $fecha, $fojas, $anexos, $remitente, $procedencia, $referencia, $usu_creacion, $adjunto, $destino, $correlativo, $gestion, $tipo_solicitante, $via_solicitud, $solicitante_id, $observaciones, $requisitos){	
+	public function insertar_tramite_nuevo($organigrama_persona_id, $tipo_documento_id, $tipo_tramite_id, $cite, $fecha, $fojas, $anexos, $remitente, $procedencia, $referencia, $usu_creacion, $adjunto, $destino, $correlativo, $gestion, $tipo_solicitante, $via_solicitud, $solicitante_id, $observaciones, $requisitos, $tipo){	
 		$this->load->helper('vayes_helper');
 		$array = array(
 			'organigrama_persona_id' =>$organigrama_persona_id,
@@ -226,14 +226,16 @@ class Tramite_model extends CI_Model {
 			);
 			$this->db->insert('tramite.tramite_requisito', $requi);
 		}
-		$derivacion=array(
-			'tramite_id' => $id_tramite,
-			'fuente' => $organigrama_persona_id,
-			'destino' => $destino,
-			'fecha' => $fecha,
-			'descripcion' => $observaciones
-		);
-		$this->db->insert('tramite.derivacion', $derivacion);
+		if ($tipo == 'derivar') {
+			$derivacion=array(
+				'tramite_id' => $id_tramite,
+				'fuente' => $organigrama_persona_id,
+				'destino' => $destino,
+				'fecha' => $fecha,
+				'descripcion' => $observaciones
+			);
+			$this->db->insert('tramite.derivacion', $derivacion);	
+		}
 	}
 
 	public function login($usuario, $contrasenia){

@@ -79,17 +79,26 @@
                                     </div> -->
                                     
                                 </div>
-                                <div>
-                                    <center><button type="submit" class="btn btn-primary">Guardar</button></center>
-                                </div>
+
+                                
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn waves-effect waves-light btn-block btn-primary">Guardar</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="<?php echo base_url();?>tipo_tramite/listado" class="btn waves-effect waves-light btn-block btn-info" >Atras</a>
+                                </div>
+                                
+                            </div>
+                            
                         </form>
                         
                         
                     </div>
                 </div>
             </div>
-            <div class="col-12">
+            <!-- <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title"><div class="col-sm-6 col-md-4 col-lg-3 f-icon"><i class="fas fa-angle-double-down"></i> SEGUIMIENTO</h4></h4>
@@ -156,7 +165,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> -->
             
                 
             

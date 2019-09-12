@@ -20,127 +20,122 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="card-body">
-                            <!-- <h4 class="card-title">
-                                Registro de Predio
-                                <button type="button" class="btn waves-effect waves-light btn-success" id="btn_sel_predio">Seleccionar predio</button>
-                            </h4> -->
-                            <!-- <h6 class="card-subtitle">Ingrese los datos del predio </h6> -->
-                            <!-- <form action="#" class="validation-wizard wizard-circle"> -->
-                            <?php // echo form_open('predios/guarda', array('method'=>'POST', 'enctype'=>"multipart/form-data")); ?>
-                            <?php echo form_open_multipart('tipo_tramite/do_upload', array('method'=>'POST')); ?>
-                                <h4 class="card-title">Registro de Tramite</h4>
-                                <div class="form-row">
-                                    <div class="col-md-4 mb-3">
-                                        <label for="validationCustomUsername">Tipo de Tramite</label>
-                                        <!-- CONSULTA POR LA TABLA TIPO DE DOCUMENTO -->
-                                        <?php $lista2 = $this->db->query("SELECT * FROM tramite.tipo_tramite  WHERE activo = '1' ORDER BY tipo_tramite_id ASC")->result();
-                                        ?> 
-                                        <div class="input-group">
-                                            <select class="custom-select form-control" id="tipo_tramite_id" name="tipo_tramite_id" onchange="CargarProductos(this.value);" required />
-                                                <option value="">Seleccione tipo</option>
-                                                <?php foreach ($lista2 as $tc): ?>
-                                                    <option value="<?php echo $tc->tipo_tramite_id; ?>"><?php echo $tc->tramite; ?></option>
-                                                <?php endforeach; ?>
-                                            </select>  
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 form-group" id="listas"> 
-                                    </div>
-                                    <div class="form-row col-md-12">
-                                        <div class="col-sm-6">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" id="tipo_solicitante1" name="tipo_solicitante" class="custom-control-input" value="Propietario">
-                                                <label class="custom-control-label" for="tipo_solicitante1">Solicitante propietario</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" id="tipo_solicitante2" name="tipo_solicitante" class="custom-control-input" value="Legal">
-                                                <label class="custom-control-label" for="tipo_solicitante2">Solicitante legal</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group col-md-12">
-                                        <div class="form-group">
-                                            <label> Cedula de identidad del solicitante <span class="text-danger">*</span> </label>
-                                            <input type="integer" class="form-control" id="cedula" name="cedula" required pattern="[0-9]{1,40}">
-                                        </div>
-                                    </div>
-                                     <div class="col-md-12 form-group">
-                                        <div class="form-group">
-                                            <label> Nombre del solicitante<span class="text-danger">*</span> </label>
-                                            <input type="text" class="form-control" id="remitente" name="remitente"  required >
-                                            <input type="hidden" name="solicitante_id" id="solicitante_id">
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                                <div class="form-row">
-                                    <?php 
-                                        $año = date("Y");
-                                        $cite = $this->db->query("SELECT * FROM tramite.numero_tramite WHERE gestion='$año' AND activo = '1'")->row();
-                                        $numero = $cite->correlativo + 1 ;
-                                        $numeroConCeros = str_pad($numero, 5, "0", STR_PAD_LEFT);
+                        <!-- <h4 class="card-title">
+                            Registro de Predio
+                            <button type="button" class="btn waves-effect waves-light btn-success" id="btn_sel_predio">Seleccionar predio</button>
+                        </h4> -->
+                        <!-- <h6 class="card-subtitle">Ingrese los datos del predio </h6> -->
+                        <!-- <form action="#" class="validation-wizard wizard-circle"> -->
+                        <?php // echo form_open('predios/guarda', array('method'=>'POST', 'enctype'=>"multipart/form-data")); ?>
+                        <?php echo form_open_multipart('tipo_tramite/do_upload', array('method'=>'POST')); ?>
+                            <h4 class="card-title">Registro de Tramite</h4>
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustomUsername">Tipo de Tramite</label>
+                                    <!-- CONSULTA POR LA TABLA TIPO DE DOCUMENTO -->
+                                    <?php $lista2 = $this->db->query("SELECT * FROM tramite.tipo_tramite  WHERE activo = '1' ORDER BY tipo_tramite_id ASC")->result();
                                     ?> 
-                                    <div>
-                                        <input hidden type="integer" name="cite_sin" value="<?php echo $cite->tipo ?><?php echo $cite->gestion ?>-<?php echo $numeroConCeros ?>" >
-                                    </div>
-                                    <div>
-                                        <input hidden type="integer" name="gestion" value="<?php echo $año; ?>" >
-                                    </div>
-                                    <div>
-                                        <input hidden type="integer" name="correlativo" value="<?php echo $numero; ?>" >
-                                    </div>
-                                    <div>
-                                        <input hidden type="text" name="cite" value="<?php echo $cite->tipo ?>/<?php echo $cite->gestion ?>-<?php echo $numeroConCeros ?>" >
-                                    </div>
-                                    <div>
-                                        <input hidden type="date" name="fecha" value="<?php echo date('Y-m-d'); ?>">
-                                    </div>                                                                         
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-md-12 mb-form-group">
-                                        <label >Observaciones<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="observaciones" name="observaciones" required>
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <div class="form-group">
-                                            <div class="card">
-                                                <label for="recipient-name" class="control-label">Adjuntar</label>
-                                                <label for="input-file-now">
-                                                    <button type="button" class="btn waves-effect waves-light btn-sm btn-info">
-                                                        <i class="fas fa-exclamation"></i>
-                                                    </button>
-                                                    OJO Solo archivos pdf
-                                                </label>
-                                                <input type="file" id="input-file-now" class="dropify" name="adjunto" data-allowed-file-extensions="pdf" required />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 form-group"> 
-                                         <label >Derivar a </label>
-                                        <select class="custom-select form-control" id="destino" name="destino" required />
-                                            <option value=""></option>
-                                            <?php foreach ($personas as $key => $p): ?>
-                                                <option value="<?php echo $p['id'] ?>"><?php echo $p['nombre']; ?> - <?php echo $p['cargo']; ?> (<?php echo $p['unidad']; ?>)</option>
-                                            <?php endforeach ?>
+                                    <div class="input-group">
+                                        <select class="custom-select form-control" id="tipo_tramite_id" name="tipo_tramite_id" onchange="CargarProductos(this.value);" required />
+                                            <option value="">Seleccione tipo</option>
+                                            <?php foreach ($lista2 as $tc): ?>
+                                                <option value="<?php echo $tc->tipo_tramite_id; ?>"><?php echo $tc->tramite; ?></option>
+                                            <?php endforeach; ?>
                                         </select>  
-                                       
                                     </div>
-                                    
                                 </div>
-                                <div class="row">
-                                        <!-- <div class="col-md-6">
-                                            <button type="submit" name="boton" value="generar" class="btn waves-effect waves-light btn-block btn-info">Generar</button>
-                                        </div> -->
-                                        <div class="col-md-12">
-                                            <button type="submit" name="boton" value="derivar" class="btn waves-effect waves-light btn-block btn-success">Generar y derivar</button>
+                                <div class="col-md-12 form-group" id="listas"> 
+                                </div>
+                                <div class="form-row col-md-12">
+                                    <div class="col-sm-6">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="tipo_solicitante1" name="tipo_solicitante" class="custom-control-input" value="Propietario">
+                                            <label class="custom-control-label" for="tipo_solicitante1">Solicitante propietario</label>
                                         </div>
                                     </div>
-                            </form>
-                            <script>
+                                    <div class="col-sm-6">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="tipo_solicitante2" name="tipo_solicitante" class="custom-control-input" value="Legal">
+                                            <label class="custom-control-label" for="tipo_solicitante2">Solicitante legal</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <div class="form-group">
+                                        <label> Cedula de identidad del solicitante <span class="text-danger">*</span> </label>
+                                        <input type="integer" class="form-control" id="cedula" name="cedula" required pattern="[0-9]{1,40}">
+                                    </div>
+                                </div>
+                                 <div class="col-md-12 form-group">
+                                    <div class="form-group">
+                                        <label> Nombre del solicitante<span class="text-danger">*</span> </label>
+                                        <input type="text" class="form-control" id="remitente" name="remitente"  required >
+                                        <input type="hidden" name="solicitante_id" id="solicitante_id">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <?php 
+                                    $año = date("Y");
+                                    $cite = $this->db->query("SELECT * FROM tramite.numero_tramite WHERE gestion='$año' AND activo = '1'")->row();
+                                    $numero = $cite->correlativo + 1 ;
+                                    $numeroConCeros = str_pad($numero, 5, "0", STR_PAD_LEFT);
+                                ?> 
+                                <div>
+                                    <input hidden type="integer" name="cite_sin" value="<?php echo $cite->tipo ?><?php echo $cite->gestion ?>-<?php echo $numeroConCeros ?>" >
+                                </div>
+                                <div>
+                                    <input hidden type="integer" name="gestion" value="<?php echo $año; ?>" >
+                                </div>
+                                <div>
+                                    <input hidden type="integer" name="correlativo" value="<?php echo $numero; ?>" >
+                                </div>
+                                <div>
+                                    <input hidden type="text" name="cite" value="<?php echo $cite->tipo ?>/<?php echo $cite->gestion ?>-<?php echo $numeroConCeros ?>" >
+                                </div>
+                                <div>
+                                    <input hidden type="date" name="fecha" value="<?php echo date('Y-m-d'); ?>">
+                                </div>                                                                         
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-form-group">
+                                    <label >Observaciones<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="observaciones" name="observaciones" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-group">
+                                        <div class="card">
+                                            <label for="recipient-name" class="control-label">Adjuntar</label>
+                                            <label for="input-file-now">
+                                                <button type="button" class="btn waves-effect waves-light btn-sm btn-info">
+                                                    <i class="fas fa-exclamation"></i>
+                                                </button>
+                                                OJO Solo archivos pdf
+                                            </label>
+                                            <input type="file" id="input-file-now" class="dropify" name="adjunto" data-allowed-file-extensions="pdf" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 form-group"> 
+                                     <label >Derivar a </label>
+                                    <select class="custom-select form-control" id="destino" name="destino" />
+                                        <option value=""></option>
+                                        <?php foreach ($personas as $key => $p): ?>
+                                            <option value="<?php echo $p['id'] ?>"><?php echo $p['nombre']; ?> - <?php echo $p['cargo']; ?> (<?php echo $p['unidad']; ?>)</option>
+                                        <?php endforeach ?>
+                                    </select>  
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="submit" name="boton" value="generar" class="btn waves-effect waves-light btn-block btn-info">Generar</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" name="boton" value="derivar" class="btn waves-effect waves-light btn-block btn-success">Generar y derivar</button>
+                                </div>
+                            </div>
+                        </form>
+                        <script>
                             // Example starter JavaScript for disabling form submissions if there are invalid fields
                             (function() {
                                 'use strict';
@@ -159,8 +154,7 @@
                                     });
                                 }, false);
                             })();
-                            </script>
-                        </div>
+                        </script>
                     </div>
                 </div>
             </div>
@@ -174,7 +168,6 @@
                 <h4 class="modal-title" id="exampleModalLabel1">Registrar datos del nuevo solicitante</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
-            
             <div class="modal-body">
                 <!--<form action="<?php //echo base_url();?>persona/insertar" method="POST">-->
                 <!-- <?php //echo form_open('persona/insertar', array('method' => 'GET')); ?> -->
@@ -255,7 +248,6 @@
                         <button class="btn btn-danger" type="button"  data-dismiss="modal">Cerrar</button>
                     </div>
                 </form>
-                <!-- <?php //echo form_close(); ?> -->
             </div> 
         </div>
     </div>
@@ -389,8 +381,6 @@
                     $('#remitente').val(data.nombres+' '+data.paterno+' '+data.materno);
                     $('#solicitante_id').val(data.solicitante_id);
                 }
-
-               //window.location.reload();
             },
             error:function(jqXHR, textStatus, errorThrown) {
                 // alert("error");
@@ -398,6 +388,5 @@
         });
     }
 </script>
-
 <script src="<?php echo base_url(); ?>public/assets/plugins/jquery/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw8R4L-CtMu9XuQBiymIEs6UEc715P2eA&callback=initMap&libraries=drawing" async defer></script>

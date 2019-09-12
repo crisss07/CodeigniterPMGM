@@ -55,8 +55,9 @@ class Tipo_tramite extends CI_Controller {
 				$id = $this->session->userdata("persona_perfil_id");
 	            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
 	            $usu_creacion = $resi->persona_id;
+	            $organigrama_persona=$this->db->query("SELECT organigrama_persona_id FROM tramite.organigrama_persona WHERE persona_id='$usu_creacion'")->row();
 	            //corregir error aqui organigrama
-				$organigrama_persona_id = 2;
+				$organigrama_persona_id = $organigrama_persona->organigrama_persona_id;
 				$tipo_documento_id = 1;
 				$tipo_tramite_id = $datos['tipo_tramite_id'];
 				$cite = $datos['cite'];
@@ -75,7 +76,8 @@ class Tipo_tramite extends CI_Controller {
 				$solicitante_id = $datos['solicitante_id'];
 				$observaciones = $datos['observaciones'];
 				$requisitos=$datos['requisitos'];
-				$this->tramite_model->insertar_tramite_nuevo($organigrama_persona_id, $tipo_documento_id, $tipo_tramite_id, $cite, $fecha, $fojas, $anexos, $remitente, $procedencia, $referencia, $usu_creacion, $adjunto, $destino, $correlativo, $gestion, $tipo_solicitante, $via_solicitud, $solicitante_id, $observaciones, $requisitos);
+				$tipo = $this->input->post('boton');
+				$this->tramite_model->insertar_tramite_nuevo($organigrama_persona_id, $tipo_documento_id, $tipo_tramite_id, $cite, $fecha, $fojas, $anexos, $remitente, $procedencia, $referencia, $usu_creacion, $adjunto, $destino, $correlativo, $gestion, $tipo_solicitante, $via_solicitud, $solicitante_id, $observaciones, $requisitos, $tipo);
 				$tramite = $this->db->query("SELECT * FROM tramite.tramite WHERE cite = '$cite'")->row();
 				$idTramite = $tramite->tramite_id;
 				
@@ -100,7 +102,7 @@ class Tipo_tramite extends CI_Controller {
 						redirect('Tipo_tramite/listado');
 					}
 				}
-				//$this->session->set_flashdata('in', $idTramite);	
+				$this->session->set_flashdata('in', $idTramite);	
 			}
 		}else{
 			redirect(base_url());
@@ -124,6 +126,7 @@ class Tipo_tramite extends CI_Controller {
 		$fuente = $datos_organigrama_persona[0]['organigrama_persona_id'];
 		// vdebug($datos_organigrama_persona, true, false, true);
 		$this->db->where('tramite.tramite.organigrama_persona_id', $fuente);
+		$this->db->where('tramite.activo', 1);
 		$this->db->order_by('tramite.tramite.fec_creacion', 'DESC');
 		$query = $this->db->get('tramite.tramite');
 		// vdebug($query, false, false, true);
@@ -190,7 +193,7 @@ class Tipo_tramite extends CI_Controller {
 		 	$valores['remitente']=NULL;
 		 	$valores['encontrados']=NULL;
 		    $this->load->view('admin/header');
-			$this->load->view('admin/menu');
+			$this->load->view('admin/menu');	
 			$this->load->view('tramites/busqueda', $valores);
 			$this->load->view('admin/footer');
 			$this->load->view('predios/index_js');
@@ -247,22 +250,69 @@ class Tipo_tramite extends CI_Controller {
         }
 	}
 
-	public function seguimiento($idTramite = null){
-		$data['flujo'] = $this->db->get_where('tramite.derivacion', array('tramite_id'=>$idTramite))->result_array();
-        //usuario que esta registrando
-        $id = $this->session->userdata("persona_perfil_id");
-        $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
-        $usu_creacion = $resi->persona_id;
-
-        $data['tramite'] = $this->db->get_where('tramite.tramite', array('tramite_id' => $idTramite))->row();
-
-        $this->load->view('admin/header');
-        $this->load->view('admin/menu');
-        $this->load->view('tramites/seguimiento', $data);
-        $this->load->view('admin/footer');
-        $this->load->view('predios/index_js');
-	}
 //++++++++++++++++++++++FIN DE BUSQUEDA DE TRAMITES++++++++++++++++++++++++++++++++
+
+//+++++++++++++++++++++++SEGUIMIENTO DE TRAMITES+++++++++++++++++++++++++++++++++
+	public function seguimiento($idTramite = null){
+		if($this->session->userdata("login")){
+            $data['flujo'] = $this->db->get_where('tramite.derivacion', array('tramite_id'=>$idTramite))->result_array();
+            //usuario que esta registrando
+            $id = $this->session->userdata("persona_perfil_id");
+            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+            $usu_creacion = $resi->persona_id;
+
+            $data['tramite'] = $this->db->get_where('tramite.tramite', array('tramite_id' => $idTramite))->row();
+            $data['tipo_tramite']= $this->db->query("SELECT tt.tramite FROM tramite.tramite tr JOIN tramite.tipo_tramite tt ON tr.tipo_tramite_id=tt.tipo_tramite_id  WHERE tr.tramite_id = '$idTramite'")->row();
+            $data['requisitos']= $this->db->query("SELECT tt.descripcion FROM tramite.tramite_requisito tr JOIN tramite.requisito tt ON tr.requisito_id=tt.requisito_id  WHERE tr.tramite_id = '$idTramite'")->result();
+            $data['cedula']=$this->db->query("SELECT cp.ci FROM tramite.tramite tr JOIN public.persona cp ON tr.solicitante_id=cp.persona_id  WHERE tr.tramite_id = '$idTramite'")->row();
+            $this->load->view('admin/header');
+	        $this->load->view('admin/menu');
+	        $this->load->view('tramites/seguimiento', $data);
+	        $this->load->view('admin/footer');
+	        $this->load->view('predios/index_js');
+        }else{
+            redirect(base_url());
+        }   
+		// $data['flujo'] = $this->db->get_where('tramite.derivacion', array('tramite_id'=>$idTramite))->result_array();
+  //       //usuario que esta registrando
+  //       $id = $this->session->userdata("persona_perfil_id");
+  //       $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+  //       $usu_creacion = $resi->persona_id;
+
+  //       $data['tramite'] = $this->db->get_where('tramite.tramite', array('tramite_id' => $idTramite))->row();
+
+  //       $this->load->view('admin/header');
+  //       $this->load->view('admin/menu');
+  //       $this->load->view('tramites/seguimiento', $data);
+  //       $this->load->view('admin/footer');
+  //       $this->load->view('predios/index_js');
+	}
+//+++++++++++++++++++++++FIN DE SEGUIMIENTO DE TRAMITES+++++++++++++++++++++++++
+
+//+++++++++++++++++++++++ELIMINAR TRAMITE++++++++++++++++++++++++++++++++++++++
+	public function eliminar_tramite($idTramite = null){
+		if($this->session->userdata("login")){
+            $id = $this->session->userdata("persona_perfil_id");
+            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+            $usu_creacion = $resi->persona_id;
+            $data = array(
+                'activo' => 0,
+                'usu_eliminacion' => $usu_creacion,
+                'fec_eliminacion' => date("Y-m-d H:i:s")
+                
+            );
+            $this->db->where('tramite_id', $idTramite);
+            $this->db->where('activo', 1);
+            $this->db->update('tramite.tramite', $data);
+            redirect(base_url().'tipo_tramite/listado');
+        }else{
+            redirect(base_url());
+        }
+	}
+//++++++++++++++++++++++FIN DE ELIMINAR TRAMITE++++++++++++++++++++++++++++++++
+
+
+
 		
 	public function update(){   
 		if($this->session->userdata("login")){
