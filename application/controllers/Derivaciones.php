@@ -1,3 +1,4 @@
+
 <?php
 class Derivaciones extends CI_Controller    
 {
@@ -8,13 +9,13 @@ class Derivaciones extends CI_Controller
         $this->load->library('session');
         $this->load->model('tipopredio_model');
         $this->load->model("logacceso_model");
-        $this->load->model("persona_model");
-        $this->load->model("derivaciones_model");
+        $this->load->model("Persona_model");
+        $this->load->model("Derivaciones_model");
         $this->load->model("Ddrr_model");
         $this->load->helper('url_helper');
         $this->load->helper('vayes_helper');
         $this->load->library('cart');
-        $this->load->model("rol_model");
+        $this->load->model("Rol_model");
         $this->load->library('email');
     }
 
@@ -207,7 +208,7 @@ class Derivaciones extends CI_Controller
         // vdebug($query, true, false, true);
 
         $data['mis_tramites'] = $query->result();
-        $data['verifica'] = $this->rol_model->verifica();
+        $data['verifica'] = $this->Rol_model->verifica();
         //var_dump($usu_creacion);
 
         $this->load->view('admin/header');

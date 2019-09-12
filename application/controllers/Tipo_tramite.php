@@ -6,8 +6,8 @@ class Tipo_tramite extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->library('session');
-		$this->load->model("tramite_model");
-		$this->load->model("derivaciones_model");
+		$this->load->model("Tramite_model");
+		$this->load->model("Derivaciones_model");
 		$this->load->model("rol_model");
         $this->load->helper('vayes_helper');
         $this->load->helper(array('form', 'url'));
@@ -77,7 +77,7 @@ class Tipo_tramite extends CI_Controller {
 				$observaciones = $datos['observaciones'];
 				$requisitos=$datos['requisitos'];
 				$tipo = $this->input->post('boton');
-				$this->tramite_model->insertar_tramite_nuevo($organigrama_persona_id, $tipo_documento_id, $tipo_tramite_id, $cite, $fecha, $fojas, $anexos, $remitente, $procedencia, $referencia, $usu_creacion, $adjunto, $destino, $correlativo, $gestion, $tipo_solicitante, $via_solicitud, $solicitante_id, $observaciones, $requisitos, $tipo);
+				$this->Tramite_model->insertar_tramite_nuevo($organigrama_persona_id, $tipo_documento_id, $tipo_tramite_id, $cite, $fecha, $fojas, $anexos, $remitente, $procedencia, $referencia, $usu_creacion, $adjunto, $destino, $correlativo, $gestion, $tipo_solicitante, $via_solicitud, $solicitante_id, $observaciones, $requisitos, $tipo);
 				$tramite = $this->db->query("SELECT * FROM tramite.tramite WHERE cite = '$cite'")->row();
 				$idTramite = $tramite->tramite_id;
 				

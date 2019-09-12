@@ -1,3 +1,4 @@
+
 <link rel="stylesheet" href="<?php echo base_url(); ?>public/assets/plugins/dropify/dist/css/dropify.min.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>public/assets/plugins/wizard/steps.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/pasos.css">
@@ -27,7 +28,7 @@
                         <!-- <h6 class="card-subtitle">Ingrese los datos del predio </h6> -->
                         <!-- <form action="#" class="validation-wizard wizard-circle"> -->
                         <?php // echo form_open('predios/guarda', array('method'=>'POST', 'enctype'=>"multipart/form-data")); ?>
-                        <?php echo form_open_multipart('tipo_tramite/do_upload', array('method'=>'POST')); ?>
+                        <?php echo form_open_multipart('Tipo_tramite/do_upload', array('method'=>'POST')); ?>
                             <h4 class="card-title">Registro de Tramite</h4>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
@@ -257,7 +258,7 @@
     {   
         $.ajax({
             type: "GET",
-            url: '<?php echo base_url(); ?>tipo_tramite/ajax_verifica1/',
+            url: '<?php echo base_url(); ?>Tipo_tramite/ajax_verifica1/',
             data: 'param1='+val,
             success: function(resp){
                 //alert(resp[resp.length]);
@@ -298,7 +299,7 @@
         var csrfName = '<?php echo $this->security->get_csrf_token_name(); ?>';
         var csrfHash = '<?php echo $this->security->get_csrf_hash(); ?>';
         $.ajax({
-            url: '<?php echo base_url(); ?>persona/ajax_verifica_cedula/',
+            url: '<?php echo base_url(); ?>Persona/ajax_verifica_cedula/',
             type: 'GET',
             dataType: 'json',
             data: {csrfName: csrfHash, param1: ci},

@@ -45,7 +45,7 @@
                                             <!-- <button type="button" class="btn btn-warning footable-edit" data-toggle="modal" data-target="#modalEdicion" onclick="agregarform('$lista->organigrama_persona_id')">
                                                     <span class="fas fa-pencil-alt" aria-hidden="true"></span>
                                             </button> -->
-                                            <a href= "<?php echo site_url('organigrama_persona/eliminar/'.$lista->organigrama_persona_id); ?>" type="button" title="Eliminar" class="eliminarorganigrama btn btn-danger footable-delete">
+                                            <a href= "<?php echo site_url('Organigrama_persona/eliminar/'.$lista->organigrama_persona_id); ?>" type="button" title="Eliminar" class="eliminarorganigrama btn btn-danger footable-delete">
                                                 <span class="fas fa-trash-alt" aria-hidden="true">
                                                 </span>
                                             </a>
@@ -68,7 +68,7 @@
                         <h4 class="modal-title" id="exampleModalLabel1">Insertar Nueva Asignacion de oficina</h4>
                     </div>
                     <div class="modal-body">
-                        <?php echo form_open('organigrama_persona/insertar', array('method'=>'POST')); ?>
+                        <?php echo form_open('Organigrama_persona/insertar', array('method'=>'POST')); ?>
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Personal</label>
                                 <select class="select2 " style="width: 100%" name="persona_id" id="persona_id">
@@ -117,7 +117,7 @@
                         <h4 class="modal-title" id="exampleModalLabel1">Editar asignaci&oacute;n</h4>
                     </div>
                     <div class="modal-body">
-                        <?php echo form_open('organigrama_persona/guardar_editado', array('method'=>'POST')); ?>
+                        <?php echo form_open('Organigrama_persona/guardar_editado', array('method'=>'POST')); ?>
                             <div class="form-group">
                                 <input type="text" hidden="" name="organigrama_persona_id">
                             </div>
@@ -353,7 +353,7 @@ $('#guardar_baja').click(function() {
        var organigramas = $("#organigrama_id1");
        var cargos = $("#cargo_id1");
       $.ajax({
-        url : "<?php echo site_url('organigrama_persona/editar_organigrama')?>/" + id,
+        url : "<?php echo site_url('Organigrama_persona/editar_organigrama')?>/" + id,
         type: "GET",
         dataType: "JSON",
         success: function(data)

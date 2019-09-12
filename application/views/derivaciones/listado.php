@@ -65,7 +65,7 @@
                                             <a href="<?php echo base_url(); ?>derivaciones/nuevo/<?php echo $mt->tramite_id; ?>" class="btn btn-success footable-edit" title="Derivar">
                                               <span class="fas fa-paper-plane" aria-hidden="true"></span>
                                             </a>
-                                            <a href="<?php echo base_url();?>derivaciones/archivar/<?php echo $mt->tramite_id;?>" class="btn btn-warning footable-edit" title="Archivar">
+                                            <a href="<?php echo base_url();?>derivaciones/archivar/<?php echo $mt->tramite_id;?>" class="eliminarorganigrama btn btn-warning footable-edit" title="Archivar">
                                                 <span class="fas fa-archive" aria-hidden="true"></span>
                                             </a>
                                             <a href="<?php echo base_url(); ?>derivaciones/ver/<?php echo $mt->tramite_id; ?>" class="btn btn-primary footable-edit" title="Seguimiento">
@@ -148,4 +148,28 @@
            ]
        });
        $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn btn-primary mr-1');
+</script>
+<script src="<?php echo base_url(); ?>public/assets/plugins/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript">
+    $('.eliminarorganigrama').on("click", function(e) {
+          e.preventDefault();
+          var url = $(this).attr('href');
+          Swal({
+          title: 'Está seguro?',
+          text: "No podrá recuperar una vez sea archivado!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+           cancelButtonText: "No, Cancelar!",
+          confirmButtonText: 'Si, archivar!'
+        }).then((result) => {
+          if (result.value) {
+                window.location.replace(url);
+                swal("Archivado!", "Su información ha sido archivado!", "success");
+          }else{
+            swal("Cancelado", "Su información no se archivo! :)", "error");
+          }
+        });
+    });    
 </script>
