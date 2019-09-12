@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class destino_bloque_model extends CI_Model {
+class Destino_bloque_model extends CI_Model {
 
 	public $variable;
 	
