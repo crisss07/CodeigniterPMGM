@@ -32,7 +32,7 @@ class Archivo extends CI_Controller {
 			$lista['predios'] = $this->db->query("SELECT * FROM catastro.predio")->result();
 
 			foreach ($lista['predios'] as $val) {
-					$car = 'C:\xampp\htdocs\CodeigniterPMGM\public/assets/archivos/'.$val->codcatas.'-'.$val->predio_id;
+					$car = '../public/assets/archivos/'.$val->codcatas.'-'.$val->predio_id;
 					$documentos = 'C:\xampp\htdocs\CodeigniterPMGM\public/assets/archivos/'.$val->codcatas.'-'.$val->predio_id.'/documentos';
 					$imagenes = 'C:\xampp\htdocs\CodeigniterPMGM\public/assets/archivos/'.$val->codcatas.'-'.$val->predio_id.'/imagenes';
 					$planos = 'C:\xampp\htdocs\CodeigniterPMGM\public/assets/archivos/'.$val->codcatas.'-'.$val->predio_id.'/planos';
