@@ -52,7 +52,7 @@ class Edificacion extends CI_Controller
             $data['predio_id'] = $predio_id;
             $this->load->view('admin/header');
             $this->load->view('admin/menu');
-            $this->load->view('bloque/edificacionView', $data);
+            $this->load->view('bloque/EdificacionView', $data);
             $this->load->view('bloque/validar');//footer
             //$this->load->view('admin/footer');
             $this->load->view('bloque/jtables');
@@ -191,7 +191,7 @@ class Edificacion extends CI_Controller
     {
         if ($this->session->userdata("login")) {
             $query = $this->db->query("UPDATE catastro.predio SET activo = 2 WHERE predio_id='$predio_id'");
-            redirect(base_url() . 'predios/nuevo/' . $predio_id);
+            redirect(base_url() . 'Predios/nuevo/' . $predio_id);
         } else {
             redirect(base_url());
         }
