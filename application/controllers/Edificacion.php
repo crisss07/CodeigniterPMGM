@@ -8,11 +8,11 @@ class Edificacion extends CI_Controller
         parent::__construct();
         $this->load->model("Edificacion_model");
         $this->load->library('session');
-        $this->load->model('tipopredio_model');
+        $this->load->model('Tipopredio_model');
         //$this->load->model("logacceso_model");
         $this->load->helper('url_helper');
         $this->load->helper('vayes_helper');
-        $this->load->model("rol_model");
+        $this->load->model("Rol_model");
         $this->load->library('pdf');
     }
     public function index()
