@@ -373,7 +373,7 @@ class Tipo_tramite extends CI_Controller {
 		}		
 	}
 
-	public function ajax_verifica1(){
+	/*public function ajax_verifica1(){
 		$ci = $this->input->get("param1");
 		// $this->db->where()
 		//$this->db->where('ci', $ci);
@@ -385,5 +385,42 @@ class Tipo_tramite extends CI_Controller {
 		
 		// $respuesta = array('ci'=>$ci, 'estado'=>'no');
 		echo json_encode($respuesta);
+	}*/
+
+	public function ajax_verifica1(){
+
+		$tramite_id = $this->input->get("param1");
+		$respuesta['persona'] = $this->db->query("SELECT requisito_id, descripcion FROM tramite.requisito WHERE tipo_tramite_id = '".$tramite_id."'")->result();
+
+		$busca_derivacion = $this->db->select('derivacion_id, tramite_id, fuente, destino, orden')->where('tramite_id', $tramite_id)->order_by('derivacion_id',"desc")->limit(1)->get('tramite.derivacion')->row_array();
+		if ($busca_derivacion) {
+			$siguiente = $busca_derivacion['orden']+1;
+			$siguiente_persona = $this->db->get_where('tramite.flujo', array('tipo_tramite_id'=>$tramite_id, 'orden'=>$siguiente))->row_array();	
+			if ($siguiente_persona) {
+				$organigrama_persona = $this->db->get_where('tramite.organigrama_persona', array('organigrama_persona_id'=>$siguiente_persona['organigrama_persona_id']))->row_array();	
+
+				$persona = $this->db->select('tramite.organigrama_persona.organigrama_persona_id, persona.nombre, persona.paterno, persona.materno, tramite.cargo.descripcion');
+					$this->db->from('tramite.organigrama_persona');
+					$this->db->join('persona', 'tramite.organigrama_persona.persona_id = persona.persona_id');
+					$this->db->join('tramite.cargo', 'tramite.organigrama_persona.cargo_id = cargo.cargo_id');
+					$this->db->where('organigrama_persona_id', $organigrama_persona['organigrama_persona_id']);
+					$q = $this->db->get()->result_array();
+				vdebug($q, true, false, true);
+				
+				$respuesta['persona_derivacion'] = $siguiente_persona;
+			} else {
+				// no tiene configuracion
+				$respuesta['persona_derivacion'] = '';
+			}
+			
+		} else {
+			// no tiene derivacion
+			$respuesta['persona_derivacion'] = '';
+		}
+
+		// $respuesta['persona_derivacion'] = $this->db->get_where('tramite.flujo', array('tipo_tramite_id'=>$ci))->result_array();
+
+		echo json_encode($respuesta);
 	}
+
 }
