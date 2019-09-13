@@ -54,7 +54,13 @@ class Login extends CI_Controller {
 		}
 		else{
 
-			if ($res->persona_perfil_id === '20') {
+			$iddd = $this->db->query("SELECT pf.*, p.*
+									FROM persona_perfil pf, perfil p
+									WHERE pf.persona_perfil_id = '$res->persona_perfil_id'
+									AND p.perfil_id = pf.perfil_id
+									AND p.perfil = 'Beneficiario'")->row();
+
+			if ($iddd) {
 					$data = array(
 					'persona_perfil_id' => $res->persona_perfil_id,
 					'rol_id' => $res->rol_id,
