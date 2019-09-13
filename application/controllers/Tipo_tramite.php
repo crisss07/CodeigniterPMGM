@@ -399,15 +399,15 @@ class Tipo_tramite extends CI_Controller {
 			if ($siguiente_persona) {
 				$organigrama_persona = $this->db->get_where('tramite.organigrama_persona', array('organigrama_persona_id'=>$siguiente_persona['organigrama_persona_id']))->row_array();	
 
-				$persona = $this->db->select('tramite.organigrama_persona.organigrama_persona_id, persona.nombre, persona.paterno, persona.materno, tramite.cargo.descripcion');
+				$persona = $this->db->select('tramite.organigrama_persona.organigrama_persona_id, persona.nombres, persona.paterno, persona.materno, tramite.cargo.descripcion');
 					$this->db->from('tramite.organigrama_persona');
 					$this->db->join('persona', 'tramite.organigrama_persona.persona_id = persona.persona_id');
 					$this->db->join('tramite.cargo', 'tramite.organigrama_persona.cargo_id = cargo.cargo_id');
 					$this->db->where('organigrama_persona_id', $organigrama_persona['organigrama_persona_id']);
 					$q = $this->db->get()->result_array();
-				vdebug($q, true, false, true);
+				// vdebug($q, true, false, true);
 				
-				$respuesta['persona_derivacion'] = $siguiente_persona;
+				$respuesta['persona_derivacion'] = $q;
 			} else {
 				// no tiene configuracion
 				$respuesta['persona_derivacion'] = '';
@@ -417,9 +417,7 @@ class Tipo_tramite extends CI_Controller {
 			// no tiene derivacion
 			$respuesta['persona_derivacion'] = '';
 		}
-
 		// $respuesta['persona_derivacion'] = $this->db->get_where('tramite.flujo', array('tipo_tramite_id'=>$ci))->result_array();
-
 		echo json_encode($respuesta);
 	}
 

@@ -119,12 +119,13 @@
                                 </div>
                                 <div class="col-md-12 form-group"> 
                                      <label >Derivar a </label>
-                                    <select class="custom-select form-control" id="destino" name="destino" />
+                                    <!-- <select class="custom-select form-control" id="destino" name="destino" />
                                         <option value=""></option>
-                                        <?php foreach ($personas as $key => $p): ?>
-                                            <option value="<?php echo $p['id'] ?>"><?php echo $p['nombre']; ?> - <?php echo $p['cargo']; ?> (<?php echo $p['unidad']; ?>)</option>
-                                        <?php endforeach ?>
-                                    </select>  
+                                        <?php //foreach ($personas as $key => $p): ?>
+                                            <option value="<?php //echo $p['id'] ?>"><?php ////echo $p['nombre']; ?> - <?php //echo $p['cargo']; ?> (<?php //echo $p['unidad']; ?>)</option>
+                                        <?php //endforeach ?>
+                                    </select>   -->
+                                    <div id="lbl_persona_derivacion"></div>
                                 </div>
                             </div>
                             <div class="row">
@@ -262,13 +263,17 @@
             data: 'param1='+val,
             success: function(resp){
                 //alert(resp[resp.length]);
-                asistente = JSON.parse(resp);
+                respuesta_requsitos = JSON.parse(resp);
+                asistente = respuesta_requsitos.persona
                 $('.borrar').remove();
                 for (var i = 0; i < asistente.length; i++) {
 
                     $('#listas').append('<div class="borrar"> <input type="checkbox" id="requisitos['+i+']" name="requisitos['+i+']" value="'+asistente[i]['requisito_id']+'"> '+asistente[i]['descripcion']+' </div>');
                     //console.log(asistente[i]['descripcion']);
                 }
+
+                $('#lbl_persona_derivacion').html('<h2>'+respuesta_requsitos.persona_derivacion[0]['nombres']+' '+respuesta_requsitos.persona_derivacion[0]['paterno']+' '+respuesta_requsitos.persona_derivacion[0]['materno']+' '+'<b>'+respuesta_requsitos.persona_derivacion[0]['descripcion']+'</b></h2>');
+                // console.log(respuesta_requsitos.persona_derivacion[0]['nombres']);
             }
         });
     }
