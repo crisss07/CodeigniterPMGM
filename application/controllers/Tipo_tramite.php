@@ -80,12 +80,68 @@ class Tipo_tramite extends CI_Controller {
 				$this->Tramite_model->insertar_tramite_nuevo($organigrama_persona_id, $tipo_documento_id, $tipo_tramite_id, $cite, $fecha, $fojas, $anexos, $remitente, $procedencia, $referencia, $usu_creacion, $adjunto, $destino, $correlativo, $gestion, $tipo_solicitante, $via_solicitud, $solicitante_id, $observaciones, $requisitos, $tipo);
 				$tramite = $this->db->query("SELECT * FROM tramite.tramite WHERE cite = '$cite'")->row();
 				$idTramite = $tramite->tramite_id;
+
+				//COMIENZO PARA CREAR CARPETA PARA EL ARCHIVO DIGITAL
+				if ($tipo_tramite_id === '1') {
+
+					$partes = explode("/", $cite); 
+					$citee = end($partes); 
+
+					$car = FCPATH.'public/assets/archivos/'.$citee;
+							if (!file_exists($car)) {
+					    		mkdir($car, 0777, true);
+
+					    		$nombre = $citee;
+								$array = array(
+								'nombre' =>$nombre,
+								'descripcion1' =>'descripcion1',
+								'descripcion2' =>'descripcion2',
+								'activo' =>1,
+								'carpeta' => 'carpeta'
+								);
+								$vari = $this->db->insert('archivo.raiz', $array);
+						}
+					$config['upload_path']      = './public/assets/archivos/'.$citee;
+					$config['file_name']        = $adjunto;
+					$config['allowed_types']    = 'pdf';
+					$config['overwrite']        = TRUE;
+					$config['max_size']         = 2048;
+
+					$id = $this->db->query("SELECT *
+											FROM archivo.raiz
+											WHERE nombre like '$citee'")->row();
+					$raiz_id = $id->raiz_id;
+					$url = './public/assets/archivos/'.$citee.'/'.$adjunto;
+
+					$array = array(
+								'nombre' =>$citee,
+								'descripcion1' =>'descripcion1',
+								'descripcion2' =>'descripcion2',
+								'raiz_id' =>$raiz_id,
+								'carpeta' =>'pdf',
+								'adjunto' =>$adjunto,
+								'extension' =>'pdf',
+								'url' =>$url,
+								'activo' => '1',
+								);
+
+							// var_dump($array);
+					$this->db->insert('archivo.documento', $array);
+
+				}
+				else
+				{
+					$config['upload_path']      = './public/assets/images/tramites';
+					$config['file_name']        = $adjunto;
+					$config['allowed_types']    = 'pdf';
+					$config['overwrite']        = TRUE;
+					$config['max_size']         = 2048;
+
+				}
+						
+				// HASTA AQUI
 				
-				$config['upload_path']      = './public/assets/images/tramites';
-				$config['file_name']        = $adjunto;
-				$config['allowed_types']    = 'pdf';
-				$config['overwrite']        = TRUE;
-				$config['max_size']         = 2048;
+				
 
 				$this->load->library('upload', $config);
 				if ( ! $this->upload->do_upload('adjunto')){
