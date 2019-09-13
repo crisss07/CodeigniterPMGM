@@ -104,7 +104,7 @@
                             <div class="row">
                                 
                                 <div class="col-md-6">
-                                    <button type="submit" name="boton" value="derivar" class="btn waves-effect waves-light btn-block btn-success">Generar y derivar</button>
+                                    <button type="submit" name="boton" value="derivar" class="btn waves-effect waves-light btn-block btn-success">Crear</button>
                                 </div>
                             </div>
                         </form>
