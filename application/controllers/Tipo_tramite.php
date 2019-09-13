@@ -114,7 +114,7 @@ class Tipo_tramite extends CI_Controller {
 					$url = './public/assets/archivos/'.$citee.'/'.$adjunto;
 
 					$array = array(
-								'nombre' =>$citee,
+								'nombre' =>$adjunto,
 								'descripcion1' =>'descripcion1',
 								'descripcion2' =>'descripcion2',
 								'raiz_id' =>$raiz_id,
