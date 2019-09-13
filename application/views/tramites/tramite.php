@@ -130,11 +130,11 @@
                                 </div>
                             </div>
                             <div class="row" id="bloque_botones">
-                                <div class="col-md-6">
+                                <!-- <div class="col-md-6">
                                     <button type="submit" name="boton" value="generar" class="btn waves-effect waves-light btn-block btn-info">Generar</button>
-                                </div>
-                                <div class="col-md-6">
-                                    <button type="submit" name="boton" value="derivar" class="btn waves-effect waves-light btn-block btn-success">Generar y derivar</button>
+                                </div> -->
+                                <div class="col-md-12">
+                                    <button type="submit" name="boton" value="derivar" class="btn waves-effect waves-light btn-block btn-success">Generar</button>
                                 </div>
                             </div>
                         </form>

@@ -43,15 +43,15 @@
                                 <div class="timer__label">Hora</div>
                             </div>
                             <div class="timer__section minutes">
-                                <div ><p id="minutos" class="minutos">48</p></div>
+                                <div style="font-size: 30px;"><p id="minutos" class="minutos">48</p></div>
                                 <div class="timer__label">Minutes</div>
                             </div>
                             <div class="timer__section seconds">
-                                <div ><p id="segundos" class="segundos">12</p></div>
+                                <div style="font-size: 30px;"><p id="segundos" class="segundos">12</p></div>
                                 <div class="timer__label">seconds</div>
                             </div>
                             <div class="timer__section days">
-                                <div class="timer__number"><p id="ampm" class="ampm">AM</p></div>
+                                <div style="font-size: 30px;"><p id="ampm" class="ampm">AM</p></div>
                                 
                             </div>
                         </div>
