@@ -126,9 +126,10 @@
                                         <?php //endforeach ?>
                                     </select>   -->
                                     <div id="lbl_persona_derivacion"></div>
+                                    <input type="hidden" name="destino" id="destino" value="">
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" id="bloque_botones">
                                 <div class="col-md-6">
                                     <button type="submit" name="boton" value="generar" class="btn waves-effect waves-light btn-block btn-info">Generar</button>
                                 </div>
@@ -272,7 +273,15 @@
                     //console.log(asistente[i]['descripcion']);
                 }
 
-                $('#lbl_persona_derivacion').html('<h2>'+respuesta_requsitos.persona_derivacion[0]['nombres']+' '+respuesta_requsitos.persona_derivacion[0]['paterno']+' '+respuesta_requsitos.persona_derivacion[0]['materno']+' '+'<b>'+respuesta_requsitos.persona_derivacion[0]['descripcion']+'</b></h2>');
+                if(respuesta_requsitos.persona_derivacion){
+                    $('#lbl_persona_derivacion').html('<h2>'+respuesta_requsitos.persona_derivacion[0]['nombres']+' '+respuesta_requsitos.persona_derivacion[0]['paterno']+' '+respuesta_requsitos.persona_derivacion[0]['materno']+' '+'<b>'+respuesta_requsitos.persona_derivacion[0]['descripcion']+'</b></h2>');
+                    $('#destino').val(respuesta_requsitos.persona_derivacion[0]['organigrama_persona_id']);
+                    $('#bloque_botones').show();
+                }else{
+                    $('#lbl_persona_derivacion').html('No tiene las configuraciones');
+                    $('#bloque_botones').hide();
+                }
+
                 // console.log(respuesta_requsitos.persona_derivacion[0]['nombres']);
             }
         });
