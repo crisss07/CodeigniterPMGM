@@ -99,14 +99,14 @@
                                         </div>
                                     </div>
 
+                                    <!-- datos catastrales -->
                                     <div class="row">
-
                                         <div class="col-md-12">
                                             <div class="card card-outline-info">
-                                                <div class="card-header">
+                                                <div class="card-header" onclick="muestraDatosCatastrales();">
                                                     <h4 class="mb-0 text-white">DATOS CATASTRALES</h4>
                                                 </div>
-                                                <div class="card-body">
+                                                <div class="card-body" style="display: block;" id="bloqueDatosCatastrales">
                                                     <!-- primera fila -->
                                                     <div class="row">
 
@@ -210,14 +210,14 @@
                                         </div>
                                     </div>
 
-
+                                    <!-- datos superficie -->
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="card card-outline-success">
-                                                <div class="card-header">
+                                            <div class="card card-outline-info">
+                                                <div class="card-header"  onclick="muestraDatosSuperficie();">
                                                     <h4 class="mb-0 text-white">DATOS SUPERFICIE</h4>
                                                 </div>
-                                                <div class="card-body">
+                                                <div class="card-body" style="display: none;" id="bloqueDatosSuperficie">
                                                     <div class="row">
 
                                                         <div class="col-md-4">
@@ -247,13 +247,14 @@
                                         </div>
                                     </div>
 
+                                    <!-- datos predio -->
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="card card-outline-inverse">
-                                                <div class="card-header">
+                                            <div class="card card-outline-info">
+                                                <div class="card-header" onclick="muestraDatosPredio();">
                                                     <h4 class="mb-0 text-white">DATOS PREDIO</h4>
                                                 </div>
-                                                <div class="card-body">
+                                                <div class="card-body" style="display: none;" id="bloqueDatosPredio">
                                                     <div class="row">
 
                                                         <div class="col-md-3">
@@ -418,14 +419,15 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    
+                                    <!-- servicios basicos -->
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="card card-outline-danger">
-                                                <div class="card-header">
+                                            <div class="card card-outline-info">
+                                                <div class="card-header" onclick="muestraServiciosBasicos();">
                                                     <h4 class="mb-0 text-white">SERVICIOS BASICOS</h4>
                                                 </div>
-                                                <div class="card-body">
+                                                <div class="card-body" style="display: none;" id="bloqueServiciosBasicos">
 
                                                     <div class="row">
                                                         <div class="col">
@@ -926,5 +928,24 @@ function elimina_fila_tabla(fila){
 function getGeneraRandom(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
+
+function muestraDatosCatastrales() {
+    $('#bloqueDatosCatastrales').toggle('slow');
+}
+
+function muestraDatosSuperficie() {
+    $('#bloqueDatosSuperficie').toggle('slow');
+}
+
+function muestraDatosPredio() {
+    $('#bloqueDatosPredio').toggle('slow');
+}
+
+function muestraServiciosBasicos() {
+    $('#bloqueServiciosBasicos').toggle('slow');
+}
+
+
+
 
 </script>
