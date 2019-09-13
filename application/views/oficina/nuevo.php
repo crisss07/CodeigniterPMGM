@@ -3,10 +3,10 @@
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
         <div class="page-cover text-center">
-            <h2 class="page-cover-tittle f_48">Elements</h2>
+            <h2 class="page-cover-tittle f_48">Iniciar tramite</h2>
             <ol class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Elements</li>
+                <li><a href="index.html">Nuevo</a></li>
+                <li class="active">Tramite</li>
             </ol>
         </div>
     </div>
@@ -47,7 +47,7 @@
                                 <input type="text" name="first_name" required class="single-input">
                             </div>
                         </div>
-                        <div class="row row_alinaer">
+                        <!-- <div class="row row_alinaer">
                             <div class="col-lg-2 alinear">.................</div>
                             <div class="col-lg-10">
                                 <input type="text" name="first_name" required class="single-input">
@@ -58,16 +58,16 @@
                             <div class="col-lg-10">
                                 <input type="text" name="first_name" required class="single-input">
                             </div>
-                        </div>
+                        </div> -->
                     </form>
                 </div>
                 <div class="col-lg-3 col-md-4 mt-sm-30 element-wrap">
                     <div class="blog_right_sidebar">
                 
                         <aside class="single-sidebar-widget newsletter_widget">
-                            <h4 class="widget_title">Newsletter</h4>
+                            <h4 class="widget_title">Tramite</h4>
                             <p>
-                            Here, I focus on a range of items and features that we use in life without giving them a second thought.
+                                Para iniciar un nuevo tramite, necesita el numero de folio, una vez finalizado, apersonarse por las oficinas de catastro para continuar con el tramite, con los documentos originales
                             </p>
                             <div class="br"></div>                          
                         </aside>

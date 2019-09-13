@@ -31,7 +31,7 @@
                         <div class="col-sm-6 col-7">
                             <div class="top_btn d-flex justify-content-end">
                                
-                                <a href="#">Iniciar sesion</a>
+                               <!--  <a href="#">Iniciar sesion</a> -->
                             </div>
                         </div>
                     </div>
@@ -57,15 +57,15 @@
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tramites</a>
                                 <ul class="dropdown-menu" style="width: 300px;">
                                     <li class="nav-item" ><a class="nav-link" href="<?php echo base_url(); ?>oficina_virtual/nuevo">Iniciar tramite</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>oficina_virtual/seguimiento">Seguimiento de tramites</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>oficina_virtual/inspecciones">Inspecciones</a></li>
-                                    <li class="nav-item"><a class="nav-link" target="_blank" href="<?php echo base_url(); ?>oficina_virtual/certificado">Certificado catastral</a></li>
+                                    <!-- <li class="nav-item"><a class="nav-link" href="<?php //echo base_url(); ?>oficina_virtual/seguimiento">Seguimiento de tramites</a></li>
+ -->                                    <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>oficina_virtual/inspecciones">Inspecciones</a></li>
+                                    <!-- <li class="nav-item"><a class="nav-link" target="_blank" href="<?php echo base_url(); ?>oficina_virtual/certificado">Certificado catastral</a></li> -->
                                 </ul>
                             </li> 
-                            <li class="nav-item"><a class="nav-link" href="contact.html">Consultas</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contact.html">Contacto</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contact.html">Consultas</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contact.html">Consultas</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Consultas</a></li>
+ <!--                           <li class="nav-item"><a class="nav-link" href="#contact.html">Contacto</a></li>
+                             <li class="nav-item"><a class="nav-link" href="contact.html">Consultas</a></li>
+                            <li class="nav-item"><a class="nav-link" href="contact.html">Consultas</a></li> -->
 
                         </ul>
                         <!-- <ul class="nav navbar-nav navbar-right">

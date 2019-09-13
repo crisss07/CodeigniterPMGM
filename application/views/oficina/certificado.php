@@ -169,9 +169,9 @@
 
 </head>
 <body>
-	<div id="watermark">
+	<!-- <div id="watermark">
             SIN VALOR LEGAL
-        </div>
+        </div> -->
     <div class="encabezado">
 
               <table width="100%" class="bordes">
@@ -375,9 +375,17 @@
          
                 
              
-            </td>            
+            </td>   
+             <td align="right" style="width: 80%;" class="pie_pagina">
+     
+           
+           <img style="width: 70px; height: 70px;" class="box-center" src="<?php echo base_url() . "public/assets/images/oficina/codigos/" . $img ?>" />
+                
+             
+            </td>           
         </tr>
     </table>
 </div>
+ 
 </body>
 </html>

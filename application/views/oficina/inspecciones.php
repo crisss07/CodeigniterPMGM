@@ -2,10 +2,10 @@
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
         <div class="page-cover text-center">
-            <h2 class="page-cover-tittle f_48">Elements</h2>
+            <h2 class="page-cover-tittle f_48">Inspecciones</h2>
             <ol class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Elements</li>
+                <li><a href="#">Inpeccion</a></li>
+                <li class="active">Tramites</li>
             </ol>
         </div>
     </div>

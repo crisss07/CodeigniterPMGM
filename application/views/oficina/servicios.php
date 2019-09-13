@@ -2,10 +2,10 @@
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
         <div class="page-cover text-center">
-            <h2 class="page-cover-tittle f_48">Elements</h2>
+            <h2 class="page-cover-tittle f_48">Servicios en linea</h2>
             <ol class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Elements</li>
+                <li><a href="index.html">Servicios</a></li>
+                <li class="active">Tramites</li>
             </ol>
         </div>
     </div>
@@ -19,11 +19,11 @@
                                  <div class="br"></div>
                                 <img class="author_img" style="width: 80px; height: 80px;" src="<?php echo base_url(); ?>public/assets/images/oficina/documento.png" alt="">
                                 <br>
-                                <h4>CERTIFICACIÓN DE NO INSCRIPCIÓN DE INMUEBLE(CARTA DE NO PROPIEDAD)</h4>
+                                <h4>CERTIFICADO CATASTRAL</h4>
                                 <br>
                                 <h4 class="widget_title" style="color: white;">Tasa por servicio <br>Bs 50</h4>
                                 <br>
-                                <a href="#" class="genric-btn primary-border circle">Solicitar</a>
+                                <a href="<?php echo base_url(); ?>oficina_virtual/certificado" target="_blank" class="genric-btn primary-border circle">Solicitar</a>
                                 <!-- <p>Boot camps have its supporters andit sdetractors. Some people do not understand why you should have to spend money on boot camp when you can get. Boot camps have itssuppor ters andits detractors.</p> -->
                                
                                 <div class="br"></div>

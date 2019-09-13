@@ -15,7 +15,6 @@ class Oficina_virtual extends CI_Controller
     public function index(){
         if ($this->session->userdata("login")) {
         	$this->load->view('oficina/header');
-            
             $this->load->view('oficina/inicio');
             $this->load->view('oficina/footer');
         }else{
@@ -142,6 +141,31 @@ WHERE predio_id=50 ORDER BY b.nro_bloque")->result();
         $data['mes_l']= $mes;
         $data['anio']=date('Y');         
         $dia =  $days_dias[date('l')];
+
+        $key = "";
+        $caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        //aquí podemos incluir incluso caracteres especiales pero cuidado con las ‘ y “ y algunos otros
+        $length = 5;
+        $max = strlen($caracteres) - 1;
+        for ($i=0;$i<$length;$i++) {
+            $key .= substr($caracteres, rand(0, $max), 1);
+        }
+        
+        $this->load->library('ciqrcode');
+        $params['data'] = "Codigo catastral: 00-34-125-024-0-00-000-000   Propietario: HERNAN YUCRA MASIAS localhost/CodeigniterPMGM/oficina_virtual/certificacion/".$key ;
+        $params['level'] = 'A';
+        $params['size'] = 6;
+
+        //decimos el directorio a guardar el codigo qr, en este 
+        //caso una carpeta en la raíz llamada qr_code
+        $params['savename'] = FCPATH . "public/assets/images/oficina/codigos/qr_2.png";
+        //generamos el código qr
+        $this->ciqrcode->generate($params);
+
+        $data['img'] = "qr_2.png";
+
+
+
         $this->load->view('oficina/certificado',$data);
         $html = $this->output->get_output();
         $this->load->library('pdf');
@@ -151,5 +175,30 @@ WHERE predio_id=50 ORDER BY b.nro_bloque")->result();
         $this->dompdf->render();
         $this->dompdf->stream("welcome.pdf", array("Attachment"=>0));
     } 
+
+    public function generar_clave (){
+
+        $key = "";
+        $caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        //aquí podemos incluir incluso caracteres especiales pero cuidado con las ‘ y “ y algunos otros
+        $length = 5;
+        $max = strlen($caracteres) - 1;
+        for ($i=0;$i<$length;$i++) {
+            $key .= substr($caracteres, rand(0, $max), 1);
+        }
+        return $key;
+    }
+
+    public function certificacion($clave=NULL){
+        if ($this->session->userdata("login")) {
+            $datos['tramites'] = $this->db->query("SELECT tipo_tramite_id, tramite FROM tramite.tipo_tramite WHERE activo=1 ORDER BY tramite")->result();
+            $this->load->view('oficina/header');
+            
+            $this->load->view('oficina/certificacion');
+            //$this->load->view('oficina/footer');
+        }else{
+            redirect(base_url());
+        }
+    }
 
 }
