@@ -58,7 +58,10 @@
                                     <div class="card-body">
                                         <h4 class="card-title">Bloques Registrados</h4>
 
-                              
+                                        <div class="card-body">
+                                <h4 class="card-title">A basic message <small>(Click on image)</small> </h4>
+                            
+                            </div>
 
 
                                         <h6 class="card-subtitle">...</h6>
@@ -96,8 +99,9 @@
                                                             <a <?php echo $verifica['baja'];?>="<?php echo site_url('Edificacion/delete'); ?>/<?php echo $row->bloque_id; ?>/<?php echo $row->predio_id; ?>"><button type="button" class="btn btn-danger" ><span class="fas fa-trash-alt" aria-hidden="true"></span></button></a>
                                                        
 
-                                                              
-                                                                
+                                                               <button type="submit" class="btn btn-danger remove"  >
+                                                                <span class="fas fa-trash-alt" aria-hidden="true"></span>
+                                                              </button>
                                                         </td>
                                                     </tr>
                                                     <?php 
