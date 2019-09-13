@@ -53,7 +53,21 @@ class Login extends CI_Controller {
 			redirect(base_url());
 		}
 		else{
-			$data = array(
+
+			if ($res->persona_perfil_id === '20') {
+					$data = array(
+					'persona_perfil_id' => $res->persona_perfil_id,
+					'rol_id' => $res->rol_id,
+					'usuario' => $res->usuario,
+					'login' => TRUE
+				);
+				$this->session->set_userdata($data);
+				redirect(base_url()."Oficina_virtual/index");
+			}
+			else
+			{
+
+				$data = array(
 				'persona_perfil_id' => $res->persona_perfil_id,
 				'rol_id' => $res->rol_id,
 				'usuario' => $res->usuario,
@@ -61,6 +75,9 @@ class Login extends CI_Controller {
 			);
 			$this->session->set_userdata($data);
 			redirect(base_url()."Predios/index");
+
+			}
+			
 		
 		}
 		
