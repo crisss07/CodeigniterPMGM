@@ -8,8 +8,8 @@ class Prueba extends CI_Controller {
         $this->load->model("AllBloque_model");
         //Cargamos la librería JSON-PHP
        
-        $this->load->model("inspecciones/inspeccion_model");
-        $this->load->model("rol_model");
+        $this->load->model("inspecciones/Inspeccion_model");
+        $this->load->model("Rol_model");
     }
 
     public function principal()    
@@ -208,8 +208,8 @@ class Prueba extends CI_Controller {
 
     public function lis1(){//listado de asignaciones pendientes no concluidas
         if($this->session->userdata("login")){
-        $lista['verifica'] = $this->rol_model->verifica();
-        $lista['asignacion'] = $this->inspeccion_model->index();
+        $lista['verifica'] = $this->Rol_model->verifica();
+        $lista['asignacion'] = $this->Inspeccion_model->index();
         $this->load->view('admin/header');
         $this->load->view('admin/menu');
         $this->load->view('inspecciones/listado', $lista);

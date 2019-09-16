@@ -9,7 +9,7 @@ class Inspeccion extends CI_Controller {
 		$this->load->library('session');
 		$this->load->model("Inspecciones_model");
 		$this->load->model("Derivaciones_model");
-		$this->load->model("rol_model");
+		$this->load->model("Rol_model");
         $this->load->helper('vayes_helper');
         $this->load->helper(array('form', 'url'));
     }
@@ -21,8 +21,7 @@ class Inspeccion extends CI_Controller {
 		}
 		else{
 			redirect(base_url());
-        }	
-		
+        }			
 	}	
 
 
@@ -35,7 +34,7 @@ class Inspeccion extends CI_Controller {
             $dato = $resi->persona_id;
             $res = $this->db->get_where('persona', array('persona_id' => $dato))->row();
             $consulta = $this->db->query("SELECT organigrama_persona_id FROM tramite.organigrama_persona WHERE fec_baja is NULL AND persona_id = '$res->persona_id'")->row();
-            $ids['personas'] = $this->derivaciones_model->personal($resi->persona_id);
+            $ids['personas'] = $this->Derivaciones_model->personal($resi->persona_id);
             if ($consulta) {
             	$ids['idss'] = $consulta->organigrama_persona_id;
             	$this->load->view('admin/header');
@@ -137,7 +136,7 @@ class Inspeccion extends CI_Controller {
 		    $zonaurb_id = $this->input->post('zonaurb_id');
 		    $descripcion = $this->input->post('descripcion');
 		   // var_dump($zonaurb_id);
-		    $actualizar = $this->zona_urbana_model->actualizar($zonaurb_id, $descripcion, $usu_modificacion, $fec_modificacion);
+		    $actualizar = $this->Zona_urbana_model->actualizar($zonaurb_id, $descripcion, $usu_modificacion, $fec_modificacion);
 		  	redirect('Zona_urbana');
 		}
 		else{
@@ -156,7 +155,7 @@ class Inspeccion extends CI_Controller {
 	        $fec_eliminacion = date("Y-m-d H:i:s"); 
 
 		    $u = $this->uri->segment(3);
-		    $this->zona_urbana_model->eliminar($u, $usu_eliminacion, $fec_eliminacion);
+		    $this->Zona_urbana_model->eliminar($u, $usu_eliminacion, $fec_eliminacion);
 		    redirect('Zona_urbana');
 		}
 		else{
@@ -246,7 +245,7 @@ class Inspeccion extends CI_Controller {
 			$data['lista'] = $this->Inspecciones_model->get_lista_asign(); 
 		}
 
-		$data['verifica'] = $this->rol_model->verifica();  
+		$data['verifica'] = $this->Rol_model->verifica();  
 		$this->db->where('perfil_id', 5);
 		$inspectores = $this->db->get('persona_perfil')->result();
 		$array_inspectores = array();
@@ -280,7 +279,7 @@ class Inspeccion extends CI_Controller {
 		//$id_user=$resi[0]['persona_id'];
 		//$data['lista'] = $this->Inspecciones_model->get_lista(); 
 		$data['lista'] = $this->Inspecciones_model->get_lista_asign_id($idp); 
-		$data['verifica'] = $this->rol_model->verifica();
+		$data['verifica'] = $this->Rol_model->verifica();
 		$this->load->view('admin/header');
 		$this->load->view('admin/menu');
 		$this->load->view('inspecciones/lista_asignid', $data);
