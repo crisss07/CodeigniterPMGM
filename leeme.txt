@@ -1,0 +1,6 @@
+========
+solucion al error de los reportes en linux
+
+en consola Debian / Ubuntu instalar
+
+sudo apt-get install php-dom
