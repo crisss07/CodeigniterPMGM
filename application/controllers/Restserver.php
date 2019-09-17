@@ -11,9 +11,6 @@ class Restserver extends CI_Controller{
         REST_Controller::__construct as private __resTraitConstruct;
     }
 
-   
-    
-
     public function test_get(){
         $this->load->model("Edificacion_model");
         //$array = array("Hola","Mundo","Codeigniter");
@@ -36,6 +33,32 @@ class Restserver extends CI_Controller{
         {
             $this->response(NULL, 404);
         }
+    }
+
+    public function menu_get(){
+        $this->load->model("ApiRest_model");
+        //$array = array("Hola","Mundo","Codeigniter");
+        //$this->response($this->Edificacion_model->get_Bloque());
+        //$this->response($array);       
+        $user = array('respuesta' => $this->ApiRest_model->getdata( 7));
+        if($user)
+        {
+            $this->response( $user, 200); // 200 being the HTTP response code
+        } 
+        else
+        {
+            $this->response(NULL, 404);
+        }
+    }
+    
+    public function users_post()
+    {
+        $message = [            
+            'name' => $this->post('name'),
+            'email' => $this->post('email'),
+            'message' => $this->post('message')
+        ];
+        $this->set_response($message, REST_Controller::HTTP_CREATED);
     }
     
 }
