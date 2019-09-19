@@ -126,7 +126,12 @@
                                         <?php //endforeach ?>
                                     </select>   -->
                                     <div id="lbl_persona_derivacion"></div>
-                                    <input type="hidden" name="destino" id="destino" value="">
+                                    
+                                    
+                                        <select class="custom-select form-control" id="destino" name="destino" />
+                                            
+                                        </select>
+                                    
                                 </div>
                             </div>
                             <div class="row" id="bloque_botones">
@@ -263,24 +268,37 @@
             url: '<?php echo base_url(); ?>Tipo_tramite/ajax_verifica1/',
             data: 'param1='+val,
             success: function(resp){
+                //alert(resp)
                 //alert(resp[resp.length]);
                 respuesta_requsitos = JSON.parse(resp);
                 asistente = respuesta_requsitos.persona
                 $('.borrar').remove();
                 for (var i = 0; i < asistente.length; i++) {
+                    //alert(asistente[i]['requisito_id']);
+                     $('#listas').append('<div class="borrar"> <input type="checkbox" id="requisitos['+i+']" name="requisitos['+i+']" value="'+asistente[i]['requisito_id']+'"> '+asistente[i]['descripcion']+' </div>');
+                //     //console.log(asistente[i]['descripcion']);
+                 }
+                 derivado = respuesta_requsitos.derivacion
+                 //alert(derivado);
+                //$('.borrar').remove();
+                $('.borrar1').remove();
+                for (var j = 0; j < derivado.length; j++) {
+                   // alert(derivado.length);
+                    //alert(derivado[i]['nombre']);
+                     //$('#destino').html('<option value="'+$derivado[i]['organigrama_persona_id']+'">'+$derivado[i]['nombre']+'-'+$derivado[i]['unidad']+'('+$derivado[i]['descripcion']+')</option>');
+                     
+                     $('#destino').append('<option class="borrar" value="">'+derivado[j]['nombre']+'</option>'); 
+                //     //console.log(asistente[i]['descripcion']);
+                 }
 
-                    $('#listas').append('<div class="borrar"> <input type="checkbox" id="requisitos['+i+']" name="requisitos['+i+']" value="'+asistente[i]['requisito_id']+'"> '+asistente[i]['descripcion']+' </div>');
-                    //console.log(asistente[i]['descripcion']);
-                }
-
-                if(respuesta_requsitos.persona_derivacion){
-                    $('#lbl_persona_derivacion').html('<h2>'+respuesta_requsitos.persona_derivacion[0]['nombres']+' '+respuesta_requsitos.persona_derivacion[0]['paterno']+' '+respuesta_requsitos.persona_derivacion[0]['materno']+' '+'<b>'+respuesta_requsitos.persona_derivacion[0]['descripcion']+'</b></h2>');
-                    $('#destino').val(respuesta_requsitos.persona_derivacion[0]['organigrama_persona_id']);
-                    $('#bloque_botones').show();
-                }else{
-                    $('#lbl_persona_derivacion').html('No tiene las configuraciones');
-                    $('#bloque_botones').hide();
-                }
+                // if(respuesta_requsitos.persona_derivacion){
+                //     $('#lbl_persona_derivacion').html('<h2>'+respuesta_requsitos.persona_derivacion[0]['nombres']+' '+respuesta_requsitos.persona_derivacion[0]['paterno']+' '+respuesta_requsitos.persona_derivacion[0]['materno']+' '+'<b>'+respuesta_requsitos.persona_derivacion[0]['descripcion']+'</b></h2>');
+                //     $('#destino').val(respuesta_requsitos.persona_derivacion[0]['organigrama_persona_id']);
+                //     $('#bloque_botones').show();
+                // }else{
+                //     $('#lbl_persona_derivacion').html('No tiene las configuraciones');
+                //     $('#bloque_botones').hide();
+                // }
 
                 // console.log(respuesta_requsitos.persona_derivacion[0]['nombres']);
             }
