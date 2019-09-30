@@ -22,4 +22,8 @@ class ApiRest_model extends CI_Model {
         $query = $this->db->query("SELECT grupo_mat_id,descripcion as texto FROM catastro.bloque_mat_item WHERE activo=1 and grupo_mat_id=$id");
         return $query->result_array();
     }
+    function getlistadotramite() {//obtiene los datos de la tabla tipo_predio en array result
+        $query = $this->db->query('SELECT tramite as texto  FROM tramite.tipo_tramite where activo=1  ');
+        return $query->result_array();
+    }
 }

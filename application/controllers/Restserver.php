@@ -83,6 +83,23 @@ class Restserver extends CI_Controller{
             $this->response(NULL, 404);
         }
     }
+
+    public function listramite_get(){
+        $this->load->model("ApiRest_model");
+        //$array = array("Hola","Mundo","Codeigniter");
+        //$this->response($this->Edificacion_model->get_Bloque());
+        //$this->response($array);       
+        $user = array('respuesta' => $this->ApiRest_model->getlistadotramite());
+         //$user = $this->ApiRest_model->getdata( 7);
+        if($user)
+        {
+            $this->response( $user, 200); // 200 being the HTTP response code
+        } 
+        else
+        {
+            $this->response(NULL, 404);
+        }
+    }
     public function users_post()
     {
         $message = [            
