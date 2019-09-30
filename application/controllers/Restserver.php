@@ -50,7 +50,39 @@ class Restserver extends CI_Controller{
             $this->response(NULL, 404);
         }
     }
+
+      public function tramites_get(){
+        $this->load->model("ApiRest_model");
+        //$array = array("Hola","Mundo","Codeigniter");
+        //$this->response($this->Edificacion_model->get_Bloque());
+        //$this->response($array);       
+        $user = array('respuesta' => $this->ApiRest_model->getGrupos());
+        if($user)
+        {
+            $this->response( $user, 200); // 200 being the HTTP response code
+        } 
+        else
+        {
+            $this->response(NULL, 404);
+        }
+    }
     
+      public function subgrupos_get(){
+        $id = $this->get('id');
+        $this->load->model("ApiRest_model");
+        //$array = array("Hola","Mundo","Codeigniter");
+        //$this->response($this->Edificacion_model->get_Bloque());
+        //$this->response($array);       
+        $user = array('respuesta' => $this->ApiRest_model->getSubgrupos($id));
+        if($user)
+        {
+            $this->response( $user, 200); // 200 being the HTTP response code
+        } 
+        else
+        {
+            $this->response(NULL, 404);
+        }
+    }
     public function users_post()
     {
         $message = [            
