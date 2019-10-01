@@ -23,7 +23,12 @@ class ApiRest_model extends CI_Model {
         return $query->result_array();
     }
     function getlistadotramite() {//obtiene los datos de la tabla tipo_predio en array result
-        $query = $this->db->query('SELECT tramite as texto  FROM tramite.tipo_tramite where activo=1  ');
+        $query = $this->db->query('SELECT tipo_tramite_id as id,tramite as texto  FROM tramite.tipo_tramite where activo=1 ORDER BY id ');
+        return $query->result_array();
+    }
+     function getRequisitos($id) {//obtiene los datos de la tabla tipo_predio en array result
+        
+        $query = $this->db->query("SELECT descripcion FROM tramite.requisito where activo=1 and tipo_tramite_id=$id");
         return $query->result_array();
     }
 }
