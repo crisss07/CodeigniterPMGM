@@ -72,7 +72,7 @@
                                 </div>
                             </div>
                            
-                            <input type="text" name="solicitante_id" id="solicitante_id" required class="single-input">
+                            <input type="hidden" name="solicitante_id" id="solicitante_id" required class="single-input">
                                
                             <div class="row row_alinaer">
                                 <div class="col-lg-3 alinear">Tipo de solicitante : </div>
@@ -82,7 +82,7 @@
                                             <select id="tipo_solicitante" name="tipo_solicitante">
                                                 <option selected="">Escoger</option>
                                                 <option value="Propietario">Propietario</option>
-                                                <option value="Legal">Legal</option>
+                                                <option value="Juridico">Juridico</option>
                                                 
                                             </select>
                                         </div>

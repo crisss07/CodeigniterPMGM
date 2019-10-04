@@ -71,10 +71,14 @@ class Oficina_virtual extends CI_Controller
     }
 
     public function nuevo(){
-        if ($this->session->userdata("login")) {    
+        if ($this->session->userdata("login")) {   
+            $id = $this->session->userdata("persona_perfil_id");
+            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+            $dato = $resi->persona_id;
+            $data['nombre']=$this->db->query("SELECT nombres||' '||paterno||' '||materno nombre FROM public.persona WHERE persona_id='$dato'")->row();
+            $data['logueado']= "si"; 
             $datos['tramites'] = $this->db->query("SELECT tipo_tramite_id, tramite FROM tramite.tipo_tramite WHERE activo=1 ORDER BY tramite")->result();
-            $this->load->view('oficina/header');
-            
+            $this->load->view('oficina/header', $data);
             $this->load->view('oficina/nuevo', $datos);
             $this->load->view('oficina/footer');
         }else{
@@ -84,13 +88,17 @@ class Oficina_virtual extends CI_Controller
 
     public function seguimiento(){
         if ($this->session->userdata("login")) {  
-            $this->load->view('oficina/header');
-            
+            $id = $this->session->userdata("persona_perfil_id");
+            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+            $dato = $resi->persona_id;
+            $data['nombre']=$this->db->query("SELECT nombres||' '||paterno||' '||materno nombre FROM public.persona WHERE persona_id='$dato'")->row();
+            $data['logueado']= "si";
+        }else{
+            $data['logueado']= "no";
+        }
+            $this->load->view('oficina/header', $data);
             $this->load->view('oficina/seguimiento');
             $this->load->view('oficina/footer');
-        }else{
-            redirect(base_url());
-        }
     }
 
     public function inspecciones(){
@@ -173,21 +181,10 @@ class Oficina_virtual extends CI_Controller
         $this->dompdf->set_option('isRemoteEnabled', TRUE);  
         $this->dompdf->setPaper('letter', 'portrait');
         $this->dompdf->render();
-        $this->dompdf->stream("welcome.pdf", array("Attachment"=>0));
+        $this->dompdf->stream("certificado.pdf", array("Attachment"=>0));
     } 
 
-    public function generar_clave (){
-        $key = "";
-        $caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        //aquí podemos incluir incluso caracteres especiales pero cuidado con las ‘ y “ y algunos otros
-        $length = 5;
-        $max = strlen($caracteres) - 1;
-        for ($i=0;$i<$length;$i++) {
-            $key .= substr($caracteres, rand(0, $max), 1);
-        }
-        return $key;
-    }
-
+    
     public function certificacion($clave=NULL){
         if ($this->session->userdata("login")) {
             $datos['tramites'] = $this->db->query("SELECT tipo_tramite_id, tramite FROM tramite.tipo_tramite WHERE activo=1 ORDER BY tramite")->result();
