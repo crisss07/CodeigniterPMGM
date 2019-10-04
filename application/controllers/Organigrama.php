@@ -7,11 +7,11 @@ class Organigrama extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model("organigrama_model");
+        $this->load->model("Organigrama_model");
         $this->load->library('session');
         $this->load->helper('url_helper');
         $this->load->helper('vayes_helper');
-        $this->load->model("rol_model");
+        $this->load->model("Rol_model");
         $this->load->helper(array('form', 'url'));
 
     }
@@ -28,9 +28,9 @@ class Organigrama extends CI_Controller
     public function nuevo()
     {
         if ($this->session->userdata("login")) {
-            $data['data_org'] = $this->organigrama_model->get_data();
-            $data['data_grupo'] = $this->organigrama_model->get_grupo();
-            $data['verifica'] = $this->rol_model->verifica();           
+            $data['data_org'] = $this->Organigrama_model->get_data();
+            $data['data_grupo'] = $this->Organigrama_model->get_grupo();
+            $data['verifica'] = $this->Rol_model->verifica();           
             $this->load->view('admin/header');
             $this->load->view('admin/menu');
             $this->load->view('crud/organigrama', $data);           
@@ -240,8 +240,8 @@ class Organigrama extends CI_Controller
 
     public function edit($id) {
         if ($this->session->userdata("login")) {
-            $data['datos'] = $this->organigrama_model->get_datos($id);
-            $data['data_grupo'] = $this->organigrama_model->get_grupo();
+            $data['datos'] = $this->Organigrama_model->get_datos($id);
+            $data['data_grupo'] = $this->Organigrama_model->get_grupo();
             $this->load->view('admin/header');
             $this->load->view('admin/menu');
             $this->load->view('crud/organigrama_edicion', $data);            
@@ -253,10 +253,10 @@ class Organigrama extends CI_Controller
 
     public function chart() {
         if ($this->session->userdata("login")) {
-            $data['nivel'] = $this->organigrama_model->get_last_nivel();   
-            $data['data_chart'] = $this->organigrama_model->get_datos_chart();
-            $data['data_chart_nombre'] = $this->organigrama_model->get_datos_nombre_chart();
-            $data['data_chart_img'] = $this->organigrama_model->get_datos_chart_img();
+            $data['nivel'] = $this->Organigrama_model->get_last_nivel();   
+            $data['data_chart'] = $this->Organigrama_model->get_datos_chart();
+            $data['data_chart_nombre'] = $this->Organigrama_model->get_datos_nombre_chart();
+            $data['data_chart_img'] = $this->Organigrama_model->get_datos_chart_img();
             $this->load->view('charts/header');
             $this->load->view('admin/menu');
             $this->load->view('charts/organigrama_chart', $data);
