@@ -57,6 +57,9 @@
                                                 <a href="<?php echo base_url(); ?>tipo_tramite/pdf_informe/<?php echo $mt->informe_tecnico_id; ?>" class="btn btn-success footable-edit" title="Hoja de ruta" target="_blank">
                                                     <span class="fas fa-print" aria-hidden="true"></span>
                                                 </a>
+                                                <a href="<?php echo base_url(); ?>tipo_tramite/nueva_proforma/<?php echo $mt->informe_tecnico_id; ?>" class="btn btn-dark footable-edit" title="Proforma de Pago" target="_blank">
+                                                    <span class="fas fa-address-card" aria-hidden="true"></span>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>    

@@ -64,8 +64,7 @@
                                             <th>ID</th>
                                             <th>FECHA REGISTRO</th>
                                             <th>CITE</th>
-                                            <th>REMITENTE</th>
-                                            <th>REFERENCIA</th>
+                                            
                                             <th>ACCIONES</th>
                                         </tr>
                                     </thead>
@@ -74,8 +73,7 @@
                                             <th>ID</th>
                                             <th>FECHA REGISTRO</th>
                                             <th>CITE</th>
-                                            <th>REMITENTE</th>
-                                            <th>REFERENCIA</th>
+                                            
                                             <th>ACCIONES</th>
                                         </tr>
                                     </tfoot>
@@ -94,8 +92,7 @@
                                             <th>CITE</th>
                                             <th>FECHA</th>
                                             <th>REMITENTE</th>
-                                            <th>PROCEDENCIA</th>
-                                            <th>REFERENCIA</th>
+                                            
                                             <th>ACCIONES</th>
                                         </tr>
                                     </thead>
@@ -105,8 +102,7 @@
                                             <th>CITE</th>
                                             <th>FECHA</th>
                                             <th>REMITENTE</th>
-                                            <th>PROCEDENCIA</th>
-                                            <th>REFERENCIA</th>
+                                            
                                             <th>ACCIONES</th>
                                         </tr>
                                     </tfoot>
@@ -123,8 +119,7 @@
                                                 <td><?php echo $mt->fecha; ?></td>
                                                 <!-- <td><?php //echo $mt->codcatas_anterior; ?></td> -->
                                                 <td><?php echo $mt->remitente; ?></td>
-                                                <td><?php echo $mt->procedencia; ?></td>
-                                                <td><?php echo $mt->referencia; ?></td>
+                                               
                                                 <td>
                                                     <a href="<?php echo base_url(); ?>tipo_tramite/seguimiento/<?php echo $mt->tramite_id; ?>" class="btn btn-primary footable-edit">
                                                         <span class="fas fa-bars" aria-hidden="true"></span>

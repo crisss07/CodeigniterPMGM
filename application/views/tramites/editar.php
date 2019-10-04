@@ -1,5 +1,3 @@
-
-
 <div class="page-wrapper">
     <div class="container-fluid">
         <div class="row">
@@ -33,7 +31,7 @@
 
                                         ARCHIVO : &nbsp; &nbsp; <a href="<?php echo base_url(); ?>public/assets/images/tramites/<?php echo $tramite->adjunto.'.pdf';?>" target='_blank'><?php echo $tramite->adjunto.'.pdf'; ?></a>
                                         <?php } ?>
-                                     </div>
+                                    </div>
                                     <div class="form-group mb-5">
                                         TIPO DE TRAMITE : <?php echo $tipo_tramite->tramite;?>
                                         <ul class="list-icons">
@@ -41,8 +39,25 @@
                                                 <li><i class="fa fa-check text-info"></i> <?php echo $lista->descripcion ?></li>
                                             <?php endforeach ?>
                                         </ul>
+                                        <?php
+                                            $requisitos_faltantes= $this->db->query("SELECT requisito_id, descripcion FROM tramite.requisito WHERE tipo_tramite_id='$tipo_tramite->tipo_tramite_id' AND requisito_id NOT IN (SELECT tt.requisito_id FROM tramite.tramite_requisito tr JOIN tramite.requisito tt ON tr.requisito_id=tt.requisito_id WHERE tr.tramite_id = '$tramite->tramite_id')")->result();
+                                            
+                                        ?>
+                                        <div class="col-sm-12">
+                                            <?php $cont=0;
+                                            foreach ($requisitos_faltantes as $key => $value) { ?>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="requisitos[]" id="checkbox<?php echo $cont; ?>" value="<?php echo $value->requisito_id; ?>">
+                                                <label class="custom-control-label" for="checkbox<?php echo $cont; ?>"><?php echo $value->descripcion; ?></label>
+                                            </div>
+                                            <?php  $cont=$cont+1;
+                                        } ?>      
+                                        </div>
                                     </div>
                                 </div>
+                                
+
+
                                 <div class="col-6">
                                     <div class="form-group mb-5">
                                         <?php if ($tramite->tipo_solicitante == 'Propietario'){ ?>

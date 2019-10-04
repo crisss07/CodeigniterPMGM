@@ -10,103 +10,101 @@
         </div>
     </div>
 </section>
-
-
 <style type="text/css">
-    body {
-  color: #2c3e50;
-  background: #ecf0f1;
-  padding: 0 1em 1em;
-}|
+  body {
+    color: #2c3e50;
+    background: #ecf0f1;
+    padding: 0 1em 1em;
+  }
 
-h1 {
-  margin: 0;
-  line-height: 2;
-  text-align: center;
-}
+  h1 {
+    margin: 0;
+    line-height: 2;
+    text-align: center;
+  }
 
-h2 {
-  margin: 0 0 .5em;
-  font-weight: normal;
-}
+  h2 {
+    margin: 0 0 .5em;
+    font-weight: normal;
+  }
 
-input {
-  position: absolute;
-  opacity: 0;
-  z-index: -1;
-}
+  input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+  }
 
-.row {
-  display: flex;
-}
-.row .col {
-  flex: 1;
-}
-.row .col:last-child {
-  margin-left: 1em;
-}
+  .row {
+    display: flex;
+  }
+  .row .col {
+    flex: 1;
+  }
+  .row .col:last-child {
+    margin-left: 1em;
+  }
 
-/* Accordion styles */
-.tabs {
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.5);
-}
+  /* Accordion styles */
+  .tabs {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.5);
+  }
 
-.tab {
-  width: 100%;
-  color: white;
-  overflow: hidden;
-}
-.tab-label {
-  display: flex;
-  justify-content: space-between;
-  padding: 1em;
-  background: #2c3e50;
-  font-weight: bold;
-  cursor: pointer;
-  /* Icon */
-}
-.tab-label:hover {
-  background: #1a252f;
-}
-.tab-label::after {
-  content: "\276F";
-  width: 1em;
-  height: 1em;
-  text-align: center;
-  transition: all .35s;
-}
-.tab-content {
-  max-height: 0;
-  padding: 0 1em;
-  color: #2c3e50;
-  background: white;
-  transition: all .35s;
-}
-.tab-close {
-  display: flex;
-  justify-content: flex-end;
-  padding: 1em;
-  font-size: 0.75em;
-  background: #2c3e50;
-  cursor: pointer;
-}
-.tab-close:hover {
-  background: #1a252f;
-}
+  .tab {
+    width: 100%;
+    color: white;
+    overflow: hidden;
+  }
+  .tab-label {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    background: #2c3e50;
+    font-weight: bold;
+    cursor: pointer;
+    /* Icon */
+  }
+  .tab-label:hover {
+    background: #1a252f;
+  }
+  .tab-label::after {
+    content: "\276F";
+    width: 1em;
+    height: 1em;
+    text-align: center;
+    transition: all .35s;
+  }
+  .tab-content {
+    max-height: 0;
+    padding: 0 1em;
+    color: #2c3e50;
+    background: white;
+    transition: all .35s;
+  }
+  .tab-close {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1em;
+    font-size: 0.75em;
+    background: #2c3e50;
+    cursor: pointer;
+  }
+  .tab-close:hover {
+    background: #1a252f;
+  }
 
-input:checked + .tab-label {
-  background: #1a252f;
-}
-input:checked + .tab-label::after {
-  -webkit-transform: rotate(90deg);
-          transform: rotate(90deg);
-}
-input:checked ~ .tab-content {
-  max-height: 100vh;
-  padding: 1em;
-}
+  input:checked + .tab-label {
+    background: #1a252f;
+  }
+  input:checked + .tab-label::after {
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+  }
+  input:checked ~ .tab-content {
+    max-height: 100vh;
+    padding: 1em;
+  }
 
 </style>
 
@@ -128,14 +126,14 @@ input:checked ~ .tab-content {
                                         <input type="checkbox" id="<?php echo $listas->tipo_tramite_id ?>.1">
                                         <label class="tab-label" for="<?php echo $listas->tipo_tramite_id ?>.1">Informacion</label>
                                         <div class="tab-content">
-                                          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, reiciendis!
+                                          <?php echo $listas->informacion; ?>
                                         </div>
                                     </div>
                                     <div class="tab">
                                         <input type="checkbox" id="<?php echo $listas->tipo_tramite_id ?>.2">
                                         <label class="tab-label" for="<?php echo $listas->tipo_tramite_id ?>.2">Donde puedo realizar</label>
                                         <div class="tab-content">
-                                          Lorem ipsum dolor sit amet consectetur adipisicing elit. A, in!
+                                          <?php echo $listas->lugar; ?>
                                         </div>
                                     </div>
                                     <div class="tab">
@@ -144,10 +142,9 @@ input:checked ~ .tab-content {
                                         <div class="tab-content">
                                             <div>
                                                 <ol class="unordered-list">
-                                                    <?php foreach ($requisitos as $valores): ?>
-                                                        <li><span><?php echo $valores->descripcion; ?></span></li>
-                                                    <?php endforeach ?>
-                                                                                   
+                                                  <?php foreach ($requisitos as $valores): ?>
+                                                    <li><span><?php echo $valores->descripcion; ?></span></li>
+                                                  <?php endforeach ?>               
                                                 </ol>
                                             </div>
                                         </div>
@@ -156,14 +153,14 @@ input:checked ~ .tab-content {
                                         <input type="checkbox" id="<?php echo $listas->tipo_tramite_id ?>.4">
                                         <label class="tab-label" for="<?php echo $listas->tipo_tramite_id ?>.4">Costo del tramite</label>
                                         <div class="tab-content">
-                                          Lorem ipsum dolor sit amet consectetur adipisicing elit. A, in!
+                                          <?php echo $listas->costo; ?>
                                         </div>
                                     </div>
                                     <div class="tab">
                                         <input type="checkbox" id="<?php echo $listas->tipo_tramite_id ?>.5">
                                         <label class="tab-label" for="<?php echo $listas->tipo_tramite_id ?>.5">Tiempo de duracion del tramite</label>
                                         <div class="tab-content">
-                                          Lorem ipsum dolor sit amet consectetur adipisicing elit. A, in!
+                                          <?php echo $listas->tiempo; ?>
                                         </div>
                                     </div>
                                 </div>

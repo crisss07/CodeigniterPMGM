@@ -34,67 +34,45 @@ class Derivaciones extends CI_Controller
         
     }
 
-    public function nuevo($idTramite = null)
-    {
-        // $idTramite = 13;
-        $data['idTramite']=$idTramite;
-        // vdebug($idTramite, true, FALSE, TRUE);
-
+//--------------------Derivar nuevo---------------------------------------
+    public function nuevo($idTramite = null){
         if($this->session->userdata("login")){
-
+            $data['idTramite']=$idTramite;
 			//usuario que esta registrando
 			$id = $this->session->userdata("persona_perfil_id");
 	        $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
             $usu_creacion = $resi->persona_id;
             $organigrama_persona = $this->db->get_where('tramite.organigrama_persona', array('persona_id'=>$usu_creacion, 'activo'=>1))->result_array();
-            $data['organigrama_id']=$organigrama_persona[0]['organigrama_id'];
-            // vdebug($data['organigrama_id'], true, false, true);
-
+            $data['organigrama_id']=$organigrama_persona[0]['organigrama_persona_id'];
             $data['tramite'] = $this->db->get_where('tramite.tramite', array('tramite_id' => $idTramite))->row();
-            $data['personas'] = $this->derivaciones_model->personal($resi->persona_id);
+            $valor = (int)$data['tramite']->tipo_tramite_id;
+            $maximo = $this->db->query("SELECT max(orden) FROM tramite.derivacion WHERE tramite_id='$idTramite'")->row();
+            $orden_nuevo=$maximo->max+1;
 
-            $this->load->view('admin/header');
-            $this->load->view('admin/menu');
-            $this->load->view('derivaciones/nuevo', $data);
-            $this->load->view('admin/footer');
-            $this->load->view('predios/registra_js');
+            $lista =$this->db->query("SELECT count(organigrama_persona_id) nro FROM tramite.flujo WHERE tipo_tramite_id='$valor' AND orden='$orden_nuevo'")->row();
+            $data['orden']=$orden_nuevo;
+            if((int)$lista->nro !=0){
+                $data['personas'] =$this->db->query("SELECT vo.nombres||' '||vo.paterno||' '||vo.materno nombre, vo.unidad, vo.descripcion, vo.organigrama_persona_id FROM tramite.vista_organigrama_persona_cargo vo JOIN (SELECT organigrama_persona_id FROM tramite.flujo WHERE tipo_tramite_id='$valor' AND orden='$orden_nuevo') flu ON vo.organigrama_persona_id=flu.organigrama_persona_id")->result_array();
+                $this->load->view('admin/header');
+                $this->load->view('admin/menu');
+                $this->load->view('derivaciones/nuevo', $data);
+                $this->load->view('admin/footer');
+                $this->load->view('predios/registra_js');
+            }else{
+                var_dump('vacio');
+            }
+            
+            
         }
     }
-    public function inspectores($idTramite = null)
-    {
-        // $idTramite = 13;
-        $data['idTramite']=$idTramite;
-        // vdebug($idTramite, true, FALSE, TRUE);
+//--------------------Fin derivar nuevo------------------------
 
-        if($this->session->userdata("login")){
-            //usuario que esta registrando
+//--------------------Guardar derivacion-----------------------
+    public function guarda(){
+        if($this->input->post('boton')=='cite'){  
             $id = $this->session->userdata("persona_perfil_id");
             $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
-            $usu_creacion = $resi->persona_id;
-            $organigrama_persona = $this->db->get_where('tramite.organigrama_persona', array('persona_id'=>$usu_creacion, 'activo'=>1))->result_array();
-            $data['organigrama_id']=$organigrama_persona[0]['organigrama_id'];
-            // vdebug($data['organigrama_id'], true, false, true);
-            $data['tramite'] = $this->db->get_where('tramite.tramite', array('tramite_id' => $idTramite))->row();
-            $persona = $this->db->query("SELECT persona_id FROM inspeccion.asignacion WHERE tramite_id = '$idTramite'")->row();
-            //var_dump((int)$persona->persona_id);
-            //$data['personas'] 
-            $data['personas'] = $this->derivaciones_model->encontrado($persona->persona_id);
-
-            //var_dump( $data['personas']);
-            //var_dump($personas[0]['unidad']);
-
-            $this->load->view('admin/header');
-            $this->load->view('admin/menu');
-            $this->load->view('derivaciones/inspectores', $data);
-            $this->load->view('admin/footer');
-            $this->load->view('predios/registra_js');
-        }
-    }
-
-    public function guarda(){
-
-        if($this->input->post('boton')=='cite'){
-
+            $usu_creacion = $resi->persona_id;  
             $cite = $this->db->get_where('tramite.cite', array('organigrama_id'=>$this->input->post('organigrama_id')))->result_array();
             $correlativo = $cite[0]['correlativo']+1;
             $this->db->where('cite_id', $cite[0]['cite_id']);
@@ -165,6 +143,8 @@ class Derivaciones extends CI_Controller
             'adjunto' => $adjunto,
             'fecha'=>date("Y-m-d H:i:s"),
             'descripcion'=>$this->input->post('descripcion'),
+            'orden' =>$this->input->post('orden'),
+            'usu_creacion' =>$usu_creacion,
         );
         $this->db->insert('tramite.derivacion', $data);
             $config['upload_path']      = './public/assets/images/tramites';
@@ -176,14 +156,47 @@ class Derivaciones extends CI_Controller
         $this->load->library('upload', $config);
         if ( ! $this->upload->do_upload('adjunto')){
             $error = array('error' => $this->upload->display_errors());
-            redirect(base_url());
+            //redirect(base_url());
             //$this->load->view('crud/organigrama', $error);
+            redirect(base_url().'tipo_tramite/listado');
         }else{
             $data = array('upload_data' => $this->upload->data());
             //redirect('Derivaciones/nuevo/'.$idTramite);
             redirect(base_url().'derivaciones/listado');
         }    
         redirect(base_url().'tipo_tramite/listado');
+    }
+//--------------------Fin Guardar derivacion-----------------------
+    
+    public function inspectores($idTramite = null)
+    {
+        // $idTramite = 13;
+        $data['idTramite']=$idTramite;
+        // vdebug($idTramite, true, FALSE, TRUE);
+
+        if($this->session->userdata("login")){
+            //usuario que esta registrando
+            $id = $this->session->userdata("persona_perfil_id");
+            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+            $usu_creacion = $resi->persona_id;
+            $organigrama_persona = $this->db->get_where('tramite.organigrama_persona', array('persona_id'=>$usu_creacion, 'activo'=>1))->result_array();
+            $data['organigrama_id']=$organigrama_persona[0]['organigrama_id'];
+            // vdebug($data['organigrama_id'], true, false, true);
+            $data['tramite'] = $this->db->get_where('tramite.tramite', array('tramite_id' => $idTramite))->row();
+            $persona = $this->db->query("SELECT persona_id FROM inspeccion.asignacion WHERE tramite_id = '$idTramite'")->row();
+            //var_dump((int)$persona->persona_id);
+            //$data['personas'] 
+            $data['personas'] = $this->derivaciones_model->encontrado($persona->persona_id);
+
+            //var_dump( $data['personas']);
+            //var_dump($personas[0]['unidad']);
+
+            $this->load->view('admin/header');
+            $this->load->view('admin/menu');
+            $this->load->view('derivaciones/inspectores', $data);
+            $this->load->view('admin/footer');
+            $this->load->view('predios/registra_js');
+        }
     }
 
     public function listado(){                                                                                              

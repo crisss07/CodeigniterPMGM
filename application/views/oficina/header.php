@@ -30,8 +30,12 @@
                         </div>
                         <div class="col-sm-6 col-7">
                             <div class="top_btn d-flex justify-content-end">
-                               
-                               <!--  <a href="#">Iniciar sesion</a> -->
+                                <?php if ($logueado == 'no') { ?>
+                                   <a href="<?php echo base_url(); ?>">Iniciar sesion</a>
+                                <?php }else{ ?>
+                                    <a href="#"><?php echo $nombre->nombre;  ?></a>
+                                    <a href="<?php echo base_url(); ?>login/logout">Salir</a>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -51,6 +55,7 @@
                         <ul class="nav navbar-nav menu_nav ml-auto">
                             <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>oficina_virtual/index">Inicio</a></li> 
                             <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>oficina_virtual/requisitos">Requisitos</a></li>
+                            <?php if ($logueado == 'si') { ?>
                             <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>oficina_virtual/servicios">Servicios en linea</a></li>
                             
                             <li class="nav-item submenu dropdown">
@@ -62,12 +67,14 @@
                                     <!-- <li class="nav-item"><a class="nav-link" target="_blank" href="<?php echo base_url(); ?>oficina_virtual/certificado">Certificado catastral</a></li> -->
                                 </ul>
                             </li> 
+                            <?php } ?>
                             <li class="nav-item"><a class="nav-link" href="#">Consultas</a></li>
  <!--                           <li class="nav-item"><a class="nav-link" href="#contact.html">Contacto</a></li>
                              <li class="nav-item"><a class="nav-link" href="contact.html">Consultas</a></li>
                             <li class="nav-item"><a class="nav-link" href="contact.html">Consultas</a></li> -->
 
                         </ul>
+                    
                         <!-- <ul class="nav navbar-nav navbar-right">
                             <li class="nav-item"><a href="#" class="search"><i class="lnr lnr-magnifier"></i></a></li>
                         </ul> -->

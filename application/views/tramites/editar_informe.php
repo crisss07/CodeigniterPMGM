@@ -122,12 +122,12 @@
                                     </div>
                                 </div>
                                 <?php $lista2 = $this->db->query("SELECT * FROM tramite.tipo_tramite WHERE activo='1' ORDER BY tipo_tramite_id ASC")->result();
-                                    $valores=$this->db->query("SELECT tramite FROM tramite.tipo_tramite WHERE tipo_tramite_id = '$tramites->tramite_id'")->row();?>
+                                    $valores=$this->db->query("SELECT tramite FROM tramite.tipo_tramite WHERE tipo_tramite_id = '$tramites->tipo_tramite_id'")->row();?>
                                 <div class="form-group row">
                                     <label for="example-month-input2" class="col-2 col-form-label">Tipo de Tramite : </label>
                                     <div class="col-10">
                                         <select class="custom-select col-12"   id="tipo_tramite_id" name="tipo_tramite_id" required>
-                                            <option value="<?php echo $tramites->tramite_id; ?>"><?php echo $valores->tramite;?></option>
+                                            <option value="<?php echo $tramites->tipo_tramite_id; ?>"><?php echo $valores->tramite;?></option>
                                             <?php foreach ($lista2 as $tc): ?>
                                             <option value="<?php echo $tc->tipo_tramite_id; ?>"><?php echo $tc->tramite; ?></option>
                                         <?php endforeach; ?>

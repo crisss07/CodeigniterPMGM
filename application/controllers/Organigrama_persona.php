@@ -195,10 +195,6 @@ class Organigrama_persona extends CI_Controller {
 			redirect(base_url());
 		}
 	}
-
-
-	
- 
   
 	
 }

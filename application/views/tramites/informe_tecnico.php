@@ -17,7 +17,11 @@
     </select>  
 -->
 <!-- ============================================================== -->
-
+<style type="text/css">
+    input{
+        text-transform:uppercase;
+    }
+</style>
 <div class="page-wrapper">
     <div class="container-fluid">
         <div class="row">
@@ -93,34 +97,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="form-group  row col-8">
-                                                <label for="example-text-input" class="col-3 col-form-label">Solicitante 1</label>
-                                                <div class="col-9">
-                                                    <input class="form-control" type="text" id="solicitante" name="solicitante" required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group  row col-4">
-                                                <label for="example-text-input" class="col-2 col-form-label">CI</label>
-                                                <div class="col-10">
-                                                    <input class="form-control" type="text" id="ci" name="ci" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group  row col-8">
-                                                <label for="example-text-input" class="col-3 col-form-label">Solicitante 2</label>
-                                                <div class="col-9">
-                                                    <input class="form-control" type="text" id="solicitante2" name="solicitante2" >
-                                                </div>
-                                            </div>
-                                            <div class="form-group  row col-4">
-                                                <label for="example-text-input" class="col-2 col-form-label">CI</label>
-                                                <div class="col-10">
-                                                    <input class="form-control" type="text" id="ci2" name="ci2" >
-                                                </div>
-                                            </div>
-                                        </div>
                                         <?php $lista2 = $this->db->query("SELECT * FROM tramite.tipo_tramite  WHERE activo = '1' ORDER BY tipo_tramite_id ASC")->result();
                                             ?>
                                         <div class="form-group row">
@@ -134,7 +110,63 @@
                                                 </select>
                                             </div>
                                         </div>
-                                       
+                                        <div style="padding-bottom: 10px;">
+                                            <button class="btn-info" id="adicionar_propietario">Adicionar propietario</button>
+                                        </div>
+                                                                               
+                                        <div class="row">
+                                            <div class="form-group  row col-4">
+                                                <label for="example-text-input" class="col-2 col-form-label">CI</label>
+                                                <div class="col-10">
+                                                    <input class="form-control" type="text" id="ci1" name="ci1" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group  row col-8">
+                                                <label for="example-text-input" class="col-3 col-form-label">Solicitante</label>
+                                                <div class="col-9">
+                                                    <input class="form-control" type="text" id="solicitante" name="solicitante" required>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="persona_id1" id="persona_id1">
+                                        </div>
+                                        <div id="listas">
+                                          
+                                        </div>
+                                        <!--------transferencia--------------->
+                                        <div class="transferencia">
+                                            <div style="padding-bottom: 10px;">
+                                                <button class="btn-info" id="adicionar_vendedor">Adicionar vendedor</button>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group  row col-4">
+                                                    <label for="example-text-input" class="col-2 col-form-label">CI</label>
+                                                    <div class="col-10">
+                                                        <input class="form-control" type="text" id="ci2" name="ci2[]" >
+                                                    </div>
+                                                </div>
+                                    
+                                                <div class="form-group  row col-8">
+                                                    <label for="example-text-input" class="col-3 col-form-label">Vendedor</label>
+                                                    <div class="col-9">
+                                                        <input class="form-control" type="text" id="vendedor" name="vendedor" >
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" name="persona_id2" id="persona_id2">
+                                            </div>
+                                            <div id="listas2">
+                                            </div>
+                                             <div class="row">
+                                                <div class="form-group row col-4">
+                                                    <label for="example-text-input" class="col-4 col-form-label">Fecha de plano aprobado</label>
+                                                    <div class="col-8">
+                                                        <input class="form-control" type="date" id="fecha_aprobacion_plano" name="fecha_aprobacion_plano">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!--------fin de transferencia--------------->        
+
                                         <div class="form-group row ">
                                             <label for="example-text-input" class="col-2 col-form-label">Ubicacion</label>
                                             <div class="col-10">
@@ -183,51 +215,123 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <!--------Quitar empadronamiento--------------->
+                                        <div class="quitar">
+                                            <div class="col-md-12 mb-form-group " style="padding-top: 30px; padding-bottom: 20px;">
+                                                <u><b>DOCUMENTACION PRESENTADA</b></u> <br>
+                                                <b>Folio</b>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">N°  </label>
+                                                <div class="col-10">
+                                                    <input class="form-control" type="text" id="nro_folio" name="nro_folio" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-form-group" style="padding-top: 30px; padding-bottom: 20px;">
+                                                <b>Testimonio de propiedad</b>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group row col-4">
+                                                    <label for="example-text-input" class="col-4 col-form-label">N°</label>
+                                                    <div class="col-8">
+                                                        <input class="form-control" type="text" id="nro_testimonio" name="nro_testimonio" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row col-4">
+                                                    <label for="example-text-input" class="col-4 col-form-label">Notaria</label>
+                                                    <div class="col-8">
+                                                        <input class="form-control" type="text" id="notaria" name="notaria" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row col-4">
+                                                    <label for="example-text-input" class="col-4 col-form-label">Fecha</label>
+                                                    <div class="col-8">
+                                                        <input class="form-control" type="date" id="fecha_testimonio" name="fecha_testimonio" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">Notario Dr(a)</label>
+                                                <div class="col-10">
+                                                    <input class="form-control" type="text" id="notario" name="notario" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-form-group ">
+                                                <b>Impuestos</b>
+                                            </div>
+                                        </div>
                                         
-                                        <div class="col-md-12 mb-form-group " style="padding-top: 30px; padding-bottom: 20px;">
-                                            <u><b>DOCUMENTACION PRESENTADA</b></u> <br>
-                                            <b>Folio</b>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-2 col-form-label">N°  </label>
-                                            <div class="col-10">
-                                                <input class="form-control" type="text" id="nro_folio" name="nro_folio" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 mb-form-group" style="padding-top: 30px; padding-bottom: 20px;">
-                                            <b>Testimonio de propiedad</b>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group row col-4">
-                                                <label for="example-text-input" class="col-4 col-form-label">N°</label>
-                                                <div class="col-8">
-                                                    <input class="form-control" type="text" id="nro_testimonio" name="nro_testimonio" required>
+                                        <!--------fin quitar empadronamiento--------------->
+                                        
+                                        <!--------empadronamiento--------------->
+                                        <div class="empadronamiento">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">Certificado de la comunidad</label>
+                                                <div class="col-10">
+                                                    <input class="form-control" type="text" id="certificacion_comunidad" name="certificacion_comunidad" >
                                                 </div>
                                             </div>
-                                            <div class="form-group row col-4">
-                                                <label for="example-text-input" class="col-4 col-form-label">Notaria</label>
-                                                <div class="col-8">
-                                                    <input class="form-control" type="text" id="notaria" name="notaria" required>
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">Otra documentacion</label>
+                                                <div class="col-10">
+                                                    <input class="form-control" type="text" id="otra_documentacion" name="otra_documentacion" >
                                                 </div>
                                             </div>
-                                            <div class="form-group row col-4">
-                                                <label for="example-text-input" class="col-4 col-form-label">Fecha</label>
-                                                <div class="col-8">
-                                                    <input class="form-control" type="date" id="fecha_testimonio" name="fecha_testimonio" required>
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">Tipo via</label>
+                                                <div class="col-10">
+                                                    <input class="form-control" type="text" id="tipo_via" name="tipo_via">
                                                 </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group row col-6">
+                                                    <label for="example-text-input" class="col-4 col-form-label">Energia electrica</label>
+                                                    <div class="col-8">
+                                                        <input class="form-control" type="text" id="energia" name="energia" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row col-6">
+                                                    <label for="example-text-input" class="col-4 col-form-label">Agua potable</label>
+                                                    <div class="col-8">
+                                                        <input class="form-control" type="text" id="agua" name="agua" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group row col-6">
+                                                    <label for="example-text-input" class="col-4 col-form-label">Telefono</label>
+                                                    <div class="col-8">
+                                                        <input class="form-control" type="text" id="telefono" name="telefono" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row col-6">
+                                                    <label for="example-text-input" class="col-4 col-form-label">Alcantarillado</label>
+                                                    <div class="col-8">
+                                                        <input class="form-control" type="text" id="alcantarillado" name="alcantarillado" >
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group row col-6">
+                                                    <label for="example-text-input" class="col-4 col-form-label">Construccion</label>
+                                                    <div class="col-8">
+                                                        <input class="form-control" type="text" id="construccion" name="construccion" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row col-6">
+                                                    <label for="example-text-input" class="col-4 col-form-label">Superficie construida</label>
+                                                    <div class="col-8">
+                                                        <input class="form-control" type="text" id="superficie_construida" name="superficie_construida">
+                                                    </div>
+                                                </div>
+                                                
                                             </div>
                                         </div>
                                         
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-2 col-form-label">Notario Dr(a)</label>
-                                            <div class="col-10">
-                                                <input class="form-control" type="text" id="notario" name="notario" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 mb-form-group ">
-                                            <b>Impuestos</b>
-                                        </div>
-
+                                        <!--------fin de empadronamiento--------------->       
+                                        
                                         <div class="form-group row">
                                             <label for="example-text-input" class="col-2 col-form-label">Años</label>
                                             <div class="col-10">
@@ -249,7 +353,7 @@
                                         <div class="form-group  row">
                                             
                                             <div class="col-12">
-                                                <textarea rows="3" class="form-control" type="text" id="glosa" name="glosa" placeholder="LA SUPERFICE EN CUESTION SE ENCUENTRA UBICADA EN EX HACIENDA HUAJCHILLA, URBANIZACION LAS PALMERAS II, LOTE 3-B, MANZANO B, CON UNA SUPERFICIE DE 715,16 M2 SEGUN MEDICION REGISTRADO EN LA UNIDAD DE CATASTRO, DEL GOBIERNO AUTONOMO MUNICIPAL DE MECAPACA"></textarea>
+                                                <textarea style="text-transform:uppercase;" rows="3" class="form-control" type="text" id="glosa" name="glosa" placeholder="LA SUPERFICE EN CUESTION SE ENCUENTRA UBICADA EN EX HACIENDA HUAJCHILLA, URBANIZACION LAS PALMERAS II, LOTE 3-B, MANZANO B, CON UNA SUPERFICIE DE 715,16 M2 SEGUN MEDICION REGISTRADO EN LA UNIDAD DE CATASTRO, DEL GOBIERNO AUTONOMO MUNICIPAL DE MECAPACA"></textarea>
                                             </div>
                                         </div>
 
@@ -301,4 +405,154 @@
 
 <script src="<?php echo base_url(); ?>public/assets/plugins/jquery/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw8R4L-CtMu9XuQBiymIEs6UEc715P2eA&callback=initMap&libraries=drawing" async defer></script>
+<script type="text/javascript">
+    $("#ci1").focusout(function(){
+        var ci = $("#ci1").val();
+        var csrfName = '<?php echo $this->security->get_csrf_token_name(); ?>';
+        var csrfHash = '<?php echo $this->security->get_csrf_hash(); ?>';
 
+        $.ajax({
+            url: '<?php echo base_url(); ?>tipo_tramite/verificarCedula/',
+            type: 'GET',
+            dataType: 'json',
+            data: {csrfName: csrfHash, param1: ci},
+            // data: {param1: cod_catastral},
+            success:function(data, textStatus, jqXHR) {
+                //alert("Se envio bien");
+                // csrfName = data.csrfName;
+                // csrfHash = data.csrfHash;
+                // alert(data.message);
+                if (data.estado == 'si' ) {
+                    // console.log('Si se esta');
+                    $("#ci1").val(data.ci);
+                    $('#solicitante').val(data.nombres);
+                    $("#persona_id1").val(data.persona_id);
+                } else {
+                    $('#solicitante').val('');
+                    $("#persona_id1").val('');
+                    alert('no encontrado');
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown) {
+                // alert("error");
+            }
+        });
+    });
+    $("#ci2").focusout(function(){
+        var ci = $("#ci2").val();
+        var csrfName = '<?php echo $this->security->get_csrf_token_name(); ?>';
+        var csrfHash = '<?php echo $this->security->get_csrf_hash(); ?>';
+
+        $.ajax({
+            url: '<?php echo base_url(); ?>tipo_tramite/verificarCedula/',
+            type: 'GET',
+            dataType: 'json',
+            data: {csrfName: csrfHash, param1: ci},
+            // data: {param1: cod_catastral},
+            success:function(data, textStatus, jqXHR) {
+                //alert("Se envio bien");
+                // csrfName = data.csrfName;
+                // csrfHash = data.csrfHash;
+                // alert(data.message);
+
+                if (data.estado == 'si' ) {
+                    // console.log('Si se esta');
+                    $("#ci2").val(data.ci);
+                    $('#vendedor').val(data.nombres);
+                    $("#persona_id2").val(data.persona_id);
+                } else {
+                    $('#vendedor').val(' ');
+                    $("#persona_id2").val('');
+                    alert('no encontrado');
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown) {
+                // alert("error");
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    function CargarProductos(val){  
+        if(val == 1){
+            //alert(' es empadronamiento');
+            $('.quitar').hide();
+            $('.transferencia').hide();
+            $('.empadronamiento').show();
+        }else if(val== 6){
+            //alert('Transferencia');
+             $('.transferencia').show();
+             $('.empadronamiento').hide();
+              $('.quitar').show();
+        }else{
+            $('.empadronamiento').hide();
+            $('.transferencia').hide();
+            $('.quitar').show();
+        }
+    }
+</script>
+<script type="text/javascript">
+    var campos_max = 10;   //max de 10 campos
+        var x = 0;
+        $('#adicionar_propietario').click (function(e) {
+            e.preventDefault();     //prevenir novos clicks
+            if (x < campos_max) {
+                $('#listas').append('<div class="row">\
+                                        <div class="form-group  row col-4">\
+                                            <label for="example-text-input" class="col-2 col-form-label">CI</label>\
+                                            <div class="col-10">\
+                                                <input class="form-control" type="text" id="ci'+x+'" name="ci[]">\
+                                            </div>\
+                                        </div>\
+                                        <div class="form-group  row col-7">\
+                                            <label for="example-text-input" class="col-3 col-form-label">Solicitante</label>\
+                                            <div class="col-9">\
+                                                <input class="form-control" type="text" id="solicitante'+x+'" name="solicitante[]">\
+                                            </div>\
+                                        </div>\
+                                        <input type="hidden" name="persona_id1" id="persona_id1">\
+                                        <a href="#" class="remover_campo">Remover</a>\
+                                    </div>');
+                
+                x++;
+            }
+        });
+        // Remover o div anterior
+        $('#listas').on("click",".remover_campo",function(e) {
+                e.preventDefault();
+                $(this).parent('div').remove();
+                x--;
+        });
+</script>
+<script type="text/javascript">
+    var campos_max = 10;   //max de 10 campos
+        var x = 0;
+        $('#adicionar_vendedor').click (function(e) {
+            e.preventDefault();     //prevenir novos clicks
+            if (x < campos_max) {
+                $('#listas2').append('<div class="row">\
+                                        <div class="form-group  row col-4">\
+                                            <label for="example-text-input" class="col-2 col-form-label">CI</label>\
+                                            <div class="col-10">\
+                                                <input class="form-control" type="text" id="ci2'+x+'" name="ci2" required>\
+                                            </div>\
+                                        </div>\
+                                        <div class="form-group  row col-7">\
+                                            <label for="example-text-input" class="col-3 col-form-label">Solicitante</label>\
+                                            <div class="col-9">\
+                                                <input class="form-control" type="text" id="vendedor'+x+'" name="vendedor" required>\
+                                            </div>\
+                                        </div>\
+                                        <input type="hidden" name="persona_id2" id="persona_id2">\
+                                        <a href="#" class="remover_campo2">Remover</a>\
+                                    </div>');
+                x++;
+            }
+        });
+        // Remover o div anterior
+        $('#listas2').on("click",".remover_campo2",function(e) {
+            e.preventDefault();
+            $(this).parent('div').remove();
+            x--;
+        });
+</script>

@@ -56,8 +56,8 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" id="tipo_solicitante2" name="tipo_solicitante" class="custom-control-input" value="Legal">
-                                            <label class="custom-control-label" for="tipo_solicitante2">Solicitante legal</label>
+                                            <input type="radio" id="tipo_solicitante2" name="tipo_solicitante" class="custom-control-input" value="Juridico">
+                                            <label class="custom-control-label" for="tipo_solicitante2">Solicitante Juridico</label>
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +113,7 @@
                                                 </button>
                                                 OJO Solo archivos pdf
                                             </label>
-                                            <input type="file" id="input-file-now" class="dropify" name="adjunto" data-allowed-file-extensions="pdf" required />
+                                            <input type="file" id="input-file-now" accept=".pdf" class="dropify" name="adjunto" data-allowed-file-extensions="pdf" required />
                                         </div>
                                     </div>
                                 </div>
@@ -135,11 +135,11 @@
                                 </div>
                             </div>
                             <div class="row" id="bloque_botones">
-                                <!-- <div class="col-md-6">
+                                <div class="col-md-6">
                                     <button type="submit" name="boton" value="generar" class="btn waves-effect waves-light btn-block btn-info">Generar</button>
-                                </div> -->
-                                <div class="col-md-12">
-                                    <button type="submit" name="boton" value="derivar" class="btn waves-effect waves-light btn-block btn-success">Generar</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" name="boton" value="derivar" class="btn waves-effect waves-light btn-block btn-success">Generar y derivar</button>
                                 </div>
                             </div>
                         </form>
@@ -287,7 +287,7 @@
                     //alert(derivado[i]['nombre']);
                      //$('#destino').html('<option value="'+$derivado[i]['organigrama_persona_id']+'">'+$derivado[i]['nombre']+'-'+$derivado[i]['unidad']+'('+$derivado[i]['descripcion']+')</option>');
                      
-                     $('#destino').append('<option class="borrar" value="">'+derivado[j]['nombre']+'</option>'); 
+                     $('#destino').append('<option class="borrar" value="'+derivado[j]['organigrama_persona_id']+'">'+derivado[j]['nombre']+' ('+derivado[j]['unidad']+' - '+derivado[j]['descripcion']+')</option>'); 
                 //     //console.log(asistente[i]['descripcion']);
                  }
 

@@ -696,10 +696,10 @@ h3 {
 /*============ banner_area css =============*/
 .banner_area {
   min-height: 680px;
-  background: -webkit-gradient(linear, left top, right top, from(rgba(4, 9, 30, 0.8)), to(rgba(4, 9, 30, 0.8))), url("../image/banner.jpg");
-  background: -webkit-linear-gradient(left, rgba(4, 9, 30, 0.8), rgba(4, 9, 30, 0.8)), url("../image/banner.jpg");
-  background: -o-linear-gradient(left, rgba(4, 9, 30, 0.8), rgba(4, 9, 30, 0.8)), url("../image/banner.jpg");
-  background: linear-gradient(to right, rgba(4, 9, 30, 0.8), rgba(4, 9, 30, 0.8)), url("../image/banner.jpg");
+  background: -webkit-gradient(linear, left top, right top, from(rgba(4, 9, 30, 0.8)), to(rgba(4, 9, 30, 0.8))), url("../img/banner.jpg");
+  background: -webkit-linear-gradient(left, rgba(4, 9, 30, 0.8), rgba(4, 9, 30, 0.8)), url("../img/banner.jpg");
+  background: -o-linear-gradient(left, rgba(4, 9, 30, 0.8), rgba(4, 9, 30, 0.8)), url("../img/banner.jpg");
+  background: linear-gradient(to right, rgba(4, 9, 30, 0.8), rgba(4, 9, 30, 0.1)), url("../img/banner.jpg");
   background-size: cover;
 }
 
@@ -736,7 +736,7 @@ h3 {
 }
 
 .blog_banner .bg-parallax {
-  background: url(../image/banner-1.jpg) no-repeat scroll 100% 10%/cover;
+  background: url(../img/banner2.jpg) no-repeat scroll 100% 10%/cover;
 }
 
 .blog_banner .banner_content {
@@ -793,7 +793,7 @@ h3 {
 }
 
 .blog_banner_two .bg-parallax {
-  background: url(../image/blog/banner-2.jpg) no-repeat scroll center top/cover;
+  background: url(../img/banner2.jpg) no-repeat scroll center top/cover;
 }
 
 /*=============End Blog Banner css =============*/
@@ -809,10 +809,10 @@ h3 {
 }
 
 .br_image {
-  background: -webkit-linear-gradient(left, rgba(4, 9, 30, 0.8), rgba(4, 9, 30, 0.8)), url("../image/breadcrumb.jpg");
-  background: -o-linear-gradient(left, rgba(4, 9, 30, 0.8), rgba(4, 9, 30, 0.8)), url("../image/breadcrumb.jpg");
-  background: -webkit-gradient(linear, left top, right top, from(rgba(4, 9, 30, 0.8)), to(rgba(4, 9, 30, 0.8))), url("../image/breadcrumb.jpg");
-  background: linear-gradient(to right, rgba(4, 9, 30, 0.8), rgba(4, 9, 30, 0.8)), url("../image/breadcrumb.jpg");
+  background: -webkit-linear-gradient(left, rgba(4, 9, 30, 0.8), rgba(4, 9, 30, 0.8)), url("../img/logo.jpg");
+  background: -o-linear-gradient(left, rgba(4, 9, 30, 0.8), rgba(4, 9, 30, 0.8)), url("../img/logo.jpg");
+  background: -webkit-gradient(linear, left top, right top, from(rgba(4, 9, 30, 0.8)), to(rgba(4, 9, 30, 0.8))), url("../img/logo.jpg");
+  background: linear-gradient(to right, rgba(4, 9, 30, 0.8), rgba(4, 9, 30, 0.8)), url("../img/logo.jpg");
 }
 
 .page-cover-tittle {

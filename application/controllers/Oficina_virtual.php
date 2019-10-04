@@ -14,12 +14,18 @@ class Oficina_virtual extends CI_Controller
 
     public function index(){
         if ($this->session->userdata("login")) {
-        	$this->load->view('oficina/header');
-            $this->load->view('oficina/inicio');
-            $this->load->view('oficina/footer');
+            $id = $this->session->userdata("persona_perfil_id");
+            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+            $dato = $resi->persona_id;
+            $data['nombre']=$this->db->query("SELECT nombres||' '||paterno||' '||materno nombre FROM public.persona WHERE persona_id='$dato'")->row();
+        	$data['logueado']= "si";
+
         }else{
-            redirect(base_url());
+            $data['logueado']= "no";
         }
+        $this->load->view('oficina/header', $data);
+        $this->load->view('oficina/inicio');
+        $this->load->view('oficina/footer');
     }
 
     public function noticias(){
@@ -35,14 +41,33 @@ class Oficina_virtual extends CI_Controller
 
     public function requisitos(){
         if ($this->session->userdata("login")) {
-            $datos['tramites'] = $this->db->query("SELECT tipo_tramite_id, tramite FROM tramite.tipo_tramite WHERE activo=1 ORDER BY tramite")->result();
-            $this->load->view('oficina/header');
-            
-            $this->load->view('oficina/requisitos', $datos);
-            $this->load->view('oficina/footer');
+            $id = $this->session->userdata("persona_perfil_id");
+            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+            $dato = $resi->persona_id;
+            $data['nombre']=$this->db->query("SELECT nombres||' '||paterno||' '||materno nombre FROM public.persona WHERE persona_id='$dato'")->row();
+            $data['logueado']= "si";
         }else{
-            redirect(base_url());
+            $data['logueado']= "no";
         }
+        $datos['tramites'] = $this->db->query("SELECT * FROM tramite.tipo_tramite WHERE activo=1 ORDER BY tramite")->result();
+        $this->load->view('oficina/header', $data);
+        $this->load->view('oficina/requisitos', $datos);
+        $this->load->view('oficina/footer');
+    }
+
+    public function servicios(){
+        if ($this->session->userdata("login")) {
+            $id = $this->session->userdata("persona_perfil_id");
+            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+            $dato = $resi->persona_id;
+            $data['nombre']=$this->db->query("SELECT nombres||' '||paterno||' '||materno nombre FROM public.persona WHERE persona_id='$dato'")->row();
+            $data['logueado']= "si";
+        }else{
+            $data['logueado']= "no";
+        }
+        $this->load->view('oficina/header', $data);
+        $this->load->view('oficina/servicios');
+        $this->load->view('oficina/footer');
     }
 
     public function nuevo(){
@@ -77,36 +102,14 @@ class Oficina_virtual extends CI_Controller
         }else{
             redirect(base_url());
         }
-    }
-
-    public function servicios(){
-        if ($this->session->userdata("login")) {
-            $this->load->view('oficina/header');
-            
-            $this->load->view('oficina/servicios');
-            $this->load->view('oficina/footer');
-        }else{
-            redirect(base_url());
-        }
     }     
 
-    public function certificado()    
-    {
+    public function certificado(){
         date_default_timezone_set('America/La_Paz');
         set_time_limit(0);
         ini_set('memory_limit','1024M');
 
-
-        $data['data_bloques'] = $this->db->query("SELECT b.*,d.descripcion,u.descripcion as uso FROM catastro.bloque b
-LEFT JOIN
-catastro.destino_bloque d
-on b.destino_bloque_id=d.destino_bloque_id
-LEFT JOIN
-catastro.uso_bloque u
-on b.uso_bloque_id=u.uso_bloque_id
-
-
-WHERE predio_id=50 ORDER BY b.nro_bloque")->result(); 
+        $data['data_bloques'] = $this->db->query("SELECT b.*,d.descripcion,u.descripcion as uso FROM catastro.bloque b LEFT JOIN catastro.destino_bloque d ON b.destino_bloque_id=d.destino_bloque_id LEFT JOIN catastro.uso_bloque u ON b.uso_bloque_id=u.uso_bloque_id WHERE predio_id=50 ORDER BY b.nro_bloque")->result(); 
         $data['data_grupos'] = $this->db->query("SELECT * FROM catastro.bloque_grupo_mat where activo=1")->result_array(); 
         $data['num_grupos'] = $this->db->query("SELECT count(grupo_mat_id) as total from catastro.bloque_grupo_mat where activo=1 ")->row();
         $data['num_bloques'] = $this->db->query("SELECT count(grupo_mat_id) as total from catastro.bloque_mat_item where activo=1  ")->row();
@@ -163,8 +166,6 @@ WHERE predio_id=50 ORDER BY b.nro_bloque")->result();
 
         $data['img'] = "qr_2.png";
 
-
-
         $this->load->view('oficina/certificado',$data);
         $html = $this->output->get_output();
         $this->load->library('pdf');
@@ -176,7 +177,6 @@ WHERE predio_id=50 ORDER BY b.nro_bloque")->result();
     } 
 
     public function generar_clave (){
-
         $key = "";
         $caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         //aquí podemos incluir incluso caracteres especiales pero cuidado con las ‘ y “ y algunos otros

@@ -43,6 +43,7 @@
                             <div class="col-6">
                             <?php //vdebug($tramite, false, false, true); ?>
                                 <h2 class="mb-0">CITE: <?php echo $tramite->cite; ?></h2>
+                                
                                 <h4 class="font-light mt-0">Referencia <?php echo $tramite->referencia; ?></h4>
                             </div>
                             <div class="col-6 align-self-center display-8 text-info text-right">Fecha: <?php echo date("Y-m-d",strtotime($tramite->fecha)); ?></div>
@@ -64,11 +65,11 @@
                             <?php //vdebug($personas, true, false, true); ?>
                                 <div class="form-group">
                                     <input type="hidden" name="idTramite" value="<?php echo $idTramite; ?>">
-                                    <input type="hidden" name="organigrama_id" value="<?php echo $organigrama_id; ?>">
+                                    <input type="hidden" name="orden" id="orden" value="<?php echo $orden; ?>">
                                     <label>Derivar a: </label>
                                     <select class="custom-select form-control" name="destino" />
                                         <?php foreach ($personas as $key => $p): ?>
-                                            <option value="<?php echo $p['id'] ?>"><?php echo $p['nombre']; ?> - <?php echo $p['cargo']; ?> (<?php echo $p['unidad']; ?>)</option>
+                                            <option value="<?php echo $p['organigrama_persona_id'] ?>"><?php echo $p['nombre']; ?> - <?php echo $p['descripcion']; ?> (<?php echo $p['unidad']; ?>)</option>
                                         <?php endforeach ?>
                                     </select>
                                 </div>
@@ -77,7 +78,8 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label>Descripcion: </label>
-                                    <input type="text" class="form-control" name="descripcion">
+                                    <input type="text" class="form-control"
+                                     name="descripcion">
                                 </div>
                                 <!-- <label>&nbsp;</label> -->
                                 <?php // echo $tramite->procedencia; ?>
@@ -86,7 +88,7 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label>Archivo</label>
-                                    <input type="file" class="form-control" name="adjunto">
+                                    <input type="file" class="form-control" name="adjunto" accept=".pdf">
                                 </div>
                                <!--  <div class="form-group">
                                     <div class="input-group input-file" name="Fichier1">

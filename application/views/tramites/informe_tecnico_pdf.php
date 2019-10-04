@@ -242,7 +242,7 @@
                         </td>
                         <td align="center" style="width: 15%;">
                             <div class="col-md-9" style="font-size: 11px; height: 15px;">
-                                 <input type="text" class="form-control" id="lote" name="lote" size="30" value=" <?php echo $tramite->solicitante ?>">
+                                 <input type="text" class="form-control" id="lote" name="lote" size="30" value=" <?php echo $propietarios->nombre ?>">
                             </div>
                         </td>
 
@@ -256,11 +256,11 @@
                         </td>
                         <td align="center" style="width: 30%;">
                             <div class="col-md-9" style="font-size: 11px; height: 15px;">
-                                <input type="text" id="superficie_total" name="superficie_total" size="12" value="<?php echo $tramite->ci ?>">
+                                <input type="text" id="superficie_total" name="superficie_total" size="12" value="<?php echo $propietarios->ci ?>">
                             </div>
                         </td>                                        
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td align="left" style="width: 20%;">
                             <div class="col-lg-11 col-md-12">
                                 <div class="form-group row" style="font-size: 11px; height: 15px; text-align: right;">
@@ -271,7 +271,7 @@
                         </td>
                         <td align="center" style="width: 15%;">
                             <div class="col-md-9" style="font-size: 11px; height: 15px;">
-                                 <input type="text" class="form-control" id="lote" name="lote" size="30" value=" <?php echo $tramite->solicitante2; ?>">
+                                 <input type="text" class="form-control" id="lote" name="lote" size="30" value=" ">
                             </div>
                         </td>
 
@@ -285,10 +285,10 @@
                         </td>
                         <td align="center" style="width: 30%;">
                             <div class="col-md-9" style="font-size: 11px; height: 15px;">
-                                <input type="text" id="superficie_total" name="superficie_total" size="12" value=" <?php echo $tramite->ci2; ?> ">
+                                <input type="text" id="superficie_total" name="superficie_total" size="12" value=" ">
                             </div>
                         </td>                                        
-                    </tr>
+                    </tr> -->
                	</table>
                	 <table width="100%">
                     <tr>
@@ -433,7 +433,7 @@
                         </td>
                         <td align="center" style="width: 15%;">
                             <div class="col-md-9" style="font-size: 11px; height: 15px;">
-                                 <input type="text" class="form-control" id="lote" name="lote" size="30" value=" <?php echo $tramite->solicitante ?>">
+                                 <input type="text" class="form-control" id="lote" name="lote" size="30" value=" <?php echo $propietarios->nombre ?>">
                             </div>
                         </td>
 
@@ -447,11 +447,12 @@
                         </td>
                         <td align="center" style="width: 30%;">
                             <div class="col-md-9" style="font-size: 11px; height: 15px;">
-                                <input type="text" id="superficie_total" name="superficie_total" size="12" value="<?php echo $tramite->ci ?>">
+                                <input type="text" id="superficie_total" name="superficie_total" size="12" value="<?php echo $propietarios->ci ?>">
                             </div>
                         </td>                                        
                     </tr>
-                    <tr>
+                    
+                    <!-- <tr>
                         <td align="left" style="width: 20%;">
                             <div class="col-lg-11 col-md-12">
                                 <div class="form-group row" style="font-size: 11px; height: 15px; text-align: right;">
@@ -462,7 +463,7 @@
                         </td>
                         <td align="center" style="width: 15%;">
                             <div class="col-md-9" style="font-size: 11px; height: 15px;">
-                                 <input type="text" class="form-control" id="lote" name="lote" size="30" value=" <?php echo $tramite->solicitante2 ?> ">
+                                 <input type="text" class="form-control" id="lote" name="lote" size="30" value=" <?php echo $vendedor->nombre ?> ">
                             </div>
                         </td>
 
@@ -476,10 +477,11 @@
                         </td>
                         <td align="center" style="width: 30%;">
                             <div class="col-md-9" style="font-size: 11px; height: 15px;">
-                                <input type="text" id="superficie_total" name="superficie_total" size="12" value="<?php echo $tramite->ci2 ?>">
+                                <input type="text" id="superficie_total" name="superficie_total" size="12" value="<?php echo $vendedor->ci ?>">
                             </div>
                         </td>                                        
-                    </tr>
+                    </tr>  -->
+                    
                	</table>
                	<table class="orden" width="100%">
                     <tr>
@@ -531,7 +533,7 @@
                         </td>
                         <td align="center" style="width: 15%;">
                             <div class="col-md-9" style="font-size: 11px; height: 15px;">
-                                 <input type="text" class="form-control" id="lote" name="lote" size="30" value=" <?php echo $tramite->solicitante ?>">
+                                 <input type="text" class="form-control" id="lote" name="lote" size="30" value=" <?php echo $propietarios->nombre ?>">
                             </div>
                         </td>
 
@@ -545,11 +547,11 @@
                         </td>
                         <td align="center" style="width: 30%;">
                             <div class="col-md-9" style="font-size: 11px; height: 15px;">
-                                <input type="text" id="superficie_total" name="superficie_total" size="12" value="<?php echo $tramite->ci ?>">
+                                <input type="text" id="superficie_total" name="superficie_total" size="12" value="<?php echo $propietarios->ci ?>">
                             </div>
                         </td>                                        
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td align="left" style="width: 20%;">
                             <div class="col-lg-11 col-md-12">
                                 <div class="form-group row" style="font-size: 11px; height: 15px; text-align: right;">
@@ -560,7 +562,7 @@
                         </td>
                         <td align="center" style="width: 15%;">
                             <div class="col-md-9" style="font-size: 11px; height: 15px;">
-                                 <input type="text" class="form-control" id="lote" name="lote" size="30" value="<?php echo $tramite->solicitante2 ?>">
+                                 <input type="text" class="form-control" id="lote" name="lote" size="30" value="<?php //echo $tramite->solicitante2 ?>">
                             </div>
                         </td>
 
@@ -574,10 +576,10 @@
                         </td>
                         <td align="center" style="width: 30%;">
                             <div class="col-md-9" style="font-size: 11px; height: 15px;">
-                                <input type="text" id="superficie_total" name="superficie_total" size="12" value="<?php echo $tramite->ci2 ?>">
+                                <input type="text" id="superficie_total" name="superficie_total" size="12" value="<?php //echo $tramite->ci2 ?>">
                             </div>
                         </td>                                        
-                    </tr>
+                    </tr> -->
                	</table>
                	<table class="orden" width="100%">
                     <tr>
@@ -648,17 +650,18 @@
                     <tr>
                         <td align="left" style="width: 28%;">
                             <div style="font-size: 11px; height: 15px; text-align: right;">
-                                <label>A FAVOR DE : </label>
+                                <label>
+                                A FAVOR DE : </label>
                             </div>     
                         </td>
                         <td align="center" style="width: 72%;">
                             <div style="font-size: 11px; height: 15px; ">
-                                <input type="text" id="jurisdicion" name="jurisdicion" size="55" value="<?php echo $tramite->solicitante ?>">
+                                <input type="text" id="jurisdicion" name="jurisdicion" size="55" value="<?php echo $propietarios->nombre ?>">
                             </div>
                         </td>
                        
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td align="left" style="width: 28%;">
                             <div style="font-size: 11px; height: 15px; text-align: right;">
                                 <label></label>
@@ -670,6 +673,44 @@
                             </div>
                         </td>
                        
+                    </tr> -->
+                </table>
+                <table width="100%">
+                    <tr>
+                        <td align="left" style="width: 28%;">
+                            <h3 style="font-size: 11px; height: 5px;"><b><u>CARACTERISTICAS DE LA PROPIEDAD</u></b></h3>
+                        </td>
+                    </tr>
+                </table>
+                <table width="100%">
+                    <tr>
+                        <td align="left" style="width: 23%;">
+                            <div class="col-lg-11 col-md-12">
+                                <div class="form-group row" style="font-size: 11px; height: 15px; text-align: right;">
+                                    <label class="control-label text-right col-md-3">SUPERFICIE SEGUN TESTIMONIO : </label>
+                                    
+                                </div>
+                            </div>            
+                        </td>
+                        <td align="center" style="width: 15%;">
+                            <div class="col-md-6" style="font-size: 11px; height: 15px;">
+                                 <input type="text" class="form-control" id="lote" name="lote" size="12" value="<?php echo $tramite->superficie_testimonio ?> m2">
+                            </div>
+                        </td>
+
+                        <td align="left" style="width: 23%;">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group row" style="font-size: 11px; height: 15px; text-align: right;">
+                                    <label class="control-label text-right col-md-3">SUPERFICIE SEGUN MEDICION : </label>
+                                    
+                                </div>
+                            </div>            
+                        </td>
+                        <td align="center" style="width: 18%;">
+                            <div class="col-md-6" style="font-size: 11px; height: 15px;">
+                                <input type="text" id="superficie_total" name="superficie_total" size="12" value="<?php echo $tramite->superficie_medicion ?> m2">
+                            </div>
+                        </td>                                        
                     </tr>
                 </table>
                 <table width="100%">
@@ -696,6 +737,7 @@
                         </td>
                     </tr>
                 </table>
+
                 <table width="100%">
                     <tr>
                         <td align="center" style="width: 33%; height: 15px;">
@@ -710,6 +752,3 @@
 		</div>
 	</body>
 </html>
-
-
-

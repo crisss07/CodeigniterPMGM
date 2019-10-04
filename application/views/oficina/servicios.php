@@ -23,7 +23,7 @@
                                 <br>
                                 <h4 class="widget_title" style="color: white;">Tasa por servicio <br>Bs 50</h4>
                                 <br>
-                                <a href="<?php echo base_url(); ?>oficina_virtual/certificado" target="_blank" class="genric-btn primary-border circle">Solicitar</a>
+                                <a href="<?php echo base_url(); ?>Oficina_virtual/certificado" target="_blank" class="genric-btn primary-border circle">Solicitar</a>
                                 <!-- <p>Boot camps have its supporters andit sdetractors. Some people do not understand why you should have to spend money on boot camp when you can get. Boot camps have itssuppor ters andits detractors.</p> -->
                                
                                 <div class="br"></div>

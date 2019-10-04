@@ -85,7 +85,7 @@ class Persona extends CI_Controller {
          	if($porcen_parti <= $porcentajeR){
 				if($this->Persona_model->existeci($ci)){
 					$tipo_persona_id=1;
-					$this->persona_model->insertarUsuarioPredio($nombres, $paterno, $materno, $ci, $fec_nacimiento, $usu_creacion, $direccion, $email, $telefono_fijo,$telefono_celular, $tipo_persona_id);
+					$this->Persona_model->insertarUsuarioPredio($nombres, $paterno, $materno, $ci, $fec_nacimiento, $usu_creacion, $direccion, $email, $telefono_fijo,$telefono_celular, $tipo_persona_id);
 				}
 				$consulta = $this->Persona_model->consulta($ci);
 				$dato = array(

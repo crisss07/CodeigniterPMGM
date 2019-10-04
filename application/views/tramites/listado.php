@@ -47,13 +47,14 @@
                                                <!--  <a href="<?php //echo base_url(); ?>derivaciones/nuevo/<?php //echo $mt->tramite_id; ?>" class="btn btn-success footable-edit" title="Derivar">
                                                     <span class="fas fa-paper-plane" aria-hidden="true"></span>
                                                 </a> -->
+                     
                                             
                                                 <?php $valor=$this->db->query("SELECT * FROM tramite.derivacion WHERE tramite_id='$mt->tramite_id'")->row(); ?>
                                                 <?php if ($valor != NULL){ ?>
                                                     <a href="<?php echo base_url();?>Tipo_tramite/seguimiento/<?php echo $mt->tramite_id;?>" class="btn btn-primary footable-edit" title="Ver">
-                                                    <span class="fas fa-bars" aria-hidden="true"></span>
-                                                </a>
-                                                
+                                                        <span class="fas fa-bars" aria-hidden="true"></span>
+                                                    </a> 
+
                                                 <?php }else{ ?>
                                                     <a href="<?php echo base_url(); ?>Derivaciones/nuevo/<?php echo $mt->tramite_id; ?>" class="btn btn-success footable-edit" title="Derivar">
                                                         <span class="fas fa-paper-plane" aria-hidden="true"></span>

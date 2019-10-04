@@ -226,13 +226,15 @@ class Tramite_model extends CI_Model {
 			);
 			$this->db->insert('tramite.tramite_requisito', $requi);
 		}
-		if ($tipo == 'derivar') {
+		$orden = $this->db->query("SELECT min(orden) FROM tramite.flujo WHERE tipo_tramite_id='$tipo_tramite_id'")->row();
+		if ($tipo == 'derivar' AND $destino!=0) {
 			$derivacion=array(
 				'tramite_id' => $id_tramite,
 				'fuente' => $organigrama_persona_id,
 				'destino' => $destino,
 				'fecha' => $fecha,
-				'descripcion' => $observaciones
+				'descripcion' => $observaciones,
+				'orden' => $orden->min,
 			);
 			$this->db->insert('tramite.derivacion', $derivacion);	
 		}
