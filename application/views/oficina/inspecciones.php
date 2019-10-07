@@ -1,3 +1,8 @@
+<style type="text/css">
+    p{
+        display: inline-block;
+    }
+</style>
 <section class="breadcrumb_area blog_banner_two">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
@@ -34,35 +39,19 @@
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>20-08-2019</td>
-                                                <td>Juan Pablo Fernandez</td>
-                                                <td>Cambio de nombre</td>
-                                                <td><span class="label label-danger">Cancelada</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>17-28-2019</td>
-                                                <td>Roberto Torrez</td>
-                                                <td>Division y particion</td>
-                                                <td><span class="label label-warning">Visita observada</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>15-08-2019</td>
-                                                <td>Carlos Lopez</td>
-                                                <td>Legalizacion de construcciones</td>
-                                                <td><span class="label label-success"><label style="background-color: #FF0000; color: white; padding-right: 4px; padding-left: 4px;">Programado</label></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>01-08-2019</td>
-                                                <td>Abel Mendoza</td>
-                                                <td>Aprobacion de planos de construccion</td>
-                                                <td><span class="label label-info">Realizado</span></td>
-                                            </tr>
-                                           
+                                            <?php $cont =1;
+                                            foreach ($lista as $key => $value) { ?>
+                                                <tr>
+                                                    <td><?php echo $cont ?></td>
+                                                    <td><?php echo $value->inicio ?></td>
+                                                    <td><?php echo $value->nombre ?></td>
+                                                    <td><?php echo $value->tramite ?></td>
+                                                    <td><span class="label label-danger"><?php echo $value->tipo ?></span></td>
+                                                </tr>
+                                            <?php  $cont++;
+                                        } ?>
+                                            
+                                            
                                         </tbody>
 
                                     </table>

@@ -240,6 +240,29 @@ class Tramite_model extends CI_Model {
 		}
 	}
 
+	public function insertar_tramite_virtual($organigrama_persona_id, $tipo_documento_id, $tipo_tramite_id, $cite, $fecha, $fojas, $anexos, $remitente, $procedencia, $referencia, $usu_creacion, $correlativo, $gestion, $tipo_solicitante, $via_solicitud, $solicitante_id){	
+		$this->load->helper('vayes_helper');
+		$array = array(
+			'organigrama_persona_id' =>$organigrama_persona_id,
+			'tipo_documento_id' =>$tipo_documento_id,
+			'tipo_tramite_id' =>$tipo_tramite_id,
+			'cite' =>$cite,
+			'fecha' =>$fecha,
+			'fojas' =>$fojas,
+			'anexos' =>$anexos,
+			'remitente' =>$remitente,
+			'procedencia' =>$procedencia,
+			'referencia' =>$referencia,
+			'usu_creacion' =>$usu_creacion,
+			'adjunto'=>' ',
+			'tipo_solicitante' => $tipo_solicitante,
+			'via_solicitud' => $via_solicitud,
+			'solicitante_id' => $solicitante_id,
+			
+			);
+		$this->db->insert('tramite.tramite', $array);
+	}
+
 	public function login($usuario, $contrasenia){
 		$this->db->where('usuario', $usuario);
 		$this->db->where('contrasenia', $contrasenia);

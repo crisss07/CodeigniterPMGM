@@ -10,6 +10,7 @@ class Oficina_virtual extends CI_Controller
         $this->load->helper('url_helper');
         $this->load->helper('vayes_helper');
         $this->load->model("Rol_model");
+        $this->load->model("Tramite_model");
     }
 
     public function index(){
@@ -103,13 +104,18 @@ class Oficina_virtual extends CI_Controller
 
     public function inspecciones(){
         if ($this->session->userdata("login")) {
-            $this->load->view('oficina/header');
-            
-            $this->load->view('oficina/inspecciones');
-            $this->load->view('oficina/footer');
+            $id = $this->session->userdata("persona_perfil_id");
+            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+            $dato = $resi->persona_id;
+            $data['nombre']=$this->db->query("SELECT nombres||' '||paterno||' '||materno nombre FROM public.persona WHERE persona_id='$dato'")->row();
+            $data['logueado']= "si";
         }else{
-            redirect(base_url());
+            $data['logueado']= "no";
         }
+        $datos['lista']=$this->db->query("SELECT per.nombres||' '||per.paterno||' '||per.materno as nombre, asig.inicio, tt.tramite, ta.tipo FROM inspeccion.asignacion asig JOIN public.persona per ON asig.persona_id=per.persona_id JOIN tramite.tramite tra ON asig.tramite_id=tra.tramite_id JOIN tramite.tipo_tramite tt ON tra.tipo_tramite_id=tt.tipo_tramite_id JOIN inspeccion.tipo_asignacion ta ON asig.tipo_asignacion_id=ta.tipo_asignacion_id WHERE asig.activo=1")->result();
+        $this->load->view('oficina/header', $data);
+        $this->load->view('oficina/inspecciones', $datos);
+        $this->load->view('oficina/footer');
     }     
 
     public function certificado(){
@@ -152,6 +158,7 @@ class Oficina_virtual extends CI_Controller
         $data['anio']=date('Y');         
         $dia =  $days_dias[date('l')];
 
+// Generar codigo qr
         $key = "";
         $caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         //aquí podemos incluir incluso caracteres especiales pero cuidado con las ‘ y “ y algunos otros
@@ -159,21 +166,16 @@ class Oficina_virtual extends CI_Controller
         $max = strlen($caracteres) - 1;
         for ($i=0;$i<$length;$i++) {
             $key .= substr($caracteres, rand(0, $max), 1);
-        }
-        
+        }        
         $this->load->library('ciqrcode');
         $params['data'] = "Codigo catastral: 00-34-125-024-0-00-000-000   Propietario: HERNAN YUCRA MASIAS localhost/CodeigniterPMGM/oficina_virtual/certificacion/".$key ;
         $params['level'] = 'A';
         $params['size'] = 6;
-
-        //decimos el directorio a guardar el codigo qr, en este 
-        //caso una carpeta en la raíz llamada qr_code
         $params['savename'] = FCPATH . "public/assets/images/oficina/codigos/qr_2.png";
-        //generamos el código qr
         $this->ciqrcode->generate($params);
 
         $data['img'] = "qr_2.png";
-
+//fin generar codigo qr
         $this->load->view('oficina/certificado',$data);
         $html = $this->output->get_output();
         $this->load->library('pdf');
@@ -195,6 +197,43 @@ class Oficina_virtual extends CI_Controller
         }else{
             redirect(base_url());
         }
+    }
+
+    public function tramite_nuevo(){
+        if($this->session->userdata("login")){
+            $datos = $this->input->post();
+            if(isset($datos)){
+                //OBTENER EL ID DEL USUARIO LOGUEADO
+                $id = $this->session->userdata("persona_perfil_id");
+                $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+                $usu_creacion = $resi->persona_id;
+                //corregir error aqui organigrama
+                $organigrama_persona_id = 1;
+                $tipo_documento_id = 1;
+                $tipo_tramite_id = $datos['tipo_tramite_id'];
+                $cite = $datos['cite'];
+                $fecha = $datos['fecha'];
+                $fojas = 0;
+                $anexos = 0;
+                $remitente = $datos['remitente'];
+                $procedencia = '0';
+                $referencia = '0';
+                //$adjunto = $datos['cite_sin'];
+                //$destino = $datos['destino'];
+                $correlativo = $datos['correlativo'];
+                $gestion = $datos['gestion'];
+                $tipo_solicitante = $datos['tipo_solicitante'];
+                $via_solicitud = 'Virtual';
+                $solicitante_id = $datos['solicitante_id'];
+                //$observaciones = $datos['observaciones'];
+                //$requisitos=$datos['requisitos'];
+                //$tipo = $this->input->post('boton');
+                $this->Tramite_model->insertar_tramite_virtual($organigrama_persona_id, $tipo_documento_id, $tipo_tramite_id, $cite, $fecha, $fojas, $anexos, $remitente, $procedencia, $referencia, $usu_creacion, $correlativo, $gestion, $tipo_solicitante, $via_solicitud, $solicitante_id);
+            }
+            redirect(base_url().'oficina_virtual');
+        }else{
+            redirect(base_url());
+        }   
     }
 
 }

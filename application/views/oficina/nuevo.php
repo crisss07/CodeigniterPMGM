@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-lg-8 col-md-8">
                         <h3 class="mb-30 title_color">Iniciar tramite</h3>
-                        <?php echo form_open_multipart('Tipo_tramite/do_upload', array('method'=>'POST')); ?>
+                        <?php echo form_open_multipart('Oficina_virtual/tramite_nuevo', array('method'=>'POST')); ?>
                         <!-- <form action="#"> -->
                             <div class="row row_alinaer">
                                 <div class="col-lg-2 alinear">Tramite : </div>
@@ -71,9 +71,7 @@
                                     <input type="text" name="remitente" id="remitente" required class="single-input">
                                 </div>
                             </div>
-                           
                             <input type="hidden" name="solicitante_id" id="solicitante_id" required class="single-input">
-                               
                             <div class="row row_alinaer">
                                 <div class="col-lg-3 alinear">Tipo de solicitante : </div>
                                 <div class="col-lg-9">
@@ -89,6 +87,12 @@
                                     </div>
                                 </div>
                             </div>
+                            <br>
+                            <center>
+                        <div class="col-md-4">
+                                    <button type="submit" name="boton" class="btn waves-effect waves-light btn-block btn-info">Enviar</button>
+                                </div></center>
+                            
                         </form>
                     </div>
                     <div class="col-lg-3 col-md-4 mt-sm-30 element-wrap">
