@@ -163,7 +163,7 @@ class Tramite_model extends CI_Model {
 */
 	}
 
-	public function insertar_tramite_nuevo($organigrama_persona_id, $tipo_documento_id, $tipo_tramite_id, $cite, $fecha, $fojas, $anexos, $remitente, $procedencia, $referencia, $usu_creacion, $adjunto, $destino, $correlativo, $gestion, $tipo_solicitante, $via_solicitud, $solicitante_id, $observaciones, $requisitos, $tipo){	
+	public function insertar_tramite_inspeccion($organigrama_persona_id, $tipo_documento_id, $tipo_tramite_id, $cite, $fecha, $fojas, $anexos, $remitente, $procedencia, $referencia, $usu_creacion, $adjunto, $destino, $correlativo, $gestion, $tipo_solicitante, $via_solicitud, $solicitante_id, $observaciones, $requisitos, $tipo){	
 		$this->load->helper('vayes_helper');
 		$array = array(
 			'organigrama_persona_id' =>$organigrama_persona_id,
@@ -193,7 +193,7 @@ class Tramite_model extends CI_Model {
 		$this->db->where('numero_tramite_id', $numero_tramite_id);
 		$this->db->update('tramite.numero_tramite', $data);
 		$tramite = $this->db->get_where('tramite.tramite', array('tramite_id'=>$id_tramite))->row();
-		if($tramite->tipo_tramite_id == 10){
+		if($tramite->tipo_tramite_id == 15){
 			$contador_asignaciones = $this->db->query("SELECT k.*  FROM
 			(SELECT j.persona_id,(CASE WHEN j.total IS NULL THEN 0 ELSE j.total	END) FROM 
 			(SELECT d.*,b.total FROM 
@@ -240,7 +240,14 @@ class Tramite_model extends CI_Model {
 		}
 	}
 
+<<<<<<< Updated upstream
 	public function insertar_tramite_virtual($organigrama_persona_id, $tipo_documento_id, $tipo_tramite_id, $cite, $fecha, $fojas, $anexos, $remitente, $procedencia, $referencia, $usu_creacion, $correlativo, $gestion, $tipo_solicitante, $via_solicitud, $solicitante_id){	
+=======
+
+
+
+	public function insertar_tramite_nuevo($organigrama_persona_id, $tipo_documento_id, $tipo_tramite_id, $cite, $fecha, $fojas, $anexos, $remitente, $procedencia, $referencia, $usu_creacion, $adjunto, $destino, $correlativo, $gestion, $tipo_solicitante, $via_solicitud, $solicitante_id, $observaciones, $requisitos, $tipo){	
+>>>>>>> Stashed changes
 		$this->load->helper('vayes_helper');
 		$array = array(
 			'organigrama_persona_id' =>$organigrama_persona_id,
@@ -254,6 +261,7 @@ class Tramite_model extends CI_Model {
 			'procedencia' =>$procedencia,
 			'referencia' =>$referencia,
 			'usu_creacion' =>$usu_creacion,
+<<<<<<< Updated upstream
 			'adjunto'=>' ',
 			'tipo_solicitante' => $tipo_solicitante,
 			'via_solicitud' => $via_solicitud,
@@ -261,6 +269,44 @@ class Tramite_model extends CI_Model {
 			
 			);
 		$this->db->insert('tramite.tramite', $array);
+=======
+			'adjunto' =>$adjunto,
+			'tipo_solicitante' => $tipo_solicitante,
+			'via_solicitud' => $via_solicitud,
+			'solicitante_id' => $solicitante_id,
+			'observaciones' => $observaciones
+			);
+		$this->db->insert('tramite.tramite', $array);
+		$tramite_id = $this->db->query("SELECT * FROM tramite.numero_tramite WHERE gestion = '$gestion' AND activo = '1'")->row();
+		$numero_tramite_id = $tramite_id->numero_tramite_id;
+		$data = array(
+        	'correlativo' => $correlativo
+        );
+		$id_tramite = $this->db->insert_id();
+		$this->db->where('numero_tramite_id', $numero_tramite_id);
+		$this->db->update('tramite.numero_tramite', $data);
+		$tramite = $this->db->get_where('tramite.tramite', array('tramite_id'=>$id_tramite))->row();
+		
+		foreach ($requisitos as $valores) {
+			$requi=array(
+				'requisito_id'=>$valores,
+				'tramite_id'=>$id_tramite,
+				'fecha'=>$fecha,
+				'usu_creacion'=>$usu_creacion,
+			);
+			$this->db->insert('tramite.tramite_requisito', $requi);
+		}
+		if ($tipo == 'derivar') {
+			$derivacion=array(
+				'tramite_id' => $id_tramite,
+				'fuente' => $organigrama_persona_id,
+				'destino' => $destino,
+				'fecha' => $fecha,
+				'descripcion' => $observaciones
+			);
+			$this->db->insert('tramite.derivacion', $derivacion);	
+		}
+>>>>>>> Stashed changes
 	}
 
 	public function login($usuario, $contrasenia){
