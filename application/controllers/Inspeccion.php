@@ -8,14 +8,8 @@ class Inspeccion extends CI_Controller {
 		parent::__construct();
 		$this->load->library('session');
 		$this->load->model("Inspecciones_model");
-<<<<<<< Updated upstream:application/controllers/Inspeccion.php
 		$this->load->model("Derivaciones_model");
 		$this->load->model("Rol_model");
-=======
-		$this->load->model("Tramite_model");
-		$this->load->model("Derivaciones_model");
-		$this->load->model("rol_model");
->>>>>>> Stashed changes:application/controllers/inspeccion.php
         $this->load->helper('vayes_helper');
         $this->load->helper(array('form', 'url'));
     }
@@ -23,17 +17,12 @@ class Inspeccion extends CI_Controller {
     public function index()
 	{
 		if($this->session->userdata("login")){
-<<<<<<< Updated upstream:application/controllers/Inspeccion.php
 			redirect(base_url()."Inspeccion/crear");
-=======
-			redirect(base_url()."inspeccion/crear_inspeccion");
->>>>>>> Stashed changes:application/controllers/inspeccion.php
 		}
 		else{
 			redirect(base_url());
         }			
 	}	
-<<<<<<< Updated upstream:application/controllers/Inspeccion.php
 
 
     public function crear(){
@@ -110,97 +99,6 @@ class Inspeccion extends CI_Controller {
 			redirect(base_url());
         }	
 	}
-
-=======
->>>>>>> Stashed changes:application/controllers/inspeccion.php
-
-
-	public function crear_inspeccion(){
-		if($this->session->userdata("login")){
-			//$lista['verifica'] = $this->rol_model->verifica();
-			//$lista['zona_urbana'] = $this->zona_urbana_model->index();
-			$id = $this->session->userdata("persona_perfil_id");
-            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
-            $dato = $resi->persona_id;
-            $res = $this->db->get_where('persona', array('persona_id' => $dato))->row();
-            $consulta = $this->db->query("SELECT organigrama_persona_id FROM tramite.organigrama_persona WHERE fec_baja is NULL AND persona_id = '$res->persona_id'")->row();
-            $ids['personas'] = $this->derivaciones_model->personal($resi->persona_id);
-            if ($consulta) {
-            	$ids['idss'] = $consulta->organigrama_persona_id;
-            	$this->load->view('admin/header');
-		        $this->load->view('admin/menu');
-		        $this->load->view('inspecciones/crear', $ids);
-
-		        $this->load->view('admin/footer');
-		        
-            }else{
-            	redirect(base_url());
-            }
-       	}else{
-			redirect(base_url());
-        }	
-	}
-
-	public function create(){
-		if($this->session->userdata("login")){
-			$datos = $this->input->post();
-			if(isset($datos)){
-				//OBTENER EL ID DEL USUARIO LOGUEADO
-				$id = $this->session->userdata("persona_perfil_id");
-	            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
-	            $usu_creacion = $resi->persona_id;
-	            $organigrama_persona=$this->db->query("SELECT organigrama_persona_id FROM tramite.organigrama_persona WHERE persona_id='$usu_creacion'")->row();
-	            //corregir error aqui organigrama
-				$organigrama_persona_id = $organigrama_persona->organigrama_persona_id;
-				$tipo_documento_id = 1;
-				$tipo_tramite_id = 15;
-				$cite = $datos['cite'];
-				$fecha = $datos['fecha'];
-				$fojas = 0;
-				$anexos = 0;
-				$remitente = $datos['remitente'];
-				$procedencia = '0';
-				$referencia = '0';
-				$adjunto = '--';
-				$destino = $datos['destino'];
-				$correlativo = $datos['correlativo'];
-				$gestion = $datos['gestion'];
-				$tipo_solicitante = $datos['tipo_solicitante'];
-				$via_solicitud = 'Oficina';
-				$solicitante_id = $datos['solicitante_id'];
-				$observaciones = $datos['observaciones'];
-				$requisitos='0';
-				$tipo = $this->input->post('boton');
-				$this->Tramite_model->insertar_tramite_inspeccion($organigrama_persona_id, $tipo_documento_id, $tipo_tramite_id, $cite, $fecha, $fojas, $anexos, $remitente, $procedencia, $referencia, $usu_creacion, $adjunto, $destino, $correlativo, $gestion, $tipo_solicitante, $via_solicitud, $solicitante_id, $observaciones, $requisitos, $tipo);
-				$tramite = $this->db->query("SELECT * FROM tramite.tramite WHERE cite = '$cite'")->row();
-				$idTramite = $tramite->tramite_id;
-				
-			
-
-				
-				
-					/*$tipo_tramite = $this->db->query("SELECT tramite FROM tramite.tipo_tramite WHERE tipo_tramite_id = '$tipo_tramite_id'")->row();
-					$data = array('upload_data' => $this->upload->data());
-					if($tipo_tramite->tramite == 'Inspeccion'){
-						redirect('Derivaciones/inspectores/'.$idTramite);
-					}else{
-						// redirect('Derivaciones/nuevo/'.$idTramite);
-						
-					}*/
-
-					redirect('Tipo_tramite/muestra_asignaciones');
-				
-				//$this->session->set_flashdata('in', $idTramite);	
-			}
-		}else{
-			redirect(base_url());
-        }	
-	} 
-
-
-
-
-
 
 
 	public function nuevo($ida=null){
@@ -381,11 +279,7 @@ class Inspeccion extends CI_Controller {
 		//$id_user=$resi[0]['persona_id'];
 		//$data['lista'] = $this->Inspecciones_model->get_lista(); 
 		$data['lista'] = $this->Inspecciones_model->get_lista_asign_id($idp); 
-<<<<<<< Updated upstream:application/controllers/Inspeccion.php
 		$data['verifica'] = $this->Rol_model->verifica();
-=======
-		$data['verifica'] = $this->rol_model->verifica();
->>>>>>> Stashed changes:application/controllers/inspeccion.php
 		$this->load->view('admin/header');
 		$this->load->view('admin/menu');
 		$this->load->view('inspecciones/lista_asignid', $data);
