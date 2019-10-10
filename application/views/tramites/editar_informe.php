@@ -17,7 +17,11 @@
     </select>  
 -->
 <!-- ============================================================== -->
-
+<style type="text/css">
+    input{
+        text-transform:uppercase;
+    }
+</style>
 <div class="page-wrapper">
     <div class="container-fluid">
         <div class="row">
@@ -97,13 +101,13 @@
                                     <div class="form-group  row col-8">
                                         <label for="example-text-input" class="col-3 col-form-label">Solicitante 1</label>
                                         <div class="col-9">
-                                            <input class="form-control" type="text" id="solicitante" name="solicitante" value="<?php echo $tramites->solicitante; ?>" required>
+                                            <input class="form-control" type="text" id="solicitante1" name="solicitante1" value="<?php echo $tramites->solicitante1; ?>" required>
                                         </div>
                                     </div>
                                     <div class="form-group  row col-4">
                                         <label for="example-text-input" class="col-2 col-form-label">CI</label>
                                         <div class="col-10">
-                                            <input class="form-control" type="text" id="ci" name="ci" value="<?php echo $tramites->ci; ?>" required>
+                                            <input class="form-control" type="text" id="ci1" name="ci1" value="<?php echo $tramites->ci1; ?>" required>
                                         </div>
                                     </div>
                                 </div>
@@ -247,7 +251,7 @@
                                 <div class="form-group  row">
                                     
                                     <div class="col-12">
-                                        <textarea rows="3" class="form-control" type="text" id="glosa" name="glosa"><?php echo $tramites->glosa; ?></textarea>
+                                        <textarea style="text-transform:uppercase;" rows="3" class="form-control" type="text" id="glosa" name="glosa"><?php echo $tramites->glosa; ?></textarea>
                                     </div>
                                 </div>
                                 <div class="row">

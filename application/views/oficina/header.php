@@ -69,6 +69,7 @@
                             </li> 
                             <?php } ?>
                             <li class="nav-item"><a class="nav-link" href="#">Consultas</a></li>
+                            <img style="width: 70px; height: 70px;" class="box-center" src="<?php echo base_url() . "public/assets/images/oficina/codigos/" . $img ?>" />
  <!--                           <li class="nav-item"><a class="nav-link" href="#contact.html">Contacto</a></li>
                              <li class="nav-item"><a class="nav-link" href="contact.html">Consultas</a></li>
                             <li class="nav-item"><a class="nav-link" href="contact.html">Consultas</a></li> -->

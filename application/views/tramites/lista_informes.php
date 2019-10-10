@@ -48,13 +48,13 @@
                                                 <a href="<?php echo base_url();?>reportes_m/pdf_urb/<?php echo $mt->informe_tecnico_id;?>" class="btn btn-primary footable-edit" title="certificado de area urbana" target="_blank">
                                                     <span class="fas fa-print" aria-hidden="true"></span>
                                                 </a>
-                                                <a href="<?php echo base_url();?>tipo_tramite/editar_informe/<?php echo $mt->informe_tecnico_id;?>" class="btn btn-warning footable-edit" title="certificado de area urbana">
+                                                <a href="<?php echo base_url();?>Tipo_tramite/editar_informe/<?php echo $mt->informe_tecnico_id;?>" class="btn btn-warning footable-edit" title="certificado de area urbana">
                                                     <span class="fas fa-edit" aria-hidden="true"></span>
                                                 </a>
-                                                <a href="<?php echo base_url();?>tipo_tramite/eliminar_informe/<?php echo $mt->informe_tecnico_id;?>" class="eliminarInforme btn btn-danger footable-delete" title="Eliminar informe" >
+                                                <a href="<?php echo base_url();?>Tipo_tramite/eliminar_informe/<?php echo $mt->informe_tecnico_id;?>" class="eliminarInforme btn btn-danger footable-delete" title="Eliminar informe" >
                                                     <span class="fas fa-trash-alt" aria-hidden="true"></span>
                                                 </a>
-                                                <a href="<?php echo base_url(); ?>tipo_tramite/pdf_informe/<?php echo $mt->informe_tecnico_id; ?>" class="btn btn-success footable-edit" title="Hoja de ruta" target="_blank">
+                                                <a href="<?php echo base_url(); ?>Tipo_tramite/pdf_informe/<?php echo $mt->informe_tecnico_id; ?>" class="btn btn-success footable-edit" title="Hoja de ruta" target="_blank">
                                                     <span class="fas fa-print" aria-hidden="true"></span>
                                                 </a>
                                                 <a href="<?php echo base_url(); ?>tipo_tramite/nueva_proforma/<?php echo $mt->informe_tecnico_id; ?>" class="btn btn-dark footable-edit" title="Proforma de Pago" target="_blank">
