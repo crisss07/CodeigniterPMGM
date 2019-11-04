@@ -89,7 +89,7 @@
                                                     <span class="fas fas fa-object-ungroup" aria-hidden="true"></span>
                                                 </a> 
 
-                                                  <a <?php echo $verifica['imprimir'];?>="<?php echo base_url(); ?>Reporteseicu/certificacion_bloques/<?php echo $lp->predio_id; ?>" class="btn btn-info footable-edit" title="CERTIFICACION CATASTRAL" target="_blank">
+                                                <a <?php echo $verifica['imprimir'];?>="<?php echo base_url(); ?>Reporteseicu/certificacion_bloques/<?php echo $lp->predio_id; ?>" class="btn btn-info footable-edit" title="CERTIFICACION CATASTRAL" target="_blank">
                                                     <span class="fas fas fa-print" aria-hidden="true"></span>
                                                 </a> 
 
