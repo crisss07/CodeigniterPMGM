@@ -40,7 +40,7 @@ class Tipo_tramite_doc extends CI_Controller
             $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
             $usu_creacion = $resi->persona_id;
             $data = array(
-            'correspondencia' => $this->input->post('correspondencia'), //input
+            'tramite' => $this->input->post('correspondencia'), //input
             'activo' => '1',
             'usu_creacion' => $usu_creacion,
         );
@@ -59,12 +59,12 @@ class Tipo_tramite_doc extends CI_Controller
             $fec_modificacion = date("Y-m-d H:i:s");
             $data = array(
 
-                'correspondencia' => $this->input->post('correspondencia_e'), //input
+                'tramite' => $this->input->post('correspondencia_e'), //input
                 'usu_modificacion' => $usu_modificacion, //input
                 'fec_modificacion' => $fec_modificacion, //input
             );
             $id_tipo_corr=$this->input->post('tipo_correspondencia_e');
-            $this->db->where('tipo_correspondencia_id', $id_tipo_corr);
+            $this->db->where('tipo_tramite_id', $id_tipo_corr);
             $this->db->update('tramite.tipo_tramite', $data);
             redirect(base_url() . 'Tipo_tramite_doc/nuevo/');
         } else {
@@ -78,7 +78,7 @@ class Tipo_tramite_doc extends CI_Controller
             $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
             $usu_eliminacion = $resi->persona_id;
             $fec_eliminacion = date("Y-m-d H:i:s");
-            $activo = $this->db->query("SELECT activo from tramite.tipo_tramite WHERE tipo_correspondencia_id=$ida");
+            $activo = $this->db->query("SELECT activo from tramite.tipo_tramite WHERE tipo_tramite_id=$ida");
             foreach ($activo ->result() as $row) {
                 $valor=$row->activo;
             }
@@ -88,7 +88,7 @@ class Tipo_tramite_doc extends CI_Controller
                 'usu_eliminacion' => $usu_eliminacion, //input
                 'fec_eliminacion' => $fec_eliminacion, //input
             );
-            $this->db->where('tipo_correspondencia_id', $ida);
+            $this->db->where('tipo_tramite_id', $ida);
             $this->db->update('tramite.tipo_tramite', $data);
             
 

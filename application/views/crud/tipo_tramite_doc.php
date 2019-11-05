@@ -44,17 +44,17 @@
                                         </thead>
                                         <tbody>
                                             <?php $i=1;?>                                                
-                                            <?php foreach ($data_tcorr as $row) { $datos = $row->tipo_correspondencia_id."||".
-                                            $row->correspondencia; ?>
+                                            <?php foreach ($data_tcorr as $row) { $datos = $row->tipo_tramite_id."||".
+                                            $row->tramite; ?>
                                             <tr>
                                                 <td><?php echo $i++; ?></td>
-                                                <td><?php echo $row->correspondencia; ?></td>
+                                                <td><?php echo $row->tramite; ?></td>
                                                 <td>                                           
                                                 <?php if (($row->activo)==1):?>
-                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('tipo_tramite_doc/delete'); ?>/<?php echo $row->tipo_correspondencia_id; ?>"><button type="button" class="btn btn-success"><span class="fas fa-arrow-alt-circle-up" aria-hidden="true"></span> Activo</button></a>                                                          
+                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('tipo_tramite_doc/delete'); ?>/<?php echo $row->tipo_tramite_id; ?>"><button type="button" class="btn btn-success"><span class="fas fa-arrow-alt-circle-up" aria-hidden="true"></span> Activo</button></a>                                                          
                                                     <?php endif ?>
                                                     <?php if (($row->activo)==0):?>
-                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('tipo_tramite_doc/delete'); ?>/<?php echo $row->tipo_correspondencia_id; ?>"><button type="button" class="btn btn-danger"><span class="fas fa-arrow-alt-circle-down" aria-hidden="true"></span> Inactivo</button></a>                                                          
+                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('tipo_tramite_doc/delete'); ?>/<?php echo $row->tipo_tramite_id; ?>"><button type="button" class="btn btn-danger"><span class="fas fa-arrow-alt-circle-down" aria-hidden="true"></span> Inactivo</button></a>                                                          
                                                     <?php endif ?>
                                                 </td>                                                                                                              
                                                 <td>

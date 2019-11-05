@@ -795,7 +795,190 @@ class Tipo_tramite extends CI_Controller {
 		
 	}
 
+	public function consulta_proforma($id=null){
+
+		if($this->input->post()){
+			$datos = $this->input->post();	
+			$cite = $datos['cite'];	
+		}else{
+			$cite=0;
+		}
+		if($id!=null){
+			$cite = $id;
+		}
+		// var_dump($cite);
+		$valores['proformas'] = $this->db->query("SELECT *
+									FROM tramite.proforma
+									WHERE cite ='$cite'")->result();
+		if ($valores) {
+
+			// var_dump($valores);
+			$valores['cite'] = $cite;
+			$this->load->view('admin/header');
+			$this->load->view('admin/menu');
+			$this->load->view('tramites/proforma_prueba', $valores);
+			$this->load->view('admin/footer');
+			$this->load->view('predios/index_js');
+		}
+		else{
+
+			$valor1['proforma1'] = $this->db->query("SELECT *
+											FROM tramite.informe_tecnico
+											WHERE cite ='$cite'")->row();
+		}
+	}
+
+	public function insertar()
+	{
+		if($this->session->userdata("login")){
+			//vdebug($this->input->post(), true, false, false, true);
+			$datos = $this->input->post();
+			if(isset($datos))
+			{
+				//OBTENER EL ID DEL USUARIO LOGUEADO
+				$id = $this->session->userdata("persona_perfil_id");
+	            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+	            $usu_creacion = $resi->persona_id;
+
+				$cite = $datos['cite'];
+				$fecha_proforma = $datos['fecha_proforma'];
+				// $propietario1 = $datos['propietario1'];
+				// $propietario2 = $datos['propietario2'];
+				$ubicacion = $datos['ubicacion'];
+				$lote = $datos['lote'];
+				$superficie_total = $datos['superficie_total'];
+				$manzano = $datos['manzano'];
+				$urbanizacion = $datos['urbanizacion'];
+				$jurisdicion = $datos['jurisdicion'];
+				$seccion_municipal = $datos['seccion_municipal'];
+				$provincia = $datos['provincia'];
+				$departamento = $datos['departamento'];
+				$codigo_catastral = $datos['codigo_catastral'];
+				$fecha = $datos['fecha'];
+				$matricula_folio_real = $datos['matricula_folio_real'];
+				$valido_por = $datos['valido_por'];
+				$uso_predio = $datos['uso_predio'];
+				$tipo_tramite = $datos['tipo_tramite'];
+				$a = $datos['a'];
+				// $ci = $datos['ci'];
+				$metros_construidos = $datos['metros_construidos'];
+				$total_pro = $datos['total'];
+				$informe_tecnico_id = $datos['informe_tecnico_id'];
+
+				$this->tramite_model->insertar_proforma($cite, $fecha_proforma, $ubicacion, $lote, $superficie_total, $manzano, $urbanizacion, $jurisdicion, $seccion_municipal, $provincia, $departamento, $codigo_catastral, $fecha, $matricula_folio_real, $valido_por, $uso_predio, $tipo_tramite, $a, $metros_construidos, $total_pro, $informe_tecnico_id);
+
+				// HASTA AQUI SE GUARDA LOS DATOS EN LA TABLA PROFORMA DE PAGO
+
+
+				// $linea_nivel = $datos['linea_nivel'];
+				// $autorizacion_cerco = $datos['autorizacion_cerco'];
+				// $aprobacion_plano = $datos['aprobacion_plano'];
+				// $visado_plano = $datos['visado_plano'];
+				// $fotocopia_plano = $datos['fotocopia_plano'];
+				// $resolucion = $datos['resolucion'];
+				// $certificacion = $datos['certificacion'];
+				// $aprobacion_contruccion = $datos['aprobacion_contruccion'];
+				// $total = $datos['total'];
+
+				//captura de datos para la tabla bloque_piso
+
+				$proforma_id = $this->db->query("SELECT  * FROM tramite.proforma WHERE activo=1 ORDER BY proforma_id desc LIMIT 1 ")->row();
+
+
+	            $cont = 0;
+	            $costo_total = $this->input->post('costo_total');
+	            $superficie = $this->input->post('superficie');
+	            $costo = $this->input->post('costo');	  
+	            $rubros_id = $this->input->post('rubros_ids');          
+	            for ($j = 0; $j < count($costo_total); $j++) {
+	                $proforma_rubro = array(	                
+	                'superficie' => $superficie[$j],
+	                'costo' => $costo[$j],
+	                'total' => $costo_total[$j],
+	                'rubros_id'=>$rubros_id[$j],	
+	                'proforma_id'=>  $proforma_id->proforma_id          
+	               
+	            );
+	                $this->db->insert('tramite.proforma_rubro', $proforma_rubro);
+	            }
+
+	            //fin de insertar datos en tabla bloque_piso
+
+
+
+
+				
+				redirect('tipo_tramite/consulta_proforma/'.$cite);
+
+			}
+		}
+		else{
+			redirect(base_url());
+        }	
+
+	 }
+
+
+
+	 public function ajax_verifica(){
+		$cite = $this->input->get("param1");
+		var_dump('hola');
+		// $this->db->where()
+		//$this->db->where('ci', $ci);
+		$verifica_cod = $this->tramite_model->buscaci($ci);
+		var_dump($verifica_cod);
+		// print_r($ci);
+		//  print_r($verifica_cod->result());die;
+		// if (count($verifica_cod) > 0) {
+		if ($verifica_cod) {
+			$respuesta = array('ci'=>$ci, 'nombres' => $verifica_cod->nombres, 'paterno' => $verifica_cod->paterno, 'materno' => $verifica_cod->materno, 'fec_nacimiento'=>$verifica_cod->fecha, 'persona_id'=>$verifica_cod->persona_id, 'direccion' =>$verifica_cod->direccion, 'email'=>$verifica_cod->email, 'telefono_fijo'=>$verifica_cod->telefono_fijo, 'telefono_celular'=>$verifica_cod->telefono_celular, 'estado'=>'si');
+			echo json_encode($respuesta);
+		}else{
+			$TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhNzAzYTlhZjcxZDY0NDMzOWJiNDM3ODEyYjIwODY0MyJ9.KAXS_8G3BznwFBR0dLZHfVQc2LkZI5fiTK6TN-meAZ4';
+			//configura la solicitud, también se puede usar CURLOPT_URL
+			
+			//echo "<br>--->".$paramnumero;
+			//echo "<br>--->".$paramfecha;
+			// antiguo URL
+			$CURL = curl_init('https://ws.agetic.gob.bo/segip/v2/personas/'.$ci);
+			// nuevo URL
+			//$CURL = curl_init('https://ws.agetic.gob.bo/segip/v3/personas/'.$paramnumero.'?fechaNacimiento='.$paramfecha);
+			// Devuelve los datos / resultados como una cadena en lugar de datos sin procesar
+			curl_setopt($CURL, CURLOPT_RETURNTRANSFER, true);
+			// Una buena práctica para que la gente sepa quién está accediendo a sus servidores. Ver https://en.wikipedia.org/wiki/User_agent
+			//curl_setopt($CURL, CURLOPT_USERAGENT, 'YourScript/0.1 (contact@email)');
+			// Establezca sus encabezados de autenticación
+			curl_setopt($CURL, CURLOPT_HTTPHEADER, array(
+			    'Content-Type: application/json',
+			    'Authorization: Bearer '.$TOKEN
+			));
+			
+			// Obtener datos / resultados codificados Ver CURLOPT_RETURNTRANSFER
+			$dataSEGIP = curl_exec($CURL);
+			// Obtener información sobre la solicitud
+			$infoSEGIP = curl_getinfo($CURL);
+			// Cierre el recurso curl para liberar recursos del sistema
+			curl_close($CURL);
+
+			$arraySEGIPN0 = json_decode($dataSEGIP, true);
+			$arraySEGIPN1 = $arraySEGIPN0['ConsultaDatoPersonaEnJsonResult'];
+			$arraySEGIPN2 = $arraySEGIPN1['DatosPersonaEnFormatoJson'];
+			$datos_persona = json_decode($arraySEGIPN2, true);
+			$caso = $arraySEGIPN1['CodigoRespuesta'];
+			if ($caso == 2) {
+				$respuesta = array('ci'=>$ci, 'nombres' =>$datos_persona['Nombres'], 'paterno' =>$datos_persona['PrimerApellido'], 'materno' =>$datos_persona['SegundoApellido'], 'fec_nacimiento'=>$datos_persona['FechaNacimiento'], 'estado'=>'segip');
+				echo json_encode($respuesta);
+			}else{
+				$respuesta = array('ci'=>$ci, 'estado'=>'no');
+				echo json_encode($respuesta);
+			}
+				
+		}	
+	}
+
 //***************************************FIN DE INFORME TECNICO***********************************************
+
+
 
 
 }
