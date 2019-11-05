@@ -61,8 +61,17 @@
                                         </thead>
                                         <tbody>
                                             <?php foreach($usuario as $lis){
-                                                //$datos = $lis->zonaurb_id."||".
-                                                  //       $lis->descripcion;
+                                                $datos = $lis->credencial_id."||".
+                                                         $lis->nombres."||".
+                                                         $lis->paterno."||".
+                                                         $lis->materno."||".
+                                                         $lis->ci."||".
+                                                         $lis->fec_nacimiento."||".
+                                                         $lis->perfil."||".
+                                                         $lis->rol."||".
+                                                         $lis->contrasenia."||".
+                                                         $lis->persona_perfil_id."||".
+                                                         $lis->usuario;
                                             ?>
                                             <tr>
                                                 <td><?php echo $i++;?></td>
@@ -95,10 +104,10 @@
                                                         <span disabled class="fas fa-tasks" aria-hidden="true">
                                                         </span>
                                                     </a>
-                                                     <!-- <a <?php echo $verifica['baja'];?>="<?= base_url('usuario/asignar/'. $lis->credencial_id); ?>" type="button" class="btn btn-info button">
+                                                     <a <?php echo $verifica['baja'];?>="<?= base_url('usuario/asignar/'. $lis->credencial_id); ?>" type="button" class="btn btn-warning button" data-toggle="modal" data-target="#modalEdicion" onclick="agregarform('<?php echo $datos ?>')">
                                                         <span disabled class="fas fa-pencil-alt" aria-hidden="true">
                                                         </span>
-                                                    </a>    -->                                                 
+                                                    </a>                                                    
                                                 </td>
                                             </tr>
                                         <?php 
@@ -115,6 +124,82 @@
                         </div>
 
                     </div>
+                </div>
+            </div>
+        </div>
+
+         <div class="modal fade" id="modalEdicion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel1">Editar Perfil de Usuario</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!--<form action="<?php echo base_url();?>zona_urbana/update" method="POST">-->
+                        <?php echo form_open('usuario/modifica', array('method'=>'POST', 'id'=>'editar')); ?>
+
+                            
+                            <div class="form-group">
+                                <input type="text" hidden="" id="credencial_ids" name="credencial_id">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" hidden="" id="persona_perfil_ids" name="persona_perfil_id">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">Nombre de Usuario</label>
+                                <input type="text" class="form-control" id="usuarios" name="usuario" value="<?php echo $lis->usuario;?>" >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">Contrase&ntilde;a</label>
+                                <input type="text" class="form-control" id="contrasenias" name="contrasenia" value="<?php echo $lis->contrasenia;?>" >
+                            </div>
+                            <div class="form-group">
+
+                                <?php
+                                     $lista = $this->db->query("SELECT * FROM public.perfil  WHERE activo = '1' ORDER BY perfil_id ASC")->result();
+                                ?>      
+
+                                <label for="recipient-name" class="control-label">Perfil</label>
+                                <!-- <input type="text" class="form-control" id="perfils" name="perfil_id" > -->
+                                <select class="form-control custom-select" id="perfil_id" name="perfil_id" />
+                                    <?php foreach ($lista as $liss) { ?>
+                                        <option value="<?php echo $liss->perfil_id; ?>"><?php echo $liss->perfil; ?>
+                                        </option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+
+                           
+
+                            <div class="form-group">
+
+                                 <?php $lista1 = $this->db->query("SELECT * FROM public.rol  WHERE activo = '1' ORDER BY rol_id ASC")->result();
+                                ?>
+
+                                <label for="recipient-name" class="control-label">Rol</label>
+                                <!-- <input type="text" class="form-control" id="rols" name="rol" value="<?php echo $lis->rol;?>"> -->
+                                <select class="form-control custom-select"  id="rol_id" name="rol_id" />
+                                         <option value="0">Seleccione un Rol
+                                        </option>
+                                       <?php foreach ($lista1 as $liss1) { ?>
+                                        <option value="<?php echo $liss1->rol_id; ?>"><?php echo $liss1->rol; ?>
+                                        </option>
+                                   <?php } ?>
+                                </select>   
+                            </div>
+
+                            
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+
+                            </div>
+                        </form>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -146,9 +231,20 @@
     <script>
         function agregarform(datos)
         {
+
              d=datos.split('||');
-              $('#zonaurb_id').val(d[0]);
-              $('#descripcion').val(d[1]);
+              $('#credencial_ids').val(d[0]);
+              $('#nombress').val(d[1]);
+              $('#paternos').val(d[2]);
+              $('#maternos').val(d[3]);
+              $('#cis').val(d[4]);
+              $('#fec_nacimientos').val(d[5]);
+              $('#perfils').val(d[6]);
+              $('#rols').val(d[7]);
+              $('#contrasenias').val(d[8]);
+              $('#persona_perfil_ids').val(d[9]);
+              $('#usuarios').val(d[10]);
+           
         }
 
     </script>

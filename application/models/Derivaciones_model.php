@@ -62,7 +62,7 @@ class Derivaciones_model extends CI_Model
         UPPER(unidad) AS unidad,
         UPPER(descripcion) AS cargo
         FROM tramite.vista_organigrama_persona_cargo
-        WHERE persona_id = $persona_id;")->result_array();
+        WHERE persona_id = $persona_id;")->row();
         return($personal);
     }
 }

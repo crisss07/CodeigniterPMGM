@@ -26,6 +26,8 @@ class Usuario extends CI_Controller {
 
 			$lista['verifica'] = $this->rol_model->verifica();
 			$lista['usuario'] = $this->usuario_model->index();
+
+			// var_dump($lista['usuario']);
 			
 
 			$this->load->view('admin/header');
@@ -248,6 +250,51 @@ class Usuario extends CI_Controller {
 			redirect(base_url());
 		}
 	}
+
+
+	public function modifica()     
+	{   
+		if($this->session->userdata("login")){
+
+			// $datos = $this->input->post();
+			// var_dump($datos);
+			// OBTENER EL ID DEL USUARIO LOGUEADO
+			$id = $this->session->userdata("persona_perfil_id");
+	        $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+	        $usu_modificacion = $resi->persona_id;
+	        $fec_modificacion = date("Y-m-d H:i:s"); 
+
+		    $credencial_id = $this->input->post('credencial_id');
+		    $persona_perfil_id = $this->input->post('persona_perfil_id');
+		    $perfil_id = $this->input->post('perfil_id');
+		    $rol_id = $this->input->post('rol_id');
+		    $usuario = $this->input->post('usuario');
+		    $contrasenia = $this->input->post('contrasenia');
+ 
+		    $cre_id = $this->db->query("SELECT *
+		    							FROM public.credencial
+		    							WHERE credencial_id = '$credencial_id'")->row();
+		    $pass = $cre_id->contrasenia;
+		    if ($contrasenia == $pass) {
+		    	$actualizar = $this->usuario_model->actualizar_usuario($credencial_id, $persona_perfil_id, $perfil_id, $rol_id, $usuario, $contrasenia);
+		    }
+		    else
+		    {
+		    	$pass_cif = md5($contrasenia);
+		    	$actualizar = $this->usuario_model->actualizar_usuario($credencial_id, $persona_perfil_id, $perfil_id, $rol_id, $usuario, $pass_cif);
+
+		    }
+
+		    // var_dump($actualizar);
+		  	redirect('usuario/listar');
+		}
+		else{
+			redirect(base_url());
+        }	
+	}
+
+
+
 
 	public function activo($id)
     {

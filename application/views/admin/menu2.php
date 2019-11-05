@@ -34,6 +34,7 @@
         </div>
         <!-- End User profile text-->
         <!-- Sidebar navigation-->
+              <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
                 
