@@ -161,10 +161,10 @@ $section->addText('INFORME <w:br/> GAM-TOR/2019-00150',array('bold' => true), ar
 $section->addText('	A	 :	Ernesto Marconi Ripa', array('bold' => false), array('align' => 'left'));
 $section->addText('			COORDINADOR GENERAL a.i.', array('bold' => true), array('align' => 'left'));
 
-$section->addText('	VIA	 : 	Edwin Yujra', array('bold' => false), array('align' => 'left'));
+$section->addText('	VIA	 : 	Carlos Juares', array('bold' => false), array('align' => 'left'));
 $section->addText('			RESPONSABLE DE DESARROLLO DE SISTEMAS Y BASE DE DATOS - UEP', array('bold' => true,'size' => 8), array('align' => 'left'));
 
-$section->addText('	DE	 : 	Elmer Rodrigo Secko Flores', array('bold' => false), array('align' => 'left'));
+$section->addText('	DE	 : 	Pablo Escobar Gaviria', array('bold' => false), array('align' => 'left'));
 $section->addText('			Apoyo Técnico en Desarrollo de Sistemas III', array('bold' => true), array('align' => 'left'));
 
 $section->addText('	REF  	: 	Informe de Inspección', array('bold' => false,'spaceAfter' => 0), array('align' => 'left'));
@@ -209,10 +209,10 @@ $section->addText('INFORME <w:br/> GAM-TOR/2019-00150',array('bold' => true), ar
 $section->addText('	A	 :	Ernesto Marconi Ripa', array('bold' => false), array('align' => 'left'));
 $section->addText('			COORDINADOR GENERAL a.i.', array('bold' => true), array('align' => 'left'));
 
-$section->addText('	VIA	 : 	Edwin Yujra', array('bold' => false), array('align' => 'left'));
+$section->addText('	VIA	 : 	Carlos Juares', array('bold' => false), array('align' => 'left'));
 $section->addText('			RESPONSABLE DE DESARROLLO DE SISTEMAS Y BASE DE DATOS - UEP', array('bold' => true,'size' => 8), array('align' => 'left'));
 
-$section->addText('	DE	 : 	Elmer Rodrigo Secko Flores', array('bold' => false), array('align' => 'left'));
+$section->addText('	DE	 : 	Pablo Escobar Gaviria', array('bold' => false), array('align' => 'left'));
 $section->addText('			Apoyo Técnico en Desarrollo de Sistemas III', array('bold' => true), array('align' => 'left'));
 
 $section->addText('	REF  	: 	Acta de notificacion', array('bold' => false,'spaceAfter' => 0), array('align' => 'left'));
