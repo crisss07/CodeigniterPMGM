@@ -667,6 +667,164 @@ class Reportes_m extends CI_Controller
 
 
 
+    public function pdf_r($id=null)    
+    {
+        if ($this->session->userdata("login")) {
+            date_default_timezone_set('America/La_Paz');
+
+        // Define key-value array
+        $days_dias = array(
+        'Monday'=>'Lunes',
+        'Tuesday'=>'Martes',
+        'Wednesday'=>'Miércoles',
+        'Thursday'=>'Jueves',
+        'Friday'=>'Viernes',
+        'Saturday'=>'Sábado',
+        'Sunday'=>'Domingo'
+        );
+        $mes=date('F');
+
+        if ($mes == "January") $mes = "Enero";
+        if ($mes == "February") $mes = "Febrero";
+        if ($mes == "March") $mes = "Marzo";
+        if ($mes == "April") $mes = "Abril";
+        if ($mes == "May") $mes = "Mayo";
+        if ($mes == "June") $mes = "Junio";
+        if ($mes == "July") $mes = "Julio";
+        if ($mes == "August") $mes = "Agosto";
+        if ($mes == "September") $mes = "Septiembre";
+        if ($mes == "October") $mes = "Octubre";
+        if ($mes == "November") $mes = "Noviembre";
+        if ($mes == "December") $mes = "Diciembre";
+
+        $data['datos_certificado'] = $this->db->query("SELECT g.*,k.*,f.*,d.* FROM tramite.informe_tecnico g
+        LEFT JOIN
+        (SELECT i.informe_tecnico_id,p.nombres as nom_a,p.paterno as pat_a,p.materno as mat_a from tramite.informe_tecnico i
+        LEFT JOIN
+        persona p
+        on i.a=p.persona_id
+        WHERE informe_tecnico_id=$id ) as k
+        on g.informe_tecnico_id=k.informe_tecnico_id
+        
+        LEFT JOIN
+        
+        (SELECT i.informe_tecnico_id,p.nombres as nom_via,p.paterno as pat_via,p.materno as mat_via from tramite.informe_tecnico i
+        LEFT JOIN
+        persona p
+        on i.via=p.persona_id
+        WHERE informe_tecnico_id=$id) as f
+        on g.informe_tecnico_id=f.informe_tecnico_id
+        
+        LEFT JOIN
+        (SELECT i.informe_tecnico_id,p.nombres as nom_de,p.paterno as pat_de,p.materno as mat_de from tramite.informe_tecnico i
+        LEFT JOIN
+        persona p
+        on i.de=p.persona_id
+        WHERE informe_tecnico_id=$id ) as d
+        on d.informe_tecnico_id=g.informe_tecnico_id
+        WHERE g.informe_tecnico_id=$id")->row();   
+        
+        $tiempo= $this->db->query("SELECT EXTRACT(day from fecha_testimonio)as dia,EXTRACT(MONTH from fecha_testimonio)as mes,EXTRACT(YEAR from fecha_testimonio)as anio  FROM tramite.informe_tecnico 
+        WHERE informe_tecnico_id=$id")->row();
+
+        $data['dia_not']=$tiempo->dia;
+        $mes_n=$tiempo->mes;
+       
+
+
+          if ($mes_n == "1") $mes_n = "Enero";
+        if ($mes_n == "2") $mes_n = "Febrero";
+        if ($mes_n == "3") $mes_n = "Marzo";
+        if ($mes_n == "4") $mes_n = "Abril";
+        if ($mes_n == "5") $mes_n = "Mayo";
+        if ($mes_n == "6") $mes_n = "Junio";
+        if ($mes_n == "7") $mes_n = "Julio";
+        if ($mes_n == "8") $mes_n = "Agosto";
+        if ($mes_n == "9") $mes_n = "Septiembre";
+        if ($mes_n == "10") $mes_n = "Octubre";
+        if ($mes_n == "11") $mes_n = "Noviembre";
+        if ($mes_n == "12") $mes_n = "Diciembre";
+
+        
+        $data['mes_not']=$mes_n;
+        $data['anio_not']=$tiempo->anio;
+
+
+        
+        $data['dia']=date('d');
+        $data['dia_l']=$days_dias[date('l')];
+        $data['mes']=  date('m');
+        $data['mes_l']= $mes;
+        $data['anio']=date('Y');         
+        $dia =  $days_dias[date('l')];
+
+           /*la fecha del informe*/
+        $tiempos= $this->db->query("SELECT EXTRACT(day from fecha_informe)as dia,EXTRACT(MONTH from fecha_informe)as mes,EXTRACT(YEAR from fecha_informe)as anio  FROM tramite.informe_tecnico 
+        WHERE informe_tecnico_id=$id")->row();
+
+        $dia_inf=$tiempos->dia;
+
+        $mes_i=$tiempos->mes;
+
+        if ($mes_i == "1") $mes_i = "Enero";
+        if ($mes_i == "2") $mes_i = "Febrero";
+        if ($mes_i == "3") $mes_i = "Marzo";
+        if ($mes_i == "4") $mes_i = "Abril";
+        if ($mes_i == "5") $mes_i = "Mayo";
+        if ($mes_i == "6") $mes_i = "Junio";
+        if ($mes_i == "7") $mes_i = "Julio";
+        if ($mes_i == "8") $mes_i = "Agosto";
+        if ($mes_i == "9") $mes_i = "Septiembre";
+        if ($mes_i == "10") $mes_i = "Octubre";
+        if ($mes_i == "11") $mes_i = "Noviembre";
+        if ($mes_i == "12") $mes_n = "Diciembre";
+        
+        $data['mes_inf']=$mes_i;
+        $data['anio_inf']=$tiempos->anio;
+    
+        $data['dia_inf']=$tiempos->dia;
+
+
+        /*dia literal*/
+        $fecha_inf= $this->db->query("SELECT fecha_informe FROM tramite.informe_tecnico 
+            WHERE informe_tecnico_id=$id")->row();
+
+        $data['datos_lotes']= $this->db->query("SELECT * FROM tramite.lote_informe where informe_tecnico_id=33
+")->result();
+        /*suma total de los lotes*/
+         $data['suma_total']=$suma_total= $this->db->query("SELECT sum(sup_metro) as suma  FROM tramite.lote_informe where informe_tecnico_id=$id")->row();
+
+
+        $fecha=$fecha_inf->fecha_informe;
+        $fecha = substr($fecha, 0, 10);
+        $numeroDia = date('d', strtotime($fecha));
+        $dia_infor = date('l', strtotime($fecha));
+        $dias_ES = array("Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo");
+        $dias_EN = array("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
+        $nombredia = str_replace($dias_EN, $dias_ES, $dia_infor);
+        $data['dia_linf']=$nombredia;
+
+
+
+        $this->load->view('reports/rep_resolucion',$data);
+        $html = $this->output->get_output();
+        $this->load->library('pdf');
+        $this->dompdf->loadHtml($html);
+        $this->dompdf->set_option('isRemoteEnabled', TRUE);  
+        $this->dompdf->setPaper('letter', 'portrait');
+        $this->dompdf->render();
+        $this->dompdf->stream("welcome.pdf", array("Attachment"=>0));
+
+            
+        } else {
+            redirect(base_url());
+        }
+        
+    } 
+
+
+
+
 
 
     public function html($id=null)
@@ -787,6 +945,7 @@ class Reportes_m extends CI_Controller
          $fecha_inf= $this->db->query("SELECT fecha_informe FROM tramite.informe_tecnico 
         WHERE informe_tecnico_id=$id")->row();
 
+
          $fecha=$fecha_inf->fecha_informe;
 
           $fecha = substr($fecha, 0, 10);
@@ -801,9 +960,18 @@ $meses_ES = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"
   $meses_EN = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
   $nombreMes = str_replace($meses_EN, $meses_ES, $mes);
 
+
            
           $data['dia_linf']=$nombredia;
         $this->load->view('reports/rep_nocatastro',$data);    
+
+  $data['datos_lotes']= $this->db->query("SELECT * FROM tramite.lote_informe where informe_tecnico_id=33
+")->result();
+
+           
+          $data['dia_linf']=$nombredia;
+        $this->load->view('reports/rep_resolucion',$data);    
+
 
             
         } else {

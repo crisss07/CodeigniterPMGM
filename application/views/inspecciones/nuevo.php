@@ -1,6 +1,8 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>public/assets/plugins/dropify/dist/css/dropify.min.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>public/assets/plugins/wizard/steps.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/pasos.css">
+
+    <link href="<?php echo base_url(); ?>public/assets/plugins/icheck/skins/all.css" rel="stylesheet">
 <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.js"></script> -->
 
 <!-- sample modal content -->
@@ -90,7 +92,13 @@
                                         <div class="col-md-4 mb-3">
                                             <div class="form-group">
                                                 <div class="card">
-                                                    <label for="recipient-name" class="control-label">Acta de inspeccion</label>
+                                                    <label for="recipient-name" class="control-label">Acta de inspeccion
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <a href="<?php echo base_url(); ?>Reporte_test/word_insp" class="btn-sm btn-info footable-edit">
+                                                        <span class="fas fa-file-word" aria-hidden="true">  </span> Formato Informe
+                                                        </a>
+                                                    </label>
+
                                                     <label for="input-file-now">
                                                         <button type="button" class="btn waves-effect waves-light btn-sm btn-info">
                                                             <i class="fas fa-exclamation"></i>
@@ -105,24 +113,34 @@
                                         <div class="col-md-4 mb-3">
                                             <div class="form-group">
                                                 <div class="card">
-                                                    <label for="recipient-name" class="control-label">Acta de notificacion</label>
+                                                    <label for="recipient-name" class="control-label">Acta de notificacion
+                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <a href="<?php echo base_url(); ?>Reporte_test/word_not" class="btn-sm btn-info footable-edit">
+                                                    <span class="fas fa-file-word" aria-hidden="true">  </span> Formato Informe
+                                                    </a>
+                                                    </label>
                                                     <label for="input-file-now">
                                                         <button type="button" class="btn waves-effect waves-light btn-sm btn-info">
                                                             <i class="fas fa-exclamation"></i>
                                                         </button>
                                                         OJO Solo archivos pdf
                                                     </label>
+
                                                     <input type="file" id="input-file-now" class="dropify" name="notificacion" data-allowed-file-extensions="pdf" required />
                                                 </div>
                                             </div>
                                         </div>
+                                 
+
 
                                         <div class="col-md-4 mb-3">
-                                            <div class="form-group">
+                                            <div class="form-group" align="center">
                                             <label  >VoBo</label>
-                                            <input type="checkbox"  id="vobo"  name="vobo">
-                                        
+                                            <input type="checkbox"  id="vobo"  name="vobo">                                        
                                             </div>
+
+                                       
+
                                         </div>                                                                  
                                     </div>
 
@@ -169,6 +187,9 @@
     <!-- End Container fluid  -->
     <!-- ============================================================== -->
     <script src="<?php echo base_url(); ?>public/assets/plugins/jquery/jquery.min.js"></script>
+
+        <script src="<?php echo base_url(); ?>public/assets/plugins/icheck/icheck.min.js"></script>
+    <script src="<?php echo base_url(); ?>public/assets/plugins/icheck/icheck.init.js"></script>
  
 
 

@@ -40,7 +40,7 @@ class Inspeccion extends CI_Controller {
             	$this->load->view('admin/header');
 		        $this->load->view('admin/menu');
 		        $this->load->view('inspecciones/crear', $ids);
-		        $this->load->view('admin/footer');
+		        $this->load->view('inspecciones/footer');
 		        
             }else{
             	redirect(base_url());

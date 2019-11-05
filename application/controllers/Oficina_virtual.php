@@ -94,6 +94,7 @@ class Oficina_virtual extends CI_Controller
             $dato = $resi->persona_id;
             $data['nombre']=$this->db->query("SELECT nombres||' '||paterno||' '||materno nombre FROM public.persona WHERE persona_id='$dato'")->row();
             $data['logueado']= "si";
+
         }else{
             $data['logueado']= "no";
         }
@@ -158,7 +159,7 @@ class Oficina_virtual extends CI_Controller
         $data['anio']=date('Y');         
         $dia =  $days_dias[date('l')];
 
-// Generar codigo qr
+        // Generar codigo qr
         $key = "";
         $caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         //aquí podemos incluir incluso caracteres especiales pero cuidado con las ‘ y “ y algunos otros
@@ -175,7 +176,7 @@ class Oficina_virtual extends CI_Controller
         $this->ciqrcode->generate($params);
 
         $data['img'] = "qr_2.png";
-//fin generar codigo qr
+        //fin generar codigo qr
         $this->load->view('oficina/certificado',$data);
         $html = $this->output->get_output();
         $this->load->library('pdf');

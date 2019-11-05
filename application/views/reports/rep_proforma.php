@@ -88,6 +88,7 @@
                                         </table>
 
                                         <table width="100%">
+
                                             <?php
                                                 $id = $proforma->informe_tecnico_id;
                                                 $variable = $this->db->query("SELECT pe.persona_id, pe.nombres, pe.paterno, pe.materno, pe.ci
@@ -96,6 +97,7 @@
                                                                         AND ip.persona_id = pe.persona_id")->result();
                                                 foreach ($variable as $var) {
                                             ?>
+
                                             <tr>
                                                 <td align="right" style="width: 28%;">
                                                     <div style="font-size: 11px; height: 5px; text-align: right;">
@@ -104,12 +106,34 @@
                                                 </td>
                                                 <td align="center" style="width: 72%;">
                                                     <div style="font-size: 11px; height: 15px; ">
+
                                                         <input type="text" name="propietario1" size="40" value="<?php echo $var->nombres ?> <?php echo $var->paterno ?> <?php echo $var->materno ?>">
+
+                                                        <input type="text" name="propietario1" size="40" value="<?php echo $proforma->propietario1 ?>">
                                                     </div>
                                                 </td>
                                                
                                             </tr>
+
+                                        </table>
+                                        
+
+                                        <table width="100%">
+                                            <tr>
+                                                <td align="left" style="width: 28%; height: 7px;">
+
+                                                </td>
+                                                <td align="center" style="width: 72%;">
+                                                    <div style="font-size: 11px; height: 7px;">
+                                                        <input type="text" name="propietario2" size="40" value="<?php echo $proforma->propietario2 ?>">
+
+                                                    </div>
+                                                </td>
+                                               
+                                            </tr>
+
                                             <?php } ?>
+
 
                                         </table>
 
@@ -406,8 +430,10 @@
                                        </table>
 
                                        <table width="100%">
+
                                              <?php foreach ($variable as $var1) {
                                                 ?>
+
                                             <tr>
                                                 <td align="left" style="width: 18%;">
                                                     <div class="col-lg-11 col-md-12">
@@ -418,7 +444,11 @@
                                                 </td>
                                                 <td align="center" style="width: 12%;">
                                                     <div class="col-md-9" style="font-size: 11px; height: 15px;">
+
                                                         <input type="text" class="form-control" id="a" name="a" size="25" value="<?php echo $var1->nombres ?> <?php echo $var1->paterno ?> <?php echo $var1->materno ?>">
+
+                                                        <!-- <input type="text" class="form-control" id="a" name="a" size="25" value="<?php echo $proforma->a ?>"> -->
+
                                                     </div>
                                                 </td>
 
@@ -431,12 +461,16 @@
                                                 </td>
                                                 <td align="center" style="width: 26%;">
                                                     <div class="col-md-9" style="font-size: 11px; height: 15px;">
+
                                                         <input type="text" class="form-control" id="ci" name="ci" size="10" value="<?php echo $var1->ci ?>">
                                                     </div>
                                                 </td>
                                                 
                                                 <?php } ?>
-                                                
+
+                                                        <input type="text" class="form-control" id="ci" name="ci" size="10" value="<?php echo $proforma->ci ?>">
+                                                    </div>
+                                                </td>
                                                 
                                             </tr>
 
