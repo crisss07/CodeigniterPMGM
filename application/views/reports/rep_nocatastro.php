@@ -43,8 +43,10 @@
             font-size: x-small;
         }
 
-        .invoice {
-            padding:90px;
+        .invoice table {
+            margin: 80px;
+        /*.invoice {
+            padding:90px;*/
         }
 
         .invoice h3 {
@@ -126,7 +128,11 @@
             <u><h4 align="center">EXCLUSIVAMENTE PARA VIA INFORMATIVA DE DERECHOS REALES</h4></u>
             Que la solicitud presentada por:
          																	
-	        <p align="center"> con CI.	      </p>
+
+	        <p align="center"><?php echo strtoupper ($datos_certificado->solicitante); ?> con CI.	<?php echo $datos_certificado->ci.'.'; ?>	          </p>
+
+	        <!-- <p align="center"> con CI.	      </p> -->
+
 	        <p>por el que solicita Certificación de <b>NO CATASTRO</b> de su propiedad, predio de terreno, ubicado en:	          </p>
 	        <p> <center><b><?php echo strtoupper( $datos_certificado->ubicacion); ?></b></center></p>
 	        <p align="justify"> MECAPACA, PROVINCIA MURILLO, DEPARTAMENTO DE LA PAZ, con la superficie de <?php echo $datos_certificado->superficie_testimonio; ?> m² según documento, y

@@ -666,6 +666,7 @@ class Reportes_m extends CI_Controller
     } 
 
 
+
     public function pdf_r($id=null)    
     {
         if ($this->session->userdata("login")) {
@@ -825,6 +826,7 @@ class Reportes_m extends CI_Controller
 
 
 
+
     public function html($id=null)
     {
         if ($this->session->userdata("login")) {
@@ -943,7 +945,6 @@ class Reportes_m extends CI_Controller
          $fecha_inf= $this->db->query("SELECT fecha_informe FROM tramite.informe_tecnico 
         WHERE informe_tecnico_id=$id")->row();
 
-      
 
          $fecha=$fecha_inf->fecha_informe;
 
@@ -958,12 +959,19 @@ class Reportes_m extends CI_Controller
 $meses_ES = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
   $meses_EN = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
   $nombreMes = str_replace($meses_EN, $meses_ES, $mes);
+
+
+           
+          $data['dia_linf']=$nombredia;
+        $this->load->view('reports/rep_nocatastro',$data);    
+
   $data['datos_lotes']= $this->db->query("SELECT * FROM tramite.lote_informe where informe_tecnico_id=33
 ")->result();
 
            
           $data['dia_linf']=$nombredia;
         $this->load->view('reports/rep_resolucion',$data);    
+
 
             
         } else {
