@@ -21,7 +21,7 @@ class Inspeccion_model extends CI_Model {
 									WHERE ins.persona_id = $usu_creacion 
 									AND pub.persona_id = $usu_creacion
 									AND pub.perfil_id = per.perfil_id
-									AND per.perfil = 'Inspector'
+									AND per.perfil = 'Tecnico (Inspector)'
 									AND ins.activo=1
 									ORDER BY inicio desc")->result();
 		if ($lista > 0) {

@@ -209,7 +209,7 @@ class Inspeccion extends CI_Controller {
 				$this->load->view('predios/index_js');
 			}
 
-			if($rol_user==7)//rol de inspector
+			if($rol_user==5)//rol de inspector
 			{
 				$data['lista'] = $this->Inspecciones_model->get_lista_id($dato);  
 	

@@ -45,12 +45,16 @@ class Inspecciones_model extends CI_Model {
 			(SELECT j.persona_id,(CASE WHEN j.total IS NULL THEN 0 ELSE j.total	END) FROM 
 			(SELECT d.*,b.total FROM 
 			(SELECT g.* FROM (SELECT persona_id FROM tramite.organigrama_persona WHERE cargo_id= (SELECT cargo_id FROM tramite.cargo WHERE descripcion in ('inspector','Inspector','INSPECTOR'))) AS g INNER JOIN
-				(SELECT p.persona_id FROM persona_perfil p LEFT JOIN perfil o ON p.perfil_id=o.perfil_id WHERE o.perfil='Inspector' or o.perfil='inspector' or o.perfil='INSPECTOR' and p.activo=1  and o.activo=1 GROUP BY p.persona_id) 
+				(SELECT p.persona_id FROM persona_perfil p LEFT JOIN perfil o ON p.perfil_id=o.perfil_id WHERE o.perfil='Tecnico (Inspector)' and p.activo=1  and o.activo=1 GROUP BY p.persona_id) 
 				as f on g.persona_id=f.persona_id) as d
 			LEFT JOIN
 			(SELECT  A.persona_id,COUNT(A.persona_id) as total FROM inspeccion.asignacion A	WHERE A.activo=1 GROUP BY A.persona_id ORDER BY total ASC) as b
 			on b.persona_id=d.persona_id ORDER BY b.total ASC) as j) as k ORDER BY k.total asc limit 1")->result();	
-			//fin de la consulta para asignar inspector			
+			//fin de la consulta para asignar inspector
+
+	   
+
+
 			$ditrict = $this->db->query("SELECT * FROM catastro.geo_distritos ORDER BY  random()  limit 1")->row();
 			$dia_siguiente = date('Y-m-d', strtotime(' +1 day'));
 			$data = array(

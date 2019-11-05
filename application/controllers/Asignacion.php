@@ -49,7 +49,8 @@ class Asignacion extends CI_Controller {
 
 	public function edita($id_asignacion = null){
 
-		$this->db->where('perfil_id', 7);
+		//obtiene todos los inspectores segun el perfil=5
+		$this->db->where('perfil_id', 5);
 		$inspectores = $this->db->get('persona_perfil')->result();
 		$array_inspectores = array();
 		foreach ($inspectores as $i) {
