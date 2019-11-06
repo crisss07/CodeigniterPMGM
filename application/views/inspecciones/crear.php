@@ -92,12 +92,9 @@
                                 </div>
                                
                                 <div class="col-md-12 form-group"> 
-                                     <label >Derivar a </label>
+                                     <label >Asignacion </label>
                                     <select class="custom-select form-control" id="destino" name="destino" />
-                                        <option value=""></option>
-                                        <?php foreach ($personas as $key => $p): ?>
-                                            <option value="<?php echo $p['id'] ?>"><?php echo $p['nombre']; ?> - <?php echo $p['cargo']; ?> (<?php echo $p['unidad']; ?>)</option>
-                                        <?php endforeach ?>
+                                        <option value="<?php echo 'asd'; ?>"><?php echo $personas->nombres.' '.$personas->paterno.' '.$personas->materno.'- Tecnico (Inspector)'; ?></option>                                       
                                     </select>  
                                 </div>
                             </div>

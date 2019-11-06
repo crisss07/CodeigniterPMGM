@@ -34,17 +34,33 @@ class Inspeccion extends CI_Controller {
             $dato = $resi->persona_id;
             $res = $this->db->get_where('persona', array('persona_id' => $dato))->row();
             $consulta = $this->db->query("SELECT organigrama_persona_id FROM tramite.organigrama_persona WHERE fec_baja is NULL AND persona_id = '$res->persona_id'")->row();
-            $ids['personas'] = $this->Derivaciones_model->personal($resi->persona_id);
-            if ($consulta) {
+            
+            //$ids['personas'] = $this->Derivaciones_model->personal($resi->persona_id);
+
+            //muestra la persona a asignar
+            $inspector=$this->db->query("SELECT p.*, a.total from persona p
+RIGHT JOIN
+(SELECT k.*  FROM
+			(SELECT j.persona_id,(CASE WHEN j.total IS NULL THEN 0 ELSE j.total	END) FROM 
+			(SELECT d.*,b.total FROM 
+			
+			(SELECT g.* FROM (SELECT persona_id FROM tramite.organigrama_persona WHERE cargo_id= (SELECT cargo_id FROM tramite.cargo WHERE descripcion in ('inspector','Inspector','INSPECTOR'))) AS g INNER JOIN
+				(SELECT p.persona_id FROM persona_perfil p LEFT JOIN perfil o ON p.perfil_id=o.perfil_id WHERE o.perfil='Tecnico (Inspector)' and p.activo=1  and o.activo=1 GROUP BY p.persona_id) 
+				as f on g.persona_id=f.persona_id) as d
+				
+			LEFT JOIN
+			(SELECT  A.persona_id,COUNT(A.persona_id) as total FROM inspeccion.asignacion A	WHERE A.activo=1 GROUP BY A.persona_id ORDER BY total ASC) as b
+			on b.persona_id=d.persona_id ORDER BY b.total ASC) as j) as k ORDER BY k.total asc limit 1) as a
+ on p.persona_id=a.persona_id")->row();
+			//fin de query
+				$ids['personas'] = $inspector;       
             	$ids['idss'] = $consulta->organigrama_persona_id;
             	$this->load->view('admin/header');
 		        $this->load->view('admin/menu');
 		        $this->load->view('inspecciones/crear', $ids);
 		        $this->load->view('inspecciones/footer');
 		        
-            }else{
-            	redirect(base_url());
-            }
+          
        	}else{
 			redirect(base_url());
         }	
