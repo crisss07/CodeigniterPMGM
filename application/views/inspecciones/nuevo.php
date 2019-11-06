@@ -141,12 +141,19 @@
 
                                        
 
-                                        </div>                                                                  
-                                    </div>
+                                        </div> 
 
-                                  
-                                    
-                                    <button class="btn btn-primary" type="submit">Guardar</button>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group"> 
+                                     <label >Derivar </label>
+                                    <select class="custom-select form-control" id="destino" name="destino" />
+                                        <option value="<?php echo 'asd'; ?>"><?php echo $derivacion->nombres.' '.$derivacion->paterno.' '.$derivacion->materno.' ( Procesador)'; ?></option>                                       
+                                    </select>  
+                                </div>
+                                    </div>
+                                    <button class="btn btn-primary " type="submit">Guardar y Derivar</button>
 
                                 </form>
                                 <script>

@@ -36,11 +36,13 @@ class Inspecciones_model extends CI_Model {
 		$data = array(
         	'correlativo' => $correlativo
         );
-		$id_tramite = $this->db->insert_id();
+		$id_tramite = $this->db->insert_id();//obtiene el id de la ultima insercion
 		$this->db->where('numero_tramite_id', $numero_tramite_id);
 		$this->db->update('tramite.numero_tramite', $data);
 		$tramite = $this->db->get_where('tramite.tramite', array('tramite_id'=>$id_tramite))->row();
 		//if($tramite->tipo_tramite_id == 10){
+
+		///asignacion del inspector
 			$contador_asignaciones = $this->db->query("SELECT k.*  FROM
 			(SELECT j.persona_id,(CASE WHEN j.total IS NULL THEN 0 ELSE j.total	END) FROM 
 			(SELECT d.*,b.total FROM 
@@ -135,6 +137,22 @@ class Inspecciones_model extends CI_Model {
 		");
 		return $query->result();
 	}
+
+
+	function get_next() {
+		$query = $this->db->query("SELECT p.* FROM persona p
+			join
+			tramite.organigrama_persona t
+			on p.persona_id=t.persona_id
+			WHERE t.cargo_id= (SELECT cargo_id FROM tramite.cargo WHERE descripcion in ('Procesador','procesador'))");
+		return $query->row();
+	}
+
+
+
+
+
+
 		    
 
 

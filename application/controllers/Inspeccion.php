@@ -25,7 +25,7 @@ class Inspeccion extends CI_Controller {
 	}	
 
 
-    public function crear(){
+    public function crear($id_tramite=null){
 		if($this->session->userdata("login")){
 			//$lista['verifica'] = $this->rol_model->verifica();
 			//$lista['zona_urbana'] = $this->zona_urbana_model->index();
@@ -53,7 +53,18 @@ RIGHT JOIN
 			on b.persona_id=d.persona_id ORDER BY b.total ASC) as j) as k ORDER BY k.total asc limit 1) as a
  on p.persona_id=a.persona_id")->row();
 			//fin de query
-				$ids['personas'] = $inspector;       
+
+
+			//datos del beneficiario
+            $datos_solictante=$this->db->query("SELECT * from tramite.tramite WHERE tramite_id= $id_tramite")->row();
+			
+			//nro de tramite viene del tramite previamente creado
+
+
+            	$ids['nro_tramite']=$id_tramite;
+
+
+				$ids['personas'] = $inspector; 
             	$ids['idss'] = $consulta->organigrama_persona_id;
             	$this->load->view('admin/header');
 		        $this->load->view('admin/menu');
@@ -127,7 +138,8 @@ RIGHT JOIN
             $res = $this->db->get_where('persona', array('persona_id' => $dato))->row();
 
             $data['data_act'] = $this->Inspecciones_model->get_data_act();   
-            $data['data_inf'] = $this->Inspecciones_model->get_data_inf();   
+            $data['data_inf'] = $this->Inspecciones_model->get_data_inf();
+            $data['derivacion'] = $this->Inspecciones_model->get_next(); 
             $data['asignacion_id']=$ida;
 		            	$this->load->view('admin/header');
 				        $this->load->view('admin/menu');
