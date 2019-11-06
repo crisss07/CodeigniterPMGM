@@ -31,12 +31,8 @@ class Flujo_model extends CI_Model {
         return $query->result();
     }
     function get_organigrama() {//obtiene los datos de la tabla tipotramite en array result
-        $query = $this->db->query("SELECT o.*,concat(p.nombres,' ' ,p.paterno,' ',p.materno) as nombreusuer FROM
-        tramite.organigrama_persona o
-                LEFT JOIN
-                public.persona p
-                on o.persona_id=p.persona_id
-        ");
+        $query = $this->db->query("SELECT o.organigrama_persona_id,o.cargo,concat(p.nombres,' ' ,p.paterno,' ',p.materno) as nombreusuer FROM (SELECT t.*,c.descripcion as cargo FROM tramite.cargo c join
+        tramite.organigrama_persona t on c.cargo_id=t.cargo_id) as o JOIN public.persona p on o.persona_id=p.persona_id");
         return $query->result();
     }
 }
