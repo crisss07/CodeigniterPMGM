@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">ASIGNADOS</h4>
-                        <table id="bandeja_entrada" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                        <table hnhf="bandeja_entrada" class="table table-bordered table-striped" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -70,6 +70,9 @@
                                             </a>
                                             <a href="<?php echo base_url(); ?>derivaciones/ver/<?php echo $mt->tramite_id; ?>" class="btn btn-primary footable-edit" title="Seguimiento">
                                                 <span class="fas fa-bars" aria-hidden="true"></span>
+                                            </a>
+                                            <a href="<?php echo base_url(); ?>inspeccion/crear/<?php echo $mt->tramite_id; ?>" class="btn btn-info footable-edit" title="Inspección">
+                                                <span class="fa-clipboard" aria-hidden="true"></span>
                                             </a>
                                             <!-- <a href="#" type="button" class="btn btn-danger footable-delete" title="Eliminar">
                                                 <span class="fas fa-trash-alt" aria-hidden="true"></span>

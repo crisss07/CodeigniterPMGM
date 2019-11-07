@@ -84,7 +84,7 @@
                                     <?php echo form_open('Flujo/create', array('method'=>'POST', 'id'=>'insertar')); ?>
                                     <div class="form-group">
                                     <label for="location1">Tipo tramite :<span class="text-danger"> *</span></label>
-                                    <select class="custom-select form-control" id="tipo_tramite_id" name="tipo_tramite_id">
+                                    <select class="custom-select form-control" id="tipo_tramite_id" name="tipo_tramite_id" required>
                                         <option value="">Seleccione Opcion</option>
                                         <?php foreach ($data_tramite as $tp) : ?>
                                             <option value="<?php echo $tp->tipo_tramite_id; ?>"><?php echo $tp->tramite; ?></option>
@@ -94,20 +94,20 @@
 
                                     <div class="form-group">
                                     <label for="location1">Persona :<span class="text-danger"> *</span></label>
-                                    <select class="custom-select form-control" id="organigrama_id" name="organigrama_id">
+                                    <select class="custom-select form-control" id="organigrama_id" name="organigrama_id" required>
                                         <option value="">Seleccione Opcion</option>
                                         <?php foreach ($data_org as $tp) : ?>
-                                            <option value="<?php echo $tp->organigrama_persona_id; ?>"><?php echo $tp->nombreusuer; ?></option>
-                                        <?php endforeach; ?>
+                                            <option value="<?php echo $tp->organigrama_persona_id; ?>"><?php echo $tp->nombreusuer.' ('.$tp->cargo.')'; ?></option>
+                                        <?php endforeach; ?> 
                                     </select>
                                     </div>
                                     <div class="form-group">
                                     <label for="recipient-name" class="control-label">Orden</label>
-                                    <input type="number" class="form-control" id="orden" name="orden" >
+                                    <input type="number" class="form-control" id="orden" name="orden" required>
                                     </div>
                                     <div class="form-group">
                                     <label for="recipient-name" class="control-label">Flujo</label>
-                                    <input type="text" class="form-control" id="flujo" name="flujo" >
+                                    <input type="text" class="form-control" id="flujo" name="flujo" required>
                                     </div>
 
                                     <div class="modal-footer">
@@ -145,7 +145,7 @@
                                     <select class="custom-select form-control" id="organigrama_id_e" name="organigrama_id_e">
                                         <option value="">Seleccione Opcion</option>
                                         <?php foreach ($data_org as $tp) : ?>
-                                            <option value="<?php echo $tp->organigrama_persona_id; ?>"><?php echo $tp->nombreusuer; ?></option>
+                                            <option value="<?php echo $tp->organigrama_persona_id; ?>"><?php echo $tp->nombreusuer .' ('.$tp->cargo.')'; ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                     </div>
