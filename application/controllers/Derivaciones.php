@@ -60,9 +60,7 @@ class Derivaciones extends CI_Controller
                 $this->load->view('predios/registra_js');
             }else{
                 var_dump('vacio');
-            }
-            
-            
+            }     
         }
     }
 //--------------------Fin derivar nuevo------------------------

@@ -47,15 +47,20 @@
                             <!-- <form action="#" class="validation-wizard wizard-circle"> -->
                             <?php // echo form_open('predios/guarda', array('method'=>'POST', 'enctype'=>"multipart/form-data")); ?>
                             <?php echo form_open_multipart('inspeccion/do_upload', array('method'=>'POST')); ?>
+                                    
                                     <h4 class="card-title">Inspeccion</h4>
                                
                                     <div class="form-row">
                                     <input type="hidden" class="form-control" id="asignacion_id" name="asignacion_id" value="<?php echo $asignacion_id; ?>">
-                                       
+                                      <input type="hidden" class="form-control" id="tramite_id" name="tramite_id" value="<?php echo $tramite_id; ?>">
+                                      <input type="hidden" class="form-control" id="orden" name="orden" value="<?php echo $derivacion->orden; ?>">
+                                          
                                         <div class="col-md-4 mb-3">
                                             <label for="validationCustom02">Tipo Actuacion</label>
 
                                             <!-- CONSULTA POR LA TABLA TIPO DE DOCUMENTO -->
+
+
                                           
 
                                             <select class="custom-select form-control" id="tipo_actuacion_id" name="tipo_actuacion_id" required />
@@ -145,11 +150,19 @@
 
 
                                     </div>
+
+                                    <div class="form-group">
+                                    <label>Descripcion<span class="help"></span></label>
+                                    <input type="text" class="form-control" value="" name="descripcion">
+                                </div>
+
+
+
                                     <div class="row">
                                         <div class="col-md-12 form-group"> 
                                      <label >Derivar </label>
                                     <select class="custom-select form-control" id="destino" name="destino" />
-                                        <option value="<?php echo 'asd'; ?>"><?php echo $derivacion->nombres.' '.$derivacion->paterno.' '.$derivacion->materno.' ('.$derivacion->descripcion.')'; ?></option>                                       
+                                        <option value="<?php echo $derivacion->organigrama_persona_id; ?>"><?php echo $derivacion->nombres.' '.$derivacion->paterno.' '.$derivacion->materno.' ('.$derivacion->descripcion.')'; ?></option>                                       
                                     </select>  
                                 </div>
                                     </div>

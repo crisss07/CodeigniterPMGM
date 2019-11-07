@@ -400,32 +400,7 @@ class Tipo_tramite extends CI_Controller {
         }	
 	}
 	 
-	public function muestra_asignaciones(){
-		if($this->session->userdata("login")){
-		// $this->db->order_by('tramite.derivacion.fec_creacion', 'DESC');
-			$id = $this->session->userdata("persona_perfil_id");
-			$resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
-			$dato = $resi->persona_id;
-			$res = $this->db->get_where('persona', array('persona_id' => $dato))->row();
-			//$id_user=$resi[0]['persona_id'];
-			//$data['lista'] = $this->inspecciones_model->get_lista(); 
-			// $data['lista'] = $this->inspecciones_model->get_lista();  
-			// $asignados = 
-			$this->db->select('persona_id, COUNT(persona_id) as total');
-			$this->db->where('activo',1);
-			$this->db->group_by('persona_id'); 
-			$this->db->order_by('total', 'desc'); 
-			$data['asignados'] = $this->db->get('inspeccion.asignacion')->result();
-			//vdebug($data['asignados'], true, false, true);
-			$this->load->view('admin/header');
-			$this->load->view('admin/menu');
-			$this->load->view('inspecciones/muestra_asignaciones', $data);
-			$this->load->view('admin/footer');
-			$this->load->view('predios/index_js');
-		}else{
-			redirect(base_url());
-		}		
-	}
+	
 
 	/*public function ajax_verifica1_ante(){
 		$ci = $this->input->get("param1");
