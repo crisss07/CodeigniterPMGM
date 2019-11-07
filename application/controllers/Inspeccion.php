@@ -111,6 +111,7 @@ RIGHT JOIN
             $data['data_act'] = $this->Inspecciones_model->get_data_act();   
             $data['data_inf'] = $this->Inspecciones_model->get_data_inf();
             $data['derivacion'] = $this->Inspecciones_model->get_next($tipo_tramite_id,$id_tramite); 
+            $data['tramite_id'] = $id_tramite;
             $data['asignacion_id']=$ida;
 		            	$this->load->view('admin/header');
 				        $this->load->view('admin/menu');
@@ -380,6 +381,12 @@ RIGHT JOIN
 			
 				$this->db->where('asignacion_id', $asignacion_id);
 				$this->db->update('inspeccion.asignacion', $data);
+				//derivar al siguiente paso segun el flujo
+				$this->deriva($this->input->post('tramite_id'));
+
+				//fin de derivacion
+
+
 
 
 					$config['upload_path']      = './public/assets/files/inspeccion';	               
@@ -409,10 +416,10 @@ RIGHT JOIN
 	                else
 	                	{
 	                        $data = array('upload_data' => $this->upload->data());
-							redirect('prueba/lis1/');
+							redirect('Inspeccion/list_asign_user/');
                         }	                
             	}
-                redirect(base_url().'prueba/lis1/');                  
+                redirect(base_url().'Inspeccion/list_asign_user/');                  
 
 			}
 			
@@ -422,6 +429,51 @@ RIGHT JOIN
         }	
 
 	 }
+
+
+	 public function deriva($id_tramite){
+        
+            $id = $this->session->userdata("persona_perfil_id");
+            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+            //id de usuario actual
+            $usu_creacion = $resi->persona_id; 
+            $cite_generado = '--';
+
+        	$idTramite = $id_tramite;
+        
+        $anio= date("Y");   
+        //obteniendo el id de derivacion segun el orden maximo actual por el id tramite
+        $this->db->select('derivacion_id');
+        $this->db->limit(1);
+        $this->db->order_by('orden', 'DESC');
+        $this->db->where('tramite_id', $idTramite);
+        $query = $this->db->get('tramite.derivacion')->row();
+        $this->db->where('derivacion_id', $query->derivacion_id);
+        $this->db->update('tramite.derivacion', array('estado'=>0));
+        //actualizando el estado de la derivacion
+     
+
+        $datos_organigrama_persona = $this->db->get_where(
+            'tramite.organigrama_persona', 
+            array(
+                'persona_id'=>$usu_creacion,
+                'activo'=>1
+            ))->result_array();
+
+        $data = array(
+            'tramite_id'=>$idTramite,            
+            'fuente'=>$datos_organigrama_persona[0]['organigrama_persona_id'],
+            'destino'=>$this->input->post('destino'),
+            'estado'=>1,
+            'cite'=>$cite_generado,
+            'adjunto' => '--',
+            'fecha'=>date("Y-m-d H:i:s"),
+            'descripcion'=>$this->input->post('descripcion'),
+            'orden' =>$this->input->post('orden'),
+            'usu_creacion' =>$usu_creacion,
+        );
+        $this->db->insert('tramite.derivacion', $data);
+    }
 
 	}
 
