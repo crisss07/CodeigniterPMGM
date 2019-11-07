@@ -54,16 +54,16 @@ RIGHT JOIN
  on p.persona_id=a.persona_id")->row();
 			//fin de query
 
-
 			//datos del beneficiario
-            $datos_solictante=$this->db->query("SELECT * from tramite.tramite WHERE tramite_id= $id_tramite")->row();
-			
+            	$datos_solictante=$this->db->query("SELECT t.*,p.* from tramite.tramite t
+            	JOIN persona p
+            	on t.solicitante_id=p.persona_id
+            	WHERE tramite_id= $id_tramite")->row();			
 			//nro de tramite viene del tramite previamente creado
 
 
             	$ids['nro_tramite']=$id_tramite;
-
-
+            	$ids['solicitante']=$datos_solictante;
 				$ids['personas'] = $inspector; 
             	$ids['idss'] = $consulta->organigrama_persona_id;
             	$this->load->view('admin/header');
@@ -88,47 +88,18 @@ RIGHT JOIN
 	            $organigrama_persona=$this->db->query("SELECT organigrama_persona_id FROM tramite.organigrama_persona WHERE persona_id='$usu_creacion'")->row();
 	            //corregir error aqui organigrama
 				$organigrama_persona_id = $organigrama_persona->organigrama_persona_id;
-				$tipo_documento_id = 1;
-				$tipo_tramite_id = '15';
-				$cite = $datos['cite'];
-				$fecha = $datos['fecha'];
-				$fojas = 0;
-				$anexos = 0;
-				$remitente = $datos['remitente'];
-				$procedencia = '0';
-				$referencia = '0';
-				$adjunto = '--';
-				$destino = $datos['destino'];
-				$correlativo = $datos['correlativo'];
-				$gestion = $datos['gestion'];
-				$tipo_solicitante = $datos['tipo_solicitante'];
-				$via_solicitud = 'Oficina';
-				$solicitante_id = $datos['solicitante_id'];
-				$observaciones = $datos['observaciones'];
-				$requisitos='--';
-				$tipo = $this->input->post('boton');
-				$this->Inspecciones_model->insertar_tramite_inspecciones($organigrama_persona_id, $tipo_documento_id, $tipo_tramite_id, $cite, $fecha, $fojas, $anexos, $remitente, $procedencia, $referencia, $usu_creacion, $adjunto, $destino, $correlativo, $gestion, $tipo_solicitante, $via_solicitud, $solicitante_id, $observaciones, $requisitos, $tipo);
-				$tramite = $this->db->query("SELECT * FROM tramite.tramite WHERE cite = '$cite'")->row();
-				$idTramite = $tramite->tramite_id;
-				
-			
-
-		
-				
-					
-					
-				redirect('Tipo_tramite/muestra_asignaciones');
-					
+				$tipo_tramite_id = $datos['tramite_id'];
+				$destino = $datos['destino'];	
+				$this->Inspecciones_model->insertar_asignacion($organigrama_persona_id, $tipo_tramite_id,$destino);					
+				redirect('Tipo_tramite/muestra_asignaciones');					
 				}
-					
-			
 		}else{
 			redirect(base_url());
         }	
 	}
 
 
-	public function nuevo($ida=null){
+	public function nuevo($ida=null,$id_tramite=null,$tipo_tramite_id=null){
 		if($this->session->userdata("login")){
 			//$lista['verifica'] = $this->rol_model->verifica();
 			//$lista['zona_urbana'] = $this->zona_urbana_model->index();
@@ -139,7 +110,7 @@ RIGHT JOIN
 
             $data['data_act'] = $this->Inspecciones_model->get_data_act();   
             $data['data_inf'] = $this->Inspecciones_model->get_data_inf();
-            $data['derivacion'] = $this->Inspecciones_model->get_next(); 
+            $data['derivacion'] = $this->Inspecciones_model->get_next($tipo_tramite_id,$id_tramite); 
             $data['asignacion_id']=$ida;
 		            	$this->load->view('admin/header');
 				        $this->load->view('admin/menu');
@@ -253,6 +224,22 @@ RIGHT JOIN
 			redirect(base_url());
 		}
 	}
+
+	public function list_asign_user(){//listado de asignaciones pendientes no concluidas  a nivel usuario
+        if($this->session->userdata("login")){
+        $lista['verifica'] = $this->Rol_model->verifica();
+        $lista['asignacion'] = $this->Inspecciones_model->get_asign_user();
+        $this->load->view('admin/header');
+        $this->load->view('admin/menu');
+        $this->load->view('inspecciones/listado', $lista);
+        $this->load->view('admin/footer');
+        }
+        else{
+            redirect(base_url());
+        }
+    }
+
+
 
 	public function lista_asign()
 	{
