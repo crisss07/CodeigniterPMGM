@@ -32,7 +32,7 @@
                             <h4 class="card-title">Registro de Inspeccion</h4>
                             <div class="form-row">
 
-                                <?php echo 'Nro de tramite '. $solicitante->tramite_id ?>
+                                <?php echo 'Nro de tramite '. $solicitante->cite ?>
                                 <input type="hidden" class="form-control" id="tramite_id" name="tramite_id" value="<?php echo  $solicitante->tramite_id ?>"  readonly="">
                                 
                                 <div class="col-md-12 form-group" id="listas"> 
@@ -103,8 +103,8 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-md-12 mb-form-group">
-                                    <label >Observaciones</label>
-                                    <input type="text" class="form-control" id="observaciones" value="<?php echo $solicitante->observaciones ?>" name="observaciones" required readonly="">
+                                    <label >Descripcion</label>
+                                    <input type="text" class="form-control" id="descripcion" value="" name="descripcion" required>
                                 </div>
                                
                                 <div class="col-md-12 form-group"> 

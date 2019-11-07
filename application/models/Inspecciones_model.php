@@ -75,7 +75,7 @@ class Inspecciones_model extends CI_Model {
 	}
 
 
-	public function insertar_asignacion($tipo_tramite_id,$tramite_id,  $destino){	
+	public function insertar_asignacion($tramite_id,  $destino){	
 		$this->load->helper('vayes_helper');
 		
 
@@ -225,6 +225,14 @@ class Inspecciones_model extends CI_Model {
         	WHERE f.tipo_tramite_id=$tipo_tramite_id and f.orden=$orden_actual");
         return $query->row();
     }
+
+    //obtiene el id de organigrama por la persona_id
+    public function organigrama_id($id)
+	{	
+	    $organigrama_id = $this->db->get_where('tramite.organigrama_persona', array('persona_id' => $id))->row();
+		return $organigrama_id->organigrama_persona_id;
+		
+	}
 
 
 
