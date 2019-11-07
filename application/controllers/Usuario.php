@@ -342,6 +342,44 @@ class Usuario extends CI_Controller {
 		}
 	}
 
+	public function asignar_perfil_menu()
+	{	
+		if($this->session->userdata("login")){
+			$datos = $this->input->post();
+			
+			if(isset($datos))
+			{
+				//$c = $this->uri->segment(3);
+				//echo $c;
+				
+				//OBTENER EL ID DEL USUARIO LOGUEADO
+				$id = $this->session->userdata("persona_perfil_id");
+	            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+	            $usu_creacion = $resi->persona_id;
+
+	            $lista['verifica'] = $this->rol_model->verifica();
+				$lista['credencial_id'] =  $this->uri->segment(3);
+				$this->db->select('servicio_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.servicio');
+				$lista['listado_servicios'] = $query->result();
+
+				$this->load->view('admin/header');
+				$this->load->view('admin/menu');
+				$this->load->view('usuarios/crear_menu', $lista);
+				$this->load->view('admin/footer');
+				
+				//$descripcion = $datos['descripcion'];
+				//$this->zona_urbana_model->insertar_zona($descripcion, $usu_creacion);
+				//redirect('Zona_urbana');
+			}
+		}
+		else{
+			redirect(base_url());
+		}
+	}
+
 
 	 public function update()     
 	{  

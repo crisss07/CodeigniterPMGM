@@ -59,7 +59,7 @@
                                     <div class="myadmin-dd dd" id="nestable">
                                         <?php foreach ($nivel1 as $menu1) { 
                                             $compara =  $this->db->query("SELECT *
-                                                                            FROM credencial_menu
+                                                                            FROM perfil_menu
                                                                             WHERE menu_id = '$menu1->menu_id'
                                                                             AND credencial_id = '$credencial_id'
                                                                             ORDER BY credencial_menu_id")->row();

@@ -61,6 +61,10 @@
                                                 <td><?php echo $i++;?></td>
                                                 <td><?php echo $lis->perfil;?></td>
                                                 <td>
+                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('usuario/asignar/'. $lis->perfil_id); ?>" type="button" class="btn btn-info button">
+                                                        <span disabled class="fas fa-tasks" aria-hidden="true">
+                                                        </span>
+                                                    </a>
                                                     <button <?php echo $verifica['modificacion']; ?> type="button" class="btn btn-warning footable-edit" data-toggle="modal" data-target="#modalEdicion" onclick="agregarform('<?php echo $datos ?>')">
                                                             <span class="fas fa-pencil-alt" aria-hidden="true">
                                                             </span>

@@ -20,7 +20,7 @@
                                 <!--<form class="needs-validation" action="Usuario/registra" method="POST">-->
 
 
-                                    <?php echo form_open('Usuario/registra', array('method'=>'POST')); ?>
+                                    <?php echo form_open_multipart('Usuario/registra', array('method'=>'POST')); ?>
 
                                         <div class="row">
                                             <!-- Column -->
@@ -29,9 +29,8 @@
                                                     <div class="card-body">
                                                         <center class="mt-4"><div class="card">
                                                                                 <div class="card-body">
-                                                                                    <label for="input-file-now">
-                                                                                    </label>
-                                                                                    <input type="file" id="input-file-now" class="dropify" name="perfil"/>
+                                                                                    <label for="input-file-now-custom-1"></label>
+                                                                                    <input type="file" id="input-file-now-custom-1" class="dropify" data-default-file="<?php echo base_url(); ?>public/assets/images/users/perfil.jpg" />
                                                                                 </div>
                                                                             </div>
                                                             <h4 class="card-title mt-2" id="nombres1"></h4>

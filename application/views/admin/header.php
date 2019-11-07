@@ -299,12 +299,12 @@
                                 <input type="text" class="form-control" placeholder="Buscar"> <a class="srh-btn"><i class="ti-search"></i></a> </form>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?php echo base_url(); ?>public/assets/images/users/perfil1.jpg" alt="user" class="profile-pic" /></a>
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?php echo base_url(); ?>public/assets/images/users/perfil.jpg" alt="user" class="profile-pic" /></a>
                             <div class="dropdown-menu dropdown-menu-right animated flipInY">
                                 <ul class="dropdown-user">
                                     <li>
                                         <div class="dw-user-box">
-                                            <div class="u-img"><img src="<?php echo base_url(); ?>public/assets/images/users/perfil1.jpg" alt="user"></div>
+                                            <div class="u-img"><img src="<?php echo base_url(); ?>public/assets/images/users/perfil.jpg" alt="user"></div>
                                             <div class="u-text">
                                                  <?php
                                                         $id = $this->session->userdata("persona_perfil_id");
