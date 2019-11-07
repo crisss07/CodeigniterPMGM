@@ -85,6 +85,21 @@ class Usuario_model extends CI_Model {
 		$this->db->insert('public.credencial', $array);
 	}
 
+	public function insertar_credencial1($persona_perfil_id, $rol_id, $usuario, $contrasenia)
+	{	
+		
+		$array = array(
+			'organigrama_id' =>$organigrama_id,
+			'persona_id' => $persona_id,
+			'fec_alta' => $fec_alta,
+			'vigencia' => 0,
+			'usu_creacion' =>$usu_creacion,
+			'cargo_id' => $cargo_id
+			);
+		$this->db->insert('tramite.organigrama_persona', $array);
+	}
+
+
 	public function actualizar_usuario($credencial_id, $persona_perfil_id, $perfil_id, $rol_id, $usuario, $contrasenia)
     {
         $data = array(
