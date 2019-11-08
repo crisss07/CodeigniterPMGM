@@ -113,6 +113,75 @@ class Perfil extends CI_Controller {
 		$id = $this->db->query("SELECT * FROM persona WHERE ci = '9112739'")->result();
 	}
 
+	public function asignar_perfil_menu()
+	{	
+		if($this->session->userdata("login")){
+			$datos = $this->input->post();
+			
+			if(isset($datos))
+			{
+				
+				//OBTENER EL ID DEL USUARIO LOGUEADO
+				$id = $this->session->userdata("persona_perfil_id");
+	            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+	            $usu_creacion = $resi->persona_id;
+
+	            $lista['verifica'] = $this->rol_model->verifica();
+				$lista['perfil_id'] =  $this->uri->segment(3);
+				
+				$this->load->view('admin/header');
+				$this->load->view('admin/menu');
+				$this->load->view('perfil/crear_menu_perfil', $lista);
+				$this->load->view('admin/footer');
+				
+			}
+		}
+		else{
+			redirect(base_url());
+		}
+	}
+
+	public function updates()     
+	{  
+		if($this->session->userdata("login")){ 
+			$id = $this->session->userdata("persona_perfil_id");
+	        $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+	        $usu_modificacion = $resi->persona_id;
+	        $fec_modificacion = date("Y-m-d H:i:s"); 
+
+	        			
+	        	$cre = $this->input->post('perfil');
+
+	        	$borrar = $this->db->query("SELECT *
+											FROM perfil_menu 
+											WHERE perfil_id = '$cre'
+											ORDER BY perfil_menu_id")->result();
+
+	        	foreach ($borrar as $valor) {
+	        		$this->db->delete('perfil_menu', array('perfil_menu_id' => $valor->perfil_menu_id));
+	        	}
+		   		
+		        foreach ($this->input->post('menus') as $me) {
+
+		        $menu = array(
+						'perfil_id'=>$cre,
+						'menu_id'=>$me,
+						'activo'=>1
+						);
+
+						$this->db->insert('public.perfil_menu', $menu);
+			        							
+					 }
+					 
+					redirect('perfil');
+					
+			}
+		else
+		{
+			redirect(base_url());
+		}
+	}
+
 }
 
 	

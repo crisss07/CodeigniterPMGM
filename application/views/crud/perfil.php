@@ -61,7 +61,7 @@
                                                 <td><?php echo $i++;?></td>
                                                 <td><?php echo $lis->perfil;?></td>
                                                 <td>
-                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('usuario/asignar/'. $lis->perfil_id); ?>" type="button" class="btn btn-info button">
+                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('perfil/asignar_perfil_menu/'. $lis->perfil_id); ?>" type="button" class="btn btn-info button">
                                                         <span disabled class="fas fa-tasks" aria-hidden="true">
                                                         </span>
                                                     </a>

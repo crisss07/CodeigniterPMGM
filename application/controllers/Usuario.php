@@ -358,16 +358,11 @@ class Usuario extends CI_Controller {
 	            $usu_creacion = $resi->persona_id;
 
 	            $lista['verifica'] = $this->rol_model->verifica();
-				$lista['credencial_id'] =  $this->uri->segment(3);
-				$this->db->select('servicio_id, descripcion');
-				$this->db->order_by('descripcion', 'ASC');
-				$this->db->where('activo', 1);
-				$query = $this->db->get('catastro.servicio');
-				$lista['listado_servicios'] = $query->result();
-
+				$lista['perfil_id'] =  $this->uri->segment(3);
+				
 				$this->load->view('admin/header');
 				$this->load->view('admin/menu');
-				$this->load->view('usuarios/crear_menu', $lista);
+				$this->load->view('perfil/crear_menu_perfil', $lista);
 				$this->load->view('admin/footer');
 				
 				//$descripcion = $datos['descripcion'];
