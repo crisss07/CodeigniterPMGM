@@ -40,6 +40,7 @@
     <script src="<?php echo base_url(); ?>public/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
 
      <script src="<?php echo base_url(); ?>public/assets/plugins/Chart.js/chartjs.init.js"></script>
+
     <script src="<?php echo base_url(); ?>public/assets/plugins/Chart.js/Chart.min.js"></script>
 
 
