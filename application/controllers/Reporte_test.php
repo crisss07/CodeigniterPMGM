@@ -160,7 +160,7 @@ class Reporte_test extends CI_Controller {
 
 //acta de inspeccion
 
-	public function word_insp(){
+	public function word_insp($id_tramite=null){
 
 		if($this->session->userdata("login")){
 			$id = $this->session->userdata("persona_perfil_id");
@@ -169,6 +169,10 @@ class Reporte_test extends CI_Controller {
 
             $datos_persona= $this->Tools_model->persona_datos($usu_actual);
             $datos_cargo= $this->Tools_model->persona_cargo($usu_actual);
+
+            $datos_a=$this->Tools_model->get_a();
+            $datos_via=$this->Tools_model->get_via();
+            $nro_tramite=$this->Tools_model->nro_tramite(230);
 
 
 			//obtenemos datos(nombres,fecha,actual) para el informe
@@ -214,16 +218,16 @@ class Reporte_test extends CI_Controller {
 			$header->addImage(base_url().'public/assets/images/phpword/header.png',array('width' => 520));
 
 //titulo
-			$section->addText('INFORME <w:br/> GAM-TOR/2019-00150',array('bold' => true), array('align' => 'center'));
+			$section->addText("INFORME <w:br/> ".$nro_tramite->cite,array('bold' => true), array('align' => 'center'));
 
-			$section->addText('	A	 :	Ernesto Marconi Ripa', array('bold' => false), array('align' => 'left'));
-			$section->addText('			COORDINADOR GENERAL a.i.', array('bold' => true), array('align' => 'left'));
+			$section->addText("	A	 :	".$datos_a->nombres." ".$datos_a->paterno." ".$datos_a->materno, array('bold' => false), array('align' => 'left'));
+			$section->addText("			".$datos_a->cargo, array('bold' => true), array('align' => 'left'));
 
-			$section->addText('	VIA	 : 	Carlos Juares', array('bold' => false), array('align' => 'left'));
-			$section->addText('			RESPONSABLE DE DESARROLLO DE SISTEMAS Y BASE DE DATOS - UEP', array('bold' => true,'size' => 8), array('align' => 'left'));
+			$section->addText("	VIA	 : 	".$datos_via->nombres." ".$datos_via->paterno." ".$datos_via->materno, array('bold' => false), array('align' => 'left'));
+			$section->addText("			".$datos_via->cargo, array('bold' => true,'size' => 8), array('align' => 'left'));
 
 			$section->addText("	DE	 : 	".$datos_persona->nombres." ".$datos_persona->paterno." ".$datos_persona->materno, array('bold' => false), array('align' => 'left'));
-			$section->addText('			Apoyo Técnico en Desarrollo de Sistemas III', array('bold' => true), array('align' => 'left'));
+			$section->addText('			'.$datos_cargo->descripcion, array('bold' => true), array('align' => 'left'));
 
 			$section->addText('	REF  	: 	Informe de Inspección', array('bold' => false,'spaceAfter' => 0), array('align' => 'left'));
 
@@ -264,46 +268,94 @@ class Reporte_test extends CI_Controller {
 
 	}
 
-//acta de notificacion
+//acta de notificacion Acta de notificacion
 
 	public function word_not(){
 		if($this->session->userdata("login")){
 
-			$phpWord = new \PhpOffice\PhpWord\PhpWord();
+			$id = $this->session->userdata("persona_perfil_id");
+	        $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+            $usu_actual = $resi->persona_id;
 
+            $datos_persona= $this->Tools_model->persona_datos($usu_actual);
+            $datos_cargo= $this->Tools_model->persona_cargo($usu_actual);
+
+            $datos_a=$this->Tools_model->get_a();
+            $datos_via=$this->Tools_model->get_via();
+            $nro_tramite=$this->Tools_model->nro_tramite(230);
+
+
+			//obtenemos datos(nombres,fecha,actual) para el informe
+			$days_dias = array(
+				'Monday'=>'Lunes',
+				'Tuesday'=>'Martes',
+				'Wednesday'=>'Miércoles',
+				'Thursday'=>'Jueves',
+				'Friday'=>'Viernes',
+				'Saturday'=>'Sábado',
+				'Sunday'=>'Domingo'
+			);
+			$mes=date('F');
+
+			if ($mes == "January") $mes = "Enero";
+			if ($mes == "February") $mes = "Febrero";
+			if ($mes == "March") $mes = "Marzo";
+			if ($mes == "April") $mes = "Abril";
+			if ($mes == "May") $mes = "Mayo";
+			if ($mes == "June") $mes = "Junio";
+			if ($mes == "July") $mes = "Julio";
+			if ($mes == "August") $mes = "Agosto";
+			if ($mes == "September") $mes = "Septiembre";
+			if ($mes == "October") $mes = "Octubre";
+			if ($mes == "November") $mes = "Noviembre";
+			if ($mes == "December") $mes = "Diciembre";
+			$dia_num=date('d');
+			$dia_l=$days_dias[date('l')];
+			$mes_num=  date('m');
+			$mes_l= $mes;
+			$anio=date('Y');  
+
+			//$fecha= ' FECHA: 	'.$dia_l.', .'.$dia.' de '.$mes_l.' de '.$anio;
+			$fechados=" 	FECHA:".$dia_l." , ".$dia_num;
+
+
+
+
+			$phpWord = new \PhpOffice\PhpWord\PhpWord();
 			$section = $phpWord->addSection();
 //encabezado
 			$header = $section->addHeader();
 			$header->addImage(base_url().'public/assets/images/phpword/header.png',array('width' => 520));
 
 //titulo
-			$section->addText('INFORME <w:br/> GAM-TOR/2019-00150',array('bold' => true), array('align' => 'center'));
+			$section->addText("INFORME <w:br/> ".$nro_tramite->cite,array('bold' => true), array('align' => 'center'));
 
-			$section->addText('	A	 :	Ernesto Marconi Ripa', array('bold' => false), array('align' => 'left'));
-			$section->addText('			COORDINADOR GENERAL a.i.', array('bold' => true), array('align' => 'left'));
+			$section->addText("	A	 :	".$datos_a->nombres." ".$datos_a->paterno." ".$datos_a->materno, array('bold' => false), array('align' => 'left'));
+			$section->addText("			".$datos_a->cargo, array('bold' => true), array('align' => 'left'));
 
-			$section->addText('	VIA	 : 	Carlos Juares', array('bold' => false), array('align' => 'left'));
-			$section->addText('			RESPONSABLE DE DESARROLLO DE SISTEMAS Y BASE DE DATOS - UEP', array('bold' => true,'size' => 8), array('align' => 'left'));
+			$section->addText("	VIA	 : 	".$datos_via->nombres." ".$datos_via->paterno." ".$datos_via->materno, array('bold' => false), array('align' => 'left'));
+			$section->addText("			".$datos_via->cargo, array('bold' => true,'size' => 8), array('align' => 'left'));
 
-			$section->addText('	DE	 : 	Pablo Escobar Gaviria', array('bold' => false), array('align' => 'left'));
-			$section->addText('			Apoyo Técnico en Desarrollo de Sistemas III', array('bold' => true), array('align' => 'left'));
+			$section->addText("	DE	 : 	".$datos_persona->nombres." ".$datos_persona->paterno." ".$datos_persona->materno, array('bold' => false), array('align' => 'left'));
+			$section->addText('			'.$datos_cargo->descripcion, array('bold' => true), array('align' => 'left'));
 
-			$section->addText('	REF  	: 	Acta de notificacion', array('bold' => false,'spaceAfter' => 0), array('align' => 'left'));
+			$section->addText('	REF  	: 	Informe de Notificacion', array('bold' => false,'spaceAfter' => 0), array('align' => 'left'));
 
-			$section->addText('	FECHA: 	Lunes, 4 de noviembre de 2019 ', array('bold' => false), array('align' => 'left'));
+			$section->addText("	FECHA:  	".$dia_l.", ".$dia_num." de ".$mes_l." de ".$anio."" , array('bold' => false), array('align' => 'left'));
+			//$section->addText($fechados, array('bold' => false), array('align' => 'left'));
 
 
 			$lineStyle = array('weight' => 1, 'width' => 440, 'height' => 0, 'color' => 000000);
 			$section->addLine($lineStyle);
 
-
+		//pie de pagina
 			$footer = $section->addFooter();
 			$footer->addText('www.oopp.gob.bo',array('bold' => true,'size' => 8), array('align' => 'center'));
 			$footer->addText('Av. Mariscal Santa Cruz, Esq. Calle Oruro, Edif. Centro de Comunicaciones La Paz, 5º piso',array('bold' => true,'size' => 8), array('align' => 'center'));
 			$footer->addText('teléfonos: (591) -2- 2119999 – 2156600',array('bold' => true,'size' => 8), array('align' => 'center'));
 
 
-			$file = 'Acta de Notificacion.docx';
+			$file = 'Acta de notificacion.docx';
 			header("Content-Description: File Transfer");
 			header('Content-Disposition: attachment; filename="' . $file . '"');
 			header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
@@ -312,6 +364,7 @@ class Reporte_test extends CI_Controller {
 			header('Expires: 0');
 			$xmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
 			$xmlWriter->save("php://output");
+
 
 		}
 		else{
