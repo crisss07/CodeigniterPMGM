@@ -297,8 +297,19 @@ class Usuario extends CI_Controller {
 	 public function abc()
 	 {
 
-	 	$persona_perfil_id = $this->db->query("SELECT MAX(persona_perfil_id) as max FROM persona_perfil")->row();
-	 	var_dump($persona_perfil_id->max);
+	 	
+	 	$perfil_menu = $this->db->query("SELECT DISTINCT pm.*
+										FROM credencial c, persona_perfil pp, perfil_menu pm
+										WHERE c.credencial_id = '44'
+										AND c.persona_perfil_id = pp.persona_perfil_id
+										AND pp.perfil_id = pm.perfil_id
+										ORDER BY pm.menu_id")->result();
+		
+		foreach ($perfil_menu as $valor) {
+			
+			echo $valor->menu_id;
+			echo ',';
+		}
 
 
 	 }

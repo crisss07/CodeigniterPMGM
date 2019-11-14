@@ -83,6 +83,25 @@ class Usuario_model extends CI_Model {
 			'token' => 0
 			);
 		$this->db->insert('public.credencial', $array);
+		$ultimo = $this->db->query("SELECT MAX(credencial_id) as nro
+									FROM credencial")->row();
+
+		$perfil_menu = $this->db->query("SELECT DISTINCT pm.*
+										FROM credencial c, persona_perfil pp, perfil_menu pm
+										WHERE c.credencial_id = '$ultimo->nro'
+										AND c.persona_perfil_id = pp.persona_perfil_id
+										AND pp.perfil_id = pm.perfil_id
+										ORDER BY pm.perfil_menu_id")->result();
+
+		foreach ($perfil_menu as $valor) {
+			$array1 = array(
+			'credencial_id' =>$ultimo->nro,
+			'menu_id' =>$valor->menu_id,
+			'activo' => 1
+			);
+		$this->db->insert('public.credencial_menu', $array1);
+		}			
+
 	}
 
 	public function insertar_credencial1($persona_perfil_id, $rol_id, $usuario, $contrasenia)
