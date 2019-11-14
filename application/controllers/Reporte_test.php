@@ -12,8 +12,8 @@ class Reporte_test extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->library('session');
-		$this->load->model('tipopredio_model');
-		$this->load->model("logacceso_model");
+		$this->load->model('Tipopredio_model');
+		$this->load->model("Logacceso_model");
 		$this->load->model("Persona_model");
 		$this->load->model("Derivaciones_model");
 		$this->load->model("Ddrr_model");
