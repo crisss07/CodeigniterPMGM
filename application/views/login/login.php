@@ -84,7 +84,7 @@
                    
                     <div class="form-group text-center mt-3">
                         <div class="col-xs-12"> 
-                            <a href="https://cuenta.ciudadaniadigital.agetic.gob.bo/interaction/90a504ff-b9ae-40b8-aac5-8513211c7e96" class="btn btn-secondary col-xs-12" >INGRESAR CON AGETIC </a>
+                            <a href="https://cuenta.ciudadaniadigital.agetic.gob.bo/auth?client_id=a477e307-081a-4c62-bbf7-f53b88821a46&scope=openid%20nombre%20documento_identidad%20fecha_nacimiento%20email%20celular&response_type=code&redirect_uri=https%3A%2F%2Fwww.gob.bo%2Fciudadania%2Foauth%2Flogin.html&state=ccfd68adbc85596452e709dd2e178a84&nonce=2c24f56fb65cb668c30edf12dbaff93f" class="btn btn-secondary col-xs-12" >INGRESAR CON AGETIC </a>
                         </div>
                     </div>           
                    
@@ -126,23 +126,5 @@
     <script src="<?php echo base_url(); ?>public/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
 
 </body>
-
-    <script type="text/javascript">
-     
-        var caracteres = "abcdefghijkmnpqrtuvwxyzABCDEFGHJKMNPQRTUVWXYZ2346789";
-        var tokenSistema = "";
-        for (i=0; i<30; i++) tokenSistema +=caracteres.charAt(Math.floor(Math.random()*caracteres.length)); 
-        
-        var client_id       =   "s6JKYjjYU6869BhdRkqt3",
-            responsive_type =   "code",
-            redirect_uri    =   "http://localhost/CodeigniterPMGM/login/login",
-            scope           =   "openid%20profile",
-            state           =   "509ccc2713049e6efea071a9c34f6f45",
-            nonce           =   tokenSistema,
-            urlAGTIC        =   "https://<base-url-proveedor-identidad>/auth?";
-
-            urlEmisor = urlAGTIC+"responsetype="+responsive_type+"&client_id="+client_id+"&state="+state+"&nonce="+nonce+"&redirect_uri="+redirect_uri+"&scope="+scope;
-            console.log(urlEmisor)
-    </script> 
     
 </html>
