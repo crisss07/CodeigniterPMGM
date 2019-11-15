@@ -26,6 +26,19 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+<style type="text/css">
+        .botonimagen{
+            background:
+    url(data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7)
+    no-repeat
+    left center;
+            background-repeat:no-repeat;
+            height:50px;
+            width:300px;
+            background-position:center;
+        }
+    </style>
 </head>
 
 <body>
@@ -67,6 +80,13 @@
                             <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Ingresar</button>
                         </div>
                     </div>
+
+                   
+                    <div class="form-group text-center mt-3">
+                        <div class="col-xs-12"> 
+                            <a href="https://cuenta.ciudadaniadigital.agetic.gob.bo/interaction/90a504ff-b9ae-40b8-aac5-8513211c7e96" class="btn btn-secondary col-xs-12" >INGRESAR CON AGETIC </a>
+                        </div>
+                    </div>           
                    
                     
                 </form>
@@ -107,4 +127,22 @@
 
 </body>
 
+    <script type="text/javascript">
+     
+        var caracteres = "abcdefghijkmnpqrtuvwxyzABCDEFGHJKMNPQRTUVWXYZ2346789";
+        var tokenSistema = "";
+        for (i=0; i<30; i++) tokenSistema +=caracteres.charAt(Math.floor(Math.random()*caracteres.length)); 
+        
+        var client_id       =   "s6JKYjjYU6869BhdRkqt3",
+            responsive_type =   "code",
+            redirect_uri    =   "http://localhost/CodeigniterPMGM/login/login",
+            scope           =   "openid%20profile",
+            state           =   "509ccc2713049e6efea071a9c34f6f45",
+            nonce           =   tokenSistema,
+            urlAGTIC        =   "https://<base-url-proveedor-identidad>/auth?";
+
+            urlEmisor = urlAGTIC+"responsetype="+responsive_type+"&client_id="+client_id+"&state="+state+"&nonce="+nonce+"&redirect_uri="+redirect_uri+"&scope="+scope;
+            console.log(urlEmisor)
+    </script> 
+    
 </html>

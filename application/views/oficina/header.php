@@ -31,7 +31,7 @@
                         <div class="col-sm-6 col-7">
                             <div class="top_btn d-flex justify-content-end">
                                 <?php if ($logueado == 'no') { ?>
-                                   <a href="<?php echo base_url(); ?>">Iniciar sesion</a>
+                                   <a href="https://cuenta.ciudadaniadigital.agetic.gob.bo/interaction/25eaabf9-cf55-479c-b237-f46ff5366144">Iniciar sesion</a>
                                 <?php }else{ ?>
                                     <a href="#"><?php echo $nombre->nombre;  ?></a>
                                     <a href="<?php echo base_url(); ?>login/logout">Salir</a>
@@ -69,7 +69,6 @@
                             </li> 
                             <?php } ?>
                             <li class="nav-item"><a class="nav-link" href="#">Consultas</a></li>
-                            <img style="width: 70px; height: 70px;" class="box-center" src="<?php echo base_url() . "public/assets/images/oficina/codigos/" . $img ?>" />
  <!--                           <li class="nav-item"><a class="nav-link" href="#contact.html">Contacto</a></li>
                              <li class="nav-item"><a class="nav-link" href="contact.html">Consultas</a></li>
                             <li class="nav-item"><a class="nav-link" href="contact.html">Consultas</a></li> -->

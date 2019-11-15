@@ -204,4 +204,11 @@
             </div>
         </section> -->
         <!--================Blog Area=================-->
-        
+        <script type="text/javascript">
+            function verificar_usuario (){
+                $.ajax({
+                    surl:'<?php echo base_url(); ?>Oficina_virtual/verificar_usuario/'
+                });
+            }
+            
+        </script>

@@ -11,9 +11,15 @@ class Oficina_virtual extends CI_Controller
         $this->load->helper('vayes_helper');
         $this->load->model("Rol_model");
         $this->load->model("Tramite_model");
+        $this->load->model("Oficina_virtual_model");
     }
 
     public function index(){
+        /*$clave="7016042";
+        $usuario = $this->Oficina_virtual_model->verificar_usuario($clave);
+        echo "El resultado es";
+        print_r($usuario);
+        */
         if ($this->session->userdata("login")) {
             $id = $this->session->userdata("persona_perfil_id");
             $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
@@ -27,6 +33,7 @@ class Oficina_virtual extends CI_Controller
         $this->load->view('oficina/header', $data);
         $this->load->view('oficina/inicio');
         $this->load->view('oficina/footer');
+        
     }
 
     public function noticias(){
@@ -235,6 +242,13 @@ class Oficina_virtual extends CI_Controller
         }else{
             redirect(base_url());
         }   
+    }
+
+    public function verificar_usuario($clave){
+        $clave="7016042";
+        $usuario = $this->Oficina_virtual->verificar_usuario($clave);
+        echo "El resultado es";
+        print_r(Usuario);
     }
 
 }
