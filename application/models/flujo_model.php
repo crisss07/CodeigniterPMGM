@@ -21,7 +21,7 @@ class Flujo_model extends CI_Model {
                 on o.persona_id=p.persona_id
         
         
-        WHERE t.activo=1");
+        WHERE t.activo=1 ORDER BY t.orden asc");
         return $query->result();
     }
 

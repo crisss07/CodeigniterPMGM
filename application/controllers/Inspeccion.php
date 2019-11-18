@@ -120,13 +120,7 @@ RIGHT JOIN
 				  );
 				  $this->db->insert('tramite.derivacion', $data);
 				 //fin derivacion
-
-
-
-
-
-
-				redirect('Inspeccion/muestra_asignaciones');					
+				redirect('Derivaciones/listado');					
 				}
 		}else{
 			redirect(base_url());
@@ -234,7 +228,7 @@ RIGHT JOIN
 			//obtiene el perfil del usuario para los casos 1=superadmin,,2 =inspector
 			$perfil_user = $this->db->get_where('persona_perfil', array('persona_id' => $dato))->row();
 			$rol_user=$perfil_user->perfil_id;
-			if($rol_user==1)//rol de adm
+			if($rol_user==1 or $rol_user==7)//rol de adm
 			{
 				$data['lista'] = $this->Inspecciones_model->get_lista();  
 				$this->load->view('admin/header');

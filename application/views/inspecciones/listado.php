@@ -40,10 +40,13 @@
                                         <td><?php echo $asig->inicio; ?></td>
                                         <td><?php echo $asig->fin; ?></td>
                                         <td>
-                                            <a href="<?php echo base_url(); ?>inspeccion/nuevo/<?php echo $asig->asignacion_id;?>/<?php echo $asig->tramite_id; ?>/<?php echo $asig->tipo_tramite_id; ?>" class="btn btn-success footable-edit">
+                                            <a href="<?php echo base_url(); ?>Predios/registra_predio" class="btn btn-info " title="Registrar Predio">
+                                                    <span class="fas fa-external-link-alt" aria-hidden="true"></span>
+                                            </a> 
+                                            <a href="<?php echo base_url(); ?>inspeccion/nuevo/<?php echo $asig->asignacion_id;?>/<?php echo $asig->tramite_id; ?>/<?php echo $asig->tipo_tramite_id; ?>" title="Concluir Inspecion" class="btn btn-success footable-edit">
                                                     <span class="fas fa-paper-plane" aria-hidden="true"></span>
                                             </a>
-                                            
+                                                                                       
                                         </td>
 
                                     </tr>    
