@@ -126,5 +126,27 @@
     <script src="<?php echo base_url(); ?>public/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
 
 </body>
+<<<<<<< Updated upstream
     
+=======
+<script type="text/javascript">
+    function nonce (length) {
+        var result = ''; var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {result += characters.charAt(Math.floor(Math.random() * charactersLength));}
+        return result;
+        console.log(nonce(30));
+    }
+    function URL_CiudadaniaDigital(){
+        var client_id               = 's6JKYjjYU6869BhdRkqt3',
+            response_type           = 'core',
+            state                   = '509ccc2713049e6efea071a9c34f6f45',
+            nonce                   = nonce(30),
+            redirect_uri            = 'http://localhost/CodeigniterPMGM/login/login',
+            scope                   = 'openid%20profile';
+            URL_cliente             = "https://<base-url-proveedor-identidad>/auth?response_type="+response_type+"&client_id="+client_id+"&state="+state+"&nonce="+nonce+"&redirect_uri="+redirect_uri;
+            return URL_cliente;                
+    }
+    
+</script>
+>>>>>>> Stashed changes
 </html>

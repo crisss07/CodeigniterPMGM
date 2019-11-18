@@ -134,6 +134,38 @@ class Usuario_model extends CI_Model {
         );
         $this->db->where('persona_perfil_id', $persona_perfil_id);
         return $this->db->update('public.persona_perfil', $data1);
-    }
+	}
+	public function verificar_persona_sistema($cedula_identidad){
+		$this->db->select('public.persona.ci, public.persona.nombres, public.persona.paterno, public.persona.materno, public.perfil.perfil');
+		$this->db->from  ('public.persona');
+		$this->db->join  ('public.persona_perfil', 'public.persona.persona_id = public.persona_perfil.persona_id', 'left');
+		$this->db->join  ('public.perfil', 'public.perfil.perfil_id = public.persona_perfil.perfil_id', 'left');		
+		$this->db->where ('public.persona.ci', $cedula_identidad);    	
+		$this->db->where ('public.persona.activo', 1);  	
+		$this->db->where ('public.perfil.activo', 1); 
+		$query= $this->db->get();
+		if($query->num_rows() > 0){
+			return $query->result();		
+		}
+		else{
+			return false;
+		}	
+
+	}	
+
+	public function usuario_credeciales($cedula_identidad){
+		$this->db->select('public.credencial.usuario, public.credencial.contrasenia');
+		$this->db->from  ('public.persona');
+		$this->db->join  ('public.persona_perfil', 'public.persona.persona_id = public.persona_perfil.persona_id', 'left');
+		$this->db->join  ('public.credencial', 'public.persona_perfil.persona_perfil_id = public.credencial.persona_perfil_id', 'left');		
+		$this->db->where ('public.persona.ci', $cedula_identidad);   
+		$query= $this->db->get();
+		if($query->num_rows() > 0){
+			return $query->result();		
+		}
+		else{
+			return false;
+		}
+	}
 
 }

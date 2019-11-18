@@ -71,7 +71,7 @@
                                             <a href="<?php echo base_url(); ?>derivaciones/ver/<?php echo $mt->tramite_id; ?>" class="btn btn-primary footable-edit" title="Seguimiento">
                                                 <span class="fas fa-bars" aria-hidden="true"></span>
                                             </a>
-                                            <a href="<?php echo base_url(); ?>inspeccion/crear/<?php echo $mt->tramite_id; ?>" class="btn btn-info footable-edit" title="Inspección">
+                                            <a href="<?php echo base_url(); ?>inspeccion/crear/<?php echo $mt->tramite_id; ?>" class="btn btn-info btn btn-warning fas fa-check" title="Inspección">
                                                 <span class="fa-clipboard" aria-hidden="true"></span>
                                             </a>
                                             <!-- <a href="#" type="button" class="btn btn-danger footable-delete" title="Eliminar">

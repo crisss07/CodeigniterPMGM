@@ -42,7 +42,23 @@ class Login extends CI_Controller {
 
 	public function login()
 	{	
-		//var_dump("hola");
+		// enviar URL a la AGETIC
+		//if ($this->input->post("usuario")){
+			/*$url_receptor = "https://<base-url-proveedor-identidad>/auth?";
+			$state     = "54f5sda4fa6s5d4f65a";
+			$client_id = "1452";
+			$url = $this->url_emisor($url_receptor, $state, $client_id);
+			echo ($url);
+			$CURL = curl_init($url);
+			curl_setopt($CURL, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($CURL, CURLOPT_HTTPHEADER, array(
+				'Content-type: application/json'
+			));
+			$dataAGETIC        = curl_exec($CURL);
+			$informacionAGETIC = curl_getinfo($CURL);
+			CURl_close($CURL); */
+		//}
+
 		
 		$usuario = $this->input->post("usuario");
 		$contrasena = $this->input->post("contrasenia");
@@ -90,7 +106,6 @@ class Login extends CI_Controller {
 
 	}
 
-
 	public function logout()
 	{
 		$this->session->sess_destroy();
@@ -104,6 +119,28 @@ class Login extends CI_Controller {
 	public function algo()
 	{
 		$this->logacceso_model->inactividad();
+	}
+
+	public function token_sistema ($longitud){
+		$key 	 =  '';
+ 		$pattern =  '1234567890abcdefghijklmnopqrstuvwxyz';
+ 		$max     =  strlen($pattern)-1;
+ 		for($i=0;$i < $longitud;$i++) $key .= $pattern{mt_rand(0,$max)};
+ 		return $key;
+	}
+
+	public function verificar_usuario_cYq ($cedula_identidad){
+		$verificar_usuario = $this->usuario_model->verificar_persona_sistema($cedula_identidad);
+	}
+	
+	public function url_emisor($url_receptor, $client_id, $state){
+		$response_type = "none";
+		$redirecct_uri = "http://localhost/CodeigniterPMGM/login/login";
+		$nonce          = $this->token_sistema(30);
+		$scope         = "openid%20profile";
+		$result 	   = $url_receptor."response_type=".$response_type."&client_id=".$client_id."&state=".$state."&nonce=".$nonce."&redirect_
+		uri=".$redirecct_uri."&scope=".$scope;
+		return $result;
 	}
 
 }
