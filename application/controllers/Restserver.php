@@ -35,12 +35,12 @@ class Restserver extends CI_Controller{
         }
     }
 
-    public function menu_get(){
+    public function asinglist_get(){
         $this->load->model("ApiRest_model");
         //$array = array("Hola","Mundo","Codeigniter");
         //$this->response($this->Edificacion_model->get_Bloque());
         //$this->response($array);       
-        $user = array('respuesta' => $this->ApiRest_model->getdata( 7));
+        $user = array('respuesta' => $this->ApiRest_model->get_asign_list(63));
         if($user)
         {
             $this->response( $user, 200); // 200 being the HTTP response code

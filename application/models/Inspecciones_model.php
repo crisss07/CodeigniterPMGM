@@ -195,7 +195,7 @@ class Inspecciones_model extends CI_Model {
 	    	persona p
 	    	on t.solicitante_id=p.persona_id
 
-	    	where i.persona_id=73 and i.activo=1
+	    	where i.persona_id=$usu_creacion and i.activo=1
 
 	    	")->result();
 		if ($lista > 0) {
