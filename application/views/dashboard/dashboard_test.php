@@ -86,7 +86,7 @@
 
                     <div class="row">
                     <!-- column -->
-                    <div class="col-lg-8">
+                    <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Tramites por mes</h4>
@@ -98,10 +98,9 @@
                     </div>
                     <!-- column -->
                     <!-- column -->
-                      </div>
-                    <div class="row">
+                   
 
-                    <div class="col-lg-8">
+                    <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Predios Registrados por mes</h4>
@@ -116,6 +115,46 @@
                   
                     <!-- column -->
                 </div>
+
+                <div class="row">
+                    <!-- column -->
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Rendimiento de Tramite Ultimo mes</h4>
+                                <div>
+                                    <canvas id="chart_tramite_mes" height="50" width="50"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- column -->
+                    <!-- column -->
+                   
+
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Inspecciones Realizadas por mes</h4>
+                                <div>
+                                    <canvas id="chart_inspecciones_mes" height="150"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- column -->
+                    <!-- column -->
+                  
+                    <!-- column -->
+                </div>
+
+                <div style="width: 75%"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+        <canvas id="canvas" style="display: block; width: 696px; height: 348px;" width="696" height="348" class="chartjs-render-monitor"></canvas>
+    </div>
+
+
+
+
               
                    </div>
                 </div>
@@ -189,8 +228,8 @@
                             "label":"Predios Registrados por Mes",
                             "data":<?php echo $data_predios; ?>,
                             "fill":false,
-                            "backgroundColor":["rgba(255, 99, 132, 0.2)","rgba(255, 159, 64, 0.2)","rgba(255, 205, 86, 0.2)","rgba(75, 192, 192, 0.2)","rgba(54, 162, 235, 0.2)","rgba(153, 102, 255, 0.2)","rgba(201, 203, 207, 0.2)"],
-                            "borderColor":["rgb(239, 83, 80)","rgb(255, 159, 64)","rgb(255, 178, 43)","rgb(86, 192, 216)","rgb(57, 139, 247)","rgb(153, 102, 255)","rgb(201, 203, 207)"],
+                            "backgroundColor":["rgba(255, 99, 132, 0.2)","rgba(255, 159, 64, 0.2)","rgba(255, 205, 86, 0.2)","rgba(75, 192, 192, 0.2)","rgba(54, 162, 235, 0.2)","rgba(153, 102, 255, 0.2)","rgba(201, 203, 207, 0.2)","rgba(201, 203, 207, 0.2)","rgba(201, 203, 207, 0.2)","rgba(18, 166, 196, 1)","rgba(196, 119, 18, 1)","rgba(190, 196, 18, 1)"],
+                           
                             "borderWidth":1}
                         ]},
             "options":{
@@ -198,12 +237,73 @@
             }
         });
 
+      new Chart(document.getElementById("chart_tramite_mes"),
+        {
+            "type":"bar",
+            "data":{"labels":["Ingresados","Concluidos"],
+            "datasets":[{
+                            "label":"Mes: ",
+                            "data":[80,57],
+                            "fill":false,
+                            "backgroundColor":["rgba(61, 171, 199, 1)","rgba(74, 191, 113, 1)"],
+                           
+                            "borderWidth":1},
+
+                        ]},
+            "options":{
+                "scales":{"yAxes":[{"ticks":{"beginAtZero":true}}]}
+            }
+        });
+
+       new Chart(document.getElementById("chart_inspecciones_mes"),
+        {
+            "type":"line",
+            "data":{"labels":["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
+            "datasets":[{
+                            "label":"Tramites por Mes",
+                            "data":<?php echo $data_tramites; ?>,
+                            "fill":false,
+                            "borderColor":"rgb(86, 192, 216)",
+                            "borderDash": [5, 5],
+                            "lineTension":0.1
+                        }]
+        },"options":{
+
+            responsive: true,
+                title: {
+                    display: true,
+                    text: 'Chart.js Line Chart'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Month'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Value'
+                        }
+                    }]
+                }
+
+        }});
+
+
 
 </script>
-
-
-
-
 </body>
 
 </html>

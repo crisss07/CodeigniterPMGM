@@ -59,7 +59,7 @@ class Dashboarduno extends CI_Controller {
 
             $data['data_tramites'] = $res = json_encode($rows);
               $data['data_predios'] = $res = json_encode($predios);
-
+              
 
             $this->load->view('dashboard/header');
             $this->load->view('dashboard/menu');

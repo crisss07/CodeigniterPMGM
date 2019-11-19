@@ -12,10 +12,9 @@ class Dashboard_model extends CI_Model {
 	}
 
 	public function get_datospersona()
-    {        
-    	$this->db->select('count(persona_id) as total_p');
-        $data=$this->db->get('persona')->row();
-        return $data;
+    {    
+        $query = $this->db->query('SELECT count(persona_id) as total_p FROM persona WHERE persona_id NOT IN (SELECT persona_id FROM persona_perfil)');
+        return $query->row();
     }
 
     public function get_datotramite()
@@ -27,7 +26,7 @@ class Dashboard_model extends CI_Model {
     public function get_datotramite_concluido()
     {        
     	$this->db->select('count(DISTINCT tramite_id) as total_fin');
-        $data=$this->db->get_where('tramite.derivacion',array('orden' => 4 ))->row();
+        $data=$this->db->get_where('tramite.derivacion',array('orden' => 5 ))->row();
         return $data;
     }
 
@@ -36,7 +35,7 @@ class Dashboard_model extends CI_Model {
     public function get_data_predios()
     {        
     	$this->db->select('count(predio) as total_predios');
-        $data=$this->db->get('catastro.predio')->row();
+        $data=$this->db->get_where('catastro.predio',array('activo >=' => 3 ))->row();
         return $data;
     }
     public function get_tramite_mes($id,$year){  
@@ -47,7 +46,7 @@ class Dashboard_model extends CI_Model {
 
     public function get_predios_mes($id,$year){  
 		$this->db->select('count(EXTRACT(MONTH FROM fec_creacion)) as mes');
-        $data=$this->db->get_where('catastro.predio',array('EXTRACT(MONTH FROM fec_creacion) =' => $id,'EXTRACT(YEAR FROM fec_creacion) =' => $year))->row();
+        $data=$this->db->get_where('catastro.predio',array('EXTRACT(MONTH FROM fec_creacion) =' => $id,'EXTRACT(YEAR FROM fec_creacion) =' => $year,'activo >='=>3))->row();
         return $data;
 
     }

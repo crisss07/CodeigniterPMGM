@@ -129,6 +129,24 @@ class Restserver extends CI_Controller{
         ];
         $this->set_response($message, REST_Controller::HTTP_CREATED);
     }
+
+    public function derivacion_get(){
+        $id = $this->get('id');
+        $this->load->model("ApiRest_model");
+        //$array = array("Hola","Mundo","Codeigniter");
+        //$this->response($this->Edificacion_model->get_Bloque());
+        //$this->response($array);       
+        $user = array('estado' => $this->ApiRest_model->derivacion($id));
+         //$user = $this->ApiRest_model->getdata( 7);
+        if($user)
+        {
+            $this->response( $user, 200); // 200 being the HTTP response code
+        } 
+        else
+        {
+            $this->response(NULL, 404);
+        }
+    }
     
 }
      
