@@ -211,7 +211,7 @@
                                                             }
 
                                                             $url = $pre2->nombre;
-                                                            $padre = $pre->archivo_id;
+                                                            $padre = $pre2->archivo_id;
                                                                 while($padre!=0) {
                                                                     $var = $this->db->get_where('archivo.archivo', array('archivo_id' => $padre))->row();
                                                                     $url = $var->nombre.'/'.$url;
