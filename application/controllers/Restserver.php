@@ -136,28 +136,25 @@ class Restserver extends CI_Controller{
         $this->load->model("ApiRest_model");
 
 
-        //mensaje
+ 
         $message = array('mensaje' => 'Acceso denegado');
         $datos_nulos = array('estado' => 'asd','mensaje'=>'No se encontraron datos');
 
 
 
         if($this->ApiRest_model->verify_token($token)){
+            $user = array('estado' => $this->ApiRest_model->derivacion($id),'mensaje'=>'Datos encontrados ','bool'=>'TRUE');
 
             if(!$this->ApiRest_model->derivacion($id)){
-                $user = array('estado' => 'asd','mensaje'=>'No se encontraron datos');
+                $user = array('estado' => '','mensaje'=>'No se encontraron datos','bool'=>'FALSE');
             }
-            $user = array('estado' => $this->ApiRest_model->derivacion($id));
-
-
-
             if($user)
             {
                 $this->response( $user, 200); // 200 being the HTTP response code
             } 
             else
             {
-                $message = array('estado' => 'asd','mensaje'=>'No se encontraron datos');
+               
                 $this->response($message, 404);
             }
 
