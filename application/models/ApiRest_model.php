@@ -81,6 +81,12 @@ WHERE d.tramite_id=$id order by d.orden ASC");
         return $query->result_array();
     }
 
+     function verify_token($token) {//asignacion de inspecciones
+         $this->db->select('token');
+        $query = $this->db->get_where('credencial',array('token' => $token));
+        return $query->row();
+    }
+
 
 
     /*
