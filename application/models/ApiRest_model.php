@@ -61,11 +61,27 @@ class ApiRest_model extends CI_Model {
     }
 
     function derivacion($id) {//asignacion de inspecciones
-         $this->db->select('fuente,destino,fecha');
-         $this->db->order_by('orden', 'asc');
-        $query = $this->db->get_where('tramite.derivacion',array('tramite_id' => $id));
+       
+        $query = $this->db->query("SELECT d.fuente,d.destino,EXTRACT(DAY from d.fecha) as dia,EXTRACT(month from d.fecha) as mes,EXTRACT(year from d.fecha) as anio,p.persona_id as p_f,o.persona_id as p_d,concat(SPLIT_PART(k.nombres, ' ', 1),' ',k.paterno) as per_fuente,concat(SPLIT_PART(j.nombres, ' ', 1),' ' ,j.paterno) as per_destino,c.descripcion as cargo_fuente,e.descripcion as cargo_destino
+FROM
+tramite.derivacion d
+LEFT JOIN tramite.organigrama_persona p
+on p.organigrama_persona_id=d.fuente
+LEFT JOIN tramite.organigrama_persona o
+on o.organigrama_persona_id=d.destino
+LEFT JOIN tramite.cargo c
+on p.cargo_id=c.cargo_id
+LEFT JOIN tramite.cargo e
+on o.cargo_id=e.cargo_id
+LEFT JOIN persona k
+on p.persona_id=k.persona_id
+LEFT JOIN persona j
+on o.persona_id=j.persona_id
+WHERE d.tramite_id=$id order by d.orden ASC");
         return $query->result_array();
     }
+
+
 
     /*
     SELECT d.fuente,d.destino,p.persona_id as p_f,o.persona_id as p_d,concat(k.nombres,' ',k.paterno,' ',k.materno) as per_fuente,concat(j.nombres,' ',j.paterno,' ',j.materno) as per_destino,c.descripcion as cargo_fuente,e.descripcion as cargo_destino
