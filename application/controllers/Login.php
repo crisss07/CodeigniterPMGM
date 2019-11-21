@@ -42,7 +42,7 @@ class Login extends CI_Controller {
 	public function login()
 	{	
 	//****************************************************** Recibir el code de la URL que envia la AGETIC PASO (2) *******************************************************************\\
-		//$code 				= 	$_GET['code'];echo "El codigo de acceso:".$code"<br />";
+		$code 				= 	$_GET['code'];echo "El codigo de acceso:".$code"<br />";
 		//$state				= 	$_GET['state'];
 		//$code 				=   "ausTUY67HyGTog78"; 
 		//VARIABLE authorization
