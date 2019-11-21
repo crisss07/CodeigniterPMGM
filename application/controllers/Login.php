@@ -63,10 +63,13 @@ class Login extends CI_Controller {
 				'Authorization: Basic'.$Authorization,
 				'grant_type=authorization_code&code='.$code.'&redirect_uri=https://pmgm.oopp.gob.bo/testseicu/login/login'
 			));
+		var_dump($CURL);EXIT;
 		$dataAGETIC        	= 	curl_exec($CURL);
 		$informacionAGETIC 	= 	curl_getinfo($CURL);
 								CURl_close($CURL);
+		print_r(json_decode($dataAGETIC));
 		$array_AGETIC 	   	= 	(array)$dataAGETIC;
+
 		print_r($array_AGETIC);
 		$tokenAGETIC	   	=	$dataAGETIC_array['id_token'];	
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
