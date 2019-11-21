@@ -66,14 +66,14 @@
                 <!--<form class="form-horizontal form-material" action="<?php echo base_url();?>login/login" method="POST">-->
                 <?php echo form_open('login/login', array('class'=>'form-horizontal form-material', 'method'=>'POST')); ?>
                     <h3 class="box-title mb-3">Inicia Sesi&oacute;n</h3>
-                    <div class="form-group ">
+                    <!--<div class="form-group ">
                         <div class="col-xs-12">
                             <input class="form-control" type="text" required="" placeholder="Nombre de Usuario" name="usuario" autofocus> </div>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
                             <input class="form-control" type="password" required="" placeholder="Contrase&ntilde;a" name="contrasenia"> </div>
-                    </div>
+                    </div>-->
                     
                     <div class="form-group text-center mt-3">
                         <div class="col-xs-12">
@@ -84,13 +84,14 @@
                    
                     <div class="form-group text-center mt-3">
                         <div class="col-xs-12"> 
-                            <a href="https://cuenta.ciudadaniadigital.agetic.gob.bo/auth?client_id=a477e307-081a-4c62-bbf7-f53b88821a46&scope=openid%20nombre%20documento_identidad%20fecha_nacimiento%20email%20celular&response_type=code&redirect_uri=https%3A%2F%2Fwww.gob.bo%2Fciudadania%2Foauth%2Flogin.html&state=ccfd68adbc85596452e709dd2e178a84&nonce=2c24f56fb65cb668c30edf12dbaff93f" class="btn btn-secondary col-xs-12" >INGRESAR CON AGETIC </a>
+                           <!-- <a href="https://cuenta.ciudadaniadigital.agetic.gob.bo/auth?client_id=a477e307-081a-4c62-bbf7-f53b88821a46&scope=openid%20nombre%20documento_identidad%20fecha_nacimiento%20email%20celular&response_type=code&redirect_uri=https%3A%2F%2Fwww.gob.bo%2Fciudadania%2Foauth%2Flogin.html&state=ccfd68adbc85596452e709dd2e178a84&nonce=2c24f56fb65cb668c30edf12dbaff93f" class="btn btn-secondary col-xs-12" >INGRESAR CON AGETIC </a> -->
+                            <a href="<?PHP ECHO $direccion; ?>" class="btn btn-secondary col-xs-12">INGRESAR CON AGETIC</a>
                         </div>
-                    </div>           
-                   
-                    
+                        <div class="col-xs-12"> 
+                            <a href="http://localhost/CodeigniterPMGM/login/login?state=509ccc2713049e6efea071a9c34f6f45" class="btn btn-secondary col-xs-12" >INGRESAR CON PRUEBA </a>
+                        </div>
+                    </div>                               
                 </form>
-               
             </div>
           </div>
         </div>
@@ -126,27 +127,4 @@
     <script src="<?php echo base_url(); ?>public/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
 
 </body>
-<<<<<<< Updated upstream
-    
-=======
-<script type="text/javascript">
-    function nonce (length) {
-        var result = ''; var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';var charactersLength = characters.length;
-        for ( var i = 0; i < length; i++ ) {result += characters.charAt(Math.floor(Math.random() * charactersLength));}
-        return result;
-        console.log(nonce(30));
-    }
-    function URL_CiudadaniaDigital(){
-        var client_id               = 's6JKYjjYU6869BhdRkqt3',
-            response_type           = 'core',
-            state                   = '509ccc2713049e6efea071a9c34f6f45',
-            nonce                   = nonce(30),
-            redirect_uri            = 'http://localhost/CodeigniterPMGM/login/login',
-            scope                   = 'openid%20profile';
-            URL_cliente             = "https://<base-url-proveedor-identidad>/auth?response_type="+response_type+"&client_id="+client_id+"&state="+state+"&nonce="+nonce+"&redirect_uri="+redirect_uri;
-            return URL_cliente;                
-    }
-    
-</script>
->>>>>>> Stashed changes
 </html>
