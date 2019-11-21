@@ -59,11 +59,11 @@ class Login extends CI_Controller {
 		$CURL = curl_init('https://account-idetest.agetic.gob.bo/');
 			curl_setopt($CURL, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($CURL, CURLOPT_HTTPHEADER, array(
-				'Content-Type: application/x-www-form-urlencoded',
+				'Content-Type: application/json',
 				'Authorization: Basic'.$Authorization,
 				'grant_type=authorization_code&code='.$code.'&redirect_uri=https://pmgm.oopp.gob.bo/testseicu/login/login'
 			));
-		var_dump($CURL);EXIT;
+		//var_dump($CURL);EXIT;
 		$dataAGETIC        	= 	curl_exec($CURL);
 		$informacionAGETIC 	= 	curl_getinfo($CURL);
 								CURl_close($CURL);
