@@ -42,12 +42,12 @@ class Login extends CI_Controller {
 	public function login()
 	{	
 	//****************************************************** Recibir el code de la URL que envia la AGETIC PASO (2) *******************************************************************\\
-		$code 				= 	$_GET['code'];
+		//$code 				= 	$_GET['code'];echo "El codigo de acceso:".$code"<br />";
 		//$state				= 	$_GET['state'];
 		//$code 				=   "ausTUY67HyGTog78"; 
 		//VARIABLE authorization
-		$secret             =	urlencode("JHSKJjsjhI45");
-		$client_id 			=	"s6JKYjjYU6869BhdRkqt3";
+		$secret             =	urlencode($code);
+		$client_id 			=	"68d55a97-cec0-45e7-b0d3-1a1b1eaedba2";
 		$variable_code		=   $secret.$client_id;
 		$Authorization		=	base64_encode($variable_code);
 		//VARIABLE grant_type
@@ -154,13 +154,13 @@ class Login extends CI_Controller {
 	}
 	
 	public function url_emisor(){
-		$url_receptor 	= "https://account-idetest.agetic.gob.bo/";
+		$url_receptor 	= "https://account-idetest.agetic.gob.bo/auth?";
 		$state     		= "fS~pijlVX8~kF_xjYsRaqzBLCpeD_Q5LWBSMPRIb1bw";
 		$client_id 		= "68d55a97-cec0-45e7-b0d3-1a1b1eaedba2";
-		$response_type 	= "none";
+		$response_type 	= "code";
 		$redirecct_uri 	= "https://pmgm.oopp.gob.bo/testseicu/login/login";
 		$nonce          = $this->token_sistema(30);
-		$scope         	= "WXqlbS8J+X92+1fx2QWzTR0JlT6QMwqKjDsm6j9o0C29WOjvL66kxganY+nNvQK+";
+		$scope         	= "openid%20documento_identidad";
 		$result 	   	= $url_receptor."response_type=".$response_type."&client_id=".$client_id."&state=".$state."&nonce=".$nonce."&redirect_
 		uri=".$redirecct_uri."&scope=".$scope;
 		return $result;
