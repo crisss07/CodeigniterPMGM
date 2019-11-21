@@ -1,25 +1,24 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Predio_via extends CI_Controller {
+class Tipopredio extends CI_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->library('session');
-		$this->load->model("Predio_via_model");
-		$this->load->model("rol_model");
+		$this->load->model("Tipopredio_model");
+		$this->load->model("Rol_model");
 	}
 
-	public function predio_via(){
+	public function tipopredio(){
 		if($this->session->userdata("login")){
-		
-		$lista['verifica'] = $this->rol_model->verifica();
-		$lista['predio_via'] = $this->Predio_via_model->index();
-		$this->load->view('admin/header');
-		$this->load->view('admin/menu');
-		$this->load->view('crud/predio_via', $lista);
-		$this->load->view('admin/footer');
+
+			$lista['verifica'] = $this->Rol_model->verifica();
+			$lista['tipopredio'] = $this->Tipopredio_model->index();
+			$this->load->view('admin/header');
+			$this->load->view('admin/menu');
+			$this->load->view('crud/tipopredio', $lista);
+			$this->load->view('admin/footer');
 		}
 		else{
 			redirect(base_url());
@@ -30,7 +29,7 @@ class Predio_via extends CI_Controller {
 	public function index()
 	{
 		if($this->session->userdata("login")){
-			redirect(base_url()."predio_via/predio_via");
+			redirect(base_url()."Tipopredio/tipopredio");
 		}
 		else{
 			redirect(base_url());
@@ -50,11 +49,13 @@ class Predio_via extends CI_Controller {
 	            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
 	            $usu_creacion = $resi->persona_id;
 
-	            $codcatas = $datos['codcatas'];
-	            $objectid_via = $datos['objectid_via'];
-				$matvia_id = $datos['matvia_id'];
-				$this->Predio_via_model->insertar_via($codcatas, $objectid_via, $matvia_id, $usu_creacion);
-				redirect('predio_via');
+				$descripcion = $datos['descripcion'];
+				$alias = $datos['alias'];
+				$coeficiente = $datos['coeficiente'];
+				
+				$this->Tipopredio_model->insertar_tipredio($descripcion, $alias, $coeficiente, $usu_creacion);
+				//var_dump($array);
+				redirect('Tipopredio');
 
 			}
 		}
@@ -62,24 +63,24 @@ class Predio_via extends CI_Controller {
 			redirect(base_url());
 		}
 
-	 }
+	}
 
 	 public function update()     
-	{  
-		if($this->session->userdata("login")){ 
+	{   
+		if($this->session->userdata("login")){      
 			//OBTENER EL ID DEL USUARIO LOGUEADO
 			$id = $this->session->userdata("persona_perfil_id");
 	        $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
 	        $usu_modificacion = $resi->persona_id;
-	        $fec_modificacion = date("Y-m-d H:i:s");
+	        $fec_modificacion = date("Y-m-d H:i:s"); 
 
-		    $via_id = $this->input->post('via_id');
-		    $codcatas = $this->input->post('codcatas');
-		    $objectid_via = $this->input->post('objectid_via');
-		    $matvia_id = $this->input->post('matvia_id');
+		    $tipo_predio_id = $this->input->post('tipo_predio_id');
+		    $descripcion = $this->input->post('descripcion');
+		    $alias = $this->input->post('alias');
+		    $coeficiente = $this->input->post('coeficiente');
 
-		    $actualizar = $this->Predio_via_model->actualizar($via_id, $codcatas, $objectid_via, $matvia_id, $usu_modificacion, $fec_modificacion);
-		   redirect('predio_via');
+		    $actualizar = $this->Tipopredio_model->actualizar($tipo_predio_id,$descripcion,$alias,$coeficiente, $usu_modificacion, $fec_modificacion);
+		   redirect('Tipopredio');
 		}
 		else{
 			redirect(base_url());
@@ -89,6 +90,7 @@ class Predio_via extends CI_Controller {
 	 public function eliminar()
 	{
 		if($this->session->userdata("login")){
+
 		 	//OBTENER EL ID DEL USUARIO LOGUEADO
 			$id = $this->session->userdata("persona_perfil_id");
 	        $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
@@ -96,13 +98,14 @@ class Predio_via extends CI_Controller {
 	        $fec_eliminacion = date("Y-m-d H:i:s"); 
 
 		    $u = $this->uri->segment(3);
-		    $this->Predio_via_model->eliminar($u, $usu_eliminacion, $fec_eliminacion);
-		    redirect('predio_via');
+		    $this->Tipopredio_model->eliminar($u, $usu_eliminacion, $fec_eliminacion);
+		    redirect('Tipopredio');
 		}
 		else{
 			redirect(base_url());
 		}
 	}
 
+	
 }
 

@@ -65,7 +65,7 @@
                                                             <span class="fas fa-pencil-alt" aria-hidden="true">
                                                             </span>
                                                     </button> 
-                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('zona_urbana/eliminar/'. $lis->zonaurb_id); ?>" type="button" class="btn btn-danger footable-delete button">
+                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('Zona_urbana/eliminar/'. $lis->zonaurb_id); ?>" type="button" class="btn btn-danger footable-delete button">
                                                         <span disabled class="fas fa-trash-alt" aria-hidden="true">
                                                         </span>
                                                     </a>                                                    
@@ -98,7 +98,7 @@
                     </div>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>zona_urbana/update" method="POST">-->
-                        <?php echo form_open('zona_urbana/update', array('method'=>'POST', 'id'=>'editar')); ?>
+                        <?php echo form_open('Zona_urbana/update', array('method'=>'POST', 'id'=>'editar')); ?>
 
                             
                             <div class="form-group">
@@ -130,7 +130,7 @@
                     </div>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>zona_urbana/insertar" method="POST">-->
-                        <?php echo form_open('zona_urbana/insertar', array('method'=>'POST', 'id'=>'insertar')); ?>
+                        <?php echo form_open('Zona_urbana/insertar', array('method'=>'POST', 'id'=>'insertar')); ?>
 
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Descripci&oacute;n</label>

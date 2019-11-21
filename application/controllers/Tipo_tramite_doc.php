@@ -1,4 +1,4 @@
-<?php
+T<?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Tipo_tramite_doc extends CI_Controller
@@ -6,11 +6,11 @@ class Tipo_tramite_doc extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model("tipo_tramite_model_doc");
+        $this->load->model("Tipo_tramite_model_doc");
         $this->load->library('session');
         $this->load->helper('url_helper');
         $this->load->helper('vayes_helper');
-        $this->load->model("rol_model");
+        $this->load->model("Rol_model");
     }
     public function index()
     {
@@ -23,8 +23,8 @@ class Tipo_tramite_doc extends CI_Controller
     public function nuevo($cod_catastral = null)
     {
         if ($this->session->userdata("login")) {
-            $data['data_tcorr'] = $this->tipo_tramite_model_doc->get_data();
-            $data['verifica'] = $this->rol_model->verifica();
+            $data['data_tcorr'] = $this->Tipo_tramite_model_doc->get_data();
+            $data['verifica'] = $this->Rol_model->verifica();
             $this->load->view('admin/header');
             $this->load->view('admin/menu');
             $this->load->view('crud/tipo_tramite_doc', $data);

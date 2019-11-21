@@ -46,10 +46,10 @@
                                                 <td><?php echo $row->descripcion; ?></td>
                                                 <td>                                                                                               
                                                     <?php if (($row->activo)==1):?>
-                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('requisitos/delete'); ?>/<?php echo $row->requisito_id; ?>"><button type="button" class="btn btn-success"><span class="fas fa-arrow-alt-circle-up" aria-hidden="true"></span> Activo</button></a>                                                          
+                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('Requisitos/delete'); ?>/<?php echo $row->requisito_id; ?>"><button type="button" class="btn btn-success"><span class="fas fa-arrow-alt-circle-up" aria-hidden="true"></span> Activo</button></a>                                                          
                                                     <?php endif ?>
                                                     <?php if (($row->activo)==0):?>
-                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('requisitos/delete'); ?>/<?php echo $row->requisito_id; ?>"><button type="button" class="btn btn-danger"><span class="fas fa-arrow-alt-circle-down" aria-hidden="true"></span> Inactivo</button></a>
+                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('Requisitos/delete'); ?>/<?php echo $row->requisito_id; ?>"><button type="button" class="btn btn-danger"><span class="fas fa-arrow-alt-circle-down" aria-hidden="true"></span> Inactivo</button></a>
                                                     <?php endif ?>
                                                 </td>                                                                                                             
                                                 <td>
@@ -109,7 +109,7 @@
                                 <h4 class="modal-title" id="exampleModalLabel1">Editar</h4>
                             </div>
                             <div class="modal-body">                        
-                                <?php echo form_open('requisitos/update', array('method'=>'POST')); ?> 
+                                <?php echo form_open('Requisitos/update', array('method'=>'POST')); ?> 
                                 <div class="form-group">
                                     <label for="location1">Tipo tramite :<span class="text-danger"> *</span></label>
                                     <select class="custom-select form-control" id="tipo_tramite_id_e" name="tipo_tramite_id_e">                                       

@@ -1,23 +1,23 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Ubicacion extends CI_Controller {
+class Matvia extends CI_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model("ubicacion_model");
-		$this->load->model("rol_model");
+		$this->load->model("Matvia_model");
+		$this->load->model("Rol_model");
 	}
 
-	public function ubicacion(){
+	public function matvia(){
 		if($this->session->userdata("login")){
-
-			$lista['verifica'] = $this->rol_model->verifica();
-			$lista['ubicacion'] = $this->ubicacion_model->index();
+		
+			$lista['verifica'] = $this->Rol_model->verifica();
+			$lista['matvia'] = $this->Matvia_model->index();
 			$this->load->view('admin/header');
 			$this->load->view('admin/menu');
-			$this->load->view('crud/ubicacion', $lista);
+			$this->load->view('crud/matvia', $lista);
 			$this->load->view('admin/footer');
 		}
 		else{
@@ -29,7 +29,7 @@ class Ubicacion extends CI_Controller {
 	public function index()
 	{
 		if($this->session->userdata("login")){
-			redirect(base_url()."Ubicacion/ubicacion");
+			redirect(base_url()."Matvia/matvia");
 		}
 		else{
 			redirect(base_url());
@@ -51,10 +51,9 @@ class Ubicacion extends CI_Controller {
 	            $usu_creacion = $resi->persona_id;
 
 				$descripcion = $datos['descripcion'];
-				$alias = $datos['alias'];
 				$coeficiente = $datos['coeficiente'];
-				$this->ubicacion_model->insertar_ubicacion($descripcion, $alias, $coeficiente, $usu_creacion);
-				redirect('ubicacion');
+				$this->Matvia_model->insertar_matvia($descripcion, $coeficiente, $usu_creacion);
+				redirect('Matvia');
 
 			}
 		}
@@ -65,21 +64,20 @@ class Ubicacion extends CI_Controller {
 	 }
 
 	public function update()     
-	{     
-		if($this->session->userdata("login")){ 
+	{   
+		if($this->session->userdata("login")){
 			//OBTENER EL ID DEL USUARIO LOGUEADO
 			$id = $this->session->userdata("persona_perfil_id");
 	        $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
 	        $usu_modificacion = $resi->persona_id;
 	        $fec_modificacion = date("Y-m-d H:i:s"); 
-
-		    $ubicacion_id = $this->input->post('ubicacion_id');
+	      
+		    $matvia_id = $this->input->post('matvia_id');
 		    $descripcion = $this->input->post('descripcion');
-		    $alias = $this->input->post('alias');
 		    $coeficiente = $this->input->post('coeficiente');
 
-		    $actualizar = $this->ubicacion_model->actualizar($ubicacion_id,$descripcion,$alias,$coeficiente, $usu_modificacion, $fec_modificacion);
-		   redirect('Ubicacion');
+		    $actualizar = $this->Matvia_model->actualizar($matvia_id,$descripcion,$coeficiente, $usu_modificacion, $fec_modificacion);
+		   redirect('Matvia');
 		}
 		else{
 			redirect(base_url());
@@ -88,8 +86,8 @@ class Ubicacion extends CI_Controller {
 		
 
 	 public function eliminar()
-	{
-		if($this->session->userdata("login")){
+	 {	
+	 	if($this->session->userdata("login")){
 		 	//OBTENER EL ID DEL USUARIO LOGUEADO
 			$id = $this->session->userdata("persona_perfil_id");
 	        $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
@@ -97,8 +95,8 @@ class Ubicacion extends CI_Controller {
 	        $fec_eliminacion = date("Y-m-d H:i:s"); 
 	        
 		    $u = $this->uri->segment(3);
-		    $this->ubicacion_model->eliminar($u, $usu_eliminacion, $fec_eliminacion);
-		    redirect('Ubicacion');
+		    $this->Matvia_model->eliminar($u, $usu_eliminacion, $fec_eliminacion);
+		    redirect('Matvia');
 		}
 		else{
 			redirect(base_url());

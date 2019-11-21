@@ -7,14 +7,14 @@ class Perfil extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->library('session');
-		$this->load->model("perfil_model");
-		$this->load->model("rol_model");
+		$this->load->model("Perfil_model");
+		$this->load->model("Rol_model");
 	}
 
 	public function perfil(){
 		if($this->session->userdata("login")){
-			$lista['verifica'] = $this->rol_model->verifica();
-			$lista['perfil'] = $this->perfil_model->index();
+			$lista['verifica'] = $this->Rol_model->verifica();
+			$lista['perfil'] = $this->Perfil_model->index();
 			
 			$this->load->view('admin/header');
 			$this->load->view('admin/menu');
@@ -31,7 +31,7 @@ class Perfil extends CI_Controller {
 	public function index()
 	{
 		if($this->session->userdata("login")){
-			redirect(base_url()."perfil/perfil");
+			redirect(base_url()."Perfil/perfil");
 		}
 		else{
 			redirect(base_url());
@@ -52,8 +52,8 @@ class Perfil extends CI_Controller {
 	            $usu_creacion = $resi->persona_id;
 
 				$perfil = $datos['perfil'];
-				$this->perfil_model->insertar_perfil($perfil, $usu_creacion);
-				redirect('perfil');
+				$this->Perfil_model->insertar_perfil($perfil, $usu_creacion);
+				redirect('Perfil');
 
 			}
 		}
@@ -77,9 +77,9 @@ class Perfil extends CI_Controller {
 
 		   // var_dump($perfils_id);
 
-		    $actualizar = $this->perfil_model->actualizar($perfil_id, $perfil, $usu_modificacion, $fec_modificacion);
+		    $actualizar = $this->Perfil_model->actualizar($perfil_id, $perfil, $usu_modificacion, $fec_modificacion);
 		    // var_dump($actualizar);
-		  	redirect('perfil');
+		  	redirect('Perfil');
 		}
 		else{
 			redirect(base_url());
@@ -97,8 +97,8 @@ class Perfil extends CI_Controller {
 	        $fec_eliminacion = date("Y-m-d H:i:s"); 
 
 		    $u = $this->uri->segment(3);
-		    $this->perfil_model->eliminar($u, $usu_eliminacion, $fec_eliminacion);
-		    redirect('perfil');
+		    $this->Perfil_model->eliminar($u, $usu_eliminacion, $fec_eliminacion);
+		    redirect('Perfil');
 		}
 		else{
 			redirect(base_url());
@@ -173,7 +173,7 @@ class Perfil extends CI_Controller {
 			        							
 					 }
 					 
-					redirect('perfil');
+					redirect('Perfil');
 					
 			}
 		else

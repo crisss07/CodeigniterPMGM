@@ -114,7 +114,7 @@
 															<?php 
 																//$id = $this->session->userdata("persona_perfil_id");
 																$id = $_SESSION['persona_perfil_id'];
-																$this->load->model('usuario_model');
+																$this->load->model('Usuario_model');
 																$res = $this->usuario_model->getUsuario($id);
 																/*
 																$datos = $this->db->query("select * from persona_perfil ")->result();

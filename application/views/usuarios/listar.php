@@ -94,17 +94,17 @@
                                                     }
 
                                                     ?>
-                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('usuario/activo/'. $lis->credencial_id); ?>" type="button" class="btn btn-<?php echo $color ?>"><?php echo $mensaje ?>
+                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('Usuario/activo/'. $lis->credencial_id); ?>" type="button" class="btn btn-<?php echo $color ?>"><?php echo $mensaje ?>
                                                         
                                                     </a>  
 
                                                 </td>
                                                 <td>
-                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('usuario/asignar/'. $lis->credencial_id); ?>" type="button" class="btn btn-info button">
+                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('Usuario/asignar/'. $lis->credencial_id); ?>" type="button" class="btn btn-info button">
                                                         <span disabled class="fas fa-tasks" aria-hidden="true">
                                                         </span>
                                                     </a>
-                                                     <a <?php echo $verifica['baja'];?>="<?= base_url('usuario/asignar/'. $lis->credencial_id); ?>" type="button" class="btn btn-warning button" data-toggle="modal" data-target="#modalEdicion" onclick="agregarform('<?php echo $datos ?>')">
+                                                     <a <?php echo $verifica['baja'];?>="<?= base_url('Usuario/asignar/'. $lis->credencial_id); ?>" type="button" class="btn btn-warning button" data-toggle="modal" data-target="#modalEdicion" onclick="agregarform('<?php echo $datos ?>')">
                                                         <span disabled class="fas fa-pencil-alt" aria-hidden="true">
                                                         </span>
                                                     </a>                                                    
@@ -136,7 +136,7 @@
                     </div>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>zona_urbana/update" method="POST">-->
-                        <?php echo form_open('usuario/modifica', array('method'=>'POST', 'id'=>'editar')); ?>
+                        <?php echo form_open('Usuario/modifica', array('method'=>'POST', 'id'=>'editar')); ?>
 
                             
                             <div class="form-group">

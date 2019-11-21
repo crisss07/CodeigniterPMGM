@@ -51,10 +51,10 @@
                                                 <td><?php echo $row->flujo; ?></td>
                                                 <td>                                                                                               
                                                     <?php if (($row->activo)==1):?>
-                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('flujo/delete'); ?>/<?php echo $row->flujo_id; ?>"><button type="button" class="btn btn-success"><span class="fas fa-arrow-alt-circle-up" aria-hidden="true"></span> Activo</button></a>                                                          
+                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('Flujo/delete'); ?>/<?php echo $row->flujo_id; ?>"><button type="button" class="btn btn-success"><span class="fas fa-arrow-alt-circle-up" aria-hidden="true"></span> Activo</button></a>                                                          
                                                     <?php endif ?>
                                                     <?php if (($row->activo)==0):?>
-                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('flujo/delete'); ?>/<?php echo $row->flujo_id; ?>"><button type="button" class="btn btn-danger"><span class="fas fa-arrow-alt-circle-down" aria-hidden="true"></span> Inactivo</button></a>
+                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('Flujo/delete'); ?>/<?php echo $row->flujo_id; ?>"><button type="button" class="btn btn-danger"><span class="fas fa-arrow-alt-circle-down" aria-hidden="true"></span> Inactivo</button></a>
                                                     <?php endif ?>
                                                 </td>                                                                                                             
                                                 <td>

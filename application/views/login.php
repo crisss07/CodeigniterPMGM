@@ -60,7 +60,7 @@ License: You must have a valid license purchased only from themeforest(the above
 									Inicia Sesi&oacute;n
 								</h3>
 							</div>
-							<form action="<?php echo base_url();?>login/login" method="POST" class="m-login__form m-form">
+							<form action="<?php echo base_url();?>Login/login" method="POST" class="m-login__form m-form">
 								<div class="form-group m-form__group">
 									<input class="form-control m-input" type="text" placeholder="Nombre de Usuario" name="usuario" autocomplete="off">
 								</div>
@@ -85,7 +85,7 @@ License: You must have a valid license purchased only from themeforest(the above
 									Llene todos los campos:
 								</div>
 							</div>
-							<form action="<?php echo base_url();?>persona/insertar" method="POST" class="m-login__form m-form">
+							<form action="<?php echo base_url();?>Persona/insertar" method="POST" class="m-login__form m-form">
 								<div class="form-group m-form__group">
 									<input class="form-control m-input" type="text" placeholder="Nombres" name="nombres" >
 								</div>

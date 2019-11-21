@@ -49,7 +49,7 @@
                 <div class="col-lg-4 col-md-12">
                     <div class="card">
                         <div class="card-body">
-                                <?php echo form_open('perfil/updates', array('method'=>'POST')); ?>
+                                <?php echo form_open('Perfil/updates', array('method'=>'POST')); ?>
                                     <h4 class="card-title">Men&uacute; Administrador</h4>
                                         <div class="form-group">
                                             <input type="text" hidden="" value="<?php echo $perfil_id; ?>" name="perfil">

@@ -1,24 +1,24 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Destino_bloque extends CI_Controller {
+class Nivel extends CI_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model("destino_bloque_model");
-		$this->load->model("rol_model");
+		$this->load->model("Nivel_model");
+		$this->load->model("Rol_model");
 	}
 
-	public function destino_bloque(){
+	public function nivel(){
 		if($this->session->userdata("login")){
 
-		$lista['verifica'] = $this->rol_model->verifica();
-		$lista['destino_bloque'] = $this->destino_bloque_model->index();
-		$this->load->view('admin/header');
-		$this->load->view('admin/menu');
-		$this->load->view('crud/destino_bloque', $lista);
-		$this->load->view('admin/footer');
+			$lista['verifica'] = $this->Rol_model->verifica();
+			$lista['nivel'] = $this->Nivel_model->index();
+			$this->load->view('admin/header');
+			$this->load->view('admin/menu');
+			$this->load->view('crud/nivel', $lista);
+			$this->load->view('admin/footer');
 		}
 		else{
 			redirect(base_url());
@@ -29,7 +29,7 @@ class Destino_bloque extends CI_Controller {
 	public function index()
 	{
 		if($this->session->userdata("login")){
-			redirect(base_url()."Destino_bloque/destino_bloque");
+			redirect(base_url()."Nivel/nivel");
 		}
 		else{
 			redirect(base_url());
@@ -52,32 +52,33 @@ class Destino_bloque extends CI_Controller {
 				$descripcion = $datos['descripcion'];
 				$alias = $datos['alias'];
 				$coeficiente = $datos['coeficiente'];
-				$this->destino_bloque_model->insertar_destino_bloque($descripcion, $alias, $coeficiente, $usu_creacion);
-				redirect('destino_bloque');
+				$this->Nivel_model->insertar_nivel($descripcion, $alias, $coeficiente, $usu_creacion);
+				redirect('Nivel');
 
 			}
 		}
 		else{
 			redirect(base_url());
 		}
+
 	 }
 
 	 public function update()     
-	{  
-		if($this->session->userdata("login")){       
+	{    
+		if($this->session->userdata("login")){ 
 			//OBTENER EL ID DEL USUARIO LOGUEADO
 			$id = $this->session->userdata("persona_perfil_id");
 	        $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
 	        $usu_modificacion = $resi->persona_id;
 	        $fec_modificacion = date("Y-m-d H:i:s"); 
-	        
-		    $destino_bloque_id = $this->input->post('destino_bloque_id');
+	    
+		    $nivel_id = $this->input->post('nivel_id');
 		    $descripcion = $this->input->post('descripcion');
 		    $alias = $this->input->post('alias');
 		    $coeficiente = $this->input->post('coeficiente');
 
-		    $actualizar = $this->destino_bloque_model->actualizar($destino_bloque_id,$descripcion,$alias,$coeficiente, $usu_modificacion, $fec_modificacion);
-		   redirect('Destino_bloque');
+		    $actualizar = $this->Nivel_model->actualizar($nivel_id, $descripcion, $alias, $coeficiente, $usu_modificacion, $fec_modificacion);
+		   redirect('nivel');
 		}
 		else{
 			redirect(base_url());
@@ -86,22 +87,22 @@ class Destino_bloque extends CI_Controller {
 
 	 public function eliminar()
 	 {
-	 	if($this->session->userdata("login")){  
-		 	//OBTENER EL ID DEL USUARIO LOGUEADO
-			$id = $this->session->userdata("persona_perfil_id");
-	        $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
-	        $usu_eliminacion = $resi->persona_id;
-	        $fec_eliminacion = date("Y-m-d H:i:s"); 
-	        
-		    $u = $this->uri->segment(3);
-		    $this->destino_bloque_model->eliminar($u, $usu_eliminacion, $fec_eliminacion);
-		    redirect('destino_bloque');
-		}
+	 	if($this->session->userdata("login")){
+	 	//OBTENER EL ID DEL USUARIO LOGUEADO
+		$id = $this->session->userdata("persona_perfil_id");
+        $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+        $usu_eliminacion = $resi->persona_id;
+        $fec_eliminacion = date("Y-m-d H:i:s");
+        
+	    $u = $this->uri->segment(3);
+	    $this->Nivel_model->eliminar($u, $usu_eliminacion, $fec_eliminacion);
+	    redirect('Nivel');
+	   }
 		else{
 			redirect(base_url());
-		} 
-	  }
+		}
+	 }
 
-
+   	  
 }
 

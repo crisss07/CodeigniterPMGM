@@ -72,7 +72,7 @@
                                                             <span class="fas fa-pencil-alt" aria-hidden="true">
                                                             </span>
                                                     </button> 
-                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('predio_via/eliminar/'. $lis->via_id); ?>" type="button" class="btn btn-danger footable-delete">
+                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('Predio_via/eliminar/'. $lis->via_id); ?>" type="button" class="btn btn-danger footable-delete">
                                                         <span class="fas fa-trash-alt" aria-hidden="true">
                                                         </span>
                                                     </a>
@@ -107,7 +107,7 @@
                     </div>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>zona_urbana/editar" method="POST">-->
-                        <?php echo form_open('predio_via/update', array('method'=>'POST')); ?>
+                        <?php echo form_open('Predio_via/update', array('method'=>'POST')); ?>
 
                             <div class="form-group">
                                 <input type="text" hidden="" id="via_id" name="via_id">
@@ -154,7 +154,7 @@
                     </div>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>zona_urbana/insertar" method="POST">-->
-                        <?php echo form_open('predio_via/insertar', array('method'=>'POST')); ?>
+                        <?php echo form_open('Predio_via/insertar', array('method'=>'POST')); ?>
 
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">C&oacute;digo Catrastal</label>

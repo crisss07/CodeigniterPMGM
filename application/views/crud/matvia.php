@@ -65,7 +65,7 @@
                                                             <span class="fas fa-pencil-alt" aria-hidden="true">
                                                             </span>
                                                     </button> 
-                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('matvia/eliminar/'. $lis->matvia_id); ?>" type="button" class="btn btn-danger footable-delete">
+                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('Matvia/eliminar/'. $lis->matvia_id); ?>" type="button" class="btn btn-danger footable-delete">
                                                         <span class="fas fa-trash-alt" aria-hidden="true">
                                                         </span>
                                                     </a>
@@ -99,7 +99,7 @@
                     </div>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>matvia/update" method="POST">-->
-                        <?php echo form_open('matvia/update', array('method'=>'POST')); ?>
+                        <?php echo form_open('Matvia/update', array('method'=>'POST')); ?>
                             <div class="form-group">
                                 <input type="text" hidden="" id="matvia_id" name="matvia_id">
                             </div>
@@ -135,7 +135,7 @@
                     ?>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>matvia/insertar" method="POST">-->
-                        <?php echo form_open('matvia/insertar', array('method'=>'POST')); ?>
+                        <?php echo form_open('Matvia/insertar', array('method'=>'POST')); ?>
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Descripci&oacute;n</label>
                                 <input type="text" class="form-control" id="recipient-name1" name="descripcion">

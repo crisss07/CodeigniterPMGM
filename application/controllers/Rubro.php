@@ -7,14 +7,14 @@ class Rubro extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->library('session');
-		$this->load->model("rubro_model");
-		$this->load->model("rol_model");
+		$this->load->model("Rubro_model");
+		$this->load->model("Rol_model");
 	}
 
 	public function rubro(){
 		if($this->session->userdata("login")){
-			$lista['verifica'] = $this->rol_model->verifica();
-			$lista['rubro'] = $this->rubro_model->index();
+			$lista['verifica'] = $this->Rol_model->verifica();
+			$lista['rubro'] = $this->Rubro_model->index();
 			
 			$this->load->view('admin/header');
 			$this->load->view('admin/menu');
@@ -31,7 +31,7 @@ class Rubro extends CI_Controller {
 	public function index()
 	{
 		if($this->session->userdata("login")){
-			redirect(base_url()."rubro/rubro");
+			redirect(base_url()."Rubro/rubro");
 		}
 		else{
 			redirect(base_url());
@@ -52,8 +52,8 @@ class Rubro extends CI_Controller {
 	            $usu_creacion = $resi->persona_id;
 
 				$rubro = $datos['rubro'];
-				$this->rubro_model->insertar_rubro($rubro, $usu_creacion);
-				redirect('rubro');
+				$this->Rubro_model->insertar_rubro($rubro, $usu_creacion);
+				redirect('Rubro');
 
 			}
 		}
@@ -77,9 +77,9 @@ class Rubro extends CI_Controller {
 
 		   // var_dump($rubros_id);
 
-		    $actualizar = $this->rubro_model->actualizar($rubros_id, $rubro, $usu_modificacion, $fec_modificacion);
+		    $actualizar = $this->Rubro_model->actualizar($rubros_id, $rubro, $usu_modificacion, $fec_modificacion);
 		    // var_dump($actualizar);
-		  	redirect('rubro');
+		  	redirect('Rubro');
 		}
 		else{
 			redirect(base_url());
@@ -97,8 +97,8 @@ class Rubro extends CI_Controller {
 	        $fec_eliminacion = date("Y-m-d H:i:s"); 
 
 		    $u = $this->uri->segment(3);
-		    $this->rubro_model->eliminar($u, $usu_eliminacion, $fec_eliminacion);
-		    redirect('rubro');
+		    $this->Rubro_model->eliminar($u, $usu_eliminacion, $fec_eliminacion);
+		    redirect('Rubro');
 		}
 		else{
 			redirect(base_url());

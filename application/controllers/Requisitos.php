@@ -1,28 +1,35 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Flujo extends CI_Controller
+class Requisitos extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model("flujo_model");
+        $this->load->model("Requisitos_model");
         $this->load->library('session');
         $this->load->helper('url_helper');
         $this->load->helper('vayes_helper');
-        $this->load->model("rol_model");
+        $this->load->model("Rol_model");
     }
 
-    public function index($cod_catastral = null)
+    public function index()
     {
         if ($this->session->userdata("login")) {
-			$data['data_flujo'] = $this->flujo_model->get_data();
-            $data['data_tramite'] = $this->flujo_model->get_tipotramite();
-            $data['data_org'] = $this->flujo_model->get_organigrama();
-            $data['verifica'] = $this->rol_model->verifica();
+            redirect(base_url() . "Requisitos/nuevo");
+        } else {
+            redirect(base_url());
+        }
+    }
+    public function nuevo($cod_catastral = null)
+    {
+        if ($this->session->userdata("login")) {
+			$data['data_requisitos'] = $this->Requisitos_model->get_data();
+			$data['data_tramite'] = $this->Requisitos_model->get_tipotramite();
+            $data['verifica'] = $this->Rol_model->verifica();
             $this->load->view('admin/header');
             $this->load->view('admin/menu');
-            $this->load->view('crud/flujo', $data);
+            $this->load->view('crud/requisitos', $data);
             $this->load->view('admin/footer');
         } else {
             redirect(base_url());
@@ -36,15 +43,13 @@ class Flujo extends CI_Controller
             $usu_creacion = $resi->persona_id;
         
             $data = array(
-            'tipo_tramite_id' => $this->input->post('tipo_tramite_id'), //input
-            'organigrama_persona_id' => $this->input->post('organigrama_id'), //input
-            'orden' => $this->input->post('orden'), //input
-            'flujo' => $this->input->post('flujo'), //input        
+			'tipo_tramite_id' => $this->input->post('tipo_tramite_id'), //input
+            'descripcion' => $this->input->post('requisito'), //input
             'activo' => '1',
             'usu_creacion' => $usu_creacion,
         );
-            $this->db->insert('tramite.flujo', $data);
-            redirect(base_url() . 'Flujo');
+            $this->db->insert('tramite.requisito', $data);
+            redirect(base_url() . 'requisitos/nuevo/');
         } else {
             redirect(base_url());
         }
@@ -59,19 +64,16 @@ class Flujo extends CI_Controller
 
             $data = array(				
 				'tipo_tramite_id' => $this->input->post('tipo_tramite_id_e'), //input
-            'organigrama_persona_id' => $this->input->post('organigrama_id_e'), //input
-            'orden' => $this->input->post('orden_e'), //input
-            'flujo' => $this->input->post('flujo_e'), //input                    
-         
+                'descripcion' => $this->input->post('descripcion_e'), //input
                 'usu_modificacion' => $usu_modificacion, //input
                 'fec_modificacion' => $fec_modificacion, //input
             );
-            $id_flujo=$this->input->post('flujo_id_e');
-            $this->db->where('flujo_id', $id_flujo);
-            $this->db->update('tramite.flujo', $data);
+            $id_requisito=$this->input->post('requisito_id_e');
+            $this->db->where('requisito_id', $id_requisito);
+            $this->db->update('tramite.requisito', $data);
 
 
-            redirect(base_url() . 'flujo');
+            redirect(base_url() . 'Requisitos/nuevo/');
         } else {
             redirect(base_url());
         }
@@ -84,7 +86,7 @@ class Flujo extends CI_Controller
             $usu_eliminacion = $resi->persona_id;
             $fec_eliminacion = date("Y-m-d H:i:s");
 
-            $activo = $this->db->query("SELECT activo from tramite.flujo WHERE flujo_id=$ida");
+            $activo = $this->db->query("SELECT activo from tramite.requisito WHERE requisito_id=$ida");
             foreach ($activo ->result() as $row) {
                 $valor=$row->activo;
             }
@@ -94,9 +96,9 @@ class Flujo extends CI_Controller
                 'usu_eliminacion' => $usu_eliminacion, //input
                 'fec_eliminacion' => $fec_eliminacion, //input
             );
-            $this->db->where('flujo_id', $ida);
-            $this->db->update('tramite.flujo', $data);
-            redirect(base_url() . 'flujo');
+            $this->db->where('requisito_id', $ida);
+            $this->db->update('tramite.requisito', $data);
+            redirect(base_url() . 'Requisitos');
         } else {
             redirect(base_url());
         }

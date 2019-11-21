@@ -1,23 +1,23 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Tipo_planta extends CI_Controller {
+class Ubicacion extends CI_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model("tipo_planta_model");
-		$this->load->model("rol_model");
+		$this->load->model("Ubicacion_model");
+		$this->load->model("Rol_model");
 	}
 
-	public function tipo_planta(){
+	public function ubicacion(){
 		if($this->session->userdata("login")){
-		
-			$lista['verifica'] = $this->rol_model->verifica();
-			$lista['tipo_planta'] = $this->tipo_planta_model->index();
+
+			$lista['verifica'] = $this->Rol_model->verifica();
+			$lista['ubicacion'] = $this->Ubicacion_model->index();
 			$this->load->view('admin/header');
 			$this->load->view('admin/menu');
-			$this->load->view('crud/tipo_planta', $lista);
+			$this->load->view('crud/ubicacion', $lista);
 			$this->load->view('admin/footer');
 		}
 		else{
@@ -29,7 +29,7 @@ class Tipo_planta extends CI_Controller {
 	public function index()
 	{
 		if($this->session->userdata("login")){
-			redirect(base_url()."tipo_planta/tipo_planta");
+			redirect(base_url()."Ubicacion/ubicacion");
 		}
 		else{
 			redirect(base_url());
@@ -37,6 +37,7 @@ class Tipo_planta extends CI_Controller {
 		
 	}
 
+	
 	public function insertar()
 	{
 		if($this->session->userdata("login")){
@@ -52,8 +53,8 @@ class Tipo_planta extends CI_Controller {
 				$descripcion = $datos['descripcion'];
 				$alias = $datos['alias'];
 				$coeficiente = $datos['coeficiente'];
-				$this->tipo_planta_model->insertar_tipo_planta($descripcion, $alias, $coeficiente, $usu_creacion);
-				redirect('tipo_planta');
+				$this->Ubicacion_model->insertar_ubicacion($descripcion, $alias, $coeficiente, $usu_creacion);
+				redirect('Ubicacion');
 
 			}
 		}
@@ -63,29 +64,28 @@ class Tipo_planta extends CI_Controller {
 
 	 }
 
-
-	 public function update()     
-	{    
-		if($this->session->userdata("login")){     
+	public function update()     
+	{     
+		if($this->session->userdata("login")){ 
 			//OBTENER EL ID DEL USUARIO LOGUEADO
 			$id = $this->session->userdata("persona_perfil_id");
 	        $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
 	        $usu_modificacion = $resi->persona_id;
 	        $fec_modificacion = date("Y-m-d H:i:s"); 
 
-		    $tipo_planta_id = $this->input->post('tipo_planta_id');
+		    $ubicacion_id = $this->input->post('ubicacion_id');
 		    $descripcion = $this->input->post('descripcion');
 		    $alias = $this->input->post('alias');
 		    $coeficiente = $this->input->post('coeficiente');
 
-		    $actualizar = $this->tipo_planta_model->actualizar($tipo_planta_id,$descripcion,$alias,$coeficiente, $usu_modificacion, $fec_modificacion);
-		   redirect('Tipo_planta');
+		    $actualizar = $this->Ubicacion_model->actualizar($ubicacion_id,$descripcion,$alias,$coeficiente, $usu_modificacion, $fec_modificacion);
+		   redirect('Ubicacion');
 		}
 		else{
 			redirect(base_url());
 		}
 	}
-
+		
 
 	 public function eliminar()
 	{
@@ -97,14 +97,13 @@ class Tipo_planta extends CI_Controller {
 	        $fec_eliminacion = date("Y-m-d H:i:s"); 
 	        
 		    $u = $this->uri->segment(3);
-		    $this->tipo_planta_model->eliminar($u, $usu_eliminacion, $fec_eliminacion);
-		    redirect('tipo_planta');
-	    }
+		    $this->Ubicacion_model->eliminar($u, $usu_eliminacion, $fec_eliminacion);
+		    redirect('Ubicacion');
+		}
 		else{
 			redirect(base_url());
 		}
 	}
-
-	 
+   	  
 }
 

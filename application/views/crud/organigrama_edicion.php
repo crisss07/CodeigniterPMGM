@@ -15,7 +15,7 @@
                             </div>
                         </div>						
                         <div class="col-lg-3">
-                          <?php echo form_open_multipart('organigrama/do_upload'); ?>                            
+                          <?php echo form_open_multipart('Organigrama/do_upload'); ?>                            
                           <div class="form-group">
                             <label for="location1">Nivel Superior :<span class="text-danger"> *</span></label>
                             <select class="custom-select form-control" id="padre_id_e" name="padre_id_e">
@@ -41,7 +41,7 @@
                             <input type="file" id="input-file-now-custom-3" class="dropify" name="foto_org" data-allowed-file-extensions="png" data-default-file="<?php echo base_url(); ?><?php echo $datos->url; ?>/<?php echo $datos->imagen ?>" />                                                                         
                         </div>
                     </div>                        
-                    <a class="btn btn-danger" href="<?php echo site_url('organigrama/nuevo'); ?>" align="right">Cancelar</a>
+                    <a class="btn btn-danger" href="<?php echo site_url('Organigrama/nuevo'); ?>" align="right">Cancelar</a>
                     <button type="submit" class="btn btn-primary">Guardar</button>                          
                 </form>
             </div>

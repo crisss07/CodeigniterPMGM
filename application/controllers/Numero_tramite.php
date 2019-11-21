@@ -1,24 +1,24 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Bloque_grupo_mat extends CI_Controller {
+class Numero_tramite extends CI_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->library('session');
-		$this->load->model("bloque_grupo_mat_model");
-		$this->load->model("rol_model");
+		$this->load->model("Numero_tramite_model");
+		$this->load->model("Rol_model");
 	}
 
-	public function bloque_grupo_mat(){
+	public function numero_tramite(){
 		if($this->session->userdata("login")){
 
-		$lista['verifica'] = $this->rol_model->verifica();
-		$lista['bloque_grupo_mat'] = $this->bloque_grupo_mat_model->index();
+		$lista['verifica'] = $this->Rol_model->verifica();
+		$lista['numero_tramite'] = $this->Numero_tramite_model->index();
 		$this->load->view('admin/header');
 		$this->load->view('admin/menu');
-		$this->load->view('crud/bloque_grupo_mat', $lista);
+		$this->load->view('crud/numero_tramite', $lista);
 		$this->load->view('admin/footer');
 		}
 		else{
@@ -30,7 +30,7 @@ class Bloque_grupo_mat extends CI_Controller {
 	public function index()
 	{
 		if($this->session->userdata("login")){
-			redirect(base_url()."bloque_grupo_mat/bloque_grupo_mat");
+			redirect(base_url()."Numero_tramite/numero_tramite");
 		}
 		else{
 			redirect(base_url());
@@ -51,9 +51,13 @@ class Bloque_grupo_mat extends CI_Controller {
 	            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
 	            $usu_creacion = $resi->persona_id;
 
-				$descripcion = $datos['descripcion'];
-				$this->bloque_grupo_mat_model->insertar_zona($descripcion, $usu_creacion);
-				redirect('bloque_grupo_mat');
+				$tipo = $datos['tipo'];
+				$gestion = $datos['gestion'];
+				$correlativo = $datos['correlativo'];
+				$observaciones = $datos['observaciones'];
+
+				$this->Numero_tramite_model->insertar_numero_tramite($tipo, $gestion, $correlativo, $observaciones, $usu_creacion);
+				redirect('Numero_tramite');
 			}
 		}
 		else{
@@ -71,11 +75,14 @@ class Bloque_grupo_mat extends CI_Controller {
 	        $usu_modificacion = $resi->persona_id;
 	        $fec_modificacion = date("Y-m-d H:i:s");
 
-		    $grupo_mat_id = $this->input->post('grupo_mat_id');
-		    $descripcion = $this->input->post('descripcion');
+		    $numero_tramite_id = $this->input->post('numero_tramite_id');
+		    $tipo = $this->input->post('tipo');
+		    $gestion = $this->input->post('gestion');
+		    $correlativo = $this->input->post('correlativo');
+		    $observaciones = $this->input->post('observaciones');
 
-		    $actualizar = $this->bloque_grupo_mat_model->actualizar($grupo_mat_id, $descripcion, $usu_modificacion, $fec_modificacion);
-		   redirect('bloque_grupo_mat');
+		    $actualizar = $this->Numero_tramite_model->actualizar($numero_tramite_id, $tipo, $gestion, $correlativo, $observaciones, $usu_modificacion, $fec_modificacion);
+		   redirect('Numero_tramite');
 		}
 		else{
 			redirect(base_url());
@@ -92,8 +99,8 @@ class Bloque_grupo_mat extends CI_Controller {
 	        $fec_eliminacion = date("Y-m-d H:i:s"); 
 
 		    $u = $this->uri->segment(3);
-		    $this->bloque_grupo_mat_model->eliminar($u, $usu_eliminacion, $fec_eliminacion);
-		    redirect('bloque_grupo_mat');
+		    $this->Numero_tramite_model->eliminar($u, $usu_eliminacion, $fec_eliminacion);
+		    redirect('Numero_tramite');
 		  
 		}
 		else{
@@ -106,8 +113,8 @@ class Bloque_grupo_mat extends CI_Controller {
         if ($this->session->userdata("login")) {
 
             $consulta = $this->db->query("SELECT *
-										FROM catastro.bloque_grupo_mat
-										WHERE grupo_mat_id = $id")->row();            
+										FROM tramite.numero_tramite
+										WHERE numero_tramite_id = $id")->row();            
             $valor = $consulta->activo;
             
             $valor=1-$valor;
@@ -116,9 +123,9 @@ class Bloque_grupo_mat extends CI_Controller {
 
                 'activo' => $valor, //input                                 
             );
-            $this->db->where('grupo_mat_id', $id);
-            $this->db->update('catastro.bloque_grupo_mat', $data);          
-            redirect(base_url() . 'bloque_grupo_mat');
+            $this->db->where('numero_tramite_id', $id);
+            $this->db->update('tramite.numero_tramite', $data);          
+            redirect(base_url() . 'Numero_tramite');
         } else {
             redirect(base_url());
         }

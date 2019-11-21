@@ -64,7 +64,7 @@
             <div class="card-body">
                 
                 <!--<form class="form-horizontal form-material" action="<?php echo base_url();?>login/login" method="POST">-->
-                <?php echo form_open('login/login', array('class'=>'form-horizontal form-material', 'method'=>'POST')); ?>
+                <?php echo form_open('Login/login', array('class'=>'form-horizontal form-material', 'method'=>'POST')); ?>
                     <h3 class="box-title mb-3">Inicia Sesi&oacute;n</h3>
                     <!--<div class="form-group ">
                         <div class="col-xs-12">

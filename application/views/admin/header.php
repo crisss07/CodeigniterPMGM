@@ -371,7 +371,7 @@
                         <h4 class="modal-title" id="exampleModalLabel1">Editar Rol</h4>
                     </div>
                     <div class="modal-body">
-                     <?php echo form_open('persona/update', array('method'=>'POST')); ?>
+                     <?php echo form_open('Persona/update', array('method'=>'POST')); ?>
                          <img class="card-img-top img-responsive" src="<?php echo base_url(); ?>public/assets/images/users/perfil.jpg" alt="Card image cap">
                         <!--<form action="">-->
                        

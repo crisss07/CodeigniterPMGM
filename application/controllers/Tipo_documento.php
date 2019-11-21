@@ -7,11 +7,11 @@ class Tipo_documento extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model("tipo_documento_model");
+        $this->load->model("Tipo_documento_model");
         $this->load->library('session');
         $this->load->helper('url_helper');
         $this->load->helper('vayes_helper');
-        $this->load->model("rol_model");
+        $this->load->model("Rol_model");
 
     }
 
@@ -28,8 +28,8 @@ class Tipo_documento extends CI_Controller
     {
 
         if ($this->session->userdata("login")) {
-			$data['data_tdoc'] = $this->tipo_documento_model->get_data();
-			$data['verifica'] = $this->rol_model->verifica();
+			$data['data_tdoc'] = $this->Tipo_documento_model->get_data();
+			$data['verifica'] = $this->Rol_model->verifica();
             $this->load->view('admin/header');
 			$this->load->view('admin/menu');
 			$this->load->view('crud/tipo_documento', $data);
@@ -50,7 +50,7 @@ class Tipo_documento extends CI_Controller
             'usu_creacion' => $usu_creacion,          
         );
         $this->db->insert('tramite.tipo_documento', $data);
-        redirect(base_url() . 'tipo_documento/nuevo/');
+        redirect(base_url() . 'Tipo_documento/nuevo/');
         } else {
             redirect(base_url());
         }
@@ -72,7 +72,7 @@ class Tipo_documento extends CI_Controller
             $this->db->update('tramite.tipo_documento', $data); 
 
 
-            redirect(base_url() . 'tipo_documento/nuevo/');           
+            redirect(base_url() . 'Tipo_documento/nuevo/');           
            
         } else {
             redirect(base_url());
@@ -98,7 +98,7 @@ class Tipo_documento extends CI_Controller
             );
             $this->db->where('tipo_documento_id', $ida);
             $this->db->update('tramite.tipo_documento', $data);          
-            redirect(base_url() . 'tipo_documento/nuevo/');
+            redirect(base_url() . 'Tipo_documento/nuevo/');
         } else {
             redirect(base_url());
         }

@@ -39,10 +39,10 @@
                                                 <td><?php echo $row->documento; ?></td>       
                                                 <td>                                           
                                                 <?php if (($row->activo)==1):?>
-                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('tipo_documento/delete'); ?>/<?php echo $row->tipo_documento_id; ?>"><button type="button" class="btn btn-success"><span class="fas fa-arrow-alt-circle-up" aria-hidden="true"></span> Activo</button></a>                                                          
+                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('Tipo_documento/delete'); ?>/<?php echo $row->tipo_documento_id; ?>"><button type="button" class="btn btn-success"><span class="fas fa-arrow-alt-circle-up" aria-hidden="true"></span> Activo</button></a>                                                          
                                                     <?php endif ?>
                                                     <?php if (($row->activo)==0):?>
-                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('tipo_documento/delete'); ?>/<?php echo $row->tipo_documento_id; ?>"><button type="button" class="btn btn-danger"><span class="fas fa-arrow-alt-circle-down" aria-hidden="true"></span> Inactivo</button></a>                                                          
+                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('Tipo_documento/delete'); ?>/<?php echo $row->tipo_documento_id; ?>"><button type="button" class="btn btn-danger"><span class="fas fa-arrow-alt-circle-down" aria-hidden="true"></span> Inactivo</button></a>                                                          
                                                     <?php endif ?>
                                                 </td>                                                                                                          
                                                 <td>
@@ -68,7 +68,7 @@
                                 <h4 class="modal-title" id="exampleModalLabel1">Insertar Nuevo Tipo de Documento</h4>
                             </div>
                             <div class="modal-body">                                
-                                    <?php echo form_open('tipo_documento/create', array('method'=>'POST', 'id'=>'insertar')); ?>
+                                    <?php echo form_open('Tipo_documento/create', array('method'=>'POST', 'id'=>'insertar')); ?>
                                     <div class="form-group">
                                         <label for="recipient-name" class="control-label">Documento</label>
                                         <input type="text" class="form-control" id="documento" name="documento">
@@ -89,7 +89,7 @@
                                 <h4 class="modal-title" id="exampleModalLabel1">Editar Tipo Documento</h4>
                             </div>
                             <div class="modal-body">                        
-                                <?php echo form_open('tipo_documento/update', array('method'=>'POST')); ?>                            
+                                <?php echo form_open('Tipo_documento/update', array('method'=>'POST')); ?>                            
                                 <div class="form-group">
                                     <input type="text" class="form-control" hidden="" id="tipo_documento_id_e" name="tipo_documento_id_e">
                                 </div>

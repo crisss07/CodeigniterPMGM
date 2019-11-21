@@ -79,7 +79,7 @@
                                   ?>
 
 
-                                <?php echo form_open('usuario/update', array('method'=>'POST', 'name'=>'f1')); ?>
+                                <?php echo form_open('Usuario/update', array('method'=>'POST', 'name'=>'f1')); ?>
                                     <h4 class="card-title">Men&uacute; Administrador</h4>
 
                                         
