@@ -50,12 +50,12 @@ class Login extends CI_Controller {
 	//****************************************************** Recibir el code de la URL que envia la AGETIC PASO (2) *******************************************************************\\
 		//$code 				= 	$_GET['code'];echo "El codigo de acceso:".$code."<br />";
 		//$state				= 	$_GET['state'];
-		$code 				=   "3dsGZEypqGEbB5KoS~UPwteUHhM"; 
+		$code 				=   "K0fyOOwOnihcP6AJQLV8HkuDcdZ"; 
 		//VARIABLE authorization
-		$secret             =	urlencode($code);
+		$secret             =	urlencode("WXqlbS8J+X92+1fx2QWzTR0JlT6QMwqKjDsm6j9o0C29WOjvL66kxganY+nNvQK+");
 		$client_id 			=	"68d55a97-cec0-45e7-b0d3-1a1b1eaedba2";
-		$variable_code		=   $secret.$client_id;
-		$Authorization		=	base64_encode($variable_code);
+		$variable_authorization		=   $secret.$client_id;
+		$Authorization		=	base64_encode(variable_authorization);
 		//VARIABLE grant_type
 		$grant_type 		= 	"authorization_code";
 		//VARIABLE redirect_uri
@@ -66,13 +66,13 @@ class Login extends CI_Controller {
 			curl_setopt($CURL, CURLOPT_HTTPHEADER, array(
 				'Content-Type  : application/x-www-form-urlencoded',
 				'Authorization : Basic'.$Authorization,
-				'grant_type    : authorization_code&code='.$code.'&redirect_uri=https://pmgm.oopp.gob.bo/testseicu/login/login'
+				'grant_type    = authorization_code&code='.$code.'&redirect_uri=https://pmgm.oopp.gob.bo/testseicu/login/login'
 			));
 			$dataAGETIC        	= 	curl_exec($CURL);
 			$informacionAGETIC 	= 	curl_getinfo($CURL);
-			CURl_close($CURL);
-			print_r(json_encode($informacionAGETIC));
-		
+									curl_close($CURL);
+			$hola = (array) $informacionAGETIC;
+			print_r($hola);
 		//print_r($array_AGETIC);
 		//$tokenAGETIC	   	=	$dataAGETIC_array['id_token'];	
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\\

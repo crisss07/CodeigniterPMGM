@@ -86,6 +86,7 @@
                         <div class="col-xs-12"> 
                            <!-- <a href="https://cuenta.ciudadaniadigital.agetic.gob.bo/auth?client_id=a477e307-081a-4c62-bbf7-f53b88821a46&scope=openid%20nombre%20documento_identidad%20fecha_nacimiento%20email%20celular&response_type=code&redirect_uri=https%3A%2F%2Fwww.gob.bo%2Fciudadania%2Foauth%2Flogin.html&state=ccfd68adbc85596452e709dd2e178a84&nonce=2c24f56fb65cb668c30edf12dbaff93f" class="btn btn-secondary col-xs-12" >INGRESAR CON AGETIC </a> -->
                             <a href="<?PHP ECHO $direccion; ?>" class="btn btn-secondary col-xs-12">INGRESAR CON AGETIC</a>
+                        <p>"<?PHP ECHO $direccion; ?>"</p>
                         </div>
                         <div class="col-xs-12"> 
                             <a href="http://localhost/CodeigniterPMGM/login/login" class="btn btn-secondary col-xs-12" >INGRESAR CON PRUEBA </a>
