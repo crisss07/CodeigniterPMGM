@@ -79,21 +79,23 @@ class Predios extends CI_Controller {
 			$persona_perfil = $this->db->query("SELECT * FROM persona_perfil WHERE persona_perfil_id = '$persona_perfil_id'")->row();
 			$perfil = $persona_perfil->perfil_id;
 
-					// $this->db->select(array('catastro.predio.fec_creacion', 'catastro.predio.codcatas', 'catastro.predio.nro_inmueble', 'catastro.zona_urbana.descripcion'));
-					// $this->db->join('catastro.zona_urbana', 'catastro.predio.zonaurb_id = catastro.zona_urbana.zonaurb_id');
-					// $this->db->join('catastro.predio_foto', 'catastro.predio_foto.codcatas=catastro.predio.codcatas');
-					$this->db->order_by('catastro.predio.fec_creacion', 'DESC');
-					$query = $this->db->get('catastro.predio');
-					// vdebug($this->db->last_query());
-					$data['listado_predios'] = $query->result();
-					$data['verifica'] = $this->rol_model->verifica();
-					//var_dump($usu_creacion);
+			// $this->db->select(array('catastro.predio.fec_creacion', 'catastro.predio.codcatas', 'catastro.predio.nro_inmueble', 'catastro.zona_urbana.descripcion'));
+			// $this->db->join('catastro.zona_urbana', 'catastro.predio.zonaurb_id = catastro.zona_urbana.zonaurb_id');
+			// $this->db->join('catastro.predio_foto', 'catastro.predio_foto.codcatas=catastro.predio.codcatas');
+			$this->db->order_by('catastro.predio.fec_creacion', 'DESC');
+			$this->db->limit(30);
+			$query = $this->db->get('catastro.predio');
+			// vdebug($this->db->last_query());
+			$data['listado_predios'] = $query->result_array();
 
-					$this->load->view('admin/header');
-					$this->load->view('admin/menu');
-					$this->load->view('predios/index', $data);
-					$this->load->view('admin/footer');
-					$this->load->view('predios/index_js');
+			$data['verifica'] = $this->rol_model->verifica();
+			//var_dump($usu_creacion);
+
+			$this->load->view('admin/header');
+			$this->load->view('admin/menu');
+			$this->load->view('predios/index', $data);
+			$this->load->view('admin/footer');
+			$this->load->view('predios/index_js');
 
 		}
 		else{
