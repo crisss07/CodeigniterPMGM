@@ -48,31 +48,24 @@ class Login extends CI_Controller {
 	public function login()
 	{	
 	//****************************************************** Recibir el code de la URL que envia la AGETIC PASO (2) *******************************************************************\\
-		//$code 				= 	$_GET['code'];echo "El codigo de acceso:".$code."<br />";
-		//$state				= 	$_GET['state'];
-	/*	$code 				=   "K0fyOOwOnihcP6AJQLV8HkuDcdZ"; 
-		//VARIABLE authorization
-		$secret             =	urlencode("WXqlbS8J+X92+1fx2QWzTR0JlT6QMwqKjDsm6j9o0C29WOjvL66kxganY+nNvQK+");
-		$client_id 			=	"68d55a97-cec0-45e7-b0d3-1a1b1eaedba2";
-		$variable_authorization		=   $secret.$client_id;
-		$Authorization		=	base64_encode(variable_authorization);
-		//VARIABLE grant_type
-		$grant_type 		= 	"authorization_code";
-		//VARIABLE redirect_uri
-		//$redirect_uri 		= 	"https://pmgm.oopp.gob.bo/testseicu/login/login";
+		$code 						= 	$_GET['code'];echo "El codigo de acceso:".$code."<br />";
+		$secret             		=	urlencode("WXqlbS8J+X92+1fx2QWzTR0JlT6QMwqKjDsm6j9o0C29WOjvL66kxganY+nNvQK+");
+		$client_id 					=	"68d55a97-cec0-45e7-b0d3-1a1b1eaedba2";
+		$variable_authorization		=   $secret.":".$client_id;
+		$Authorization				=	base64_encode($variable_authorization);
+		$CURL	 	=		curl_init	('https://account-idetest.agetic.gob.bo/token');
+							curl_setopt	($CURL, CURLOPT_RETURNTRANSFER, true);
+							curl_setopt	($CURL, CURLOPT_HTTPHEADER, array(
+								'Content-Type  : application/x-www-form-urlencoded',
+								'Authorization : Basic'.$Authorization,
+								'grant_type    = authorization_code&code='.$code.'&redirect_uri=https://pmgm.oopp.gob.bo/testseicu/login/login'
+							));
+				$dataAGETIC        	= 	curl_exec($CURL);
+				$informacionAGETIC 	= 	curl_getinfo($CURL);
+										curl_close($CURL);
+		echo "datos json";	
+		print_r(json_decode($dataAGETIC));
 
-		$CURL = curl_init('https://account-idetest.agetic.gob.bo/token');
-			curl_setopt($CURL, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($CURL, CURLOPT_HTTPHEADER, array(
-				'Content-Type  : application/x-www-form-urlencoded',
-				'Authorization : Basic'.$Authorization,
-				'grant_type    = authorization_code&code='.$code.'&redirect_uri=https://pmgm.oopp.gob.bo/testseicu/login/login'
-			));
-			$dataAGETIC        	= 	curl_exec($CURL);
-			$informacionAGETIC 	= 	curl_getinfo($CURL);
-									curl_close($CURL);
-			$hola = (array) $informacionAGETIC;
-			print_r($hola);*/
 		//print_r($array_AGETIC);
 		//$tokenAGETIC	   	=	$dataAGETIC_array['id_token'];	
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
@@ -88,11 +81,11 @@ class Login extends CI_Controller {
 		$usuarios_ciudadano_digital = curl_exec($cURLConnection);
 		curl_close($cURLConnection);
 		$usuario_autenticado_AGETIC = json_decode($usuarios_ciudadano_digital);
-		print_r($usuario_autenticado_AGETIC);*/
+		print_r($usuario_autenticado_AGETIC);
 
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
 
-		$usuario = $this->input->post("usuario");
+		/*$usuario = $this->input->post("usuario");
 		$contrasena = $this->input->post("contrasenia");
 		$contrasenia = md5($contrasena);
 		
@@ -129,7 +122,7 @@ class Login extends CI_Controller {
 			$this->session->set_userdata($data);
 			redirect(base_url()."Predios/index");
 			}
-		}
+		}*/
 	}
 
 	public function logout()
@@ -166,7 +159,7 @@ class Login extends CI_Controller {
 		$response_type 	= "code";
 		$redirecct_uri 	= "https://pmgm.oopp.gob.bo/testseicu/login/login";
 		$nonce          = $this->token_sistema(30);
-		$scope         	= "openid%20documento_identidad";
+		$scope         	= "scope=openid%20nombre%20documento_identidad%20email%20fecha_nacimiento%20celular";
 		$result 	   	= $url_receptor."response_type=".$response_type."&client_id=".$client_id."&state=".$state."&nonce=".$nonce."&redirect_
 		uri=".$redirecct_uri."&scope=".$scope;
 		return $result;
