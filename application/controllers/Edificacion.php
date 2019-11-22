@@ -91,7 +91,10 @@ class Edificacion extends CI_Controller
             $data['nro_bloque'] = $total_bloq;
             $data['anio_actual'] = $anio_act;
             $data['predio_id'] = $predio_id;
-            $data['estado_fis']  = array('Bueno', 'Regular', 'Malo','Muy Malo (En ruinas)');
+            //$data['estado_fis']  = array('Bueno', 'Regular', 'Malo','Muy Malo (En ruinas)');
+            $data['estado_fis']  = $this->Edificacion_model->get_estado();
+            //var_dump($this->Edificacion_model->get_estado());
+            //exit;
             $this->load->view('admin/header');
             $this->load->view('admin/menu');
             $this->load->view('bloque/bloque_nuevo', $data);
@@ -122,7 +125,7 @@ class Edificacion extends CI_Controller
             'predio_id' => $this->input->post('predio_id'), //input
             'nro_bloque' => $this->input->post('nro_bloque'), //crear
             'nom_bloque' => $this->input->post('nom_bloque'),
-            'estado_fisico' => $this->input->post('estado_fisico'),
+            'estado_id' => $this->input->post('estado_fisico'),
             'altura' => $this->input->post('altura'),
             'anio_cons' => $this->input->post('anio_cons'),
             'anio_remo' => $this->input->post('anio_remo'),
@@ -131,7 +134,7 @@ class Edificacion extends CI_Controller
             'uso_bloque_id' => $this->input->post('uso_bloque_id'),
             'activo' => '1',
             'tipolo_id' => '12', //no existe relacion en la bd
-            'usu_creacion' =>$usu_creacion //aun no captura el usuario
+            'usu_creacion' =>$usu_creacion //
         );
             $this->db->insert('catastro.bloque', $data);
             //fin de insercion de datos en la tabla bloque
@@ -153,13 +156,13 @@ class Edificacion extends CI_Controller
             $altura_p = $this->input->post('alturas');
             for ($j = 0; $j < count($id_tipo_planta); $j++) {
                 $bloque_piso = array(
-                'nro_bloque' => $this->input->post('nro_bloque'),
+                //'nro_bloque' => $this->input->post('nro_bloque'),
                 'nivel' => $nivel_a[$j],
                 'tipo_planta_id' => $id_tipo_planta[$j],
                 'superficie' => $superficie_a[$j],
                 'altura' => $altura_p[$j],
                 'bloque_id' => $bloque_id_form, //id del bloque nro x
-                'usu_creacion' =>$usu_creacion  //aun no captura el usuario
+                'usu_creacion' =>$usu_creacion  //
             );
                 $this->db->insert('catastro.bloque_piso', $bloque_piso);
             }
@@ -171,16 +174,16 @@ class Edificacion extends CI_Controller
             for ($i = 0; $i < $tam; $i++) {
                 $bloque_elem_cons = array(
                 'bloque_id' => $bloque_id_form, //cargar de la BD
-                'nro_bloque' => $this->input->post('nro_bloque'),
+                //'nro_bloque' => $this->input->post('nro_bloque'),
                 'grupo_mat_id' => $this->input->post($i . 'a'),
                 'mat_item_id' => $this->input->post($i . 'b'),
                 'cantidad' => $this->input->post($i . 'c'),
-                'usu_creacion' => $usu_creacion //aun no captura el usuario
+                'usu_creacion' => $usu_creacion //
             );
                 $this->db->insert('catastro.bloque_elemento_cons', $bloque_elem_cons);
             }
             // fin guardamos los servicios
-            redirect(base_url() . 'Edificacion/nuevo/' . $this->input->post('predio_id') .'/1');
+            redirect(base_url() . 'Edificacion/nuevo/' . $this->input->post('predio_id'));
            
         } else {
             redirect(base_url());
@@ -212,7 +215,7 @@ class Edificacion extends CI_Controller
             $data['tipo_planta'] = $this->Edificacion_model->get_tipo_planta();
             $data['cod_catastral'] = $this->Edificacion_model->get_cod_catastral($predio_id); 
             
-            $data['estado_fis']  = array('Bueno', 'Regular', 'Malo','Muy Malo (En ruinas)');
+            $data['estado_fis']  = $this->Edificacion_model->get_estado();
             $this->load->view('admin/header');
             $this->load->view('admin/menu');
             $this->load->view('bloque/bloque_edicion', $data);
@@ -322,14 +325,14 @@ class Edificacion extends CI_Controller
             $altura_p = $this->input->post('alturas');
             for ($j = 0; $j < count($id_tipo_planta); $j++) {
                 $bloque_piso = array(
-                'nro_bloque' => $this->input->post('nro_bloque'),
+                //'nro_bloque' => $this->input->post('nro_bloque'),
                 'nivel' => $nivel_a[$j],
                 'tipo_planta_id' => $id_tipo_planta[$j],
                 'superficie' => $superficie_a[$j],
                 'altura' => $altura_p[$j],
                 'bloque_id' => $bloque_id, //id del bloque nro x
-                'usu_creacion' => $usr_create, //aun no captura el usuario
-                'fec_creacion' => $fec_create, //aun no captura el usuario
+                'usu_creacion' => $usr_create, //
+                'fec_creacion' => $fec_create, //
                 'usu_modificacion' => $usu_modificacion, //input
                 'fec_modificacion' => $fec_modificacion, //input
             );
@@ -352,12 +355,12 @@ class Edificacion extends CI_Controller
             for ($i = 0; $i < $tam; $i++) {
                 $bloque_elem_cons = array(
                 'bloque_id' => $bloque_id, //cargar de la BD
-                'nro_bloque' => $this->input->post('nro_bloque'),
+                //'nro_bloque' => $this->input->post('nro_bloque'),
                 'grupo_mat_id' => $this->input->post($i . 'a'),
                 'mat_item_id' => $this->input->post($i . 'b'),
                 'cantidad' => $this->input->post($i . 'c'),
-                'usu_creacion' => $usr_create_c, //aun no captura el usuario
-                'fec_creacion' => $fec_create_c, //aun no captura el usuario
+                'usu_creacion' => $usr_create_c, //
+                'fec_creacion' => $fec_create_c, //
                 'usu_modificacion' => $usu_modificacion, //input
                 'fec_modificacion' => $fec_modificacion, //input
             );
