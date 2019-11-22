@@ -50,7 +50,7 @@ class Login extends CI_Controller {
 	//****************************************************** Recibir el code de la URL que envia la AGETIC PASO (2) *******************************************************************\\
 		//$code 				= 	$_GET['code'];echo "El codigo de acceso:".$code."<br />";
 		//$state				= 	$_GET['state'];
-		$code 				=   "K0fyOOwOnihcP6AJQLV8HkuDcdZ"; 
+	/*	$code 				=   "K0fyOOwOnihcP6AJQLV8HkuDcdZ"; 
 		//VARIABLE authorization
 		$secret             =	urlencode("WXqlbS8J+X92+1fx2QWzTR0JlT6QMwqKjDsm6j9o0C29WOjvL66kxganY+nNvQK+");
 		$client_id 			=	"68d55a97-cec0-45e7-b0d3-1a1b1eaedba2";
@@ -59,7 +59,7 @@ class Login extends CI_Controller {
 		//VARIABLE grant_type
 		$grant_type 		= 	"authorization_code";
 		//VARIABLE redirect_uri
-		$redirecct_uri 		= 	"https://pmgm.oopp.gob.bo/testseicu/login/login";
+		//$redirect_uri 		= 	"https://pmgm.oopp.gob.bo/testseicu/login/login";
 
 		$CURL = curl_init('https://account-idetest.agetic.gob.bo/token');
 			curl_setopt($CURL, CURLOPT_RETURNTRANSFER, true);
@@ -72,7 +72,7 @@ class Login extends CI_Controller {
 			$informacionAGETIC 	= 	curl_getinfo($CURL);
 									curl_close($CURL);
 			$hola = (array) $informacionAGETIC;
-			print_r($hola);
+			print_r($hola);*/
 		//print_r($array_AGETIC);
 		//$tokenAGETIC	   	=	$dataAGETIC_array['id_token'];	
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
@@ -92,7 +92,7 @@ class Login extends CI_Controller {
 
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
 
-		/*$usuario = $this->input->post("usuario");
+		$usuario = $this->input->post("usuario");
 		$contrasena = $this->input->post("contrasenia");
 		$contrasenia = md5($contrasena);
 		
@@ -129,7 +129,7 @@ class Login extends CI_Controller {
 			$this->session->set_userdata($data);
 			redirect(base_url()."Predios/index");
 			}
-		}*/
+		}
 	}
 
 	public function logout()
