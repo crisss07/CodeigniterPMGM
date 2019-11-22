@@ -83,7 +83,7 @@ class Predios extends CI_Controller {
 			// $this->db->join('catastro.zona_urbana', 'catastro.predio.zonaurb_id = catastro.zona_urbana.zonaurb_id');
 			// $this->db->join('catastro.predio_foto', 'catastro.predio_foto.codcatas=catastro.predio.codcatas');
 			$this->db->order_by('catastro.predio.fec_creacion', 'DESC');
-			$this->db->limit(30);
+			$this->db->limit(200);
 			$query = $this->db->get('catastro.predio');
 			// vdebug($this->db->last_query());
 			$data['listado_predios'] = $query->result_array();
