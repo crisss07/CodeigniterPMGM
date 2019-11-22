@@ -112,9 +112,7 @@ class Predios extends CI_Controller {
 				// $data = array(
 				// );
 				vdebug($datos['data']['codigo_catastral']);
-
 			}else{
-
 				$this->db->select('tipo_predio_id, descripcion');
 				$this->db->order_by('descripcion', 'ASC');
 				$this->db->where('activo', 1);
@@ -488,9 +486,9 @@ class Predios extends CI_Controller {
 			// vdebug($this->db->last_query());
 			$data['dc_tipos_predio'] = $query->result();
 
-			$this->db->select('zonaurb_id, descripcion');
-			$query = $this->db->get('catastro.zona_urbana');
-			$data['dc_zona_urbana'] = $query->result();
+			// $this->db->select('zonaurb_id, descripcion');
+			// $query = $this->db->get('catastro.zona_urbana');
+			// $data['dc_zona_urbana'] = $query->result();
 
 			// $this->db->select('via_id, codcatas');
 			// $query = $this->db->get('catastro.predio_via');
@@ -520,9 +518,9 @@ class Predios extends CI_Controller {
 			$query = $this->db->get('catastro.uso_suelo');
 			$data['dc_uso_suelo'] = $query->result();
 
-			$this->db->select('edificio_id, descripcion');
-			$query = $this->db->get('catastro.edificio');
-			$data['dc_edificio'] = $query->result();
+			// $this->db->select('edificio_id, descripcion');
+			// $query = $this->db->get('catastro.edificio');
+			// $data['dc_edificio'] = $query->result();
 
 			$this->db->select('servicio_id, descripcion');
 			$query = $this->db->get('catastro.servicio');

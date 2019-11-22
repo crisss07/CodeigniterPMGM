@@ -34,4 +34,5 @@ public/assets/images/tramites/
 public/assets/files/predios/
 
 # archivos phpintel
-.phpintel/
+.phpintel/*
+.phpintel/index
