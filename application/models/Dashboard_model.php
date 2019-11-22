@@ -50,6 +50,23 @@ class Dashboard_model extends CI_Model {
         return $data;
 
     }
+
+    public function get_tramite_concluido_mes($mes)
+    {        
+     
+        $data=$this->db->query("SELECT count(DISTINCT d.tramite_id) as total_fin FROM tramite.tramite t
+            LEFT JOIN tramite.derivacion d
+            on t.tramite_id=d.tramite_id
+            where EXTRACT(MONTH FROM t.fecha) =$mes AND d.orden>=5");
+        return $data->row();
+    }
+
+     public function get_inspeccion_mes($mes,$year){  
+        $this->db->select('count(EXTRACT(MONTH FROM fec_creacion)) as total_ins');
+        $data=$this->db->get_where('inspeccion.inspeccion',array('EXTRACT(MONTH FROM fec_creacion) =' => $mes,'EXTRACT(YEAR FROM fec_creacion) =' => $year))->row();
+        return $data;
+    }  
+
 }
 
 ?>
