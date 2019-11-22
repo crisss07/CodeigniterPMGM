@@ -35,7 +35,7 @@ class Dashboard_model extends CI_Model {
     public function get_data_predios()
     {        
     	$this->db->select('count(predio) as total_predios');
-        $data=$this->db->get_where('catastro.predio',array('activo >=' => 3 ))->row();
+        $data=$this->db->get_where('catastro.predio',array('activo >=' => 1 ))->row();
         return $data;
     }
     

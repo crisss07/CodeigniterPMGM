@@ -7,11 +7,13 @@ class Reportes_model extends CI_Model {
         $this->load->database();
     }   
     function get_data($id) {//obtiene los datos de la tabla tipo_documento en array result
-        $query = $this->db->query("SELECT p.*,u.descripcion as desc_ubi FROM catastro.predio p
-LEFT JOIN
-catastro.ubicacion u
-on p.ubicacion_id=u.ubicacion_id
-where predio_id=$id");
+        $query = $this->db->query("SELECT p.*,u.descripcion as desc_ubi,d.* FROM catastro.predio p
+            LEFT JOIN
+            catastro.ubicacion u
+            on p.ubicacion_id=u.ubicacion_id
+            LEFT JOIN catastro.direccion d
+            on p.direccion_id=d.direccion_id
+            where predio_id=$id");
         return $query->row();
     }
     
@@ -25,6 +27,4 @@ on t.persona_id=c.persona_id
 WHERE p.predio_id=$id");
         return $query->result();
     }
-
-
 }

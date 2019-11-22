@@ -165,15 +165,16 @@ class Reporteseicu extends CI_Controller
         ini_set('memory_limit','1024M');
 
 
-        $data['data_bloques'] = $this->db->query("SELECT b.*,d.descripcion,u.descripcion as uso FROM catastro.bloque b
+        $data['data_bloques'] = $this->db->query("SELECT b.*,d.descripcion,e.descripcion as estado_fisico_des,u.descripcion as uso FROM catastro.bloque b
 LEFT JOIN
 catastro.destino_bloque d
 on b.destino_bloque_id=d.destino_bloque_id
 LEFT JOIN
 catastro.uso_bloque u
 on b.uso_bloque_id=u.uso_bloque_id
-
-
+LEFT JOIN
+catastro.estado e
+on b.estado_id=e.estado_id
 WHERE predio_id=$id ORDER BY b.nro_bloque")->result(); 
     
 

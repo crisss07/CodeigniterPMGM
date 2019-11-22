@@ -198,45 +198,29 @@
         echo $keys->nombres_pro;
         ?>
         <br>
-
        <?php  } ?>
-
-
-        <p>
-       
+        <p>       
         NOMBRE DE VIA <br>
-        Calle San jose <br><p>
-
-        USO DEL INMUEBLE   <br>
-        Particular<br>
-       
-      </td>  
-       
-        <td align="left"  class="titulo" height="0">
-        
+        <?php echo $datos_predio->calle ?><br><p>
+        <br>       
+      </td> 
+        <td align="left"  class="titulo" height="0">        
      CI:<br>
         <?php foreach ($propietarios as $k) {
         echo $k->ci;
         ?>
         <br>
-
        <?php  } ?>
         <br>
         N° <br>
         <?php echo $datos_predio->nro_inmueble ?> <br><p>  
-
-        ESTADO DEL INMUEBLE <br>
-        BUENO
-      
-
-      
-    
+        <br>
 
       </td>
 
         <td align="center"  class="titulo_tres" height="0"  width="35%">
           VISTA FOTOGRAFICA <br>
-      <img src="<?php echo base_url(); ?>public/assets/images/reportes/fachada.jpg" alt="Logo" width="350"  class="logo"/>
+      <img src="<?php echo base_url(); ?>public/assets/images/reportes/nodisponible.jpeg" alt="Logo" width="200"  class="logo"/>
       </td>  
   </tr>
 
@@ -260,14 +244,14 @@
       </td> 
         <td align="center"  class="titulo_tres" height="0"  width="60%"  rowspan="3">
           PLANO CATASTRAL <br>
-      <img src="<?php echo base_url(); ?>public/assets/images/reportes/predio.png" alt="Logo" width="350"  class="logo"/>
+      <img src="<?php echo base_url(); ?>public/assets/images/reportes/nodisponible.jpeg" alt="Logo" width="200"  class="logo"/>
       </td>  
   </tr>
 
       <tr>     
       <td align="left"  class="titulo" height="0">
-       SE EXPIDE EL SIGUIENTE CERTIFICADO A SOLICITUD DE: <br>   
-       HERNAN YUCRA MASIAS <br>   
+      <!-- SE EXPIDE EL SIGUIENTE CERTIFICADO A SOLICITUD DE: <br>   
+       HERNAN YUCRA MASIAS <br>   -->
       </td> 
   
   </tr>
@@ -313,7 +297,7 @@
                     <td><?php echo $row->nro_bloque; ?></td>                                                      
                     <td><?php echo $row->nom_bloque; ?></td> 
                    
-                    <td><?php echo $row->estado_fisico; ?></td>    
+                    <td><?php echo $row->estado_fisico_des; ?></td>    
                      <td><?php echo $row->altura; ?></td> 
                          <td><?php echo $row->descripcion; ?></td> 
                              <td><?php echo $row->uso; ?></td> 
@@ -331,7 +315,7 @@
  <table width="100%">     
       <tr >   
       <td align="justify"  class="titulo" height="0">
-      NOTA.- Se aclara, que la manzana S-968 pertenece a la codificación ANTIGUA, actualmente corresponde a la manzana <?php echo $datos_predio->manzana ?> de acuerdo al Plano General del Área Urbana de Cbba aprobado según Ley Municipal 0159/2016 del 2/09/2016 <br> <p></p> La presente certificación no define el derecho Propietario.
+      NOTA.- La presente certificación no define el derecho Propietario.
         es cuanto se certifica para fines consiguientes.
       </td>       
   </tr>
