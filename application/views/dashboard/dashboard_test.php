@@ -243,7 +243,7 @@
             "data":{"labels":["Ingresados","Concluidos"],
             "datasets":[{
                             "label":"Mes: ",
-                            "data":[80,57],
+                            "data":[<?php echo $data_tram_ini_ant->mes ?>,<?php echo $data_tram_fin_ant->total_fin ?>],
                             "fill":false,
                             "backgroundColor":["rgba(61, 171, 199, 1)","rgba(74, 191, 113, 1)"],
                            
@@ -260,10 +260,10 @@
             "type":"line",
             "data":{"labels":["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
             "datasets":[{
-                            "label":"Tramites por Mes",
-                            "data":<?php echo $data_tramites; ?>,
+                            "label":"Inspecciones por Mes",
+                            "data":<?php echo $data_inspecciones; ?>,
                             "fill":false,
-                            "borderColor":"rgb(86, 192, 216)",
+                            "borderColor":"rgb(198, 85, 83, 1)",
                             "borderDash": [5, 5],
                             "lineTension":0.1
                         }]
@@ -272,7 +272,7 @@
             responsive: true,
                 title: {
                     display: true,
-                    text: 'Chart.js Line Chart'
+                    text: ''
                 },
                 tooltips: {
                     mode: 'index',
@@ -287,14 +287,14 @@
                         display: true,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Month'
+                            labelString: 'Mes'
                         }
                     }],
                     yAxes: [{
                         display: true,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Value'
+                            labelString: 'Valor'
                         }
                     }]
                 }
