@@ -85,7 +85,7 @@
                                                         <td scope="row"><?php echo $cod_catastral; ?></td>
                                                         <td><?php echo $row->nro_bloque; ?></td>
                                                         <td><?php echo $row->nom_bloque; ?></td>
-                                                        <td><?php echo $row->estado_fisico; ?></td>
+                                                        <td><?php echo $row->descripcion; ?></td>
                                                         <td><?php echo $row->anio_cons; ?></td>
                                                         <td><?php echo $row->altura; ?></td>
                                                         <td><?php echo $row->desc_bloque_dest; ?></td>

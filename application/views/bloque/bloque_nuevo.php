@@ -490,7 +490,7 @@
                                             <label for="wfirstName2">Estado Fisico : <span class="text-danger"> *  <small> </small> </span> </label>
                                             <select class="custom-select form-control" id="estado_fisico" name="estado_fisico" required>                                            
                                                 <?php foreach ($estado_fis as $ef) : ?>                                             
-                                                <option value="<?php echo $ef; ?>"><?php echo $ef; ?></option>                                            
+                                                <option value="<?php echo $ef->estado_id; ?>"><?php echo $ef->descripcion; ?></option>                                            
                                                 <?php endforeach; ?>
                                             </select>
                                             <!--<input type="text" class="form-control"  id="estado_fisico" name="estado_fisico"  required>-->
