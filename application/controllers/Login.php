@@ -13,7 +13,7 @@ class Login extends CI_Controller {
   
 		$this->load->model("Persona_model");
 		$this->load->helper('form');
-
+		$this->load->helper('vayes_helper');
          
         // load url helper
         $this->load->helper('url');
@@ -29,6 +29,7 @@ class Login extends CI_Controller {
 		}
 		else{
 			$datos['direccion'] = $url_AGETIC = $this->url_emisor(); 
+			// vdebug($datos['direccion'], true, false, false);
 			$this->load->view('login/login', $datos);	
 		}	
 	}
@@ -50,7 +51,7 @@ class Login extends CI_Controller {
 	//****************************************************** Recibir el code de la URL que envia la AGETIC PASO (2) *******************************************************************\\
 		//$code 				= 	$_GET['code'];echo "El codigo de acceso:".$code."<br />";
 		//$state				= 	$_GET['state'];
-	/*	$code 				=   "K0fyOOwOnihcP6AJQLV8HkuDcdZ"; 
+		$code 				=   "K0fyOOwOnihcP6AJQLV8HkuDcdZ"; 
 		//VARIABLE authorization
 		$secret             =	urlencode("WXqlbS8J+X92+1fx2QWzTR0JlT6QMwqKjDsm6j9o0C29WOjvL66kxganY+nNvQK+");
 		$client_id 			=	"68d55a97-cec0-45e7-b0d3-1a1b1eaedba2";
@@ -72,7 +73,7 @@ class Login extends CI_Controller {
 			$informacionAGETIC 	= 	curl_getinfo($CURL);
 									curl_close($CURL);
 			$hola = (array) $informacionAGETIC;
-			print_r($hola);*/
+			print_r($hola);
 		//print_r($array_AGETIC);
 		//$tokenAGETIC	   	=	$dataAGETIC_array['id_token'];	
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
@@ -166,9 +167,8 @@ class Login extends CI_Controller {
 		$response_type 	= "code";
 		$redirecct_uri 	= "https://pmgm.oopp.gob.bo/testseicu/login/login";
 		$nonce          = $this->token_sistema(30);
-		$scope         	= "openid%20documento_identidad";
-		$result 	   	= $url_receptor."response_type=".$response_type."&client_id=".$client_id."&state=".$state."&nonce=".$nonce."&redirect_
-		uri=".$redirecct_uri."&scope=".$scope;
+		$scope         	= "openid%20documento_identidad%20nombre%20fecha_nacimiento%20celular%20email";
+		$result 	   	= $url_receptor."response_type=".$response_type."&client_id=".$client_id."&state=".$state."&nonce=".$nonce."&redirect_uri=".$redirecct_uri."&scope=".$scope;
 		return $result;
 	}
 
