@@ -50,7 +50,7 @@ class ApiRest_model extends CI_Model {
             LEFT JOIN
             tramite.tramite t on i.tramite_id=t.tramite_id
             LEFT JOIN
-            persona p on t.solicitante_id=p.persona_id where i.persona_id=63 and i.activo=1");
+            persona p on t.solicitante_id=p.persona_id where i.persona_id=$id and i.activo=1");
         return $query->result_array();
     }
 
@@ -85,6 +85,19 @@ WHERE d.tramite_id=$id order by d.orden ASC");
          $this->db->select('token');
         $query = $this->db->get_where('credencial',array('token' => $token));
         return $query->row();
+    }
+
+
+
+    function data_login($usuario, $contrasenia)
+    {         
+        $resultado = $this->db->query("SELECT c.usuario,s.* FROM credencial c
+LEFT JOIN persona_perfil p
+on c.persona_perfil_id=p.persona_perfil_id
+LEFT JOIN persona s
+on p.persona_id=s.persona_id
+WHERE c.usuario='$usuario' and c.contrasenia='$contrasenia' and c.activo=1");
+        return $resultado->result_array();
     }
 
 
