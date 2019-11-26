@@ -101,8 +101,7 @@ RIGHT JOIN
 				 $this->db->where('derivacion_id', $query->derivacion_id);
 				 $this->db->update('tramite.derivacion', array('estado'=>0));
 
-				 $orden=$query->orden;
-				
+				 $orden=$query->orden;			
 
 				 $destino=$this->Inspecciones_model->organigrama_id( $destino);	
 
