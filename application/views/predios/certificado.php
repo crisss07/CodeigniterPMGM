@@ -100,14 +100,13 @@
                             <div class="text-black" style="font-size: 28pt;">CODIGO CATASTRAL:  <?php print_r($predio[0]->codcatas); ?></div>
                         </div>
                     </div>
-                    <?php $fotof = $fotos[0]->foto_fachada; ?>
-                    <?php $fotop = $fotos[0]->foto_plano_ubi; ?>
 
                     Segun plan de URBANIZACION aprobado en fecha 16/05/2018 mediante R.M. No. 338/2014 de 21/10/2014 se tiene la siguiente informacion:
                     <table class="d-print-table">
                         <tr>
                             <td style="width: 610px;">
-                                <img src="<?php echo base_url("/public/assets/files/predios/$fotop"); ?>" style="width: 610px;">
+                                <?php if ($fotos==0){$imagen_plano="";}else{$fotop = $fotos[0]->foto_plano_ubi; $imagen_plano=base_url("/public/assets/files/predios/".$fotop);}?>
+                                <img src="<?php echo $imagen_plano; ?>" style="width: 610px;">                            
                                 <?php
                                     // $foto_bytea_ubi = pg_unescape_bytea($predio[0]->foto_plano_ubi); 
                                     // $foto_64_ubi = base64_encode($foto_bytea_ubi);
@@ -121,8 +120,12 @@
                                     // $foto_64_fachada = base64_encode($foto_bytea_fachada);
                                 ?>
                                 <?php //echo "<img src='data:image/jpeg;base64, $foto_64_fachada' width='350px' />"; ?>
-                                <img src="<?php echo base_url("/public/assets/files/predios/$fotof"); ?>" style="width: 610px;">
-                                <br />FOTO DE FACHADA
+                                    <?php if ($fotos==0){$imagen_fachada="";}else{$fotof = $fotos[0]->foto_fachada; $imagen_fachada=base_url("/public/assets/files/predios/".$fotof);}?>
+                                    <img src="<?php $imagen_fachada ?>" style="width: 610px;">
+
+                                    <input type="file" id="input-file-now" class="dropify" name="foto_plano" data-allowed-file-extensions="png jpg jpeg" data-default-file="<?php echo $imagen_plano; ?>" />
+                                
+                                    <br />FOTO DE FACHADA
                             </td>
                             <td>
                                 <div class="text-black" style="font-size: 18pt; text-decoration: underline;">DATOS TECNICOS</div>

@@ -179,7 +179,7 @@
                                                 <label for="longintud"> Longitud : <span class="text-danger">*</span> </label>
                                                 <!-- <input type="text" class="form-control" id="longitud" name="longitud">  -->
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" name="longitud" id="longitud" maxlength="13" value="<?php echo $latlong[1]; ?>" required />
+                                                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" name="longitud" id="longitud" maxlength="13" value="<?php echo $latlong[0]; ?>" required />
                                                     <div class="input-group-append">
                                                         <button class="btn btn-warning" type="button" id="google_maps" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="muestra_mapa();">Mapa</button>
                                                     </div>
@@ -431,9 +431,6 @@
                                     </div>
 
                                     <div class="col-md-3">
-                                        <?php $fotof = $fotos[0]->foto_fachada; ?>
-                                        <?php $fotop = $fotos[0]->foto_plano_ubi; ?>
-
                                         <div class="card">
                                             <div class="card-body">
                                                 <h4 class="card-title">Foto Plano</h4>
@@ -443,7 +440,8 @@
                                                 </button>
                                                     OJO Solo imagenes
                                                 </label>
-                                                <input type="file" id="input-file-now" class="dropify" name="foto_plano" data-allowed-file-extensions="png jpg jpeg" data-default-file="<?php echo base_url("/public/assets/files/predios/$fotof"); ?>" />
+                                                    <?php if ($fotos==0){$imagen_plano="";}else{$fotop = $fotos[0]->foto_plano_ubi; $imagen_plano=base_url("/public/assets/files/predios/".$fotop);}?>
+                                                    <input type="file" id="input-file-now" class="dropify" name="foto_plano" data-allowed-file-extensions="png jpg jpeg" data-default-file="<?php echo $imagen_plano; ?>" />                                               
                                             </div>
                                         </div>
                                         <div class="card">
@@ -455,7 +453,8 @@
                                                 </button>
                                                     OJO Solo imagenes
                                                 </label>
-                                                <input type="file" id="input-file-now" class="dropify" name="foto_fachada" data-allowed-file-extensions="png jpg jpeg" data-default-file="<?php echo base_url("/public/assets/files/predios/$fotop"); ?>" required />
+                                                <?php if ($fotos==0){$imagen_fachada="";}else{$fotof = $fotos[0]->foto_fachada; $imagen_fachada=base_url("/public/assets/files/predios/".$fotof);}?>
+                                                <input type="file" id="input-file-now" class="dropify" name="foto_fachada" data-allowed-file-extensions="png jpg jpeg" data-default-file="<?php echo $imagen_fachada ?>" required />
                                             </div>
                                         </div>
 
