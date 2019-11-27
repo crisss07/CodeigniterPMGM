@@ -89,9 +89,11 @@ class Restserver extends CI_Controller{
 
     public function listramite_get(){
         $this->load->model("ApiRest_model");
-        $token = $this->get('token');
 
-        $user = array('respuesta' => $this->ApiRest_model->getlistadotramite());        
+        $token = $this->get('token');       
+        $message = array('respuesta'=>'','mensaje' => 'Acceso denegado','bool'=>'FALSE');
+        if($this->ApiRest_model->verify_token_get($token)){
+            $user = array('respuesta' => $this->ApiRest_model->getlistadotramite());        
         if($user)
         {
             $this->response( $user, 200); // 200 being the HTTP response code
@@ -100,6 +102,21 @@ class Restserver extends CI_Controller{
         {
             $this->response(NULL, 404);
         }
+        }
+
+
+         else{
+            $this->response($message, 404);
+        } 
+
+
+
+
+
+
+        
+
+        
     }
 
     public function listarequisitos_get(){
@@ -168,14 +185,15 @@ class Restserver extends CI_Controller{
     public function derivacionst_get(){
         $id = $this->get('id');
         $token = $this->get('token');
-        $this->load->model("ApiRest_model");
- 
-        $message = array('mensaje' => 'Acceso denegado');
-        $datos_nulos = array('estado' => 'asd','mensaje'=>'No se encontraron datos');
+        $this->load->model("ApiRest_model"); 
+        $message = array('mensaje' => 'Acceso denegado','bool'=>'FALSE');
+
+        if($this->ApiRest_model->verify_token_get($token)){
+            $datos_nulos = array('estado' => 'asd','mensaje'=>'No se encontraron datos');
        
-            $user = array('estado' => $this->ApiRest_model->derivacion($id),'mensaje'=>'Datos encontrados ','bool'=>'TRUE');
+            $user = array('estado' => $this->ApiRest_model->derivacion($id),'mensaje'=>'Datos encontrados ','datos_solicitante'=> $this->ApiRest_model->get_datos_tramite($id),'bool'=>'TRUE');
             if(!$this->ApiRest_model->derivacion($id)){
-                $user = array('estado' => $this->ApiRest_model->derivacion($id),'mensaje'=>'No se encontraron datos','bool'=>'FALSE');
+                $user = array('estado' => $this->ApiRest_model->derivacion($id),'mensaje'=>'No se encontraron datos','datos_solicitante'=> $this->ApiRest_model->get_datos_tramite($id),'bool'=>'FALSE');
             }
             if($user)
             {
@@ -187,9 +205,10 @@ class Restserver extends CI_Controller{
                 $this->response($message, 404);
             }
 
-       
-              
-        
+        }
+        else{
+            $this->response($message, 404);
+        }          
     }
 
 
@@ -197,12 +216,14 @@ class Restserver extends CI_Controller{
     {
         $username = $this->get('username');
         $password = $this->get('password');  
-
-      
-        //$username = 'adm';
-        //$password = 'adm';
+        $token = $this->get('token'); 
+        $message = array('mensaje' => 'Acceso denegado','bool'=>'FALSE');      
+       
         $this->load->model("ApiRest_model");
-        $user = array('respuesta' => $this->ApiRest_model->data_login($username,md5($password)),'mensaje'=>'Datos encontrados ','bool'=>'TRUE','usuario'=>$username,'password'=>$password);
+
+         if($this->ApiRest_model->verify_token_get($token)){
+
+            $user = array('respuesta' => $this->ApiRest_model->data_login($username,md5($password)),'mensaje'=>'Datos encontrados ','bool'=>'TRUE','usuario'=>$username,'password'=>$password);
         if(!$this->ApiRest_model->data_login($username,md5($password))){
                 $user = array('respuesta' =>  $this->ApiRest_model->data_login($username,md5($password)),'mensaje'=>'No se encontraron datos','bool'=>'FALSE','password'=>$password,'usuario'=>$username);
             }
@@ -215,6 +236,44 @@ class Restserver extends CI_Controller{
         {
             $this->response(NULL, 404);
         }
+
+
+        }
+         else{
+            $this->response($message, 404);
+        }
+
+
+        
+    }
+    //datos certificado
+      public function certificado_get(){
+        $id = $this->get('id');
+        $token = $this->get('token');
+        $this->load->model("ApiRest_model"); 
+        $message = array('mensaje' => 'Acceso denegado','bool'=>'FALSE');
+
+        if($this->ApiRest_model->verify_token_get($token)){
+            
+       
+            $user = array('mensaje'=>'Datos encontrados ','datos_propietario'=> $this->ApiRest_model->data_prop_cert($id),'datos_cert'=> $this->ApiRest_model->data_cert($id),'bool'=>'TRUE');
+            if(!$this->ApiRest_model->data_prop_cert($id)){
+                $user = array('mensaje'=>'No se encontraron datos','datos_propietario'=> $this->ApiRest_model->data_prop_cert($id),'datos_cert'=> $this->ApiRest_model->data_cert($id),'bool'=>'FALSE');
+            }
+            if($user)
+            {
+                $this->response( $user, 200); // 200 being the HTTP response code
+            } 
+            else
+            {
+               
+                $this->response($message, 404);
+            }
+
+        }
+        else{
+            $this->response($message, 404);
+        }          
     }
 
 

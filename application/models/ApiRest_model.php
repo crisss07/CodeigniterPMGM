@@ -77,7 +77,9 @@ LEFT JOIN persona k
 on p.persona_id=k.persona_id
 LEFT JOIN persona j
 on o.persona_id=j.persona_id
-WHERE d.tramite_id=$id order by d.orden ASC");
+LEFT JOIN tramite.tramite t
+on d.tramite_id=t.tramite_id
+WHERE t.cite='$id' order by d.orden ASC");
         return $query->result_array();
     }
 
@@ -86,6 +88,14 @@ WHERE d.tramite_id=$id order by d.orden ASC");
         $query = $this->db->get_where('credencial',array('token' => $token));
         return $query->row();
     }
+
+     function get_datos_tramite($id) {//asignacion de inspecciones
+         $this->db->select("remitente, concat(EXTRACT(DAY from fecha),'-' ,EXTRACT(month from fecha),'-' ,EXTRACT(year from fecha)  )as fecha ");
+        $query = $this->db->get_where('tramite.tramite',array('activo' => 1,'tramite_id'=>$id));
+        return $query->result_array();
+    }
+
+
 
 
 
@@ -100,24 +110,41 @@ WHERE c.usuario='$usuario' and c.contrasenia='$contrasenia' and c.activo=1");
         return $resultado->result_array();
     }
 
+    function verify_token_get($key) {//asignacion de inspecciones
+         $valida = TRUE;
+         $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhcGxpY2F0aXZvIG1vdmlsIEMmUSIsIm5hbWUiOiJwbWdtIiwiaWF0IjoxNTE2MjM5MDIyfQ.AYW_ytVmok75p3zIjWTtMkBQkOq3okx0bHTTdYMI13w';
+
+         if($key!=$token){
+            $valida=FALSE;
+         }
+         return $valida;       
+    }
+
+    ///datos del certificado
+    function data_prop_cert($id)
+    {         
+        $resultado = $this->db->query("SELECT o.ci,concat(o.nombres,' ',o.paterno,' ',o.materno) as nombre FROM documento.certificado c
+            LEFT JOIN catastro.predio_ddrr p
+            on c.predio_id=p.predio_id
+            LEFT JOIN catastro.predio_titular e
+            on p.ddrr_id=e.ddrr_id
+            LEFT JOIN persona o
+            on o.persona_id=e.persona_id
+            WHERE c.codigo_seguridad='$id' LIMIT 1");
+        
+        return $resultado->result_array();
+
+    }
+
+    function data_cert($id)
+    {         
+        $resultado = $this->db->query("SELECT c.vigencia_final,c.vigencia_inicial,t.descripcion FROM documento.certificado c
+LEFT JOIN documento.tipo_certificado t
+on c.tipo_certificado_id=t.tipo_certificado_id
+
+WHERE c.codigo_seguridad='$id' and c.activo=1");
+        return $resultado->result_array();
+    }
 
 
-    /*
-    SELECT d.fuente,d.destino,p.persona_id as p_f,o.persona_id as p_d,concat(k.nombres,' ',k.paterno,' ',k.materno) as per_fuente,concat(j.nombres,' ',j.paterno,' ',j.materno) as per_destino,c.descripcion as cargo_fuente,e.descripcion as cargo_destino
-FROM
-tramite.derivacion d
-LEFT JOIN tramite.organigrama_persona p
-on p.organigrama_persona_id=d.fuente
-LEFT JOIN tramite.organigrama_persona o
-on o.organigrama_persona_id=d.destino
-LEFT JOIN tramite.cargo c
-on p.cargo_id=c.cargo_id
-LEFT JOIN tramite.cargo e
-on o.cargo_id=e.cargo_id
-LEFT JOIN persona k
-on p.persona_id=k.persona_id
-LEFT JOIN persona j
-on o.persona_id=j.persona_id
-WHERE d.tramite_id=230 order by d.orden ASC
-    */
 }
