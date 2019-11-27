@@ -120,10 +120,9 @@ class Predios extends CI_Controller {
 				
 				$data['dc_tipos_predio'] = $query->result();
 
-				$this->db->select('zonaurb_id, descripcion');
-				$this->db->order_by('descripcion', 'ASC');
+				$this->db->select('direccion_id, calle, zona, numero, edificio');
 				$this->db->where('activo', 1);
-				$query = $this->db->get('catastro.zona_urbana');
+				$query = $this->db->get('catastro.direccion');
 				$data['dc_zona_urbana'] = $query->result();
 
 				// $this->db->select('via_id, codcatas');
@@ -167,10 +166,10 @@ class Predios extends CI_Controller {
 				$query = $this->db->get('catastro.uso_suelo');
 				$data['dc_uso_suelo'] = $query->result();
 
-				$this->db->select('edificio_id, descripcion');
+				$this->db->select('estado_id, descripcion');
 				$this->db->order_by('descripcion', 'ASC');
 				$this->db->where('activo', 1);
-				$query = $this->db->get('catastro.edificio');
+				$query = $this->db->get('catastro.estado');
 				$data['dc_edificio'] = $query->result();
 
 				$this->db->select('servicio_id, descripcion');
@@ -353,24 +352,28 @@ class Predios extends CI_Controller {
 	public function certificado($predio_id = null){
 		if($this->session->userdata("login")){
 
-		// $data['predio']=$this->db->get_where('catastro.predio', array('codcatas'=>$predio_id))->result();
-		$this->db->select('*');
-		$this->db->from('catastro.predio');
-		$this->db->where('catastro.predio.predio_id', $predio_id);
-		$this->db->join('catastro.predio_foto', 'catastro.predio_foto.predio_id=catastro.predio.predio_id');
-		//$this->db->join('catastro.predio_ddrr', 'catastro.predio_ddrr.codcatas=catastro.predio.codcatas');
-		$data['predio'] = $this->db->get()->result();
-
+			// $data['predio']=$this->db->get_where('catastro.predio', array('codcatas'=>$predio_id))->result();
+		$query_predio 	 = 		$this->db->select('*');
+		$query_predio 	 = 		$this->db->from('catastro.predio');
+		//$query_predio 	 = 		$this->db->where('catastro.predio.predio_id', $predio_id);
+		//$query_predio 	 = 		$this->db->join('catastro.predio_foto', 'catastro.predio_foto.predio_id=catastro.predio.predio_id');
+		$query_predio 	 = 		$this->db->get();
+		$consulta_predio = 		$query_predio->result();
+		$data['predio']  = 		$consulta_predio;	
 		$data['ddrr']= $this->db->query("SELECT * FROM catastro.predio_ddrr as pd WHERE pd.predio_id = '$predio_id'")->row();
 		$data['personas'] =$this->db->query("SELECT p.nombres, p.paterno, p.materno FROM catastro.predio_ddrr as pd JOIN catastro.predio_titular as pt ON pd.ddrr_id = pt.ddrr_id JOIN persona as p ON pt.persona_id=p.persona_id WHERE pt.activo=1 AND pd.predio_id = '$predio_id'")->result();
 
-		$data['bloques'] = $this->db->query("SELECT y.bloque_id,y.predio_id,y.nro_bloque,y.nom_bloque,y.estado_fisico,y.altura,y.anio_cons,y.anio_remo,y.porcentaje_remo,y.destino_bloque_id,z.descripcion as desc_bloque_dest,y.uso_bloque_id,x.descripcion as desc_bloque_uso FROM catastro.bloque as y LEFT JOIN catastro.uso_bloque as x on x.uso_bloque_id=y.uso_bloque_id LEFT JOIN catastro.destino_bloque as z on z.destino_bloque_id=y.destino_bloque_id WHERE y.activo=1 and x.activo=1 and z.activo=1 and y.predio_id='$predio_id' order by y.nro_bloque asc")->result();
+		$data['bloques'] = $this->db->query("SELECT y.bloque_id,y.predio_id,y.nro_bloque,y.nom_bloque,y.estado_id,y.altura,y.anio_cons,y.anio_remo,y.porcentaje_remo,y.destino_bloque_id,z.descripcion as desc_bloque_dest,y.uso_bloque_id,x.descripcion as desc_bloque_uso FROM catastro.bloque as y LEFT JOIN catastro.uso_bloque as x on x.uso_bloque_id=y.uso_bloque_id LEFT JOIN catastro.destino_bloque as z on z.destino_bloque_id=y.destino_bloque_id WHERE y.activo=1 and x.activo=1 and z.activo=1 and y.predio_id='$predio_id' order by y.nro_bloque asc")->result();
 
-		// print_r($this->db->last_query());
-		// vdebug($data);
-		$this->db->where('predio_id', $predio_id);
-		$data['fotos'] = $this->db->get('catastro.predio_foto')->result();
-
+		$queryf = $this->db->from('catastro.predio_foto');
+		$queryf = $this->db->where('predio_id', $predio_id);
+		$queryf = $this->db->get();
+		$fotos_predio = $queryf->result();
+		if(empty($fotos_predio)){
+			$data['fotos'] = 0;
+		}else{
+			$data['fotos'] = $this->db->get('catastro.predio_foto')->result();
+		}
 		$this->load->view('admin/header');
 		$this->load->view('admin/menu');
 		$this->load->view('predios/certificado', $data);
@@ -438,19 +441,30 @@ class Predios extends CI_Controller {
 	}
 
 	public function editar($cod_catastral = null){
-
 		if($this->session->userdata("login")){
-			$data = $this->datos_combo();
 			
-			$this->db->where('predio_id', $cod_catastral);
-			$data['predio'] = $this->db->get('catastro.predio')->result();
-			// vdebug($data, true, false, true);
+			$data  = $this->datos_combo();
+			$query = $this->db->where('predio_id', 2);
+			$query = $this->db->from('catastro.predio');
+			$query = $this->db->get();
+			$seleccionar_predio = $query->result();
+			$data['predio'] =$seleccionar_predio;
+			//vdebug($data, true, false, true);
 
 			$this->db->where('predio_id', $cod_catastral);
-			$data['servicios'] = $this->db->get('catastro.predio_servicios')->result();
+			$buscar_predio_servicio=$this->db->get('catastro.predio_servicios')->result();
+			$data['servicios'] = $buscar_predio_servicio;
 
-			$this->db->where('predio_id', $cod_catastral);
-			$data['fotos'] = $this->db->get('catastro.predio_foto')->result();
+			$queryf = $this->db->from('catastro.predio_foto');
+			$queryf = $this->db->where('predio_id', $cod_catastral);
+			$queryf = $this->db->get();
+			$fotos_predio = $queryf->result();
+			if(empty($fotos_predio)){
+				$data['fotos'] = 0;
+			}else{
+				$data['fotos'] = $this->db->get('catastro.predio_foto')->result();
+			}
+
 			// vdebug($data['fotos'], true, false, true);
 
 
