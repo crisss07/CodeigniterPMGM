@@ -26,10 +26,9 @@ class Prueba extends CI_Controller {
 
         $id = $this->db->query("SELECT *
                                 FROM persona
-                                WHERE ci = '9112739'")->row();
-        // var_dump($id);
-        // exit();
-
+                                WHERE ci = '1661111'")->row();
+        $data1 = json_encode($id);
+        
         $nombres = 'CRISPIN';
         $paterno = 'HERRERA';
         $materno = 'PONGO';
@@ -51,12 +50,13 @@ class Prueba extends CI_Controller {
             'telefono_fijo' => $telefono_fijo,
             'telefono_celular' => $telefono_celular
             );
+        $data2 = json_encode($dato1);
         // $this->db->insert('persona', $array);
         $tabla = 'persona';
 
-        // $lista = $this->Auditoria_Model->auditoria_insertar($dato1, $tabla);
-        // $lista = $this->Auditoria_Model->auditoria_modificar($id, $dato1, $tabla);
-        $lista = $this->Auditoria_Model->auditoria_eliminar($dato1, $tabla);
+        $lista = $this->Auditoria_Model->auditoria_insertar(json_encode($dato1), $tabla);
+        //$lista = $this->Auditoria_Model->auditoria_modificar($data1, $data2, $tabla);
+        //$lista = $this->Auditoria_Model->auditoria_eliminar($data1, $tabla);
        
         
     }

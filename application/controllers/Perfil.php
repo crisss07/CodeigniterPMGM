@@ -126,7 +126,7 @@ class Perfil extends CI_Controller {
 	            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
 	            $usu_creacion = $resi->persona_id;
 
-	            $lista['verifica'] = $this->rol_model->verifica();
+	            $lista['verifica'] = $this->Rol_model->verifica();
 				$lista['perfil_id'] =  $this->uri->segment(3);
 				
 				$this->load->view('admin/header');
