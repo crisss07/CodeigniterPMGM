@@ -145,6 +145,12 @@ on c.tipo_certificado_id=t.tipo_certificado_id
 WHERE c.codigo_seguridad='$id' and c.activo=1");
         return $resultado->result_array();
     }
+     function valido_cert($id)
+    {         
+        $resultado = $this->db->query("SELECT count(certificado_id) as valido FROM documento.certificado
+WHERE vigencia_final>=now() and codigo_seguridad='$id' and activo=1");
+        return $resultado->result_array();
+    }
 
 
 }
