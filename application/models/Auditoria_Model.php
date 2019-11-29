@@ -11,7 +11,7 @@ class Auditoria_Model extends CI_Model {
 		
 	}
 
-	public function auditoria_insertar($dato1, $tabla)
+	public function auditoria_insertar($data1, $tabla)
 	{	
 		// DATOS DE LA PERSONA
 		$id = $this->session->userdata("persona_perfil_id");
@@ -27,10 +27,6 @@ class Auditoria_Model extends CI_Model {
 
         // DATOS DE LA IP
 		$ip = $this->Auditoria_Model->ip();
-		$con = '';
-		foreach ($dato1 as $valor) {
-			$con = $con.'||'.$valor;
-		}
 
 		$array = array(
 			'entidad' =>$tabla,
@@ -38,7 +34,7 @@ class Auditoria_Model extends CI_Model {
 			'persona_id' =>$persona_id,
 			'fecha' =>$fecha,
 			'ip' =>$ip,
-			'dato' =>$con,
+			'dato' =>$data1,
 			'activo' =>1,
 			'usu_creacion' =>$id
 			);
@@ -46,7 +42,7 @@ class Auditoria_Model extends CI_Model {
 
 	}
 
-	public function auditoria_modificar($dato1, $dato2, $tabla)
+	public function auditoria_modificar($data1, $data2, $tabla)
 	{	
 		// DATOS DE LA PERSONA
 		$id = $this->session->userdata("persona_perfil_id");
@@ -59,17 +55,7 @@ class Auditoria_Model extends CI_Model {
         // DATOS DE LA IP
         $ip = $this->Auditoria_Model->ip();
 
-        $con1 = '';
-        $con2 = '';
-		foreach ($dato1 as $valor1) {
-			$con1 = $con1.'||'.$valor1;
-		}
-
-		foreach ($dato2 as $valor2) {
-			$con2 = $con2.'||'.$valor2;
-		}
-
-		$datos = 'ANTIGUO: '.$con1.' || NUEVO '.$con2;
+		$datos = 'ANTIGUO: '.$data1.' || NUEVO: '.$data2;
 
 		$array = array(
 			'entidad' =>$tabla,
@@ -85,25 +71,19 @@ class Auditoria_Model extends CI_Model {
 
 	}
 
-	public function auditoria_eliminar($dato1, $tabla)
+	public function auditoria_eliminar($data1, $tabla)
 	{	
 		// DATOS DE LA PERSONA
 		$id = $this->session->userdata("persona_perfil_id");
         $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
         $persona_id = $resi->persona_id;
        
-       var_dump($persona_id);
-        exit();
        // DATOS DE LA FECHA
         $fecha = date("Y-m-d H:i:s");
 
         // DATOS DE LA IP
 		$ip = $this->Auditoria_Model->ip();
 
-		$con1 = '';
-		foreach ($dato1 as $valor1) {
-			$con1 = $con1.'||'.$valor1;
-		}
 
 		$array = array(
 			'entidad' =>$tabla,
@@ -111,7 +91,7 @@ class Auditoria_Model extends CI_Model {
 			'persona_id' =>$persona_id,
 			'fecha' =>$fecha,
 			'ip' =>$ip,
-			'dato' =>$con1,
+			'dato' =>$data1,
 			'activo' =>1,
 			'usu_creacion' =>$id
 			);
