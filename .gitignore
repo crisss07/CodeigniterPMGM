@@ -36,3 +36,5 @@ public/assets/files/predios/
 # archivos phpintel
 .phpintel/*
 .phpintel/index
+
+application/config/database.php
