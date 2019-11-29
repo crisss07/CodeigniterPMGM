@@ -65,6 +65,7 @@
                 
                 <!--<form class="form-horizontal form-material" action="<?php echo base_url();?>login/login" method="POST">-->
                 <?php echo form_open('Login/login', array('class'=>'form-horizontal form-material', 'method'=>'POST')); ?>
+                <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
                     <h3 class="box-title mb-3">Inicia Sesi&oacute;n</h3>
                     <div class="form-group ">
                         <div class="col-xs-12">

@@ -17,8 +17,8 @@ class Login extends CI_Controller {
          
         // load url helper
         $this->load->helper('url');
-		$this->load->model("usuario_model");
-		$this->load->model("logacceso_model");
+		$this->load->model("Usuario_model");
+		$this->load->model("Logacceso_model");
 	}
 
 	public function index()
@@ -108,17 +108,25 @@ class Login extends CI_Controller {
 		$contrasena = $this->input->post("contrasenia");
 		$contrasenia = md5($contrasena);
 		
-		$res = $this->usuario_model->login($usuario, $contrasenia);
+		$res = $this->Usuario_model->login($usuario, $contrasenia);
 		if (!$res) {
 			redirect(base_url());
 		}
 		else{
-
-			$iddd = $this->db->query("SELECT pf.*, p.*
+			/*$iddd = $this->db->query("SELECT pf.*, p.*
 									FROM persona_perfil pf, perfil p
 									WHERE pf.persona_perfil_id = '$res->persona_perfil_id'
 									AND p.perfil_id = pf.perfil_id
 									AND p.perfil = 'Beneficiario'")->row();
+			var_dump($iddd);*/
+
+			$this->db->select('persona_perfil.*, perfil.*');
+	        $this->db->from('persona_perfil');
+	        $this->db->where('persona_perfil.persona_perfil_id', $res->persona_perfil_id);
+	        $this->db->join('perfil', 'persona_perfil.perfil_id = perfil.perfil_id');
+	        $this->db->where('perfil.perfil', 'Beneficiario');
+	        $query1 = $this->db->get();
+	        $iddd = $query1->row();
 
 			if ($iddd) {
 					$data = array(
@@ -150,13 +158,13 @@ class Login extends CI_Controller {
 		$ultimo = $this->db->query("SELECT MAX(logacceso_id) FROM logacceso")->row();
 		$logacceso_id = $ultimo->max;
 		$acceso_fin = date("Y-m-d H:i:s");
-		$actualizar = $this->logacceso_model->fecha_salida($logacceso_id, $acceso_fin);
+		$actualizar = $this->Logacceso_model->fecha_salida($logacceso_id, $acceso_fin);
 		redirect(base_url());
 	}
 
 	public function algo()
 	{
-		$this->logacceso_model->inactividad();
+		$this->Logacceso_model->inactividad();
 	}
 
 	public function token_sistema ($longitud){
@@ -168,7 +176,7 @@ class Login extends CI_Controller {
 	}
 
 	public function verificar_usuario_cYq ($cedula_identidad){
-		$verificar_usuario = $this->usuario_model->verificar_persona_sistema($cedula_identidad);
+		$verificar_usuario = $this->Usuario_model->verificar_persona_sistema($cedula_identidad);
 	}
 	
 	public function url_emisor(){

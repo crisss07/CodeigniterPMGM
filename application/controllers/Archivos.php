@@ -29,7 +29,7 @@ class Archivos extends CI_Controller {
 		if($this->session->userdata("login")){
 			// $lista['verifica'] = $this->rol_model->verifica();
 			// $lista['zona_urbana'] = $this->zona_urbana_model->index();
-			$lista['predios'] = $this->db->get_where('catastro.predio')->result();
+			/*$lista['predios'] = $this->db->get_where('catastro.predio')->result();
 			
 			foreach ($lista['predios'] as $val) {
 					$car = FCPATH.'public/assets/archivos/'.$val->codcatas.'-'.$val->predio_id;
@@ -39,16 +39,18 @@ class Archivos extends CI_Controller {
 
 			    		$nombre = $val->codcatas.'-'.$val->predio_id;
 						$array = array(
+						'padre' => 0,
 						'nombre' =>$nombre,
 						'descripcion1' =>'descripcion1',
 						'descripcion2' =>'descripcion2',
 						'predio_id' =>$val->predio_id,
+						'nivel' => 1,
 						'activo' =>1,
 						'carpeta' => 'carpeta'
 						);
-						$vari = $this->db->insert('archivo.raiz', $array);
+						$vari = $this->db->insert('archivo.archivo', $array);
 					}
-			}
+			}*/
 
 			$listass['predios'] = $this->db->get_where('archivo.archivo' , array('padre' => '0', 'nivel' => '1', 'activo' => '1'))->result();
 			$this->load->view('admin/header');
