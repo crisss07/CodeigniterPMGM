@@ -191,9 +191,9 @@ class Restserver extends CI_Controller{
         if($this->ApiRest_model->verify_token_get($token)){
             $datos_nulos = array('estado' => 'asd','mensaje'=>'No se encontraron datos');
        
-            $user = array('estado' => $this->ApiRest_model->derivacion($id),'mensaje'=>'Datos encontrados ','datos_solicitante'=> $this->ApiRest_model->get_datos_tramite($id),'bool'=>'TRUE');
+            $user = array('estado' => $this->ApiRest_model->derivacion($id),'mensaje'=>'Datos encontrados ','datos_solicitante'=> $this->ApiRest_model->get_datos_tramite(230),'bool'=>'TRUE');
             if(!$this->ApiRest_model->derivacion($id)){
-                $user = array('estado' => $this->ApiRest_model->derivacion($id),'mensaje'=>'No se encontraron datos','datos_solicitante'=> $this->ApiRest_model->get_datos_tramite($id),'bool'=>'FALSE');
+                $user = array('estado' => $this->ApiRest_model->derivacion($id),'mensaje'=>'No se encontraron datos','datos_solicitante'=> $this->ApiRest_model->get_datos_tramite(230),'bool'=>'FALSE');
             }
             if($user)
             {
@@ -250,7 +250,7 @@ class Restserver extends CI_Controller{
       public function certificado_get(){
         $id = $this->get('id');
         $token = $this->get('token');
-        $validez='Certificado No Valido';
+        $validez='CERTIFICADO NO VALIDO';
         $this->load->model("ApiRest_model"); 
         $message = array('mensaje' => 'Acceso denegado','bool'=>'FALSE');
 
@@ -258,9 +258,16 @@ class Restserver extends CI_Controller{
 
         if($this->ApiRest_model->verify_token_get($token)){
             $valido=$this->ApiRest_model->valido_cert($id);
+           
+
+            
+
             if($valido=1){
-                $validez='Certificado Valido';
+                $validez='CERTIFICADO VALIDO';
             }
+
+            
+             
             $user = array('mensaje'=>'Datos encontrados ','datos_propietario'=> $this->ApiRest_model->data_prop_cert($id),'datos_cert'=> $this->ApiRest_model->data_cert($id),'bool'=>'TRUE','Valido'=>$validez);
             if(!$this->ApiRest_model->data_prop_cert($id)){
                 $user = array('mensaje'=>'No se encontraron datos','datos_propietario'=> $this->ApiRest_model->data_prop_cert($id),'datos_cert'=> $this->ApiRest_model->data_cert($id),'bool'=>'FALSE','Valido'=>$validez);

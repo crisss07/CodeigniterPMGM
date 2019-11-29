@@ -150,6 +150,7 @@ WHERE c.codigo_seguridad='$id' and c.activo=1");
         $resultado = $this->db->query("SELECT count(certificado_id) as valido FROM documento.certificado
 WHERE vigencia_final>=now() and codigo_seguridad='$id' and activo=1");
         return $resultado->result_array();
+
     }
 
 
