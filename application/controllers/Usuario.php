@@ -7,9 +7,10 @@ class Usuario extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->library('session');
-		$this->load->model("usuario_model");
+		$this->load->model("Usuario_model");
 		$this->load->model("rol_model");
 		$this->load->model("tramite/OrganigramaP_model");
+		$this->load->model("Auditoria_Model");
 	}
 
 	
@@ -26,7 +27,7 @@ class Usuario extends CI_Controller {
 		if($this->session->userdata("login")){
 
 			$lista['verifica'] = $this->rol_model->verifica();
-			$lista['usuario'] = $this->usuario_model->index();
+			$lista['usuario'] = $this->Usuario_model->index();
 
 			// var_dump($lista['usuario']);
 			
@@ -211,8 +212,8 @@ class Usuario extends CI_Controller {
 
 			$datos = $this->input->post();
 
-			// var_dump($datos);
-			// exit();
+			 //var_dump($datos);
+			 //exit();
 			
 			$estado = $datos['estados'];
 			if ($estado == 'registrado') {
@@ -228,7 +229,7 @@ class Usuario extends CI_Controller {
 
 				// INSERTAR PERFIL
 				$perfil_id = $datos['perfil_id'];
-				$this->usuario_model->insertar_persona_perfil($persona_id, $perfil_id);
+				$this->Usuario_model->insertar_persona_perfil($persona_id, $perfil_id);
 				// HASTA AQUI
 
 				// SACAR EL ULTIMO REGISTRO DE PERSONA PERFIL
@@ -240,8 +241,14 @@ class Usuario extends CI_Controller {
 				$usuario = $datos['usuario'];
 				$contrasenia = $datos['contrasenia'];
 				$pass_cifrado = md5($contrasenia);
-				$this->usuario_model->insertar_credencial($persona_perfil_id, $rol_id, $usuario, $pass_cifrado);
+				$this->Usuario_model->insertar_credencial($persona_perfil_id, $rol_id, $usuario, $pass_cifrado);
 				// HASTA AQUI
+
+				//AUDITORIA INSERTAR
+				$tabla = 'public.credencial';
+				$ultimoId = $this->db->query("SELECT MAX(credencial_id) as max FROM public.credencial")->row();
+				$datac = $this->db->get_where('public.credencial', array('credencial_id' => $ultimoId->max))->row();
+				$this->Auditoria_Model->auditoria_insertar(json_encode($datac), $tabla);
 			}
 			else{
 
@@ -251,7 +258,14 @@ class Usuario extends CI_Controller {
 				$materno = $datos['maternos'];
 				$ci = $datos['ci'];
 				$fec_nacimiento = $datos['fec_nacimientos'];
-				$this->usuario_model->insertar_usuario($nombres, $paterno, $materno, $ci, $fec_nacimiento);
+				$this->Usuario_model->insertar_usuario($nombres, $paterno, $materno, $ci, $fec_nacimiento);
+
+				//AUDITORIA INSERTAR
+				$tabla = 'public.persona';
+				$ultimoId = $this->db->query("SELECT MAX(persona_id) as max FROM public.persona")->row();
+				$data1 = $this->db->get_where('public.persona', array('persona_id' => $ultimoId->max))->row();
+				$this->Auditoria_Model->auditoria_insertar(json_encode($data1), $tabla);
+
 
 				$id = $this->db->get_where('persona', array('ci' => $ci))->row();
 				 // HASTA AQUI
@@ -268,7 +282,7 @@ class Usuario extends CI_Controller {
 
 				// INSERTAR PERFIL
 				$perfil_id = $datos['perfil_id'];
-				$this->usuario_model->insertar_persona_perfil($persona_id, $perfil_id);
+				$this->Usuario_model->insertar_persona_perfil($persona_id, $perfil_id);
 				// HASTA AQUI
 
 				// SACAR EL ULTIMO REGISTRO DE PERSONA PERFIL
@@ -280,8 +294,14 @@ class Usuario extends CI_Controller {
 				$usuario = $datos['usuario'];
 				$contrasenia = $datos['contrasenia'];
 				$pass_cifrado = md5($contrasenia);
-				$this->usuario_model->insertar_credencial($persona_perfil_id, $rol_id, $usuario, $pass_cifrado);
+				$this->Usuario_model->insertar_credencial($persona_perfil_id, $rol_id, $usuario, $pass_cifrado);
 				// HASTA AQUI
+
+				//AUDITORIA INSERTAR
+				$tabla = 'public.credencial';
+				$ultimoId = $this->db->insert_id();
+				$datac = $this->db->get_where('public.credencial', array('credencial_id' => $ultimoId))->row();
+				$this->Auditoria_Model->auditoria_insertar(json_encode($datac), $tabla);
 
 			}
 
@@ -453,12 +473,13 @@ class Usuario extends CI_Controller {
 		    							WHERE credencial_id = '$credencial_id'")->row();
 		    $pass = $cre_id->contrasenia;
 		    if ($contrasenia == $pass) {
-		    	$actualizar = $this->usuario_model->actualizar_usuario($credencial_id, $persona_perfil_id, $perfil_id, $rol_id, $usuario, $contrasenia);
+		    	$actualizar = $this->Usuario_model->actualizar_usuario($credencial_id, $persona_perfil_id, $perfil_id, $rol_id, $usuario, $contrasenia);
+
 		    }
 		    else
 		    {
 		    	$pass_cif = md5($contrasenia);
-		    	$actualizar = $this->usuario_model->actualizar_usuario($credencial_id, $persona_perfil_id, $perfil_id, $rol_id, $usuario, $pass_cif);
+		    	$actualizar = $this->Usuario_model->actualizar_usuario($credencial_id, $persona_perfil_id, $perfil_id, $rol_id, $usuario, $pass_cif);
 
 		    }
 

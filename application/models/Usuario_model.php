@@ -135,6 +135,7 @@ class Usuario_model extends CI_Model {
         $this->db->where('persona_perfil_id', $persona_perfil_id);
         return $this->db->update('public.persona_perfil', $data1);
 	}
+	
 	public function verificar_persona_sistema($cedula_identidad){
 		$this->db->select('public.persona.ci, public.persona.nombres, public.persona.paterno, public.persona.materno, public.perfil.perfil');
 		$this->db->from  ('public.persona');

@@ -8,6 +8,7 @@ class Archivos extends CI_Controller {
 		parent::__construct();
 		$this->load->library('session');
 		$this->load->model("Archivos_Model");
+		$this->load->model("Auditoria_Model");
 		$this->load->model("rol_model");
         $this->load->helper('vayes_helper');
         $this->load->helper(array('form', 'url'));
@@ -88,6 +89,12 @@ class Archivos extends CI_Controller {
 					mkdir($car, 0777, true);
 
 					$this->Archivos_Model->insertarraiz($nombre, $descripcion1, $descripcion2, $carpeta);
+					//AUDITORIA
+					$tabla = 'archivo.archivo';
+					$ultimoId = $this->db->insert_id();
+					$data1 = $this->db->get_where('archivo.archivo', array('archivo_id' => $ultimoId))->row();
+					$this->Auditoria_Model->auditoria_insertar(json_encode($data1), $tabla);
+
 					redirect('Archivos');
 				}
 
@@ -135,8 +142,8 @@ class Archivos extends CI_Controller {
 			$ant = $nom->nombre;
 			$nombre = $this->input->post('nombre');
 
-			$veri = $this->db->get_where('archivo.archivo', array('archivo_id' => $archivo_id))->row();
-			$confirma = $this->db->get_where('archivo.archivo', array('nombre' => $nombre, 'padre' => $veri->padre, 'activo' => '1'))->row();
+			$data1 = $this->db->get_where('archivo.archivo', array('archivo_id' => $archivo_id))->row();
+			$confirma = $this->db->get_where('archivo.archivo', array('nombre' => $nombre, 'padre' => $data1->padre, 'activo' => '1'))->row();
 			   
 			if ($confirma) {
 				$padree = $confirma->padre;
@@ -167,7 +174,13 @@ class Archivos extends CI_Controller {
 			
 			    rename($antiguo, $nuevo);
 			    
-			    $actualizar = $this->Archivos_Model->actualizarraiz($archivo_id, $nombre, $descripcion1, $descripcion2, $carpeta);
+			    $this->Archivos_Model->actualizarraiz($archivo_id, $nombre, $descripcion1, $descripcion2, $carpeta);
+
+			    //AUDITORIA
+				$tabla = 'archivo.archivo';
+				$data2 = $this->db->get_where('archivo.archivo', array('archivo_id' => $archivo_id))->row();
+				$this->Auditoria_Model->auditoria_modificar(json_encode($data1), json_encode($data2), $tabla);
+
 			  	$padreee = $nom->padre;
 				if ($padreee == '0') {
 					redirect('Archivos');
@@ -182,16 +195,19 @@ class Archivos extends CI_Controller {
 		}
 	}
 	
-	
 
 	public function eliminarraiz($id)
 	{
 		if($this->session->userdata("login")){
 		 	// $id = $this->input->post("id");
 		 	$this->Archivos_Model->eliminarraiz($id);
-		 	$nom = $this->db->get_where('archivo.archivo', array('archivo_id' => $id))->row();
-		 	$url = $nom->nombre;
-		 	$padre = $nom->padre;
+		 	//AUDITORIA
+			$tabla = 'archivo.archivo';
+			$data1 = $this->db->get_where('archivo.archivo', array('archivo_id' => $id))->row();
+			$this->Auditoria_Model->auditoria_eliminar(json_encode($data1), $tabla);
+
+		 	$url = $data1->nombre;
+		 	$padre = $data1->padre;
 		 	$base =FCPATH.'public/assets/archivos/';
 				while($padre!=0) {
 					$var = $this->db->get_where('archivo.archivo', array('archivo_id' => $padre))->row();
@@ -201,11 +217,11 @@ class Archivos extends CI_Controller {
 			$eliminar = $base.$url;
    			rmdir($eliminar);
 
-   			if ($nom->padre == '0') {
+   			if ($data1->padre == '0') {
 				redirect('Archivos');
 			}
 			else{
-				redirect('Archivos/ingresar/'.$nom->padre);
+				redirect('Archivos/ingresar/'.$data1->padre);
 			}
 		}
 		else{
