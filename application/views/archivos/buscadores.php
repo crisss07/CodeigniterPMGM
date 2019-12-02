@@ -145,7 +145,7 @@
                                     <?php } ?>   
                                    
 
-                                    <?php foreach ($documento as $pre2) {
+                                    <?php foreach ($documentos as $pre2) {
                                         $imagen = 'public/assets/images/archivo/'.$pre2->carpeta.'.jpg';
                                         $datos1 = $pre2->documentos_id."||".
                                                  $pre2->nombre."||".
@@ -168,7 +168,7 @@
                                                                 <ul class="el-info">
                                                                     <?php 
                                                                        
-                                                                        $url1 = substr($pre2->url, 2);  // devuelve "cde"02-10-2018
+                                                                        $url1 = substr($pre2->url, 2);  // devuelve 
                                                                         $varr = base_url().$url1.'/'.$pre2->adjunto.'.'.$pre2->extension; 
                                                                         $supervar = urldecode($varr);
                                                                     ?>

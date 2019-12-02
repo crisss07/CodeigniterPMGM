@@ -91,8 +91,8 @@ class Archivos extends CI_Controller {
 					$this->Archivos_Model->insertarraiz($nombre, $descripcion1, $descripcion2, $carpeta);
 					//AUDITORIA
 					$tabla = 'archivo.archivo';
-					$ultimoId = $this->db->insert_id();
-					$data1 = $this->db->get_where('archivo.archivo', array('archivo_id' => $ultimoId))->row();
+					$ultimoId = $this->db->query("SELECT MAX(archivo_id) as max FROM archivo.archivo")->row();
+					$data1 = $this->db->get_where('archivo.archivo', array('archivo_id' => $ultimoId->max))->row();
 					$this->Auditoria_Model->auditoria_insertar(json_encode($data1), $tabla);
 
 					redirect('Archivos');
@@ -286,6 +286,13 @@ class Archivos extends CI_Controller {
 				mkdir($concatenado, 0777, true);
 
 				$this->Archivos_Model->insertarhijo($nombre, $descripcion1, $descripcion2, $carpeta, $archivo_id);
+
+				//AUDITORIA
+				$tabla = 'archivo.archivo';
+				$ultimoId = $this->db->query("SELECT MAX(archivo_id) as max FROM archivo.archivo")->row();
+				$data1 = $this->db->get_where('archivo.archivo', array('archivo_id' => $ultimoId->max))->row();
+				$this->Auditoria_Model->auditoria_insertar(json_encode($data1), $tabla);
+
 				redirect('Archivos/ingresar/'.$archivo_id);
 				}
 			}
@@ -376,16 +383,6 @@ class Archivos extends CI_Controller {
 				$descripcion2 = $datos['descripcion2'];
 				$adjunto = $datos['nombre'];
 
-
-				// $nombrer = $this->db->query("SELECT *
-				// 							FROM archivo.raiz
-				// 							WHERE raiz_id = $raiz_id")->row();
-				// $nombre_raiz = $nombrer->nombre;
-
-				// $this->Archivos_Model->insertardocumento($nombre, $descripcion1, $descripcion2, $raiz_id, $carpeta, $adjunto);
-
-
-
 				$nom = $this->db->get_where('archivo.archivo', array('archivo_id' => $archivo_id))->row();
 			 	$url = $nom->nombre;
 			 	$padre = $nom->padre;
@@ -429,6 +426,12 @@ class Archivos extends CI_Controller {
 								$url1 = $concatenado;
 
 								$this->Archivos_Model->insertardocumentoh($nombre, $descripcion1, $descripcion2, $archivo_id, $carpeta, $adjunto, $extension, $url1);
+								//AUDITORIA
+								$tabla = 'archivo.documentos';
+								$ultimoId = $this->db->query("SELECT MAX(documentos_id) as max FROM archivo.documentos")->row();
+								$data1 = $this->db->get_where('archivo.documentos', array('documentos_id' => $ultimoId->max))->row();
+								$this->Auditoria_Model->auditoria_insertar(json_encode($data1), $tabla);
+
 								redirect('Archivos/ingresar/'.$archivo_id);
 							}
 						}
@@ -474,6 +477,11 @@ class Archivos extends CI_Controller {
 		    
 		    $actualizar = $this->Archivos_Model->actualizardocumento($documentos_id, $nombre, $descripcion1, $descripcion2, $adjunto);
 
+		    //AUDITORIA
+			$tabla = 'archivo.documentos';
+			$data2 = $this->db->get_where('archivo.documentos', array('documentos_id' => $documentos_id))->row();
+			$this->Auditoria_Model->auditoria_modificar(json_encode($nom_ant), json_encode($data2), $tabla);
+
 			redirect('Archivos/ingresar/'.$archivo_id);
 
 
@@ -500,6 +508,11 @@ class Archivos extends CI_Controller {
 	        unlink($concatenado);//PARA ELIMINAR UN ARCHIVO
 
 		 	$this->Archivos_Model->eliminardocumento($id);
+
+		 	//AUDITORIA
+			$tabla = 'archivo.documentos';
+			$this->Auditoria_Model->auditoria_eliminar(json_encode($nom), $tabla);
+
 		    redirect('Archivos/ingresar/'.$nom->archivo_id);
 		}
 		else{
@@ -519,16 +532,16 @@ class Archivos extends CI_Controller {
 		$bus['archivo'] = $this->db->query("SELECT *
 									FROM archivo.archivo
 									WHERE nombre like '%$buscador%'
+									AND activo = 1
 									OR descripcion1 like '%$buscador%'
-									OR descripcion2 like '%$buscador%' 
-									AND activo = 1")->result();
+									OR descripcion2 like '%$buscador%'")->result();
 
-		$bus['documento'] = $this->db->query("SELECT *
+		$bus['documentos'] = $this->db->query("SELECT *
 									FROM archivo.documentos
-									WHERE nombre like '%$buscador%'
+									WHERE nombre like '%$buscador%' 
+									AND activo = 1
 									OR descripcion1 like '%$buscador%'
-									OR descripcion2 like '%$buscador%' 
-									AND activo = 1")->result();
+									OR descripcion2 like '%$buscador%'")->result();
 
 		$this->load->view('admin/header');
 		$this->load->view('admin/menu');
@@ -548,8 +561,6 @@ class Archivos extends CI_Controller {
 		$prueba = $this->db->get_where('archivo.archivo', array('nombre' => $criss, 'descripcion1' => $criss, 'descripcion2' => $criss, 'activo' => '1'))->row();
 		var_dump($prueba);
 		exit();
-
-
 
 			$nombre_archivo = $datos['nombre_archivo'];
 			$nombre = $datos['nombre'];
