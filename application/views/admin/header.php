@@ -293,25 +293,30 @@
                     <!-- ============================================================== -->
                     <!-- User profile and search -->
                     <!-- ============================================================== -->
+
+                    <?php
+                            $id = $this->session->userdata("persona_perfil_id");
+                            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+                            $dato = $resi->persona_id;
+                            $res = $this->db->get_where('persona', array('persona_id' => $dato))->row();
+
+                            $credencial = $this->db->get_where('credencial', array('persona_perfil_id' => $id))->row();
+                            $avartar = $credencial->avartar;
+                     ?>
                     <ul class="navbar-nav my-lg-0">
                         <li class="nav-item hidden-sm-down">
                             <form class="app-search">
                                 <input type="text" class="form-control" placeholder="Buscar"> <a class="srh-btn"><i class="ti-search"></i></a> </form>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?php echo base_url(); ?>public/assets/images/users/perfil.jpg" alt="user" class="profile-pic" /></a>
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?php echo base_url(); ?>public/assets/images/users/<?php echo $avartar ?>" alt="user" class="profile-pic" /></a>
                             <div class="dropdown-menu dropdown-menu-right animated flipInY">
                                 <ul class="dropdown-user">
                                     <li>
                                         <div class="dw-user-box">
-                                            <div class="u-img"><img src="<?php echo base_url(); ?>public/assets/images/users/perfil.jpg" alt="user"></div>
+                                            <div class="u-img"><img src="<?php echo base_url(); ?>public/assets/images/users/<?php echo $avartar ?>" alt="user"></div>
                                             <div class="u-text">
-                                                 <?php
-                                                        $id = $this->session->userdata("persona_perfil_id");
-                                                        $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
-                                                        $dato = $resi->persona_id;
-                                                        $res = $this->db->get_where('persona', array('persona_id' => $dato))->row();
-                                                 ?>
+                                                 
                                                 <h4> <?php echo $res->nombres;?> <?php echo $res->paterno;?></h4>
                                         </div>
                                     </li>
@@ -346,7 +351,7 @@
                     </span>
 
                    <div class="card">
-                       <img class="card-img-top img-responsive" src="<?php echo base_url(); ?>public/assets/images/users/perfil.jpg" alt="Card image cap">
+                       <img class="card-img-top img-responsive" src="<?php echo base_url(); ?>public/assets/images/users/<?php echo $avartar ?>" alt="Card image cap">
                             <div class="card-body">
                                 <h4 class="card-title">Datos Personales</h4>
                                 <p class="card-text">Nombre: <?php echo strtoupper($res->nombres);?> <?php echo strtoupper($res->paterno);?> <?php echo strtoupper($res->materno);?>
@@ -372,7 +377,7 @@
                     </div>
                     <div class="modal-body">
                      <?php echo form_open('Persona/update', array('method'=>'POST')); ?>
-                         <img class="card-img-top img-responsive" src="<?php echo base_url(); ?>public/assets/images/users/perfil.jpg" alt="Card image cap">
+                         <img class="card-img-top img-responsive" src="<?php echo base_url(); ?>public/assets/images/users/<?php echo $avartar ?>" alt="Card image cap">
                         <!--<form action="">-->
                        
 

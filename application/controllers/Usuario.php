@@ -203,7 +203,7 @@ class Usuario extends CI_Controller {
 		var_dump($idd->persona_id);
 	}
 
-	public function registra()
+	public function do_upload()
 	{
 		if($this->session->userdata("login")){
 			$id = $this->session->userdata("persona_perfil_id");
@@ -241,14 +241,39 @@ class Usuario extends CI_Controller {
 				$usuario = $datos['usuario'];
 				$contrasenia = $datos['contrasenia'];
 				$pass_cifrado = md5($contrasenia);
-				$this->Usuario_model->insertar_credencial($persona_perfil_id, $rol_id, $usuario, $pass_cifrado);
+				$avartar = $persona_perfil_id.$rol_id.$usuario.'.jpg';
+				
 				// HASTA AQUI
 
-				//AUDITORIA INSERTAR
-				$tabla = 'public.credencial';
-				$ultimoId = $this->db->query("SELECT MAX(credencial_id) as max FROM public.credencial")->row();
-				$datac = $this->db->get_where('public.credencial', array('credencial_id' => $ultimoId->max))->row();
-				$this->Auditoria_Model->auditoria_insertar(json_encode($datac), $tabla);
+				// PARA SUBIR IMAGEN DE USUARIO
+				$concatenado = './public/assets/images/users';
+
+				$config['upload_path']      = $concatenado;
+				$config['file_name']        = $avartar;
+				$config['allowed_types']    = '*';
+				$config['overwrite']        = TRUE;
+				$config['max_size']         = 10000;
+
+				$this->load->library('upload', $config);
+				
+				if ( ! $this->upload->do_upload('adjunto'))
+					{
+						
+						// INSERTAR EL ROL USUARIO Y CONTRASEÑA
+						$avartar1 = 'perfil.jpg';
+						$this->Usuario_model->insertar_credencial($persona_perfil_id, $rol_id, $usuario, $pass_cifrado, $avartar1);
+						
+					}
+				else
+					{
+						$this->Usuario_model->insertar_credencial($persona_perfil_id, $rol_id, $usuario, $pass_cifrado, $avartar);
+						//AUDITORIA INSERTAR
+						$tabla = 'public.credencial';
+						$ultimoId = $this->db->query("SELECT MAX(credencial_id) as max FROM public.credencial")->row();
+						$datac = $this->db->get_where('public.credencial', array('credencial_id' => $ultimoId->max))->row();
+						$this->Auditoria_Model->auditoria_insertar(json_encode($datac), $tabla);
+					}
+					
 			}
 			else{
 
@@ -294,18 +319,44 @@ class Usuario extends CI_Controller {
 				$usuario = $datos['usuario'];
 				$contrasenia = $datos['contrasenia'];
 				$pass_cifrado = md5($contrasenia);
-				$this->Usuario_model->insertar_credencial($persona_perfil_id, $rol_id, $usuario, $pass_cifrado);
+				$avartar = $persona_perfil_id.$rol_id.$usuario.'.jpg';
+				
 				// HASTA AQUI
 
-				//AUDITORIA INSERTAR
-				$tabla = 'public.credencial';
-				$ultimoId = $this->db->insert_id();
-				$datac = $this->db->get_where('public.credencial', array('credencial_id' => $ultimoId))->row();
-				$this->Auditoria_Model->auditoria_insertar(json_encode($datac), $tabla);
+				// PARA SUBIR IMAGEN DE USUARIO
+				$concatenado = './public/assets/images/users';
+
+				$config['upload_path']      = $concatenado;
+				$config['file_name']        = $avartar;
+				$config['allowed_types']    = 'jpg';
+				$config['overwrite']        = TRUE;
+				$config['max_size']         = 10000;
+
+				$this->load->library('upload', $config);
+				
+				if ( ! $this->upload->do_upload('adjunto'))
+					{
+						
+						// INSERTAR EL ROL USUARIO Y CONTRASEÑA
+						$avartar1 = 'perfil.jpg';
+						$this->Usuario_model->insertar_credencial($persona_perfil_id, $rol_id, $usuario, $pass_cifrado, $avartar1);
+						
+					}
+				else
+					{
+						// INSERTAR EL ROL USUARIO Y CONTRASEÑA
+						$this->Usuario_model->insertar_credencial($persona_perfil_id, $rol_id, $usuario, $pass_cifrado, $avartar);
+						//AUDITORIA INSERTAR
+						$tabla = 'public.credencial';
+						$ultimoId = $this->db->query("SELECT MAX(credencial_id) as max FROM public.credencial")->row();
+						$datac = $this->db->get_where('public.credencial', array('credencial_id' => $ultimoId->max))->row();
+						$this->Auditoria_Model->auditoria_insertar(json_encode($datac), $tabla);
+						
+					}
 
 			}
 
-			redirect('usuario/listar');
+			redirect('Usuario/listar');
 			
 		 }
 		else{

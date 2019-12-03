@@ -72,14 +72,15 @@ class Usuario_model extends CI_Model {
 		$this->db->insert('public.persona_perfil', $array);
 	}
 
-	public function insertar_credencial($persona_perfil_id, $rol_id, $usuario, $contrasenia)
+	public function insertar_credencial($persona_perfil_id, $rol_id, $usuario, $pass_cifrado, $avartar)
 	{	
 		
 		$array = array(
 			'persona_perfil_id' =>$persona_perfil_id,
 			'rol_id' =>$rol_id,
 			'usuario' =>$usuario,
-			'contrasenia' =>$contrasenia,
+			'contrasenia' =>$pass_cifrado,
+			'avartar' =>$avartar,
 			'token' => 0
 			);
 		$this->db->insert('public.credencial', $array);

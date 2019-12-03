@@ -20,7 +20,7 @@
                                 <!--<form class="needs-validation" action="Usuario/registra" method="POST">-->
 
 
-                                    <?php echo form_open_multipart('Usuario/registra', array('method'=>'POST')); ?>
+                                    <?php echo form_open_multipart('Usuario/do_upload', array('method'=>'POST')); ?>
 
                                         <div class="row">
                                             <!-- Column -->
@@ -30,7 +30,7 @@
                                                         <center class="mt-4"><div class="card">
                                                                                 <div class="card-body">
                                                                                     <label for="input-file-now-custom-1"></label>
-                                                                                    <input type="file" id="input-file-now-custom-1" class="dropify" data-default-file="<?php echo base_url(); ?>public/assets/images/users/perfil.jpg" />
+                                                                                    <input type="file" id="input-file-now-custom-1" class="dropify" data-default-file="<?php echo base_url(); ?>public/assets/images/users/perfil.jpg" name="adjunto" accept=".jpg,.jpeg,.png"/>
                                                                                 </div>
                                                                             </div>
                                                             <h4 class="card-title mt-2" id="nombres1"></h4>
