@@ -26,7 +26,10 @@ class Auditoria_Model extends CI_Model {
 			// echo $externalIp;
 
         // DATOS DE LA IP
-		$ip = $this->Auditoria_Model->ip();
+		$externalContent = file_get_contents('http://checkip.dyndns.com/');
+							preg_match('/Current IP Address: \[?([:.0-9a-fA-F]+)\]?/', $externalContent, $m);
+							$externalIp = $m[1];
+        $ip = $externalIp;
 
 		$array = array(
 			'entidad' =>$tabla,
@@ -53,7 +56,10 @@ class Auditoria_Model extends CI_Model {
         $fecha = date("Y-m-d H:i:s");
 
         // DATOS DE LA IP
-        $ip = $this->Auditoria_Model->ip();
+        $externalContent = file_get_contents('http://checkip.dyndns.com/');
+							preg_match('/Current IP Address: \[?([:.0-9a-fA-F]+)\]?/', $externalContent, $m);
+							$externalIp = $m[1];
+        $ip = $externalIp;
 
 		$datos = 'ANTIGUO: '.$data1.' || NUEVO: '.$data2;
 
@@ -82,7 +88,10 @@ class Auditoria_Model extends CI_Model {
         $fecha = date("Y-m-d H:i:s");
 
         // DATOS DE LA IP
-		$ip = $this->Auditoria_Model->ip();
+		$externalContent = file_get_contents('http://checkip.dyndns.com/');
+							preg_match('/Current IP Address: \[?([:.0-9a-fA-F]+)\]?/', $externalContent, $m);
+							$externalIp = $m[1];
+        $ip = $externalIp;
 
 
 		$array = array(
@@ -100,6 +109,7 @@ class Auditoria_Model extends CI_Model {
 	}
 
 	public function ip(){
+
 		$ipaddress = '';
 		  if (getenv('HTTP_CLIENT_IP'))
 		      $ipaddress = getenv('HTTP_CLIENT_IP');

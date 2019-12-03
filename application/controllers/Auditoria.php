@@ -87,11 +87,9 @@ class Auditoria extends CI_Controller {
         // $this->db->insert('persona', $array);
         $tabla = 'persona';
 
-        $lista = $this->Auditoria_Model->auditoria_insertar(json_encode($dato1), $tabla);
+        //$lista = $this->Auditoria_Model->auditoria_insertar(json_encode($dato1), $tabla);
         //$lista = $this->Auditoria_Model->auditoria_modificar($data1, $data2, $tabla);
         //$lista = $this->Auditoria_Model->auditoria_eliminar($data1, $tabla);
-       
-        
     }
 
 

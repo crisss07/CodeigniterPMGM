@@ -9,6 +9,7 @@ class Bloque_grupo_mat extends CI_Controller {
 		$this->load->library('session');
 		$this->load->model("Bloque_grupo_mat_model");
 		$this->load->model("Rol_model");
+		$this->load->model("Auditoria_Model");
 	}
 
 	public function bloque_grupo_mat(){
@@ -53,6 +54,13 @@ class Bloque_grupo_mat extends CI_Controller {
 
 				$descripcion = $datos['descripcion'];
 				$this->Bloque_grupo_mat_model->insertar_zona($descripcion, $usu_creacion);
+
+				//AUDITORIA
+				$tabla = 'catastro.bloque_grupo_mat';
+				$ultimoId = $this->db->query("SELECT MAX(grupo_mat_id) as max FROM catastro.bloque_grupo_mat")->row();
+				$data1 = $this->db->get_where('catastro.bloque_grupo_mat', array('grupo_mat_id' => $ultimoId->max))->row();
+				$this->Auditoria_Model->auditoria_insertar(json_encode($data1), $tabla);
+
 				redirect('Bloque_grupo_mat');
 			}
 		}
@@ -74,7 +82,15 @@ class Bloque_grupo_mat extends CI_Controller {
 		    $grupo_mat_id = $this->input->post('grupo_mat_id');
 		    $descripcion = $this->input->post('descripcion');
 
+		    $data1 = $this->db->get_where('catastro.bloque_grupo_mat', array('grupo_mat_id' => $grupo_mat_id))->row();
+
 		    $actualizar = $this->Bloque_grupo_mat_model->actualizar($grupo_mat_id, $descripcion, $usu_modificacion, $fec_modificacion);
+
+		    //AUDITORIA
+			$tabla = 'catastro.bloque_grupo_mat';
+			$data2 = $this->db->get_where('catastro.bloque_grupo_mat', array('grupo_mat_id' => $grupo_mat_id))->row();
+			$this->Auditoria_Model->auditoria_modificar(json_encode($data1), json_encode($data2), $tabla);
+
 		   redirect('Bloque_grupo_mat');
 		}
 		else{
@@ -93,6 +109,12 @@ class Bloque_grupo_mat extends CI_Controller {
 
 		    $u = $this->uri->segment(3);
 		    $this->Bloque_grupo_mat_model->eliminar($u, $usu_eliminacion, $fec_eliminacion);
+		    
+		    //AUDITORIA
+			$tabla = 'catastro.bloque_grupo_mat';
+			$data1 = $this->db->get_where('catastro.bloque_grupo_mat', array('grupo_mat_id' => $u))->row();
+			$this->Auditoria_Model->auditoria_eliminar(json_encode($data1), $tabla);
+
 		    redirect('Bloque_grupo_mat');
 		  
 		}
