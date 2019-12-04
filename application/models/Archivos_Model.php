@@ -30,7 +30,7 @@ class Archivos_Model extends CI_Model {
 
 	// MODELOS PARA LA RAIZ
 
-	 public function insertarraiz($nombre, $descripcion1, $descripcion2, $carpeta)
+	  public function insertarraiz($nombre, $descripcion1, $descripcion2, $carpeta)
 	{	
 		
 		$array = array(
@@ -54,12 +54,10 @@ class Archivos_Model extends CI_Model {
             'carpeta' => $carpeta
         );
         $this->db->where('archivo_id', $archivo_id);
-        return $this->db->update('archivo.archivo', $data);
+        $this->db->update('archivo.archivo', $data);
     }
 
-
-
-	public function eliminarraiz($id)
+    public function eliminarraiz($id)
 	{
 		$data = array(
             'activo' => 0

@@ -10,7 +10,7 @@ class Login extends CI_Controller {
 		$this->load->library('session');
 		$this->load->library('cart');
 		$this->load->library('form_validation');
-  
+		$this->load->helper('vayes_helper');
 		$this->load->model("Persona_model");
 		$this->load->helper('form');
 
@@ -186,12 +186,46 @@ class Login extends CI_Controller {
 		$response_type 	= "code";
 		$redirecct_uri 	= "https://pmgm.oopp.gob.bo/testseicu/login/login";
 		$nonce          = $this->token_sistema(30);
-		$scope         	= "scope=openid%20nombre%20documento_identidad%20email%20fecha_nacimiento%20celular";
-		$result 	   	= $url_receptor."response_type=".$response_type."&client_id=".$client_id."&state=".$state."&nonce=".$nonce."&redirect_
-		uri=".$redirecct_uri."&scope=".$scope;
+		// $scope         	= "scope=openid%20nombre%20documento_identidad%20email%20fecha_nacimiento%20celular";
+		$scope         	= "openid%20documento_identidad%20nombre%20email%20fecha_nacimiento%20celular";
+		$result 	   	= $url_receptor."response_type=".$response_type."&client_id=".$client_id."&state=".$state."&nonce=".$nonce."&redirect_uri=".$redirecct_uri."&scope=".$scope;
+		// vdebug($result);
 		return $result;
 	}
 
+	public function envia()
+	{
+		$ch = curl_init();
+
+		curl_setopt($ch, CURLOPT_URL,"http://localhost/CodeigniterPMGM/login/recive");
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS,"postvar1=value1&postvar2=value2&postvar3=value3");
+
+		// In real life you should use something like:
+		// curl_setopt($ch, CURLOPT_POSTFIELDS, 
+		//          http_build_query(array('postvar1' => 'value1')));
+
+		// Receive server response ...
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		$server_output = curl_exec($ch);
+
+		curl_close ($ch);
+		// Further processing ...
+		if ($server_output == "OK")
+		{ 
+			echo "si";
+		} else { 
+			echo "no"; 
+		}
+	}
+
+	public function recive()
+	{
+		$aqui = $this->input->post();
+		echo $aqui;
+
+	}
 	
 }
 

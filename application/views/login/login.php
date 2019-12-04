@@ -53,7 +53,7 @@
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
     <section id="wrapper">
-        <div class="login-register" style="background-image: url(public/assets/images/background/2.jpg);">        
+        <div class="login-register" style="background-image: url(public/assets/images/background/catastro.jpeg);">        
             <div class="login-box card">
                <div class="m-login__logo btn btn-block">
                             <a href="">
@@ -85,6 +85,7 @@
                    
                     <div class="form-group text-center mt-3">
                         <div class="col-xs-12"> 
+                            <?php //echo vdebug($direccion, true, false, false); ?>
                             <a href="<?PHP ECHO $direccion; ?>" class="btn btn-secondary col-xs-12">INGRESAR CON AGETIC</a>
                         </div>
                         <!--<div class="col-xs-12"> 
