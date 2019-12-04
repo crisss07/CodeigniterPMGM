@@ -85,6 +85,7 @@
                    
                     <div class="form-group text-center mt-3">
                         <div class="col-xs-12"> 
+                            <?php //echo vdebug($direccion, true, false, false); ?>
                             <a href="<?PHP ECHO $direccion; ?>" class="btn btn-secondary col-xs-12">INGRESAR CON AGETIC</a>
                         </div>
                         <!--<div class="col-xs-12"> 
