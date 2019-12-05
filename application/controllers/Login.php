@@ -64,7 +64,7 @@ class Login extends CI_Controller {
 								// 'grant_type    = authorization_code&code='.$code.'&redirect_uri=https://pmgm.oopp.gob.bo/testseicu/login/login'
 							));
 							$variables = "grant_type=authorization_code&code=$code&redirect_uri=https://pmgm.oopp.gob.bo/testseicu/login/login";
-							curl_setopt($ch, CURLOPT_POSTFIELDS,$vars); 
+							curl_setopt($CURL, CURLOPT_POSTFIELDS,$variables); 
 				$dataAGETIC        	= 	curl_exec($CURL);
 				$informacionAGETIC 	= 	curl_getinfo($CURL);
 										curl_close($CURL);
