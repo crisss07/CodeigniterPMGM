@@ -531,17 +531,17 @@ class Archivos extends CI_Controller {
 
 		$bus['archivo'] = $this->db->query("SELECT *
 									FROM archivo.archivo
-									WHERE nombre like '%$buscador%'
+									WHERE nombre ILIKE '%$buscador%'
 									AND activo = 1
-									OR descripcion1 like '%$buscador%'
-									OR descripcion2 like '%$buscador%'")->result();
+									OR descripcion1 ILIKE '%$buscador%'
+									OR descripcion2 ILIKE '%$buscador%'")->result();
 
 		$bus['documentos'] = $this->db->query("SELECT *
 									FROM archivo.documentos
-									WHERE nombre like '%$buscador%' 
+									WHERE nombre ILIKE '%$buscador%' 
 									AND activo = 1
-									OR descripcion1 like '%$buscador%'
-									OR descripcion2 like '%$buscador%'")->result();
+									OR descripcion1 ILIKE '%$buscador%'
+									OR descripcion2 ILIKE '%$buscador%'")->result();
 
 		$this->load->view('admin/header');
 		$this->load->view('admin/menu');

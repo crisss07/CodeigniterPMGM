@@ -110,7 +110,8 @@ class Usuario extends CI_Controller {
 			$arraySEGIPN1 = $arraySEGIPN0['ConsultaDatoPersonaEnJsonResult'];
 			$arraySEGIPN2 = $arraySEGIPN1['DatosPersonaEnFormatoJson'];
 			$datos_persona = json_decode($arraySEGIPN2, true);
-			$caso = $arraySEGIPN1['CodigoRespuesta'];
+			if ($datos_persona) {
+				$caso = $arraySEGIPN1['CodigoRespuesta'];
 
 			// $fecha = $datos_persona['FechaNacimiento'];
 			// $partes_c = explode("/", $fecha); 
@@ -130,6 +131,12 @@ class Usuario extends CI_Controller {
 			
 			$respuesta = array('ci'=>$ci, 'nombres' =>$datos_persona['Nombres'], 'paterno' =>$datos_persona['PrimerApellido'], 'materno' =>$datos_persona['SegundoApellido'], 'fec_nacimiento'=>$fec_nacimiento_c, 'estado'=>'segip', 'apellidos'=>$apellidos);
 			echo json_encode($respuesta);
+			}
+			else{
+				$respuesta = array('estado'=>'malo');
+			echo json_encode($respuesta);
+			}
+			
 			}
 				
 	}
