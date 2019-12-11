@@ -1,3 +1,6 @@
+
+
+
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -7,30 +10,25 @@ class Login extends CI_Controller {
 	{
 		parent::__construct();
 		 // load Session Library
-		$this->load->library('session');
-		$this->load->library('cart');
-		$this->load->library('form_validation');
-		$this->load->helper('vayes_helper');
-		$this->load->model("Persona_model");
-		$this->load->helper('form');
-
+        $this->load->library('session');
          
         // load url helper
         $this->load->helper('url');
-		$this->load->model("Usuario_model");
-		$this->load->model("Logacceso_model");
+		$this->load->model("usuario_model");
+		$this->load->model("logacceso_model");
 	}
 
 	public function index()
 	{
+		
 		if($this->session->userdata("login"))
 		{	
 			redirect(base_url()."Predios");
 		}
 		else{
-			$datos['direccion'] = $url_AGETIC = $this->url_emisor(); 
-			$this->load->view('login/login', $datos);	
-		}	
+			$this->load->view('login/login');	
+		}
+		
 	}
 
 	public function prueba()
@@ -41,7 +39,7 @@ class Login extends CI_Controller {
 			print_r($eje->rol_id."<br>");
 			print_r($eje->usuario."<br>");
 			print_r($eje->contrasenia."<br>");
-			print_r($eje->token."<>");
+			print_r($eje->token."<br>");
 		}
 	}
 
@@ -113,29 +111,21 @@ class Login extends CI_Controller {
 
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
 		
-		/*$usuario = $this->input->post("usuario");
+		$usuario = $this->input->post("usuario");
 		$contrasena = $this->input->post("contrasenia");
 		$contrasenia = md5($contrasena);
 		
-		$res = $this->Usuario_model->login($usuario, $contrasenia);
+		$res = $this->usuario_model->login($usuario, $contrasenia);
 		if (!$res) {
 			redirect(base_url());
 		}
 		else{
-			/*$iddd = $this->db->query("SELECT pf.*, p.*
+
+			$iddd = $this->db->query("SELECT pf.*, p.*
 									FROM persona_perfil pf, perfil p
 									WHERE pf.persona_perfil_id = '$res->persona_perfil_id'
 									AND p.perfil_id = pf.perfil_id
 									AND p.perfil = 'Beneficiario'")->row();
-			var_dump($iddd);*/
-
-			/*$this->db->select('persona_perfil.*, perfil.*');
-	        $this->db->from('persona_perfil');
-	        $this->db->where('persona_perfil.persona_perfil_id', $res->persona_perfil_id);
-	        $this->db->join('perfil', 'persona_perfil.perfil_id = perfil.perfil_id');
-	        $this->db->where('perfil.perfil', 'Beneficiario');
-	        $query1 = $this->db->get();
-	        $iddd = $query1->row();
 
 			if ($iddd) {
 					$data = array(
@@ -149,6 +139,7 @@ class Login extends CI_Controller {
 			}
 			else
 			{
+
 				$data = array(
 				'persona_perfil_id' => $res->persona_perfil_id,
 				'rol_id' => $res->rol_id,
@@ -157,8 +148,13 @@ class Login extends CI_Controller {
 			);
 			$this->session->set_userdata($data);
 			redirect(base_url()."Predios/index");
+
 			}
-		}*/
+			
+		
+		}
+		
+
 	}
 
 	public function logout()
@@ -167,13 +163,13 @@ class Login extends CI_Controller {
 		$ultimo = $this->db->query("SELECT MAX(logacceso_id) FROM logacceso")->row();
 		$logacceso_id = $ultimo->max;
 		$acceso_fin = date("Y-m-d H:i:s");
-		$actualizar = $this->Logacceso_model->fecha_salida($logacceso_id, $acceso_fin);
+		$actualizar = $this->logacceso_model->fecha_salida($logacceso_id, $acceso_fin);
 		redirect(base_url());
 	}
 
 	public function algo()
 	{
-		$this->Logacceso_model->inactividad();
+		$this->logacceso_model->inactividad();
 	}
 
 	public function token_sistema ($longitud){
@@ -185,56 +181,17 @@ class Login extends CI_Controller {
 	}
 
 	public function verificar_usuario_cYq ($cedula_identidad){
-		$verificar_usuario = $this->Usuario_model->verificar_persona_sistema($cedula_identidad);
+		$verificar_usuario = $this->usuario_model->verificar_persona_sistema($cedula_identidad);
 	}
 	
-	public function url_emisor(){
-		$url_receptor 	= "https://account-idetest.agetic.gob.bo/auth?";
-		$state     		= "fS~pijlVX8~kF_xjYsRaqzBLCpeD_Q5LWBSMPRIb1bw";
-		$client_id 		= "68d55a97-cec0-45e7-b0d3-1a1b1eaedba2";
-		$response_type 	= "code";
-		$redirecct_uri 	= "https://pmgm.oopp.gob.bo/testseicu/login/login";
+	public function url_emisor($url_receptor, $client_id, $state){
+		$response_type = "none";
+		$redirecct_uri = "http://localhost/CodeigniterPMGM/login/login";
 		$nonce          = $this->token_sistema(30);
-		// $scope         	= "scope=openid%20nombre%20documento_identidad%20email%20fecha_nacimiento%20celular";
-		$scope         	= "openid%20documento_identidad%20nombre%20email%20fecha_nacimiento%20celular";
-		$result 	   	= $url_receptor."response_type=".$response_type."&client_id=".$client_id."&state=".$state."&nonce=".$nonce."&redirect_uri=".$redirecct_uri."&scope=".$scope;
-		// vdebug($result);
+		$scope         = "openid%20profile";
+		$result 	   = $url_receptor."response_type=".$response_type."&client_id=".$client_id."&state=".$state."&nonce=".$nonce."&redirect_
+		uri=".$redirecct_uri."&scope=".$scope;
 		return $result;
 	}
 
-	public function envia()
-	{
-		$ch = curl_init();
-
-		curl_setopt($ch, CURLOPT_URL,"http://localhost/CodeigniterPMGM/login/recive");
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS,"postvar1=value1&postvar2=value2&postvar3=value3");
-
-		// In real life you should use something like:
-		// curl_setopt($ch, CURLOPT_POSTFIELDS, 
-		//          http_build_query(array('postvar1' => 'value1')));
-
-		// Receive server response ...
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-		$server_output = curl_exec($ch);
-
-		curl_close ($ch);
-		// Further processing ...
-		if ($server_output == "OK")
-		{ 
-			echo "si";
-		} else { 
-			echo "no"; 
-		}
-	}
-
-	public function recive()
-	{
-		$aqui = $this->input->post();
-		echo $aqui;
-
-	}
-	
 }
-

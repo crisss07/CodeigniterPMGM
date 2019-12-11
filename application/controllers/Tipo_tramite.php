@@ -10,6 +10,8 @@ class Tipo_tramite extends CI_Controller {
 		$this->load->model("Derivaciones_model");
 		$this->load->model("Rol_model");
 		$this->load->model("Persona_model");
+		$this->load->model("Auditoria_Model");
+		$this->load->model("Archivos_Model");
         $this->load->helper('vayes_helper');
         $this->load->helper(array('form', 'url'));
         $this->load->library('pdf');
@@ -50,9 +52,12 @@ class Tipo_tramite extends CI_Controller {
 	}
 
 	public function do_upload(){
-		if($this->session->userdata("login")){
+		if($this->session->userdata("login"))
+		{
 			$datos = $this->input->post();
 			if(isset($datos)){
+				// var_dump($datos);
+				// exit();
 				//OBTENER EL ID DEL USUARIO LOGUEADO
 				$id = $this->session->userdata("persona_perfil_id");
 	            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
@@ -66,6 +71,7 @@ class Tipo_tramite extends CI_Controller {
 				$fecha = $datos['fecha'];
 				$fojas = 0;
 				$anexos = 0;
+				$cedula = $datos['cedula'];
 				$remitente = $datos['remitente'];
 				$procedencia = '0';
 				$referencia = '0';
@@ -84,71 +90,128 @@ class Tipo_tramite extends CI_Controller {
 				$idTramite = $tramite->tramite_id;
 
 				//COMIENZO PARA CREAR CARPETA PARA EL ARCHIVO DIGITAL
-				if ($tipo_tramite_id === '1') {
 					$partes = explode("/", $cite); 
 					$citee = end($partes); 
-					$car = FCPATH.'public/assets/archivos/'.$citee;
-					if (!file_exists($car)) {
+					$car = FCPATH.'public/assets/archivos/tramites/'.$citee;
+					if (!file_exists($car)) 
+					{
 			    		mkdir($car, 0777, true);
+			    		$tra = $this->db->get_where('archivo.archivo', array('nombre' => 'tramites', 'padre' => '0', 'activo' => '1'))->row();
 			    		$nombre = $citee;
-						$array = array(
+						$array1 = array(
 							'nombre' =>$nombre,
-							'descripcion1' =>'descripcion1',
-							'descripcion2' =>'descripcion2',
-							'activo' =>1,
-							'carpeta' => 'carpeta'
+							'descripcion1' =>$remitente,
+							'descripcion2' =>$cedula,
+							'carpeta' =>'carpeta',
+							'padre' =>$tra->archivo_id,
+							'activo' =>1
 						);
-						$vari = $this->db->insert('archivo.raiz', $array);
-					}
-					$config['upload_path']      = './public/assets/archivos/'.$citee;
-					$config['file_name']        = $adjunto;
-					$config['allowed_types']    = 'pdf';
-					$config['overwrite']        = TRUE;
-					$config['max_size']         = 2048;
+						$this->db->insert('archivo.archivo', $array1);
 
-					$id = $this->db->query("SELECT * FROM archivo.raiz WHERE nombre like '$citee'")->row();
-					$raiz_id = $id->raiz_id;
-					$url = './public/assets/archivos/'.$citee.'/'.$adjunto;
-					$array = array(
-						'nombre' =>$adjunto,
-						'descripcion1' =>'descripcion1',
-						'descripcion2' =>'descripcion2',
-						'raiz_id' =>$raiz_id,
-						'carpeta' =>'pdf',
-						'adjunto' =>$adjunto,
-						'extension' =>'pdf',
-						'url' =>$url,
-						'activo' => '1',
-						);
-					// var_dump($array);
-					$this->db->insert('archivo.documento', $array);
-				}else{
-					$config['upload_path']      = './public/assets/images/tramites';
-					$config['file_name']        = $adjunto;
-					$config['allowed_types']    = 'pdf';
-					$config['overwrite']        = TRUE;
-					$config['max_size']         = 2048;
-				}
-				// HASTA AQUI
-				$this->load->library('upload', $config);
-				if (!$this->upload->do_upload('adjunto')){
-					$error = array('error' => $this->upload->display_errors());
-					//redirect(base_url());
-					redirect(base_url().'tipo_tramite/listado');
-					//$this->load->view('crud/organigrama', $error);
-				}else{
-					$tipo_tramite = $this->db->query("SELECT tramite FROM tramite.tipo_tramite WHERE tipo_tramite_id = '$tipo_tramite_id'")->row();
-					$data = array('upload_data' => $this->upload->data());
-					if($tipo_tramite->tramite == 'Inspeccion'){
-						redirect('Derivaciones/inspectores/'.$idTramite);
+						//AUDITORIA
+						$tabla = 'archivo.archivo';
+						$ultimoId = $this->db->query("SELECT MAX(archivo_id) as max FROM archivo.archivo")->row();
+						$data1 = $this->db->get_where('archivo.archivo', array('archivo_id' => $ultimoId->max))->row();
+						$this->Auditoria_Model->auditoria_insertar(json_encode($data1), $tabla);
+
+
+							// INSERTAR LA CARPERTA DE INSPECCIONES
+							$car_ins = FCPATH.'public/assets/archivos/tramites/'.$citee.'/inspecciones';
+							if (!file_exists($car_ins)) {
+					    		mkdir($car_ins, 0777, true);
+					    		$ins = $this->db->get_where('archivo.archivo', array('nombre' => $citee, 'archivo_id' => $ultimoId->max, 'activo' => '1'))->row();
+								$array2 = array(
+									'nombre' =>'inspecciones',
+									'descripcion1' =>$citee,
+									'descripcion2' =>$citee,
+									'carpeta' =>'carpeta',
+									'padre' =>$ins->archivo_id,
+									'activo' =>1
+								);
+								$this->db->insert('archivo.archivo', $array2);
+
+								//AUDITORIA
+								$tabla2 = 'archivo.archivo';
+								$ultimoId2 = $this->db->query("SELECT MAX(archivo_id) as max FROM archivo.archivo")->row();
+								$data2 = $this->db->get_where('archivo.archivo', array('archivo_id' => $ultimoId2->max))->row();
+								$this->Auditoria_Model->auditoria_insertar(json_encode($data2), $tabla2);
+							}
+
+
+							// INSERTAR LA CARPERTA DE TRAMITES
+							$car_tra = FCPATH.'public/assets/archivos/tramites/'.$citee.'/tramites';
+							if (!file_exists($car_tra)) {
+					    		mkdir($car_tra, 0777, true);
+					    		$trami = $this->db->get_where('archivo.archivo', array('nombre' => $citee, 'archivo_id' => $ultimoId->max, 'activo' => '1'))->row();
+								$array3 = array(
+									'nombre' =>'tramites',
+									'descripcion1' =>$citee,
+									'descripcion2' =>$citee,
+									'carpeta' =>'carpeta',
+									'padre' =>$trami->archivo_id,
+									'activo' =>1
+								);
+								$this->db->insert('archivo.archivo', $array3);
+
+								//AUDITORIA
+								$tabla3 = 'archivo.archivo';
+								$ultimoId3 = $this->db->query("SELECT MAX(archivo_id) as max FROM archivo.archivo")->row();
+								$data3 = $this->db->get_where('archivo.archivo', array('archivo_id' => $ultimoId3->max))->row();
+								$this->Auditoria_Model->auditoria_insertar(json_encode($data3), $tabla3);
+							}
+
+							// INSERTAR EL DOCUMENTO
+							$config['upload_path']      = './public/assets/archivos/tramites/'.$citee.'/tramites';
+							$config['file_name']        = $adjunto;
+							$config['allowed_types']    = 'pdf';
+							$config['overwrite']        = TRUE;
+							$config['max_size']         = 2048;
+
+
+							$this->load->library('upload', $config);
+							
+							if ( ! $this->upload->do_upload('adjunto'))
+								{
+									redirect(base_url());
+								}
+							else
+								{
+									$nombre_doc = $adjunto;
+									$descripcion1 = $remitente;
+									$descripcion2 = $cedula;
+									$archivo_id = $ultimoId3->max;
+									$carpeta = 'pdf';
+									$adjunto_doc = $adjunto;
+									$extension = 'pdf';
+									$url1 = './public/assets/archivos/tramites/'.$citee.'/tramites';
+
+									$consulta = $this->db->get_where('archivo.documentos', array('archivo_id' => $archivo_id, 'nombre' => $nombre_doc, 'extension' => $extension, 'activo' => '1'))->row(); 
+									
+									if ($consulta) {
+										redirect(base_url().'tipo_tramite/listado');
+									}
+									else{
+																	
+										$this->Archivos_Model->insertardocumentoh($nombre_doc, $descripcion1, $descripcion2, $archivo_id, $carpeta, $adjunto_doc, $extension, $url1);
+										//AUDITORIA
+										$tablad = 'archivo.documentos';
+										$ultimoIdd = $this->db->query("SELECT MAX(documentos_id) as max FROM archivo.documentos")->row();
+										$datad = $this->db->get_where('archivo.documentos', array('documentos_id' => $ultimoIdd->max))->row();
+										$this->Auditoria_Model->auditoria_insertar(json_encode($datad), $tablad);
+
+										redirect('Derivaciones/inspectores/'.$idTramite);
+									}
+								}
+				
+					$this->session->set_flashdata('in', $idTramite);	
 					}
-				}
-				$this->session->set_flashdata('in', $idTramite);	
-			}
+				// HASTA AQUI SE CREA LAS CARPETAS NECESARIAS Y EL DOCUMENTO
 			redirect(base_url().'tipo_tramite/listado');
-		}else{
+			}
+			else{
 			redirect(base_url());
-        }	
+        	}	
+		}
 	}
 //++++++++++++++++++++FIN DE CREAR TRAMITE++++++++++++++++++++++++++++++++++++++++
 
