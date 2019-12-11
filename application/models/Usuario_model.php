@@ -12,7 +12,7 @@ class Usuario_model extends CI_Model {
 
 	public function index()
 	{
-		$lista = $this->db->query("SELECT pe.nombres, pe.paterno, pe.materno, pe.ci, pe.fec_nacimiento, c.usuario, c.contrasenia, pf.perfil, r.rol, c.activo, c.credencial_id, c.persona_perfil_id
+		$lista = $this->db->query("SELECT pe.nombres, pe.paterno, pe.materno, pe.ci, pe.fec_nacimiento, c.usuario, c.contrasenia, pf.perfil_id, r.rol_id, c.activo, c.credencial_id, c.persona_perfil_id
 										FROM credencial c, persona_perfil p, rol r, persona pe, perfil pf 
 										WHERE c.persona_perfil_id = p.persona_perfil_id
 										AND p.persona_id = pe.persona_id

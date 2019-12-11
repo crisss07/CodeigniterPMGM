@@ -67,8 +67,8 @@
                                                          $lis->materno."||".
                                                          $lis->ci."||".
                                                          $lis->fec_nacimiento."||".
-                                                         $lis->perfil."||".
-                                                         $lis->rol."||".
+                                                         $lis->perfil_id."||".
+                                                         $lis->rol_id."||".
                                                          $lis->contrasenia."||".
                                                          $lis->persona_perfil_id."||".
                                                          $lis->usuario;
@@ -77,8 +77,10 @@
                                                 <td><?php echo $i++;?></td>
                                                 <td><?php echo $lis->nombres;?> <?php echo $lis->paterno;?></td>
                                                 <td><?php echo $lis->usuario;?></td>
-                                                <td><?php echo $lis->perfil;?></td>
-                                                <td><?php echo $lis->rol;?></td>
+                                                <?php $per = $this->db->get_where('perfil', array('perfil_id'=>$lis->perfil_id, 'activo'=>'1'))->row(); ?>
+                                                <td><?php echo $per->perfil;?></td>
+                                                <?php $ro = $this->db->get_where('rol', array('rol_id'=>$lis->rol_id, 'activo'=>'1'))->row(); ?>
+                                                <td><?php echo $ro->rol;?></td>
                                                 <td>
                                                     <?php if ($lis->activo == '1') {
 
@@ -154,7 +156,7 @@
 
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Contrase&ntilde;a</label>
-                                <input type="text" class="form-control" id="contrasenias" name="contrasenia" value="<?php echo $lis->contrasenia;?>" >
+                                <input type="password" class="form-control" id="contrasenias" name="contrasenia" value="<?php echo $lis->contrasenia;?>" >
                             </div>
                             <div class="form-group">
 
@@ -164,7 +166,7 @@
 
                                 <label for="recipient-name" class="control-label">Perfil</label>
                                 <!-- <input type="text" class="form-control" id="perfils" name="perfil_id" > -->
-                                <select class="form-control custom-select" id="perfil_id" name="perfil_id" />
+                                <select class="form-control custom-select" id="perfils" name="perfil_id" />
                                     <?php foreach ($lista as $liss) { ?>
                                         <option value="<?php echo $liss->perfil_id; ?>"><?php echo $liss->perfil; ?>
                                         </option>
@@ -181,7 +183,7 @@
 
                                 <label for="recipient-name" class="control-label">Rol</label>
                                 <!-- <input type="text" class="form-control" id="rols" name="rol" value="<?php echo $lis->rol;?>"> -->
-                                <select class="form-control custom-select"  id="rol_id" name="rol_id" />
+                                <select class="form-control custom-select"  id="rols" name="rol_id" />
                                          <option value="0">Seleccione un Rol
                                         </option>
                                        <?php foreach ($lista1 as $liss1) { ?>
