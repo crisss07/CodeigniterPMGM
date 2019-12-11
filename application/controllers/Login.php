@@ -48,23 +48,71 @@ class Login extends CI_Controller {
 
 	public function login()
 	{	
-		// enviar URL a la AGETIC
-		//if ($this->input->post("usuario")){
-			/*$url_receptor = "https://<base-url-proveedor-identidad>/auth?";
-			$state     = "54f5sda4fa6s5d4f65a";
-			$client_id = "1452";
-			$url = $this->url_emisor($url_receptor, $state, $client_id);
-			echo ($url);
-			$CURL = curl_init($url);
-			curl_setopt($CURL, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($CURL, CURLOPT_HTTPHEADER, array(
-				'Content-type: application/json'
-			));
-			$dataAGETIC        = curl_exec($CURL);
-			$informacionAGETIC = curl_getinfo($CURL);
-			CURl_close($CURL); */
-		//}
+	 // Recibir el code de la URL que envia la AGETIC PASO (2) 
 
+		$code =	$_GET['code'];
+		if ($code) {
+			echo 'llego';
+		}else{
+			$secret             		=	urlencode("WXqlbS8J+X92+1fx2QWzTR0JlT6QMwqKjDsm6j9o0C29WOjvL66kxganY+nNvQK+");
+			$client_id 					=	"68d55a97-cec0-45e7-b0d3-1a1b1eaedba2";
+			$variable_authorization		=   $secret.":".$client_id;
+			$Authorization	 			=	base64_encode($variable_authorization);
+			$CURL	 	=		curl_init	('https://account-idetest.agetic.gob.bo/token');
+								curl_setopt	($CURL, CURLOPT_RETURNTRANSFER, true);
+								curl_setopt	($CURL, CURLOPT_HTTPHEADER, array(
+									'Host : https://account-idetest.agetic.gob.bo/token',
+									'Content-Type  : application/x-www-form-urlencoded',
+									'Authorization : Basic '.$Authorization,
+									// 'grant_type    = authorization_code&code='.$code.'&redirect_uri=https://pmgm.oopp.gob.bo/testseicu/login/login'
+								));
+								$variables = "grant_type=authorization_code&code=$code&redirect_uri=https://pmgm.oopp.gob.bo/testseicu/login/login";
+								curl_setopt($CURL, CURLOPT_POSTFIELDS,$variables); 
+					$dataAGETIC        	= 	curl_exec($CURL);
+					$informacionAGETIC 	= 	curl_getinfo($CURL);
+					curl_close($CURL);	
+		}
+		// echo "El codigo de acceso:".$code."<br />";
+		// echo "datos json";	
+		// print_r(json_decode($dataAGETIC));
+		 /*$code="adfsdf46a5sd4f6a5sd4f";
+		 $data = '{"grant_type":"authorization_code", "code":"'.$code.'", "redirect_uri":"https://pmgm.oopp.gob.bo/testseicu/login/login"}';
+		 $url  = "https://account-idetest.agetic.gob.bo/token";
+		 $ch = curl_init();
+		 curl_setopt($ch, CURLOPT_URL, $url);
+		 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		 curl_setopt($ch, CURLOPT_POST, 1);
+		 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+		 					'Content-Type  : application/x-www-form-urlencoded',
+							'Authorization : Basic'.$Authorization
+		 ));
+		 $responde 				= 	curl_exec($ch);
+		 if(curl_error($ch)){
+			echo  'Error:'. curl_errno($ch);
+		 }else{
+			echo "Consulta realizado con exito";
+			$dato=json_decode($responde);
+			print_r($dato);
+		 }*/
+		//print_r($array_AGETIC);
+		//$tokenAGETIC	   	=	$dataAGETIC_array['id_token'];	
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
+
+	//********************************************************* Peticion al proveedor haciendo uso de TOKEN (3) *************************************************************************\\
+
+		/*$cURLConnection = curl_init('https://account-idetest.agetic.gob.bo/');
+		curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($cURLConnection, CURLOPT_HTTPHEADER, array(
+			'Content-Type: application/json',
+			'Authorization: Bearer '.$TOKEN
+		));
+		$usuarios_ciudadano_digital = curl_exec($cURLConnection);
+		curl_close($cURLConnection);
+		$usuario_autenticado_AGETIC = json_decode($usuarios_ciudadano_digital);
+		print_r($usuario_autenticado_AGETIC);*/
+
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
 		
 		$usuario = $this->input->post("usuario");
 		$contrasena = $this->input->post("contrasenia");
