@@ -69,8 +69,8 @@ class Login extends CI_Controller {
 					$dataAGETIC        	= 	curl_exec($CURL);
 					$informacionAGETIC 	= 	curl_getinfo($CURL);
 					curl_close($CURL);
+					print_r(json_decode($informacionAGETIC));
 					echo "datos json";	
-					print_r(json_decode($dataAGETIC));
 		} else {
 			
 		}
