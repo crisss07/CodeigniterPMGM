@@ -152,6 +152,15 @@ WHERE vigencia_final>=now() and codigo_seguridad='$id' and activo=1");
         return $resultado->result_array();
 
     }
+    
+    function insertar_tokens($token)
+    {         
+        $data = array(
+        'token' => $token        
+        );
+        $this->db->insert('movil', $data);
+
+    }
 
 
 }
