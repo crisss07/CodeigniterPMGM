@@ -45,21 +45,20 @@ class Login extends CI_Controller {
 		}
 	}
 
-	public function login($code = null)
+	public function login()
 	{	
 	 // Recibir el code de la URL que envia la AGETIC PASO (2) 
-
+		$code = $_GET['code'];
 		if ($code) {
 			echo 'llego';	
 		} else {
-			$code 						= 	$_GET['code'];
 			// echo "El codigo de acceso:".$code."<br />";
 			$secret             		=	urlencode("WXqlbS8J+X92+1fx2QWzTR0JlT6QMwqKjDsm6j9o0C29WOjvL66kxganY+nNvQK+");
 			$client_id 					=	"68d55a97-cec0-45e7-b0d3-1a1b1eaedba2";
 			$variable_authorization		=   $secret.":".$client_id;
 			$Authorization	 			=	base64_encode($variable_authorization);
 			$CURL	 	=		curl_init	('https://account-idetest.agetic.gob.bo/token');
-								// curl_setopt	($CURL, CURLOPT_RETURNTRANSFER, true);
+								curl_setopt	($CURL, CURLOPT_RETURNTRANSFER, true);
 								curl_setopt	($CURL, CURLOPT_HTTPHEADER, array(
 									'Host : https://account-idetest.agetic.gob.bo/token',
 									'Content-Type  : application/x-www-form-urlencoded',
@@ -70,12 +69,13 @@ class Login extends CI_Controller {
 								curl_setopt($CURL, CURLOPT_POSTFIELDS,$variables); 
 					$dataAGETIC        	= 	curl_exec($CURL);
 					$informacionAGETIC 	= 	curl_getinfo($CURL);
-											curl_close($CURL);
+					curl_close($CURL);
+					echo "datos json";	
+					print_r(json_decode($dataAGETIC));
 		}
 			
 		
-		// echo "datos json";	
-		// print_r(json_decode($dataAGETIC));
+		
 		 /*$code="adfsdf46a5sd4f6a5sd4f";
 		 $data = '{"grant_type":"authorization_code", "code":"'.$code.'", "redirect_uri":"https://pmgm.oopp.gob.bo/testseicu/login/login"}';
 		 $url  = "https://account-idetest.agetic.gob.bo/token";
