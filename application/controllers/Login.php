@@ -16,6 +16,8 @@ class Login extends CI_Controller {
         $this->load->helper('url');
 		$this->load->model("usuario_model");
 		$this->load->model("logacceso_model");
+		$this->load->model("Archivos_Model");
+		$this->load->model("Auditoria_Model");
 	}
 
 	public function index()
@@ -26,6 +28,24 @@ class Login extends CI_Controller {
 			redirect(base_url()."Predios");
 		}
 		else{
+
+			$listas = $this->db->get_where('archivo.archivo' , array('nombre' => 'tramites','padre' => '0', 'nivel' => '1', 'activo' => '1'))->row();
+			if (!$listas) {
+				$car = FCPATH.'public/assets/archivos/tramites';
+				mkdir($car, 0777, true);
+				$nombre = 'tramites';
+				$descripcion1 = 'tramites';
+				$descripcion2 = 'tramites';
+				$carpeta = 'carpeta';
+
+				$this->Archivos_Model->insertarraiz($nombre, $descripcion1, $descripcion2, $carpeta);
+
+				//AUDITORIA
+				$tabla = 'archivo.archivo';
+				$ultimoId = $this->db->query("SELECT MAX(archivo_id) as max FROM archivo.archivo")->row();
+				$data1 = $this->db->get_where('archivo.archivo', array('archivo_id' => $ultimoId->max))->row();
+				$this->Auditoria_Model->auditoria_insertar(json_encode($data1), $tabla);
+			}	
 			$this->load->view('login/login');	
 		}
 		
