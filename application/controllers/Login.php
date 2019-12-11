@@ -45,7 +45,7 @@ class Login extends CI_Controller {
 		}
 	}
 
-	public function login()
+	public function login($code = null)
 	{	
 	 // Recibir el code de la URL que envia la AGETIC PASO (2) 
 
