@@ -1,6 +1,3 @@
-
-
-
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -10,45 +7,30 @@ class Login extends CI_Controller {
 	{
 		parent::__construct();
 		 // load Session Library
-        $this->load->library('session');
+		$this->load->library('session');
+		$this->load->library('cart');
+		$this->load->library('form_validation');
+		$this->load->helper('vayes_helper');
+		$this->load->model("Persona_model");
+		$this->load->helper('form');
+
          
         // load url helper
         $this->load->helper('url');
-		$this->load->model("usuario_model");
-		$this->load->model("logacceso_model");
-		$this->load->model("Archivos_Model");
-		$this->load->model("Auditoria_Model");
+		$this->load->model("Usuario_model");
+		$this->load->model("Logacceso_model");
 	}
 
 	public function index()
 	{
-		
 		if($this->session->userdata("login"))
 		{	
 			redirect(base_url()."Predios");
 		}
 		else{
-
-			$listas = $this->db->get_where('archivo.archivo' , array('nombre' => 'tramites','padre' => '0', 'nivel' => '1', 'activo' => '1'))->row();
-			if (!$listas) {
-				$car = FCPATH.'public/assets/archivos/tramites';
-				mkdir($car, 0777, true);
-				$nombre = 'tramites';
-				$descripcion1 = 'tramites';
-				$descripcion2 = 'tramites';
-				$carpeta = 'carpeta';
-
-				$this->Archivos_Model->insertarraiz($nombre, $descripcion1, $descripcion2, $carpeta);
-
-				//AUDITORIA
-				$tabla = 'archivo.archivo';
-				$ultimoId = $this->db->query("SELECT MAX(archivo_id) as max FROM archivo.archivo")->row();
-				$data1 = $this->db->get_where('archivo.archivo', array('archivo_id' => $ultimoId->max))->row();
-				$this->Auditoria_Model->auditoria_insertar(json_encode($data1), $tabla);
-			}	
-			$this->load->view('login/login');	
-		}
-		
+			$datos['direccion'] = $url_AGETIC = $this->url_emisor(); 
+			$this->load->view('login/login', $datos);	
+		}	
 	}
 
 	public function prueba()
@@ -59,24 +41,25 @@ class Login extends CI_Controller {
 			print_r($eje->rol_id."<br>");
 			print_r($eje->usuario."<br>");
 			print_r($eje->contrasenia."<br>");
-			print_r($eje->token."<br>");
+			print_r($eje->token."<>");
 		}
 	}
 
-	public function login()
+	public function login($code = null)
 	{	
 	 // Recibir el code de la URL que envia la AGETIC PASO (2) 
 
-		$code =	$_GET['code'];
 		if ($code) {
-			echo 'llego';
-		}else{
+			echo 'llego';	
+		} else {
+			$code 						= 	$_GET['code'];
+			// echo "El codigo de acceso:".$code."<br />";
 			$secret             		=	urlencode("WXqlbS8J+X92+1fx2QWzTR0JlT6QMwqKjDsm6j9o0C29WOjvL66kxganY+nNvQK+");
 			$client_id 					=	"68d55a97-cec0-45e7-b0d3-1a1b1eaedba2";
 			$variable_authorization		=   $secret.":".$client_id;
 			$Authorization	 			=	base64_encode($variable_authorization);
 			$CURL	 	=		curl_init	('https://account-idetest.agetic.gob.bo/token');
-								curl_setopt	($CURL, CURLOPT_RETURNTRANSFER, true);
+								// curl_setopt	($CURL, CURLOPT_RETURNTRANSFER, true);
 								curl_setopt	($CURL, CURLOPT_HTTPHEADER, array(
 									'Host : https://account-idetest.agetic.gob.bo/token',
 									'Content-Type  : application/x-www-form-urlencoded',
@@ -87,9 +70,10 @@ class Login extends CI_Controller {
 								curl_setopt($CURL, CURLOPT_POSTFIELDS,$variables); 
 					$dataAGETIC        	= 	curl_exec($CURL);
 					$informacionAGETIC 	= 	curl_getinfo($CURL);
-					curl_close($CURL);	
+											curl_close($CURL);
 		}
-		// echo "El codigo de acceso:".$code."<br />";
+			
+		
 		// echo "datos json";	
 		// print_r(json_decode($dataAGETIC));
 		 /*$code="adfsdf46a5sd4f6a5sd4f";
@@ -131,21 +115,29 @@ class Login extends CI_Controller {
 
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
 		
-		$usuario = $this->input->post("usuario");
+		/*$usuario = $this->input->post("usuario");
 		$contrasena = $this->input->post("contrasenia");
 		$contrasenia = md5($contrasena);
 		
-		$res = $this->usuario_model->login($usuario, $contrasenia);
+		$res = $this->Usuario_model->login($usuario, $contrasenia);
 		if (!$res) {
 			redirect(base_url());
 		}
 		else{
-
-			$iddd = $this->db->query("SELECT pf.*, p.*
+			/*$iddd = $this->db->query("SELECT pf.*, p.*
 									FROM persona_perfil pf, perfil p
 									WHERE pf.persona_perfil_id = '$res->persona_perfil_id'
 									AND p.perfil_id = pf.perfil_id
 									AND p.perfil = 'Beneficiario'")->row();
+			var_dump($iddd);*/
+
+			/*$this->db->select('persona_perfil.*, perfil.*');
+	        $this->db->from('persona_perfil');
+	        $this->db->where('persona_perfil.persona_perfil_id', $res->persona_perfil_id);
+	        $this->db->join('perfil', 'persona_perfil.perfil_id = perfil.perfil_id');
+	        $this->db->where('perfil.perfil', 'Beneficiario');
+	        $query1 = $this->db->get();
+	        $iddd = $query1->row();
 
 			if ($iddd) {
 					$data = array(
@@ -159,7 +151,6 @@ class Login extends CI_Controller {
 			}
 			else
 			{
-
 				$data = array(
 				'persona_perfil_id' => $res->persona_perfil_id,
 				'rol_id' => $res->rol_id,
@@ -168,13 +159,8 @@ class Login extends CI_Controller {
 			);
 			$this->session->set_userdata($data);
 			redirect(base_url()."Predios/index");
-
 			}
-			
-		
-		}
-		
-
+		}*/
 	}
 
 	public function logout()
@@ -183,13 +169,13 @@ class Login extends CI_Controller {
 		$ultimo = $this->db->query("SELECT MAX(logacceso_id) FROM logacceso")->row();
 		$logacceso_id = $ultimo->max;
 		$acceso_fin = date("Y-m-d H:i:s");
-		$actualizar = $this->logacceso_model->fecha_salida($logacceso_id, $acceso_fin);
+		$actualizar = $this->Logacceso_model->fecha_salida($logacceso_id, $acceso_fin);
 		redirect(base_url());
 	}
 
 	public function algo()
 	{
-		$this->logacceso_model->inactividad();
+		$this->Logacceso_model->inactividad();
 	}
 
 	public function token_sistema ($longitud){
@@ -201,17 +187,55 @@ class Login extends CI_Controller {
 	}
 
 	public function verificar_usuario_cYq ($cedula_identidad){
-		$verificar_usuario = $this->usuario_model->verificar_persona_sistema($cedula_identidad);
+		$verificar_usuario = $this->Usuario_model->verificar_persona_sistema($cedula_identidad);
 	}
 	
-	public function url_emisor($url_receptor, $client_id, $state){
-		$response_type = "none";
-		$redirecct_uri = "http://localhost/CodeigniterPMGM/login/login";
+	public function url_emisor(){
+		$url_receptor 	= "https://account-idetest.agetic.gob.bo/auth?";
+		$state     		= "fS~pijlVX8~kF_xjYsRaqzBLCpeD_Q5LWBSMPRIb1bw";
+		$client_id 		= "68d55a97-cec0-45e7-b0d3-1a1b1eaedba2";
+		$response_type 	= "code";
+		$redirecct_uri 	= "https://pmgm.oopp.gob.bo/testseicu/login/login";
 		$nonce          = $this->token_sistema(30);
-		$scope         = "openid%20profile";
-		$result 	   = $url_receptor."response_type=".$response_type."&client_id=".$client_id."&state=".$state."&nonce=".$nonce."&redirect_
-		uri=".$redirecct_uri."&scope=".$scope;
+		// $scope         	= "scope=openid%20nombre%20documento_identidad%20email%20fecha_nacimiento%20celular";
+		$scope         	= "openid%20documento_identidad%20nombre%20email%20fecha_nacimiento%20celular";
+		$result 	   	= $url_receptor."response_type=".$response_type."&client_id=".$client_id."&state=".$state."&nonce=".$nonce."&redirect_uri=".$redirecct_uri."&scope=".$scope;
+		// vdebug($result);
 		return $result;
 	}
 
+	public function envia()
+	{
+		$ch = curl_init();
+
+		curl_setopt($ch, CURLOPT_URL,"http://localhost/CodeigniterPMGM/login/recive");
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS,"postvar1=value1&postvar2=value2&postvar3=value3");
+
+		// In real life you should use something like:
+		// curl_setopt($ch, CURLOPT_POSTFIELDS, 
+		//          http_build_query(array('postvar1' => 'value1')));
+
+		// Receive server response ...
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		$server_output = curl_exec($ch);
+
+		curl_close ($ch);
+		// Further processing ...
+		if ($server_output == "OK")
+		{ 
+			echo "si";
+		} else { 
+			echo "no"; 
+		}
+	}
+
+	public function recive()
+	{
+		$aqui = $this->input->post();
+		echo $aqui;
+
+	}
+	
 }
