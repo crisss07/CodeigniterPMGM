@@ -51,7 +51,6 @@ class Login extends CI_Controller {
 		$code = $_GET['code'];
 		if ($code) {
 			echo 'llego';	
-		} else {
 			// echo "El codigo de acceso:".$code."<br />";
 			$secret             		=	urlencode("WXqlbS8J+X92+1fx2QWzTR0JlT6QMwqKjDsm6j9o0C29WOjvL66kxganY+nNvQK+");
 			$client_id 					=	"68d55a97-cec0-45e7-b0d3-1a1b1eaedba2";
@@ -72,6 +71,8 @@ class Login extends CI_Controller {
 					curl_close($CURL);
 					echo "datos json";	
 					print_r(json_decode($dataAGETIC));
+		} else {
+			
 		}
 			
 		
