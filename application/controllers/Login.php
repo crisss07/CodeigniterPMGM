@@ -64,7 +64,7 @@ class Login extends CI_Controller {
 									'Authorization : Basic '.$Authorization,
 									// 'grant_type    = authorization_code&code='.$code.'&redirect_uri=https://pmgm.oopp.gob.bo/testseicu/login/login'
 								));
-								$variables = "grant_type=authorization_code&code=$code&redirect_uri=https://pmgm.oopp.gob.bo/testseicu/login/login";
+								$variables = "grant_type=authorization_code&code=$code&redirect_uri=https://pmgm.oopp.gob.bo/testseicu/login/llega";
 								curl_setopt($CURL, CURLOPT_POSTFIELDS,$variables); 
 					$dataAGETIC        	= 	curl_exec($CURL);
 					$informacionAGETIC 	= 	curl_getinfo($CURL);
@@ -73,9 +73,9 @@ class Login extends CI_Controller {
 					// $response = curl_getinfo($CURL, CURLINFO_HTTP_CODE);
 					// vdebug($errors, false, false, true);
 					// vdebug($response, false, false, true);
-					vdebug($dataAGETIC, false, false, true);
-					vdebug($informacionAGETIC, true, false, true);
-					echo "datos json";	
+					// vdebug($dataAGETIC, false, false, true);
+					// vdebug($informacionAGETIC, true, false, true);
+					// echo "datos json";	
 		} else {
 			
 		}
@@ -242,6 +242,11 @@ class Login extends CI_Controller {
 		$aqui = $this->input->post();
 		echo $aqui;
 
+	}
+
+	public function llega()
+	{
+		echo 'esta en llega';
 	}
 	
 }
