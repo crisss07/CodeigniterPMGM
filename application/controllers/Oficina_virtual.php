@@ -15,11 +15,6 @@ class Oficina_virtual extends CI_Controller
     }
 
     public function index(){
-        /*$clave="7016042";
-        $usuario = $this->Oficina_virtual_model->verificar_usuario($clave);
-        echo "El resultado es";
-        print_r($usuario);
-        */
         if ($this->session->userdata("login")) {
             $id = $this->session->userdata("persona_perfil_id");
             $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
@@ -248,7 +243,37 @@ class Oficina_virtual extends CI_Controller
         $clave="7016042";
         $usuario = $this->Oficina_virtual->verificar_usuario($clave);
         echo "El resultado es";
-        print_r(Usuario);
+        print_r($usuario);
+    }
+
+    /* CODIGO DE TRAMITE */
+    public function seguimiento_tramite(){
+        if($this->session->userdata("login")){
+            $this->load->view('oficina/header');
+            $this->load->view('oficina/buscar');
+            $this->load->view('oficina/footer');
+        }else{
+            redirect(base_url());
+        }        
+    }
+
+    public function buscar_tramite(){
+        $idTramite = $_GET['codigo_tramite']; 
+        if($this->session->userdata("login")){
+            $data['flujo'] = $this->db->get_where('tramite.derivacion', array('tramite_id'=>$idTramite))->result_array();
+            $id       = $this->session->userdata("persona_perfil_id");
+            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+            $usu_creacion = $resi->persona_id;
+            $data['tramite'] = $this->db->get_where('tramite.tramite', array('tramite_id' => $idTramite))->row();
+            $data['tipo_tramite']= $this->db->query("SELECT tt.tramite FROM tramite.tramite tr JOIN tramite.tipo_tramite tt ON tr.tipo_tramite_id=tt.tipo_tramite_id  WHERE tr.tramite_id = '$idTramite'")->row();
+            $data['requisitos']= $this->db->query("SELECT tt.descripcion FROM tramite.tramite_requisito tr JOIN tramite.requisito tt ON tr.requisito_id=tt.requisito_id  WHERE tr.tramite_id = '$idTramite'")->result();
+            $data['cedula']=$this->db->query("SELECT cp.ci FROM tramite.tramite tr JOIN public.persona cp ON tr.solicitante_id=cp.persona_id  WHERE tr.tramite_id = '$idTramite'")->row();
+            $this->load->view('oficina/header', $data);
+            $this->load->view('oficina/seguimiento',$data);
+            $this->load->view('oficina/footer');
+        }else{
+            redirect(base_url());
+        }
     }
 
 }

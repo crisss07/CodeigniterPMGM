@@ -200,15 +200,18 @@ class Derivaciones extends CI_Controller
     public function listado(){                                                                                              
         // $this->db->order_by('tramite.derivacion.fec_creacion', 'DESC');
         $perfil_persona = $this->session->userdata('persona_perfil_id');
+        
         $datos_persona_perfil = $this->db->get_where('persona_perfil', array('persona_perfil_id'=>$perfil_persona))->result_array();
         // vdebug($datos_persona_perfil, false, false, true);
+        
+        
         $datos_organigrama_persona = $this->db->get_where(
             'tramite.organigrama_persona', 
             array(
                 'persona_id'=>$datos_persona_perfil[0]['persona_id'],
                 'activo'=>1
             ))->result_array();
-
+       
         // vdebug($datos_organigrama_persona, false, false, true);
         $fuente = $datos_organigrama_persona[0]['organigrama_persona_id'];
         // vdebug($fuente, false, false, true);
@@ -220,8 +223,12 @@ class Derivaciones extends CI_Controller
 
         $data['mis_tramites'] = $query->result();
         $data['verifica'] = $this->Rol_model->verifica();
-        //var_dump($usu_creacion);
-
+        $crear_predio=$this->Persona_model->opcion_crear_predio($perfil_persona);
+        if($crear_predio){
+            $data['opcion_crear_predio'] = $crear_predio->url;
+        }else {
+            $data['opcion_crear_predio'] = null;
+        }
         $this->load->view('admin/header');
         $this->load->view('admin/menu');
         $this->load->view('derivaciones/listado', $data);

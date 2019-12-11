@@ -103,7 +103,21 @@ class Predio_model extends CI_Model {
 
 
         // vdebug($calles, true, false, true);   
+    }
 
+    //Listar predio segun a los valores de inicio y longitud enviados por el metodo get del plugin de datatable
+    public function lista_predioDataTable($start, $length){
+                    $this->db->select('predio_id, fec_creacion, geocodigo, codcatas, direccion_id');
+                    $this->db->limit($length, $start);
+                    $this->db->from('catastro.predio');
+        $consulta = $this->db->get();
+        return $consulta->result();
+    }
+    
+    //Cuenta todos los registros para el DATATABLE
+    public function contar_registros_tabla(){
+        $this->db->from('catastro.predio');
+        return $this->db->count_all_results();
     }
 
 }

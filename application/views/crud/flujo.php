@@ -31,7 +31,8 @@
                                                 <th>Tipo Tramite</th>
                                                 <th>Persona</th>
                                                 <th>Orden</th>
-                                                <th>Flujo</th>                                                
+                                                <th>Flujo</th>
+                                                <th>Registro predio</th>                                              
                                                 <th>Estado</th>                                                         
                                                 <th>Acciones</th>
                                             </tr>
@@ -48,6 +49,7 @@
                                                 <td><?php echo $row->tramite; ?></td>
                                                 <td><?php echo $row->nombreusuer; ?></td>
                                                 <td><?php echo $row->orden; ?></td>
+                                                <td><?php echo $row->flujo; ?></td>
                                                 <td><?php echo $row->flujo; ?></td>
                                                 <td>                                                                                               
                                                     <?php if (($row->activo)==1):?>

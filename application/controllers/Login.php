@@ -47,10 +47,10 @@ class Login extends CI_Controller {
 
 	public function login()
 	{	
-	 // Recibir el code de la URL que envia la AGETIC PASO (2) 
+		//****************************************************** Recibir el code de la URL que envia la AGETIC PASO (2) *******************************************************************\\
+		/*$code 						= 	$_GET['code'];echo "El codigo de acceso:".$code."<br />";
+		echo "El code que me manda para intercambiar es: ",$code;
 
-		$code 						= 	$_GET['code'];
-		// echo "El codigo de acceso:".$code."<br />";
 		$secret             		=	urlencode("WXqlbS8J+X92+1fx2QWzTR0JlT6QMwqKjDsm6j9o0C29WOjvL66kxganY+nNvQK+");
 		$client_id 					=	"68d55a97-cec0-45e7-b0d3-1a1b1eaedba2";
 		$variable_authorization		=   $secret.":".$client_id;
@@ -68,10 +68,12 @@ class Login extends CI_Controller {
 				$dataAGETIC        	= 	curl_exec($CURL);
 				$informacionAGETIC 	= 	curl_getinfo($CURL);
 										curl_close($CURL);
-		// echo "datos json";	
-		// print_r(json_decode($dataAGETIC));
-		 /*$code="adfsdf46a5sd4f6a5sd4f";
-		 $data = '{"grant_type":"authorization_code", "code":"'.$code.'", "redirect_uri":"https://pmgm.oopp.gob.bo/testseicu/login/login"}';
+
+	echo "datos json";	
+		print_r(json_decode($dataAGETIC));*/
+		 //$code="adfsdf46a5sd4f6a5sd4f";
+		/* $data = '{"grant_type":"authorization_code", "code":"'.$code.'", "redirect_uri":"https://pmgm.oopp.gob.bo/testseicu/login/login"}';
+
 		 $url  = "https://account-idetest.agetic.gob.bo/token";
 		 $ch = curl_init();
 		 curl_setopt($ch, CURLOPT_URL, $url);
@@ -89,9 +91,9 @@ class Login extends CI_Controller {
 			echo "Consulta realizado con exito";
 			$dato=json_decode($responde);
 			print_r($dato);
-		 }*/
+		 }
 		//print_r($array_AGETIC);
-		//$tokenAGETIC	   	=	$dataAGETIC_array['id_token'];	
+		//$tokenAGETIC	   	=	$dataAGETIC_array['id_token'];	*/
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
 
 	//********************************************************* Peticion al proveedor haciendo uso de TOKEN (3) *************************************************************************\\
@@ -109,7 +111,7 @@ class Login extends CI_Controller {
 
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
 		
-		/*$usuario = $this->input->post("usuario");
+		$usuario = $this->input->post("usuario");
 		$contrasena = $this->input->post("contrasenia");
 		$contrasenia = md5($contrasena);
 		
@@ -118,14 +120,14 @@ class Login extends CI_Controller {
 			redirect(base_url());
 		}
 		else{
-			/*$iddd = $this->db->query("SELECT pf.*, p.*
+			$iddd = $this->db->query("SELECT pf.*, p.*
 									FROM persona_perfil pf, perfil p
 									WHERE pf.persona_perfil_id = '$res->persona_perfil_id'
 									AND p.perfil_id = pf.perfil_id
 									AND p.perfil = 'Beneficiario'")->row();
-			var_dump($iddd);*/
+			var_dump($iddd);
 
-			/*$this->db->select('persona_perfil.*, perfil.*');
+			$this->db->select('persona_perfil.*, perfil.*');
 	        $this->db->from('persona_perfil');
 	        $this->db->where('persona_perfil.persona_perfil_id', $res->persona_perfil_id);
 	        $this->db->join('perfil', 'persona_perfil.perfil_id = perfil.perfil_id');
@@ -154,7 +156,7 @@ class Login extends CI_Controller {
 			$this->session->set_userdata($data);
 			redirect(base_url()."Predios/index");
 			}
-		}*/
+		}
 	}
 
 	public function logout()

@@ -1,118 +1,85 @@
-<!-- ============================================================== -->
-<!-- Start Page Content -->
-<!-- ============================================================== -->
+ <!-- DataTable Service Side-->
+ <script src="<?php echo base_url(); ?>public/assets/plugins/jquery/jquery-3.3.1.js"></script>
+    <script src="<?php echo base_url(); ?>public/assets/plugins/datatables/DataTables/DataTables1.10.20/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/assets/plugins/datatables/DataTables/DataTables1.10.20/css/jquery.dataTables.min.css"/>
+       
+<script type="text/javascript">
+    $(document).ready(function(e){
+        var base_url = "<?php echo base_url();?>"; // You can use full url here but I prefer like this
+        $('#predio').DataTable({
+            "language": {
+            "decimal":        ".",
+            "emptyTable":     "No hay datos para mostrar",
+            "info":           "del _START_ al _END_ (_TOTAL_ total)",
+            "infoEmpty":      "del 0 al 0 (0 total)",
+            "infoFiltered":   "(filtrado de todas las _MAX_ entradas)",
+            "infoPostFix":    "",
+            "thousands":      "'",
+            "lengthMenu":     "Mostrar _MENU_ entradas",
+            "loadingRecords": "Cargando...",
+            "processing":     "Procesando...",
+            "search":         "Buscar:",
+            "zeroRecords":    "No hay resultados",
+            "paginate": {
+            "first":      "Primero",
+            "last":       "Último",
+            "next":       "Siguiente",
+            "previous":   "Anterior"
+            },
+            "aria": {
+            "sortAscending":  ": ordenar de manera Ascendente",
+            "sortDescending": ": ordenar de manera Descendente ",
+            }},
+            "serverSide": true,
+            "order": [[0, "asc" ]],
+            "ajax":{
+                    url :  "<?php echo base_url();?>"+'Predios/listar_predio',
+                    type : 'GET'
+                    },
+            order: [[2, 'asc']],
+            columnDefs:[{
+                targets:    "_all",
+                orderable:  false
+            }]
+        }); // End of DataTable
+       
+    }); // End Document Ready Function
+</script>
+
 <div class="page-wrapper">
-    <!-- ============================================================== -->
-    <!-- Container fluid  -->
-    <!-- ============================================================== -->
     <div class="container-fluid">
-        <!-- ============================================================== -->
-        <!-- Start Page Content -->
-        <!-- ============================================================== -->
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">LISTADO PREDIOS</h4>
-                        <?php //vdebug($listado_predios, true, false, true); ?>
-                        <table id="tabla_din" class="table table-bordered table-striped" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>FECHA REGISTRO</th>
-                                    <th>COD CATASTRAL</th>
-                                    <th>GEOCODIGO</th>
-                                    <th>DIRECCION</th>
-                                    <th>ACCIONES</th>
-                                </tr>
-                            </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>#</th>
-                                    <th>FECHA REGISTRO</th>
-                                    <th>COD CATASTRAL</th>
-                                    <th>GEOCODIGO</th>
-                                    <th>DIRECCION</th>
-                                    <th>ACCIONES</th>
-                                </tr>
-                            </tfoot>
-                            <tbody>
-                                <?php $contador = 1; ?>
-                                <?php foreach ($listado_predios as $lp): ?>
+                        <h4 class="card-title">LISTA PREDIOS</h4></h4>
+                            <table id="predio" class="display" style="width:100%">
+                                <thead>
                                     <tr>
-                                        <td><?php echo $contador++; ?></td>
-                                        <td>
-                                            <?php 
-                                                $fecha_mod = explode(".", $lp['fec_creacion']); 
-                                                echo $fecha_mod[0]; 
-                                            ?>
-                                        </td>
-                                        <td><?php echo $lp['codcatas']; ?></td>
-                                        <td><?php echo $lp['geocodigo']; ?></td>
-                                        <td>
-                                            <?php 
-                                                $this->db->where('direccion_id', $lp['direccion_id']);
-                                                $query = $this->db->get('catastro.direccion')->result_array();
-                                                // print_r($query);
-                                                // vdebug($query, false, false, true);
-                                            ?>
-                                            <?php //echo $lp['codcatas']; ?></td>
-                                        <!-- <td><?php // echo $lp->nro_inmueble; ?></td>
-                                        <td><?php // echo $lp->distrito; ?></td>
-                                        <td><?php // echo $lp->manzana; ?></td>
-                                        <td><?php // echo $lp->predio; ?></td> -->
-                                        <td>
-                                            <div class="btn-group btn-group-xs" role="group">
-                                                <?php if ($lp['activo'] == 1): ?>
-                                                    <a <?php echo $verifica['modificacion1'];?>="<?php echo base_url(); ?>predios/editar/<?php echo $lp['predio_id']; ?>" class="btn btn-warning footable-edit">
-                                                        <span class="fas fas fa-edit" aria-hidden="true"></span>
-                                                    </a>
-                                                <?php elseif($lp['activo'] == 2): ?>
-                                                    <a <?php echo $verifica['modificacion1'];?>="<?php echo base_url(); ?>edificacion/nuevo/<?php echo $lp['predio_id']; ?>" class="btn btn-primary footable-edit">
-                                                        <span class="fas fas fa-edit" aria-hidden="true"></span>
-                                                    </a>
-                                                    
-                                                <?php else: ?>
-                                                    <a <?php echo $verifica['modificacion1'];?>="<?php echo base_url(); ?>predios/editar_propietario/<?php echo $lp->predio_id; ?>" class="btn btn-success footable-edit">
-                                                        <span class="fas fas fa-edit" aria-hidden="true"></span>
-                                                    </a>
-                                                <?php endif ?>
-
-                                                <a <?php echo $verifica['imprimir'];?>="<?php echo base_url(); ?>predios/certificado/<?php echo $lp['predio_id']; ?>" class="btn btn-success footable-edit">
-                                                    <span class="fas fas fa-print" aria-hidden="true"></span>
-                                                </a> 
-
-                                                <a href="<?php echo base_url(); ?>predios/form_fusion" class="btn btn-dark footable-edit" title="Fusionar" >
-                                                    <span class="fas fas fa-object-group" aria-hidden="true"></span>
-                                                </a> 
-                                                
-                                                <a href="<?php echo base_url(); ?>predios/form_fusion" class="btn btn-primary footable-edit" title="Particionar" >
-                                                    <span class="fas fas fa-object-ungroup" aria-hidden="true"></span>
-                                                </a> 
-
-                                                <a <?php echo $verifica['imprimir'];?>="<?php echo base_url(); ?>Reporteseicu/certificacion_bloques/<?php echo $lp['predio_id']; ?>" class="btn btn-info footable-edit" title="CERTIFICACION CATASTRAL" target="_blank">
-                                                    <span class="fas fas fa-print" aria-hidden="true"></span>
-                                                </a> 
-
-                                                <a <?php echo $verifica['imprimir'];?>="<?php echo base_url(); ?>Reporteseicu/certificacion/<?php echo $lp['predio_id']; ?>" class="btn btn-warning footable-edit" title="CERTIFICACION TECNICA"  target="_blank">
-                                                    <span class="fas fas fa-print" aria-hidden="true"></span>
-                                                </a> 
-
-                                                <a <?php echo $verifica['baja'];?>="" type="button" class="btn btn-danger footable-delete">
-                                                    <span class="fas fa-trash-alt" aria-hidden="true"></span>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>    
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                                        <th>CODIGO PREDIO</th>
+                                        <th>FECHA CREACION</th>
+                                        <th>GEOCODIGO</th>
+                                        <th>COD CATASTRAL</th>
+                                        <th>DIRECCION</th>
+                                        <th>ACCION</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>CODIGO PREDIO</th>
+                                        <th>FECHA CREACION</th>
+                                        <th>GEOCODIGO</th>
+                                        <th>COD CATASTRAL</th>
+                                        <th>DIRECCION</th>
+                                        <th>ACCION</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- ============================================================== -->
-<!-- End Container fluid  -->
-<!-- ==============================================================
+</div>                        
+
+  

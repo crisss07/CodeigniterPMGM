@@ -4,7 +4,7 @@ class Predios extends CI_Controller {
 	public function __construct()
     {
         parent::__construct();
-        $this->load->library('session');
+		$this->load->library('session');
         $this->load->model('tipopredio_model');
         $this->load->model('predio_model');
         $this->load->model("logacceso_model");
@@ -58,10 +58,8 @@ class Predios extends CI_Controller {
 	}
 
 	public function principal(){
-
-
 		if($this->session->userdata("login"))
-		{
+		{ 	
 			//insertar datos de la persona logueada en la tabla logacceso
 		    $persona_perfil_id = $this->session->userdata("persona_perfil_id");
 		    $usuario = $this->session->userdata("usuario");
@@ -91,16 +89,21 @@ class Predios extends CI_Controller {
 			$data['verifica'] = $this->rol_model->verifica();
 			//var_dump($usu_creacion);
 
+			// $informaciom = $this->predio_model->lista_predio();
+			// print_r($informaciom);
+			
 			$this->load->view('admin/header');
 			$this->load->view('admin/menu');
 			$this->load->view('predios/index', $data);
 			$this->load->view('admin/footer');
 			$this->load->view('predios/index_js');
 
+		
 		}
 		else{
 			redirect(base_url());
 		}
+		
 	}
 
 	public function registra_predio(){
@@ -297,9 +300,8 @@ class Predios extends CI_Controller {
 		}
 	}
 
-
 	public function muestra_img(){
-	if($this->session->userdata("login")){
+		if($this->session->userdata("login")){
 		// $this->db->insert('catastro.predio_foto', $data_foto);
 		// $this->db->select('foto_id', 'codcatas', 'foto_plano_ubi');
 
@@ -348,7 +350,6 @@ class Predios extends CI_Controller {
 		}
 	}
 
-
 	public function certificado($predio_id = null){
 		if($this->session->userdata("login")){
 
@@ -385,8 +386,7 @@ class Predios extends CI_Controller {
 		}
 	}
 
-	public function pdf_certificado($cod_catastral = null)
-	{
+	public function pdf_certificado($cod_catastral = null){
 		$this->db->select('*');
 		$this->db->from('catastro.predio');
 		$this->db->where('catastro.predio.predio_id', $cod_catastral);
@@ -488,7 +488,6 @@ class Predios extends CI_Controller {
 			redirect(base_url());
 		}
 	}
-
 
 	private function datos_combo(){
 
@@ -641,4 +640,32 @@ class Predios extends CI_Controller {
 
 	}
 
+	public function listar_predio(){
+		$draw   = $this->input->get("draw");
+		$start  = $this->input->get("start");
+		$length = $this->input->get("length");        
+		$predio_consulta = $this->predio_model->lista_predioDataTable($start, $length);
+        $data = array();
+        foreach($predio_consulta as $rows)
+        {
+            $data[]= array(
+				$rows->predio_id,
+				$rows->fec_creacion,
+				$rows->geocodigo,
+				$rows->codcatas,
+                $rows->direccion_id,
+                '<a href="'.$rows->predio_id.'" class="btn btn-warning mr-1">Edit</a>
+                 <a href="'.$rows->predio_id.'" class="btn btn-danger mr-1">Delete</a>'
+            );     
+        }	
+        $total_employees = $this->predio_model->contar_registros_tabla("catastro.predio");
+        $output = array(
+            "draw" => $draw,
+            "recordsTotal" => $total_employees,
+            "recordsFiltered" => $total_employees,
+            "data" => $data
+        );
+        echo json_encode($output);
+		exit();
+    }
 }

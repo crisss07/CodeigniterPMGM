@@ -32,9 +32,14 @@
     <link href="<?php echo base_url(); ?>public/assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>public/assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
     <script src="<?php echo base_url(); ?>public/assets/plugins/jquery/jquery.min.js"></script>
+    
+    <!-- DataTable Service Side-->
+    <script src="<?php echo base_url(); ?>public/assets/plugins/jquery/jquery-3.3.1.js"></script>
+    <script src="<?php echo base_url(); ?>public/assets/plugins/datatables/DataTables/DataTables1.10.20/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/assets/plugins/datatables/DataTables/DataTables1.10.20/css/jquery.dataTables.min.css"/>
+       
+     
     <!-- <script src="<?php //echo base_url(); ?>public/assets/plugins/jquery/jquery.min.js"></script> -->
-
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
