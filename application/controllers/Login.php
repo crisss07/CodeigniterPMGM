@@ -77,7 +77,7 @@ class Login extends CI_Controller {
 					// vdebug($informacionAGETIC, true, false, true);
 					// echo "datos json";	
 		} else {
-			
+			echo 'no hace nada';
 		}
 			
 		
