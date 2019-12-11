@@ -30,28 +30,23 @@ class Archivos extends CI_Controller {
 		if($this->session->userdata("login")){
 			// $lista['verifica'] = $this->rol_model->verifica();
 			// $lista['zona_urbana'] = $this->zona_urbana_model->index();
-			/*$lista['predios'] = $this->db->get_where('catastro.predio')->result();
-			
-			foreach ($lista['predios'] as $val) {
-					$car = FCPATH.'public/assets/archivos/'.$val->codcatas.'-'.$val->predio_id;
+			$listas = $this->db->get_where('archivo.archivo' , array('nombre' => 'tramites','padre' => '0', 'nivel' => '1', 'activo' => '1'))->row();
+			if (!$listas) {
+				$car = FCPATH.'public/assets/archivos/tramites';
+				mkdir($car, 0777, true);
+				$nombre = 'tramites';
+				$descripcion1 = 'tramites';
+				$descripcion2 = 'tramites';
+				$carpeta = 'carpeta';
 
-					if (!file_exists($car)) {
-			    		mkdir($car, 0777, true);
+				$this->Archivos_Model->insertarraiz($nombre, $descripcion1, $descripcion2, $carpeta);
 
-			    		$nombre = $val->codcatas.'-'.$val->predio_id;
-						$array = array(
-						'padre' => 0,
-						'nombre' =>$nombre,
-						'descripcion1' =>'descripcion1',
-						'descripcion2' =>'descripcion2',
-						'predio_id' =>$val->predio_id,
-						'nivel' => 1,
-						'activo' =>1,
-						'carpeta' => 'carpeta'
-						);
-						$vari = $this->db->insert('archivo.archivo', $array);
-					}
-			}*/
+				//AUDITORIA
+				$tabla = 'archivo.archivo';
+				$ultimoId = $this->db->query("SELECT MAX(archivo_id) as max FROM archivo.archivo")->row();
+				$data1 = $this->db->get_where('archivo.archivo', array('archivo_id' => $ultimoId->max))->row();
+				$this->Auditoria_Model->auditoria_insertar(json_encode($data1), $tabla);
+			}	
 
 			$listass['predios'] = $this->db->get_where('archivo.archivo' , array('padre' => '0', 'nivel' => '1', 'activo' => '1'))->result();
 			$this->load->view('admin/header');
@@ -416,7 +411,7 @@ class Archivos extends CI_Controller {
 							$extension = end($partes); 
 
 
-							$consulta = $this->db->get_where('archivo.documentos', array('archivo_id' => $archivo_id, 'nombre' => $nombre, 'extension' => $extension, 'archivo_id' => '1'))->row(); 
+							$consulta = $this->db->get_where('archivo.documentos', array('archivo_id' => $archivo_id, 'nombre' => $nombre, 'extension' => $extension, 'activo' => '1'))->row(); 
 							
 							if ($consulta) {
 								redirect('Archivos/ingresar/'.$archivo_id);
