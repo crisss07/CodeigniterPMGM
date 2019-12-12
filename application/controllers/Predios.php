@@ -675,8 +675,8 @@ class Predios extends CI_Controller {
 				$rows->codcatas,
                 $rows->direccion_id,
 				'
-					<a href="'. $url .'/predios/editar'. $rows->predio_id.'" class="btn btn-warning footable-edit fas fas fa-edit" aria-hidden="true" title="Editar"> </a>
-					<a href="'. $url .'Reporteseicu/certificacion/'. $rows->predio_id.'" class="btn btn-secondary  fas fa-certificate" aria-hidden="true" title="Certificacion tecnica"> </a>			 
+					<a href="'. $url .'predios/editar'. $rows->predio_id.'" class="btn btn-warning footable-edit fas fas fa-edit" aria-hidden="true" title="Editar"> </a>
+					<a href="'. $url .'predios/certificado/'. $rows->predio_id.'" class="btn btn-secondary  fas fa-certificate" aria-hidden="true" title="Certificacion tecnica"> </a>			 
 					<a href="'. $url .'predios/form_fusion/'. $rows->predio_id.'" class="btn btn-success footable-edit fas fas fa-object-group" aria-hidden="true" title="Fusionar"> </a>			 
 					<a href="'. $url .'Reporteseicu/certificacion_bloques/'. $rows->predio_id.'" class="btn btn-dark footable-edit fas fas fa-object-ungroup" aria-hidden="true" title="Particionar"> </a>			 
 					<a href="'. $url .'Reporteseicu/certificacion/'. $rows->predio_id.'" class="btn btn-info footable-edit fas fas fa-print" aria-hidden="true" title="Estado predio"> </a>			 
