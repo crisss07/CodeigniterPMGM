@@ -27,7 +27,7 @@
                                 <address>
                                     <!-- <h3> &nbsp;<b class="text-danger">Monster Admin</b></h3> -->
                                     <!-- <b class="text-muted ml-1">La Paz, 28 de febrero de 2019</b> -->
-                                        La Paz, 12 de julio de 2019
+                                        La Paz, 13 de Diciembre de 2019
                                         <br/> Tramite No 321456,
                                         <br/> <b>Certificacion de Datos Tecnicos No. 1245/2019</b>
                                         <br/> Matricula: <?php //echo $ddrr->nro_matricula_folio ?>
