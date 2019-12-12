@@ -288,6 +288,31 @@ class Restserver extends CI_Controller{
         }          
     }
 
+     public function insertar_get(){
+        $token = $this->get('token');//CFM token
+        $tokenapp = $this->get('tokenapp');//token del servidor        
+        $this->load->model("ApiRest_model"); 
+        $message = array('mensaje' => 'Acceso denegado','bool'=>'FALSE');        
+
+        if($this->ApiRest_model->verify_token_get($tokenapp)){            
+            $this->ApiRest_model->insertar_tokens($token);//inserta el token             
+            $user = array('mensaje'=>'Datos insertados correctamente','bool'=>'TRUE');           
+            if($user)
+            {
+                $this->response( $user, 200); // 200 being the HTTP response code
+            } 
+            else
+            {
+               
+                $this->response($message, 404);
+            }
+
+        }
+        else{
+            $this->response($message, 404);
+        }          
+    }
+
 
     
 }
