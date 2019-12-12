@@ -114,6 +114,14 @@
                                 <?php //echo "<img src='data:image/jpeg;base64, $foto_64_ubi' width='350px' />"; ?>
 
                                 <br />CROQUIS DEL PREDIO
+                                <div id="mapid" style="height: 180px;"></div>
+                                <?php $cod_predio = $predio[0]->predio_id; ?>
+                                <?php //vdebug($cod_predio, false, false, true); ?>
+                                <?php $vertices = $this->db->query("SELECT ST_AsText(geom) as area
+                                        FROM catastro.geo_distritos
+                                        WHERE id = $cod_predio;")->row_array();
+                                    vdebug($vertices, false, false, true);
+                                ?>
                                 <br />
                                 <?php 
                                     // $foto_bytea_fachada = pg_unescape_bytea($predio[0]->foto_fachada); 
@@ -228,3 +236,20 @@
     <!-- ============================================================== -->
     <!-- End Container fluid  -->
     <!-- ============================================================== -->
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+
+ <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+   crossorigin=""></script>
+<script type="text/javascript">
+        var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+        maxZoom: 18,
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+            '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        id: 'mapbox/streets-v11'
+    }).addTo(mymap);
+
+</script>
