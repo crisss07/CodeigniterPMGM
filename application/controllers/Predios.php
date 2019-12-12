@@ -27,7 +27,7 @@ class Predios extends CI_Controller {
 		{
 			$listas = $this->db->get_where('archivo.archivo' , array('nombre' => 'tramites','padre' => '0', 'nivel' => '1', 'activo' => '1'))->row();
 		
-			if (!$listas) {
+			if (empty($listas)) {
 				$car = FCPATH.'public/assets/archivos/tramites';
 				mkdir($car, 0777, true);
 				$nombre = 'tramites';

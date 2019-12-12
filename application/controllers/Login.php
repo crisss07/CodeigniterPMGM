@@ -48,7 +48,7 @@ class Login extends CI_Controller {
 	public function login()
 	{	
 	 // Recibir el code de la URL que envia la AGETIC PASO (2) 
-		$code = $_GET['code'];
+		/*$code = $_GET['code'];
 		if ($code) {
 			echo 'llego';	
 			// echo "El codigo de acceso:".$code."<br />";
@@ -78,7 +78,7 @@ class Login extends CI_Controller {
 					// echo "datos json";	
 		} else {
 			echo 'no hace nada';
-		}
+		}*/
 			
 		
 		
@@ -121,7 +121,7 @@ class Login extends CI_Controller {
 
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
 		
-		/*$usuario = $this->input->post("usuario");
+		$usuario = $this->input->post("usuario");
 		$contrasena = $this->input->post("contrasenia");
 		$contrasenia = md5($contrasena);
 		
@@ -130,14 +130,14 @@ class Login extends CI_Controller {
 			redirect(base_url());
 		}
 		else{
-			/*$iddd = $this->db->query("SELECT pf.*, p.*
+			$iddd = $this->db->query("SELECT pf.*, p.*
 									FROM persona_perfil pf, perfil p
 									WHERE pf.persona_perfil_id = '$res->persona_perfil_id'
 									AND p.perfil_id = pf.perfil_id
 									AND p.perfil = 'Beneficiario'")->row();
-			var_dump($iddd);*/
+			// var_dump($iddd);
 
-			/*$this->db->select('persona_perfil.*, perfil.*');
+			$this->db->select('persona_perfil.*, perfil.*');
 	        $this->db->from('persona_perfil');
 	        $this->db->where('persona_perfil.persona_perfil_id', $res->persona_perfil_id);
 	        $this->db->join('perfil', 'persona_perfil.perfil_id = perfil.perfil_id');
@@ -166,7 +166,7 @@ class Login extends CI_Controller {
 			$this->session->set_userdata($data);
 			redirect(base_url()."Predios/index");
 			}
-		}*/
+		}
 	}
 
 	public function logout()
