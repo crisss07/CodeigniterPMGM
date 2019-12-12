@@ -184,7 +184,7 @@ class Derivaciones extends CI_Controller
             $persona = $this->db->query("SELECT persona_id FROM inspeccion.asignacion WHERE tramite_id = '$idTramite'")->row();
             //var_dump((int)$persona->persona_id);
             //$data['personas'] 
-            $data['personas'] = $this->derivaciones_model->encontrado($persona->persona_id);
+            $data['personas'] = $this->Derivaciones_model->encontrado($persona->persona_id);
 
             //var_dump( $data['personas']);
             //var_dump($personas[0]['unidad']);

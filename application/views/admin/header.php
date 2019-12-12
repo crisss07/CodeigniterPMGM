@@ -34,10 +34,7 @@
     <script src="<?php echo base_url(); ?>public/assets/plugins/jquery/jquery.min.js"></script>
     
     <!-- DataTable Service Side-->
-    <script src="<?php echo base_url(); ?>public/assets/plugins/jquery/jquery-3.3.1.js"></script>
-    <script src="<?php echo base_url(); ?>public/assets/plugins/datatables/DataTables/DataTables1.10.20/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/assets/plugins/datatables/DataTables/DataTables1.10.20/css/jquery.dataTables.min.css"/>
-       
+  
      
     <!-- <script src="<?php //echo base_url(); ?>public/assets/plugins/jquery/jquery.min.js"></script> -->
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

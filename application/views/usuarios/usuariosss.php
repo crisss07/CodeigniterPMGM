@@ -226,6 +226,16 @@
     </div>
 </div>
                 <!-- ============================================================== -->
+<script>
+function alerta_ci(){
+Swal.fire({
+  icon: 'error',
+  title: 'Error...',
+  text: 'El Carnet de Identidad no es Valido!'
+})
+//location.reload();
+}
+</script>
 
 <script type="text/javascript">
 function buscar()
@@ -254,20 +264,23 @@ function buscar()
                 }
                 else
                 {
-                    
-                    $('#nombres1').html(data.nombres);
-                    $('#apellidos1').html(data.apellidos);
-                    $('#nombress').val(data.nombres);
-                    $('#paternos').val(data.paterno);
-                    $('#maternos').val(data.materno);
-                    $('#fec_nacimientos').val(data.fec_nacimiento);
-                    $('#estados').val(data.estado);
-                    
+                    if (data.estado == 'malo') {
+                        alerta_ci();
+                    }
+                    else{
+                        $('#nombres1').html(data.nombres);
+                        $('#apellidos1').html(data.apellidos);
+                        $('#nombress').val(data.nombres);
+                        $('#paternos').val(data.paterno);
+                        $('#maternos').val(data.materno);
+                        $('#fec_nacimientos').val(data.fec_nacimiento);
+                        $('#estados').val(data.estado);
+                    }
                 }  
 
             },
             error:function(jqXHR, textStatus, errorThrown) {
-                alerta_ci();
+                
             }
         });
   }

@@ -35,14 +35,8 @@
             "ajax":{
                     url :  "<?php echo base_url();?>"+'Predios/listar_predio',
                     type : 'GET'
-                    },
-            order: [[2, 'asc']],
-            columnDefs:[{
-                targets:    "_all",
-                orderable:  false
-            }]
+            }
         }); // End of DataTable
-       
     }); // End Document Ready Function
 </script>
 
@@ -56,7 +50,7 @@
                             <table id="predio" class="display" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>CODIGO PREDIO</th>
+                                        <th id="indentificador_predio">CODIGO PREDIO</th>
                                         <th>FECHA CREACION</th>
                                         <th>GEOCODIGO</th>
                                         <th>COD CATASTRAL</th>

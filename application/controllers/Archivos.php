@@ -30,28 +30,6 @@ class Archivos extends CI_Controller {
 		if($this->session->userdata("login")){
 			// $lista['verifica'] = $this->rol_model->verifica();
 			// $lista['zona_urbana'] = $this->zona_urbana_model->index();
-			/*$lista['predios'] = $this->db->get_where('catastro.predio')->result();
-			
-			foreach ($lista['predios'] as $val) {
-					$car = FCPATH.'public/assets/archivos/'.$val->codcatas.'-'.$val->predio_id;
-
-					if (!file_exists($car)) {
-			    		mkdir($car, 0777, true);
-
-			    		$nombre = $val->codcatas.'-'.$val->predio_id;
-						$array = array(
-						'padre' => 0,
-						'nombre' =>$nombre,
-						'descripcion1' =>'descripcion1',
-						'descripcion2' =>'descripcion2',
-						'predio_id' =>$val->predio_id,
-						'nivel' => 1,
-						'activo' =>1,
-						'carpeta' => 'carpeta'
-						);
-						$vari = $this->db->insert('archivo.archivo', $array);
-					}
-			}*/
 
 			$listass['predios'] = $this->db->get_where('archivo.archivo' , array('padre' => '0', 'nivel' => '1', 'activo' => '1'))->result();
 			$this->load->view('admin/header');
@@ -416,7 +394,7 @@ class Archivos extends CI_Controller {
 							$extension = end($partes); 
 
 
-							$consulta = $this->db->get_where('archivo.documentos', array('archivo_id' => $archivo_id, 'nombre' => $nombre, 'extension' => $extension, 'archivo_id' => '1'))->row(); 
+							$consulta = $this->db->get_where('archivo.documentos', array('archivo_id' => $archivo_id, 'nombre' => $nombre, 'extension' => $extension, 'activo' => '1'))->row(); 
 							
 							if ($consulta) {
 								redirect('Archivos/ingresar/'.$archivo_id);
@@ -531,17 +509,17 @@ class Archivos extends CI_Controller {
 
 		$bus['archivo'] = $this->db->query("SELECT *
 									FROM archivo.archivo
-									WHERE nombre like '%$buscador%'
+									WHERE nombre ILIKE '%$buscador%'
 									AND activo = 1
-									OR descripcion1 like '%$buscador%'
-									OR descripcion2 like '%$buscador%'")->result();
+									OR descripcion1 ILIKE '%$buscador%'
+									OR descripcion2 ILIKE '%$buscador%'")->result();
 
 		$bus['documentos'] = $this->db->query("SELECT *
 									FROM archivo.documentos
-									WHERE nombre like '%$buscador%' 
+									WHERE nombre ILIKE '%$buscador%' 
 									AND activo = 1
-									OR descripcion1 like '%$buscador%'
-									OR descripcion2 like '%$buscador%'")->result();
+									OR descripcion1 ILIKE '%$buscador%'
+									OR descripcion2 ILIKE '%$buscador%'")->result();
 
 		$this->load->view('admin/header');
 		$this->load->view('admin/menu');

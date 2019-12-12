@@ -8,6 +8,7 @@ class Inspeccion extends CI_Controller {
 		parent::__construct();
 		$this->load->library('session');
 		$this->load->model("Inspecciones_model");
+		$this->load->model("Archivos_Model");
 		$this->load->model("Derivaciones_model");
 		$this->load->model("Rol_model");
         $this->load->helper('vayes_helper');
@@ -323,7 +324,7 @@ RIGHT JOIN
 		foreach ($inspectores as $i) {
 			array_push($array_inspectores, $i->persona_id);
 		}
-		// vdebug($array_inspectores, true, false, true);
+		//vdebug($inspectores, true, false, true);
 		$this->db->where_in('persona_id', $array_inspectores);
 		$data['inspectores'] = $this->db->get('persona')->result();
 		$data['dist'] = $this->db->get('catastro.geo_distritos')->result();//todos los distritos
@@ -406,10 +407,49 @@ RIGHT JOIN
 				$id = $this->session->userdata("persona_perfil_id");
 	            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
                 $usu_creacion = $resi->persona_id;
+                //nombre de la carpeta
+                $tramite_id=$this->input->post('tramite_id');
+                $this->db->select('cite,remitente');              
+                $cite=$this->db->get_where('tramite.tramite',array('tramite_id' =>$tramite_id))->row();
+                $remitente=$cite->remitente;
+                $cite=$cite->cite;
+
+
+                $cite = explode("/", $cite); 
+				$cite = end($cite);//numero de cite con formato 2019-00170 
+                           
+                $this->db->select('archivo_id'); 
+                $archivo_id=$this->db->get_where('archivo.archivo',array('nombre' =>$cite))->row();
+                $archivo_id=$archivo_id->archivo_id;
+
+                $this->db->select('archivo_id');              
+                $archivo_id=$this->db->get_where('archivo.archivo',array('padre' =>$archivo_id,'nombre'=>'inspecciones'))->row();                
+                $archivo_id=$archivo_id->archivo_id; // numero del archivoID  
+                           
+                  
+                
+
+                $nombre_carpeta=$cite;
                 $vobo=$this->input->post('vobo')?1:0;
                 $inspeccion=$this->input->post('inspeccion');
                 $notificacion=$this->input->post('notificacion');  
-                $asignacion_id=$this->input->post('asignacion_id');  
+                $asignacion_id=$this->input->post('asignacion_id');
+
+                //guardado de los datos del archivo en la BD
+				$nombre1 = $asignacion_id.'1';
+				$nombre2 = $asignacion_id.'2';
+				$descripcion1 = 'acta de inspeccion';
+				$descripcion3 = 'acta de notificacion';
+				$descripcion2 = 'del tramite ';
+				$archivo_id = $archivo_id;
+				$carpeta = 'pdf';
+				$adjunto = 'nombre del archivo';
+				$extension = 'pdf';
+				$url1    = './public/assets/archivos/'.$nombre_carpeta.'/inspecciones';	 
+                $this->Archivos_Model->insertardocumentoh($nombre1, $remitente, $descripcion1, $archivo_id, $carpeta, $adjunto, $extension, $url1);
+                $this->Archivos_Model->insertardocumentoh($nombre2, $remitente, $descripcion3, $archivo_id, $carpeta, $adjunto, $extension, $url1);
+                //fin de guardar en la BD
+
                 if($vobo){
                     $bool=1;
                 }
@@ -444,7 +484,7 @@ RIGHT JOIN
 
 
 
-					$config['upload_path']      = './public/assets/files/inspeccion';	               
+					$config['upload_path']      = './public/assets/archivos/'.$nombre_carpeta.'/inspeccion';	               
                     $config['allowed_types']    = 'pdf';
                     $config['file_name']        = $asignacion_id.'1';
 	                $config['overwrite']        = TRUE;
