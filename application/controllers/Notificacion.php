@@ -27,8 +27,27 @@ class Notificacion extends CI_Controller
         }
     }
 
+    //vista para mandar las notificaciones
+    public function crear($predio_id = null)
+    {
+        if ($this->session->userdata("login")) {
+            $this->load->view('admin/header');
+            $this->load->view('admin/menu');
+            $this->load->view('notificacion/nuevo');            
+            $this->load->view('admin/footer');       
+        } else {
+            redirect(base_url());
+        }
+    }    
+
+    //api firebase para el envio de notificaciones
     function enviar() {
-    $message='hola desde la api';
+
+    $titulo  = $this->input->post('titulo');
+    $asunto = $this->input->post('asunto');
+    $message = $this->input->post('mensaje');
+
+    //$message='hola desde la api';
     $id='elyxM-oxmk8:APA91bGz5dedfzsawG8TjBeKs60EpKkvPaF0WJhZN2nY7yOier2Kvceqd5Z5gS5N53rackn0X-0YQcX3qPG6pkuUp89aizxw6FffAyAHK5vXKW0WrXTi3EcKuUw6h5mRvG7vj-S5ofEe';
 
     $url = 'https://fcm.googleapis.com/fcm/send';
@@ -41,8 +60,10 @@ class Notificacion extends CI_Controller
                     "message" => $message
             ),
             'notification' => array (
-                    "body" => 'hola desde la api al fin',
-                    "title"=> 'Noticias'
+                    //"body" => 'hola desde la api al fin',
+                    //"title"=> 'Noticias'
+                    "body" => $asunto,
+                    "title"=> $titulo
             )
            
     );
@@ -65,8 +86,8 @@ class Notificacion extends CI_Controller
     //var_dump($result);
     //exit();
     curl_close ( $ch );
+        redirect(base_url());
     }
-
 
 }
      
