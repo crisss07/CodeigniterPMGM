@@ -17,7 +17,20 @@
                             <div class="row floating-labels mt-5">
                                 <div class="col-6">
                                     <div class="form-group mb-5">
-                                        <b>ARCHIVO : </b> &nbsp; &nbsp; <a href="<?php echo base_url(); ?>public/assets/images/tramites/<?php echo $tramite->adjunto.'.pdf';?>" target='_blank'><?php echo $tramite->adjunto.'.pdf'; ?></a>
+                                        <?php   $cite_archivo = $tramite->cite;
+                                                $partes = explode("/", $cite_archivo); 
+                                                $citee = end($partes);
+
+                                                $resi = $this->db->get_where('archivo.documentos', array('nombre' => $citee))->row();
+
+                                                $url1 = $resi->url;
+                                                $partes1 = explode("./", $url1); 
+                                                $citee1 = end($partes1);
+
+                                             ?>
+                                        <!-- <b>ARCHIVO : </b> &nbsp; &nbsp; <a href="<?php echo base_url(); ?>public/assets/images/tramites/<?php echo $tramite->adjunto.'.pdf';?>" target='_blank'><?php echo $citee1.'.pdf'; ?></a> -->
+                                        <b>ARCHIVO : </b> &nbsp; &nbsp; <a href="<?php echo base_url(); ?><?php echo $citee1.'/';?><?php echo $resi->nombre.'.pdf';?>" target='_blank'><?php echo $resi->nombre.'.pdf'; ?></a>
+                                    
                                      </div>
                                     <div class="form-group mb-5">
                                         <b>TIPO DE TRAMITE :</b> <?php echo $tipo_tramite->tramite;?>

@@ -162,7 +162,7 @@ class Tipo_tramite extends CI_Controller {
 
 							// INSERTAR EL DOCUMENTO
 							$config['upload_path']      = './public/assets/archivos/tramites/'.$citee.'/tramites';
-							$config['file_name']        = $adjunto;
+							$config['file_name']        = $citee;
 							$config['allowed_types']    = 'pdf';
 							$config['overwrite']        = TRUE;
 							$config['max_size']         = 2048;
@@ -176,12 +176,12 @@ class Tipo_tramite extends CI_Controller {
 								}
 							else
 								{
-									$nombre_doc = $adjunto;
+									$nombre_doc = $citee;
 									$descripcion1 = $remitente;
 									$descripcion2 = $cedula;
 									$archivo_id = $ultimoId3->max;
 									$carpeta = 'pdf';
-									$adjunto_doc = $adjunto;
+									$adjunto_doc = $citee;
 									$extension = 'pdf';
 									$url1 = './public/assets/archivos/tramites/'.$citee.'/tramites';
 
