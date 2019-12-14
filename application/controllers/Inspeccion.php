@@ -417,8 +417,8 @@ RIGHT JOIN
 
                 $cite = explode("/", $cite); 
 				$cite = end($cite);//numero de cite con formato 2019-00170 
-                           
-                $this->db->select('archivo_id'); 
+                //obtencion de datos para el guardado en la base de datos           
+                /*$this->db->select('archivo_id'); 
                 $archivo_id=$this->db->get_where('archivo.archivo',array('nombre' =>$cite))->row();
                 $archivo_id=$archivo_id->archivo_id;
 
@@ -426,7 +426,7 @@ RIGHT JOIN
                 $archivo_id=$this->db->get_where('archivo.archivo',array('padre' =>$archivo_id,'nombre'=>'inspecciones'))->row();                
                 $archivo_id=$archivo_id->archivo_id; // numero del archivoID  
                            
-                  
+                  */
                 
 
                 $nombre_carpeta=$cite;
@@ -434,7 +434,7 @@ RIGHT JOIN
                 $inspeccion=$this->input->post('inspeccion');
                 $notificacion=$this->input->post('notificacion');  
                 $asignacion_id=$this->input->post('asignacion_id');
-
+                		/*
                 //guardado de los datos del archivo en la BD
 				$nombre1 = $asignacion_id.'1';
 				$nombre2 = $asignacion_id.'2';
@@ -445,10 +445,10 @@ RIGHT JOIN
 				$carpeta = 'pdf';
 				$adjunto = 'nombre del archivo';
 				$extension = 'pdf';
-				$url1    = './public/assets/archivos/'.$nombre_carpeta.'/inspecciones';	 
+				$url1    = './public/assets/archivos/tramites/'.$nombre_carpeta.'/inspecciones';	 
                 $this->Archivos_Model->insertardocumentoh($nombre1, $remitente, $descripcion1, $archivo_id, $carpeta, $adjunto, $extension, $url1);
                 $this->Archivos_Model->insertardocumentoh($nombre2, $remitente, $descripcion3, $archivo_id, $carpeta, $adjunto, $extension, $url1);
-                //fin de guardar en la BD
+                //fin de guardar en la BD*/
 
                 if($vobo){
                     $bool=1;
@@ -484,7 +484,8 @@ RIGHT JOIN
 
 
 
-					$config['upload_path']      = './public/assets/archivos/'.$nombre_carpeta.'/inspeccion';	               
+					//$config['upload_path']      = './public/assets/archivos/'.$nombre_carpeta.'/inspeccion';	               
+					$config['upload_path']      = './public/assets/archivos/inspecciones';	               
                     $config['allowed_types']    = 'pdf';
                     $config['file_name']        = $asignacion_id.'1';
 	                $config['overwrite']        = TRUE;
