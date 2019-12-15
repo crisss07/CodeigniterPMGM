@@ -75,7 +75,7 @@
                                             <button type="button" class="btn waves-effect waves-light btn-sm btn-info">
                                                 <i class="fas fa-exclamation"></i>
                                             </button>
-                                            OJO Solo archivos png
+                                            OJO Solo archivos png <code>(con una resolucion 817x1058)</code> 
                                         </label>
                                         <input type="file" id="input-file-now" class="dropify" name="foto_org" data-allowed-file-extensions="png" required />
                                     </div>
