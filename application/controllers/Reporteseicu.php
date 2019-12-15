@@ -32,6 +32,56 @@ class Reporteseicu extends CI_Controller
         }
     }
 
+    public function menbrete()
+    {
+        if ($this->session->userdata("login")) {
+                  
+            $this->load->view('reports/header');
+            $this->load->view('admin/menu');
+            $this->load->view('reports/menbrete');           
+            $this->load->view('reports/footer');            
+        } else {
+            redirect(base_url());
+        }
+    }
+
+    public function do_upload(){
+
+        if ($this->session->userdata("login")) {
+            $id = $this->session->userdata("persona_perfil_id");
+            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+            $usu_creacion = $resi->persona_id;
+
+             
+
+                $config['upload_path']          = './public/assets/images/reportes';
+                $config['file_name']        = 'menbrete_reporte';
+                $config['allowed_types']        = 'png';
+                $config['overwrite']        = TRUE;
+                $config['max_size']             = 100000000;
+                $config['max_width']            = 100024;
+                $config['max_height']           = 700068;
+                
+   
+
+
+
+        $this->load->library('upload', $config);
+        if ( ! $this->upload->do_upload('foto_org'))
+        {
+                $error = array('error' => $this->upload->display_errors());
+        }
+        else
+        {
+                $data = array('upload_data' => $this->upload->data());
+               
+        }
+        redirect(base_url() . 'Reporteseicu/menbrete/');
+        }else {
+            redirect(base_url());
+        }   
+    }
+
     public function reporte_vista()
     {
         if ($this->session->userdata("login")) {
