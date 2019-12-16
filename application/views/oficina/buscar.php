@@ -40,20 +40,13 @@
         <!-- End CTA -->
 
         <!-- formalities Section -->
-        <div class="container">
-            <div class="row justify-content-lg-between align-items-md-center">
-                <div class="col-md-6 order-md-2 mb-9 mb-md-0">
-                <div class="mb-4">
-                    <span class="u-label u-label--sm u-label--purple mb-3">Why do you need it?</span>
-                    <h2 class="h3">All the information you need at your fingertips</h2>
-                    <p>Choose what information is displayed on your Summary page. Create templates that work for you and your practice. You can even customize and update them on the fly! Edit and manage Case.one to truly fit your needs as your practice grows.</p>
-                </div>
-                </div>
-
+        <div class="container align-items-md-center">
+            
+               
                 <div class="col-md-5 order-md-1">
                 <img class="w-100" src="<?php echo base_url(); ?>public/oficina_virtual/assets/svg/components/information-icon.svg" alt="Image Description">
                 </div>
-            </div>
+          
         </div>
         <br />
         <br />
