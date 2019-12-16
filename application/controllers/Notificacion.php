@@ -50,7 +50,7 @@ class Notificacion extends CI_Controller
     //$message='hola desde la api';
     //$id='elyxM-oxmk8:APA91bGz5dedfzsawG8TjBeKs60EpKkvPaF0WJhZN2nY7yOier2Kvceqd5Z5gS5N53rackn0X-0YQcX3qPG6pkuUp89aizxw6FffAyAHK5vXKW0WrXTi3EcKuUw6h5mRvG7vj-S5ofEe';
 
-    $id='ewt87hsjAAc:APA91bGQKVsQgaGycL7_oMrrgCooFEaD11eY34t1eaBtgnpDPUbU-nqDhJaoW4c7rrCH6Yt1e8__hdrbzUi-K_BFsjl9HTVaxBgb1wVy366J18QC60P9tmuIOW5YyaLWmzb-rFsjM9Qj';
+    $id='efDwJq8i7rU:APA91bGoQcm87TQ_kisLe9iN_dbn6K2JVYd2aojWYU2icCEF8W5_y8XCbx7bY2SKvSTQfrvNz1JAoEN3ookQrhral8CxJrDKqngCxbiTQTNX5gZCpoydH17-3KLRdJmKUqMOWKDn0cjy';
 
     $url = 'https://fcm.googleapis.com/fcm/send';
 
