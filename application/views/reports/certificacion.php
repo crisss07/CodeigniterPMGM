@@ -310,7 +310,7 @@
  <table width="100%">     
       <tr >   
       <td align="center"  class="titulo" height="0" width="50%">
-          <img src="<?php echo base_url(); ?>public/assets/images/reportes/nodisponible.jpeg" alt="Logo" width="300"  class="logo"/>
+          <img src="<?php echo base_url(); ?><?php echo $foto_plano_ubi; ?>" alt="Logo" width="300"  class="logo"/>
       </td>  
       <td align="justify"  class="titulo" height="0">
         <u> DATOS TECNICOS</u>  <p>

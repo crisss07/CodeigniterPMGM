@@ -193,6 +193,20 @@ class Reporteseicu extends CI_Controller
         $data['datos_predio'] = $this->Reportes_model->get_data($id);
          $data['propietarios'] = $this->Reportes_model->get_propietarios($id);
 
+          $valida_foto=$this->db->query("SELECT * FROM catastro.predio_foto WHERE predio_id=$id")->row();
+
+        if($valida_foto==NULL){
+            //var_dump('datos_nulos');
+        //exit;
+            $data['foto_fachada'] ='public/assets/images/reportes/nodisponible.jpeg';
+            $data['foto_plano_ubi'] = 'public/assets/images/reportes/nodisponible.jpeg';
+        }else{
+
+            $data['foto_fachada'] = 'public/assets/files/predios/'.$valida_foto->foto_fachada;
+            $data['foto_plano_ubi'] = 'public/assets/files/predios/'.$valida_foto->foto_plano_ubi;
+
+        }
+
 
 
 
@@ -257,6 +271,27 @@ WHERE predio_id=$id ORDER BY b.nro_bloque")->result();
         $data['mes_l']= $mes;
         $data['anio']=date('Y');         
         $dia =  $days_dias[date('l')];
+
+        /*<?php echo base_url(); ?>public/assets/images/reportes/nodisponible.jpeg*/
+
+        ///public/assets/files/predios/
+
+        $valida_foto=$this->db->query("SELECT * FROM catastro.predio_foto WHERE predio_id=$id")->row();
+
+        if($valida_foto==NULL){
+            //var_dump('datos_nulos');
+        //exit;
+            $data['foto_fachada'] ='public/assets/images/reportes/nodisponible.jpeg';
+            $data['foto_plano_ubi'] = 'public/assets/images/reportes/nodisponible.jpeg';
+        }else{
+
+            $data['foto_fachada'] = 'public/assets/files/predios/'.$valida_foto->foto_fachada;
+            $data['foto_plano_ubi'] = 'public/assets/files/predios/'.$valida_foto->foto_plano_ubi;
+
+        }
+
+        //$data['foto'] = ;
+        
 
         $data['datos_predio'] = $this->Reportes_model->get_data($id);
         $data['propietarios'] = $this->Reportes_model->get_propietarios($id);

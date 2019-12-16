@@ -229,7 +229,7 @@
 
         <td align="center"  class="titulo_tres" height="0"  width="35%">
           VISTA FOTOGRAFICA <br>
-      <img src="<?php echo base_url(); ?>public/assets/images/reportes/nodisponible.jpeg" alt="Logo" width="200"  class="logo"/>
+      <img src="<?php echo base_url(); ?><?php echo $foto_fachada; ?>" alt="Logo" width="200"  class="logo"/>
       </td>  
   </tr>
 
@@ -253,7 +253,7 @@
       </td> 
         <td align="center"  class="titulo_tres" height="0"  width="60%"  rowspan="3">
           PLANO CATASTRAL <br>
-      <img src="<?php echo base_url(); ?>public/assets/images/reportes/nodisponible.jpeg" alt="Logo" width="200"  class="logo"/>
+      <img src="<?php echo base_url(); ?><?php echo $foto_plano_ubi; ?>" alt="Logo" width="200"  class="logo"/>
       </td>  
   </tr>
 
