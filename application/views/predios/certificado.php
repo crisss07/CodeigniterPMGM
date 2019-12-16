@@ -107,8 +107,9 @@
                         <tr>
                             <td style="width: 610px;">
                                 <?php if ($fotos==0){$imagen_plano="";}else{$fotop = $fotos[0]->foto_plano_ubi; $imagen_plano=base_url("/public/assets/files/predios/".$fotop);}?>
-                                <img src="<?php echo $imagen_plano; ?>" style="width: 610px;">                            
+                                <!-- <img src="<?php// echo $imagen_plano; ?>" style="width: 610px;">                             -->
                                 <?php
+
                                     // $foto_bytea_ubi = pg_unescape_bytea($predio[0]->foto_plano_ubi); 
                                     // $foto_64_ubi = base64_encode($foto_bytea_ubi);
                                 ?>
