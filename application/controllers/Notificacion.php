@@ -86,7 +86,7 @@ class Notificacion extends CI_Controller
     //var_dump($result);
     //exit();
     curl_close ( $ch );
-        redirect(base_url());
+        redirect(base_url().'Notificacion/crear');
     }
 
 }

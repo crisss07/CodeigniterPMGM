@@ -10,16 +10,12 @@
                     <div class="card-body">
                         <div class="row page-titles">
                             <div class="col-md-6 col-8 align-self-center">
-                                <h4 class="card-title">Cargos</h4>                                
+                                <h4 class="card-title">Envio de Notificaciones</h4>                                
                             </div>
                         </div>
-                        <p></p>
-                                           
-                        <div class="row" >
-                            <div class="col-md-12">                                        
-                            </div>
-                        </div>
+
                         <div class="row">
+                            <div class="mt-4 col-5">
                             <?php echo form_open('Notificacion/enviar', array('method'=>'POST', 'id'=>'insertar')); ?>
                                     <div class="form-group">
                                         <label for="recipient-name" class="control-label">Titulo</label>
@@ -31,14 +27,38 @@
                                     </div>
                                        <div class="form-group">
                                         <label for="recipient-name" class="control-label">Mensaje</label>
-                                        <input type="text" class="form-control" id="mensaje" name="mensaje">
+                                        <textarea class="form-control" id="mensaje" rows="3" placeholder="Message" name="mensaje"></textarea>
+                                        
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                        
+                                        <button type="submit" class="btn btn-info">Enviar Nuevo</button>
                                     </div>
                             </form>                            
                         </div>
+
+                        <div class="mt-4 col-5">
+                           Vista previa en el dispositivo
+
+                            <div class="card">
+                            <div class="el-card-item">
+                                <div class="el-card-avatar el-overlay-1"> 
+                                    <img src="<?php echo base_url(); ?>public/assets/images/movil.png" alt="user" />
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        </div>
+                        </div>
+                                                                 
+                       
+                        
+
+                        
+
+
                         <div class="card">
                           
                     </div>
