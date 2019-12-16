@@ -3,6 +3,7 @@
         .left-sidebar {display: none;}
     }
 </style>
+<?php require_once(APPPATH.'libraries/coordinates.php'); ?>
 <!-- ============================================================== -->
 <!-- Start Page Content -->
 <!-- ============================================================== -->
@@ -114,13 +115,18 @@
                                 <?php //echo "<img src='data:image/jpeg;base64, $foto_64_ubi' width='350px' />"; ?>
 
                                 <br />CROQUIS DEL PREDIO
-                                <div id="mapid" style="height: 180px;"></div>
+                                <?php //echo ll2utm(36.311665575277935,59.55385813725379); ?>
+                                <?php echo utm2ll(451603.0487,7994746.7977,40,true);  ?>
+                                <div id="mapid" style="height: 380px;"></div>
+                                <!-- <div id="mapid" style="height: 180px;"></div> -->
                                 <?php $cod_predio = $predio[0]->predio_id; ?>
                                 <?php //vdebug($cod_predio, false, false, true); ?>
                                 <?php $vertices = $this->db->query("SELECT ST_AsText(geom) as area
                                         FROM catastro.geo_distritos
                                         WHERE id = $cod_predio;")->row_array();
                                     vdebug($vertices, false, false, true);
+                                    $utm_zona = '32720';
+
                                 ?>
                                 <br />
                                 <?php 
@@ -156,7 +162,7 @@
                         </tr>
                     </table>
 
-                    <div class="row" ">
+                    <div class="row">
                         <div class="col-md-5">
                         
                         <div class="text-black" style="font-size: 18pt; text-decoration: underline;">DATOS DE BLOQUES
@@ -241,8 +247,12 @@
 
  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
    crossorigin=""></script>
+
+<script src="<?php echo base_url(); ?>public/js/proj4-compressed.js"></script>
+<script src="<?php echo base_url(); ?>public/js/proj4leaflet.js"></script>
+
 <script type="text/javascript">
-        var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         maxZoom: 18,
@@ -251,5 +261,29 @@
             'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         id: 'mapbox/streets-v11'
     }).addTo(mymap);
+
+// SWEREF 99 TM with map's pixel origin at (218128.7031, 6126002.9379)
+/*var crs = new L.Proj.CRS('EPSG:3006',
+  '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
+  {
+    origin: [218128.7031, 6126002.9379],
+    resolutions: [8192, 4096, 2048] // 3 example zoom level resolutions
+  }
+);
+
+var map = L.map('map', {
+    center: [57.74, 11.94],
+    zoom: 13,
+    crs: L.Proj.CRS('EPSG:2400',
+      '+lon_0=15.808277777799999 +lat_0=0.0 +k=1.0 +x_0=1500000.0 ' +
+      '+y_0=0.0 +proj=tmerc +ellps=bessel +units=m ' +
+      '+towgs84=414.1,41.3,603.1,-0.855,2.141,-7.023,0 +no_defs',
+      {
+        resolutions: [8192, 4096, 2048] // 3 example zoom level resolutions
+      }
+    ),
+    continuousWorld: true,
+    worldCopyJump: false
+});*/
 
 </script>
