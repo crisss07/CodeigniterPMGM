@@ -11,7 +11,10 @@
 
         body {
 
-            margin: 15pt 15pt 15pt 15pt;
+            /*margin: 15pt 15pt 15pt 15pt;*/
+            background-image: url('<?php echo base_url(); ?>public/assets/images/reportes/menbrete_reporte.png');
+
+           background-repeat: no-repeat; 
 
         }
 
@@ -66,7 +69,10 @@
         }
 
         .invoice table {
-            margin: 0px;
+          margin-top: 0px;
+            margin-left: 80px;
+            margin-right:  60px;
+            margin-bottom: 0px;
         }
 
         .invoice h3 {
@@ -148,7 +154,7 @@
 
 </head>
 <body>
-    <div class="encabezado">
+   <!-- <div class="encabezado">
 
               <table width="100%" class="bordes">
             <tr class="bordes">
@@ -163,8 +169,11 @@
              </td>
     </tr>
 </table>
-</div>
+</div>-->
+<div >
+    <br><br><br><br><br><br>
 
+</div>
 <div class="invoice">  
     <br>
           <table width="100%" >
@@ -325,7 +334,7 @@
 
 </div>
 
-
+<!--
 <div class="information" style="position: absolute; bottom: 0;">
     <table width="100%">
         <tr>
@@ -340,6 +349,7 @@
             </td>            
         </tr>
     </table>
-</div>
+</div>-->
+
 </body>
 </html>

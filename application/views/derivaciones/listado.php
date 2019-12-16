@@ -73,6 +73,9 @@
                                             <a href="<?php echo base_url(); ?>derivaciones/ver/<?php echo $mt->tramite_id; ?>" class="btn btn-primary footable-edit" title="Seguimiento">
                                                 <span class="fas fa-bars" aria-hidden="true"></span>
                                             </a>
+                                            <a href="<?php echo base_url(); ?>Inspeccion/crear/<?php echo $mt->tramite_id; ?>" class="btn btn-info" title="Crear inspeccion">
+                                                <span class="fas fa-eye" aria-hidden="true"></span>
+                                            </a>
                                             <?php 
                                                 if($opcion_crear_predio){
                                                     echo "<a href='".base_url().$opcion_crear_predio."/".$mt->tramite_id."' class='btn btn-info btn btn-warning fas fa-check' title='Inspección'> </a>";
