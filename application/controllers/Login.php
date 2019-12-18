@@ -50,7 +50,7 @@ class Login extends CI_Controller {
 	 // Recibir el code de la URL que envia la AGETIC PASO (2) 
 		$code = $_GET['code'];
 		if ($code) {
-			echo 'llego';	
+			// echo 'llego';	
 			// echo "El codigo de acceso:".$code."<br />";
 			$secret             		=	urlencode("WXqlbS8J+X92+1fx2QWzTR0JlT6QMwqKjDsm6j9o0C29WOjvL66kxganY+nNvQK+");
 			$client_id 					=	"68d55a97-cec0-45e7-b0d3-1a1b1eaedba2";
@@ -64,7 +64,7 @@ class Login extends CI_Controller {
 									'Authorization : Basic '.$Authorization,
 									// 'grant_type    = authorization_code&code='.$code.'&redirect_uri=https://pmgm.oopp.gob.bo/testseicu/login/login'
 								));
-								$variables = "grant_type=authorization_code&code=$code&redirect_uri=https://pmgm.oopp.gob.bo/testseicu/login/llega";
+								$variables = "grant_type=authorization_code&code=$code&redirect_uri=https://pmgm.oopp.gob.bo/testseicu/login/login";
 								curl_setopt($CURL, CURLOPT_POSTFIELDS,$variables); 
 					$dataAGETIC        	= 	curl_exec($CURL);
 					$informacionAGETIC 	= 	curl_getinfo($CURL);
@@ -72,8 +72,8 @@ class Login extends CI_Controller {
 					// $errors = curl_error($CURL);
 					// $response = curl_getinfo($CURL, CURLINFO_HTTP_CODE);
 					// vdebug($errors, false, false, true);
-					// vdebug($response, false, false, true);
-					// vdebug($dataAGETIC, false, false, true);
+					vdebug($response, false, false, true);
+					vdebug($dataAGETIC, false, false, true);
 					// vdebug($informacionAGETIC, true, false, true);
 					// echo "datos json";	
 		} else {
