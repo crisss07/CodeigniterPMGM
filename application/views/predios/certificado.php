@@ -117,16 +117,23 @@
 
                                 <br />CROQUIS DEL PREDIO
                                 <?php //echo ll2utm(36.311665575277935,59.55385813725379); ?>
-                                <?php echo utm2ll(451603.0487,7994746.7977,40,true);  ?>
+                                <?php echo utm2ll(451603.0487,7994746.7977,20,true);  ?>
                                 <div id="mapid" style="height: 380px;"></div>
                                 <!-- <div id="mapid" style="height: 180px;"></div> -->
                                 <?php $cod_predio = $predio[0]->predio_id; ?>
                                 <?php //vdebug($cod_predio, false, false, true); ?>
-                                <?php $vertices = $this->db->query("SELECT ST_AsText(geom) as area
+                                <?php 
+                                    $vertices = $this->db->query("SELECT ST_AsText(geom) as area
                                         FROM catastro.geo_distritos
                                         WHERE id = $cod_predio;")->row_array();
                                     vdebug($vertices, false, false, true);
-                                    $utm_zona = '32720';
+                                    // 32720
+
+                                    $vertices2 = $this->db->query("SELECT ST_AsGML(geom) as area
+                                        FROM catastro.geo_distritos
+                                        WHERE id = $cod_predio;")->row_array();
+                                    vdebug($vertices2, true, false, true);
+                                    // $utm_zona = '32720';
 
                                 ?>
                                 <br />
