@@ -11,6 +11,8 @@ class Derivaciones extends CI_Controller
         $this->load->model("logacceso_model");
         $this->load->model("Persona_model");
         $this->load->model("Derivaciones_model");
+        $this->load->model("Auditoria_Model");
+        $this->load->model("Archivos_Model");
         $this->load->model("Ddrr_model");
         $this->load->helper('url_helper');
         $this->load->helper('vayes_helper');
@@ -103,14 +105,17 @@ class Derivaciones extends CI_Controller
         $perfil_persona = $this->session->userdata('persona_perfil_id');
         $datos_persona_perfil = $this->db->get_where('persona_perfil', array('persona_perfil_id'=>$perfil_persona))->result_array();
         $idTramite = $this->input->post('idTramite');
+        $url = $this->input->post('url');
+        $cite_sin = $this->input->post('cite_sin');
         
         $anio= date("Y");
-        $datos = $this->db->query('SELECT max(adjunto) FROM tramite.derivacion')->row();
-        if($datos->max != NULL){
-            $cadena = substr($datos->max, 13)+1;
-            $adjunto='ARC-DER/'.$anio.'-'.$cadena;
-        }else{
-            $adjunto="ARC-DER/2019-1";
+        $datos = $this->db->query('SELECT MAX(derivacion_id) as nro FROM tramite.derivacion')->row();
+        if(empty($datos)){
+            $adjunto="ARC-DER_2019-1";
+        }
+        else{
+            $cadena = $datos->nro+1;
+            $adjunto='ARC-DER_'.$anio.'-'.$cadena;
         }
         
         $this->db->select_max('derivacion_id');
@@ -145,7 +150,7 @@ class Derivaciones extends CI_Controller
             'usu_creacion' =>$usu_creacion,
         );
         $this->db->insert('tramite.derivacion', $data);
-            $config['upload_path']      = './public/assets/images/tramites';
+            $config['upload_path']      = $url;
             $config['file_name']        = $adjunto;
             $config['allowed_types']    = 'pdf';
             $config['overwrite']        = TRUE;
@@ -158,9 +163,46 @@ class Derivaciones extends CI_Controller
             //$this->load->view('crud/organigrama', $error);
             redirect(base_url().'tipo_tramite/listado');
         }else{
-            $data = array('upload_data' => $this->upload->data());
-            //redirect('Derivaciones/nuevo/'.$idTramite);
-            redirect(base_url().'derivaciones/listado');
+            $per1 = $this->db->get_where('public.persona', array('persona_id' => $datos_persona_perfil[0]['persona_id']))->row();
+            $nombre_per = $per1->nombres.' '.$per1->paterno.' '.$per1->materno;
+
+            $arc = $this->db->get_where('archivo.archivo', array('nombre' => $cite_sin, 'activo' => '1'))->row();
+            $arc1 = $this->db->get_where('archivo.archivo', array('padre' => $arc->archivo_id, 'nombre' => 'tramites'))->row();
+            $num = $this->db->query("SELECT MAX(documentos_id) as nro
+                                        FROM archivo.documentos")->row();
+            $sum = $num->nro + 1;
+            $nombre1 = $cite_sin.'_'.$sum;
+
+            $nombre_doc = $adjunto;
+            $descripcion1 = $nombre_per;
+            $descripcion2 = $per1->ci;
+            $archivo_id = $arc1->archivo_id;
+            $carpeta = 'pdf';
+            $adjunto_doc = $adjunto;
+            $extension = 'pdf';
+            $url1 = $url;
+
+            $consulta = $this->db->get_where('archivo.documentos', array('archivo_id' => $archivo_id, 'nombre' => $nombre_doc, 'extension' => $extension, 'activo' => '1'))->row(); 
+            
+            if ($consulta) {
+                redirect(base_url().'Derivaciones/listado');
+            }
+            else{
+                                            
+                $this->Archivos_Model->insertardocumentoh($nombre_doc, $descripcion1, $descripcion2, $archivo_id, $carpeta, $adjunto_doc, $extension, $url1);
+                //AUDITORIA
+                $tablad = 'archivo.documentos';
+                $ultimoIdd = $this->db->query("SELECT MAX(documentos_id) as max FROM archivo.documentos")->row();
+                $datad = $this->db->get_where('archivo.documentos', array('documentos_id' => $ultimoIdd->max))->row();
+                $this->Auditoria_Model->auditoria_insertar(json_encode($datad), $tablad);
+
+                $data = array('upload_data' => $this->upload->data());
+                //redirect('Derivaciones/nuevo/'.$idTramite);
+                redirect(base_url().'derivaciones/listado');
+            }
+
+
+            
         }    
         redirect(base_url().'tipo_tramite/listado');
     }
