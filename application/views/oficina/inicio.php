@@ -5,18 +5,19 @@
       <div class="w-lg-50 w-md-80 mx-3 mx-md-auto space-2 space-3--sm space-4--lg text-center text-white">
         <!-- Title -->
         <div class="mb-6">
-          <h2 class="h1 text-lh-xs mb-3">Buy or Rent a Property with us Satisfaction is Guaranteed</h2>
-          <p class="text-white-70 text-lh-sm">The modern way to seamless and effecient renting and buying<br class="d-none d-lg-inline-block"> property management</p>
+          <h2 class="h1 text-lh-xs mb-3">Sistema Espacial de Información Catastral Urbano</h2>
+          <p class="text-white-70 text-lh-sm">Aplicación desarrollada para la gestión del catastro en los gobiernos autónomos municipales del<br class="d-none d-lg-inline-block">Estado Plurinacional de Bolivia</p>
         </div>
         <!-- End Title -->
 
         <!-- Search -->
         <div class="input-group rounded-pill bg-white overflow-hidden p-2 mb-6">
-          <input type="search" class="form-control form-control-sm rounded-pill border-0 mr-1" placeholder="Search what kind of property do you like?" aria-label="Search what kind of property do you like?">
+          <input type="search" class="form-control form-control-sm rounded-pill border-0 mr-1" placeholder="Buscar" aria-label="Bucar">
+          <!--<input type="search" class="form-control form-control-sm rounded-pill border-0 mr-1" placeholder="Search what kind of property do you like?" aria-label="Search what kind of property do you like?">-->
 
           <div class="input-group-append">
-            <button type="button" class="btn btn-sm btn-primary rounded-pill font-weight-medium px-4 py-2 mr-2">For Sale</button>
-            <button type="button" class="btn btn-sm btn-primary rounded-pill font-weight-medium px-4 py-2">For Rent</button>
+            <button type="button" class="btn btn-sm btn-primary rounded-pill font-weight-medium px-4 py-2 mr-2">Buscar</button>
+            <!--<button type="button" class="btn btn-sm btn-primary rounded-pill font-weight-medium px-4 py-2">For Rent</button>-->
           </div>
         </div>
         <!-- End Search -->
@@ -27,7 +28,7 @@
            data-animate-in="zoomIn"
            data-animate-out="zoomOut"
            data-caption="Tropical Experiences with Space">
-          Watch about our services
+           Mira sobre nuestros servicios
           <i class="u-icon u-icon--sm u-icon--white-soft rounded-circle ml-2">
             <i class="u-icon__inner svg-icon svg-icon-xs text-white">
               <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -48,9 +49,9 @@
       <div class="container">
         <div class="row no-gutters align-items-center">
           <div class="col-lg-5 mb-5 mb-lg-0">
-            <h6 class="text-uppercase font-weight-medium letter-spacing-0_06 mb-3">Fresh Experiences</h6>
-            <h2 class="text-lh-xs mb-4">Find the perfect aspect for<br class="d-none d-lg-inline-block"> your new place</h2>
-            <p class="text-white-70">Start a new life with better experience because life<br class="d-none d-lg-inline-block"> is never flat, make sure you won't missed it</p>
+            <h6 class="text-uppercase font-weight-medium letter-spacing-0_06 mb-3">Experiencias recientes</h6>
+            <h2 class="text-lh-xs mb-4">Encuentra el aspecto para tu<br class="d-none d-lg-inline-block">nuevo hogar</h2>
+            <p class="text-white-70">Comenzar una nueva vida con una mejor experiencia<br class="d-none d-lg-inline-block"></p>
 
             <!-- Gallarie's arrows -->
             <div id="sliderSyncingThumb" class="js-slick-carousel u-slick pt-9 mt-6"
@@ -62,19 +63,19 @@
                  data-arrow-left-classes="fa fa-arrow-left u-slick__arrow-classic-inner bg-white text-dark left-0"
                  data-arrow-right-classes="fa fa-arrow-right u-slick__arrow-classic-inner bg-white text-dark right-0" style="width: 90px;">
               <div class="js-slide d-none">
-                <img class="img-fluid" src="../../assets/img/demo/real-estate/gallery-1.jpg" alt="Image Description">
+                <img class="img-fluid" src="../../assets/img/proyectovivienda/edificio.jpg" alt="Image Description">
               </div>
 
               <div class="js-slide d-none">
-                <img class="img-fluid" src="../../assets/img/demo/real-estate/gallery-2.jpg" alt="Image Description">
-              </div>
-
-              <div class="js-slide d-none">
-                <img class="img-fluid" src="../../assets/img/demo/real-estate/gallery-3.jpg" alt="Image Description">
+                <img class="img-fluid" src="../../assets/img/proyectovivienda/viviendas.jpg" alt="Image Description">
               </div>
 
               <div class="js-slide d-none">
                 <img class="img-fluid" src="../../assets/img/demo/real-estate/gallery-4.jpg" alt="Image Description">
+              </div>
+
+              <div class="js-slide d-none">
+                <img class="img-fluid" src="../../assets/img/demo/real-estate/gallery-3.jpg" alt="Image Description">
               </div>
 
               <div class="js-slide d-none">
@@ -123,25 +124,17 @@
                      }
                    }]'>
                 <div class="js-slide my-3 lift-lg shadow-2-sm-hover">
-                  <a class="w-100 card bg-img-hero border-0 gradient-overlay-half-black-v2 min-height-320 text-white rounded-pseudo p-3" href="#" style="background-image: url(<?php echo base_url(); ?>public/oficina_virtual/assets/img/demo/real-estate/gallery-1.jpg);">
+                  <a class="w-100 card bg-img-hero border-0 gradient-overlay-half-black-v2 min-height-320 text-white rounded-pseudo p-3" href="#" style="background-image: url(<?php echo base_url(); ?>public/oficina_virtual/assets/img/proyectovivienda/edificio.jpg);">
                     <div class="mt-auto text-center">
-                      <h5 class="font-weight-normal">Nature</h5>
+                      <h5 class="font-weight-normal">Vivienda</h5>
                     </div>
                   </a>
                 </div>
 
                 <div class="js-slide my-3 lift-lg shadow-2-sm-hover">
-                  <a class="w-100 card bg-img-hero border-0 gradient-overlay-half-black-v2 min-height-320 text-white rounded-pseudo p-3" href="#" style="background-image: url(<?php echo base_url(); ?>public/oficina_virtual/assets/img/demo/real-estate/gallery-2.jpg);">
+                  <a class="w-100 card bg-img-hero border-0 gradient-overlay-half-black-v2 min-height-320 text-white rounded-pseudo p-3" href="#" style="background-image: url(<?php echo base_url(); ?>public/oficina_virtual/assets/img/proyectovivienda/viviendas.jpg);">
                     <div class="mt-auto text-center">
-                      <h5 class="font-weight-normal">Beach</h5>
-                    </div>
-                  </a>
-                </div>
-
-                <div class="js-slide my-3 lift-lg shadow-2-sm-hover">
-                  <a class="w-100 card bg-img-hero border-0 gradient-overlay-half-black-v2 min-height-320 text-white rounded-pseudo p-3" href="#" style="background-image: url(<?php echo base_url(); ?>public/oficina_virtual/assets/img/demo/real-estate/gallery-3.jpg);">
-                    <div class="mt-auto text-center">
-                      <h5 class="font-weight-normal">Playground</h5>
+                      <h5 class="font-weight-normal">Casa</h5>
                     </div>
                   </a>
                 </div>
@@ -149,7 +142,15 @@
                 <div class="js-slide my-3 lift-lg shadow-2-sm-hover">
                   <a class="w-100 card bg-img-hero border-0 gradient-overlay-half-black-v2 min-height-320 text-white rounded-pseudo p-3" href="#" style="background-image: url(<?php echo base_url(); ?>public/oficina_virtual/assets/img/demo/real-estate/gallery-4.jpg);">
                     <div class="mt-auto text-center">
-                      <h5 class="font-weight-normal">Infrastructure</h5>
+                      <h5 class="font-weight-normal">Infrestructura</h5>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="js-slide my-3 lift-lg shadow-2-sm-hover">
+                  <a class="w-100 card bg-img-hero border-0 gradient-overlay-half-black-v2 min-height-320 text-white rounded-pseudo p-3" href="#" style="background-image: url(<?php echo base_url(); ?>public/oficina_virtual/assets/img/demo/real-estate/gallery-3.jpg);">
+                    <div class="mt-auto text-center">
+                      <h5 class="font-weight-normal">Patio</h5>
                     </div>
                   </a>
                 </div>
@@ -178,106 +179,6 @@
     </div>
     <!-- End Experiences -->
 
-    <!-- How it works -->
-    <div class="space-2 space-3--lg gradient-overlay-quarter-light-v1">
-      <div class="container">
-        <!-- Title -->
-        <div class="w-md-80 w-lg-60 mx-md-auto text-md-center mb-6">
-          <h6 class="text-uppercase text-gray-700 font-weight-medium letter-spacing-0_06 mb-3">How it works</h6>
-          <h2 class="text-lh-xs mb-0">Just in three simple steps</h2>
-        </div>
-        <!-- End Title -->
-
-        <!-- Wizard -->
-        <div class="js-wizard wizard"
-             data-wizard-steps="#wizardSteps"
-             data-wizard-content="#wizardContent">
-          <!-- Wizard Steps -->
-          <div id="wizardSteps" class="wizard-steps w-lg-80 mx-auto mb-9">
-            <div class="wizard-steps-item cursor-pointer"
-                 data-next-step="#selectStepOne">
-              <div class="wizard-steps-num-wrapper text-muted">
-                <div class="wizard-steps-num shadow">
-                  <div class="wizard-steps-num-inner">1</div>
-                </div>
-              </div>
-              <h5 class="wizard-steps-title d-none d-sm-block">Meet our agent</h5>
-            </div>
-
-            <div class="wizard-steps-item cursor-pointer"
-                 data-next-step="#selectStepTwo">
-              <div class="wizard-steps-num-wrapper text-muted">
-                <div class="wizard-steps-num shadow">
-                  <div class="wizard-steps-num-inner">2</div>
-                </div>
-              </div>
-              <h5 class="wizard-steps-title d-none d-sm-block">Discuss with the owner</h5>
-            </div>
-
-            <div class="wizard-steps-item cursor-pointer"
-                 data-next-step="#selectStepThree">
-              <div class="wizard-steps-num-wrapper text-muted">
-                <div class="wizard-steps-num shadow">
-                  <div class="wizard-steps-num-inner">3</div>
-                </div>
-              </div>
-              <h5 class="wizard-steps-title d-none d-sm-block">Make a deal</h5>
-            </div>
-          </div>
-          <!-- End Wizard Steps -->
-
-          <!-- Wizard Content -->
-          <div id="wizardContent">
-            <div id="selectStepOne" class="row align-items-lg-center active">
-              <div class="col-md-6 mb-4 mb-md-0">
-                <img class="img-fluid w-100 rounded" src="<?php echo base_url(); ?>public/oficina_virtual/assets/img/demo/real-estate/how-it-works-1.jpg" alt="Image Description">
-              </div>
-
-              <div class="col-md-6 pl-lg-9">
-                <h2 class="text-lh-xs mb-4">Tell us about your dream<br class="d-none d-lg-inline-block"> property and let us do the magic</h2>
-                <p class="mb-7">We're so passionate about to help you to find the best<br class="d-none d-lg-inline-block"> property to living. With our experience there is no doubt you'll<br class="d-none d-lg-inline-block"> regret our service.</p>
-                <a class="btn btn-sm btn-primary mr-3" href="#">Get Started</a>
-                <a class="btn btn-sm btn-outline-primary border-1" href="javascript:;"
-                    data-next-step="#selectStepTwo">
-                  Next Step
-                </a>
-              </div>
-            </div>
-
-            <div id="selectStepTwo" class="row align-items-center" style="display: none;">
-              <div class="col-md-6 mb-4 mb-md-0">
-                <img class="img-fluid w-100 rounded" src="<?php echo base_url(); ?>public/oficina_virtual/assets/img/demo/real-estate/how-it-works-2.jpg" alt="Image Description">
-              </div>
-
-              <div class="col-md-6 pl-lg-9">
-                <h2 class="text-lh-xs mb-4">Discuss with the owner</h2>
-                <p class="mb-7">We're so passionate about to help you to find the best<br class="d-none d-lg-inline-block"> property to living. With our experience there is no doubt you'll<br class="d-none d-lg-inline-block"> regret our service.</p>
-                <a class="btn btn-sm btn-primary mr-3" href="#">Get Started</a>
-                <a class="btn btn-sm btn-outline-primary border-1" href="javascript:;"
-                    data-next-step="#selectStepThree">
-                  Next Step
-                </a>
-              </div>
-            </div>
-
-            <div id="selectStepThree" class="row align-items-center" style="display: none;">
-              <div class="col-md-6 mb-4 mb-md-0">
-                <img class="img-fluid w-100 rounded" src="<?php echo base_url(); ?>public/oficina_virtual/assets/img/demo/real-estate/how-it-works-3.jpg" alt="Image Description">
-              </div>
-
-              <div class="col-md-6 pl-lg-9">
-                <h2 class="text-lh-xs mb-4">Make a deal</h2>
-                <p class="mb-7">We're so passionate about to help you to find the best<br class="d-none d-lg-inline-block"> property to living. With our experience there is no doubt you'll<br class="d-none d-lg-inline-block"> regret our service.</p>
-                <a class="btn btn-sm btn-primary mr-3" href="#">Get Started</a>
-              </div>
-            </div>
-          </div>
-          <!-- End Wizard Content -->
-        </div>
-        <!-- End Wizard -->
-      </div>
-    </div>
-    <!-- End How it works -->
 
     <!-- CTA -->
     <div class="text-center space-2 space-3--lg gradient-overlay-quarter-light-v1">
@@ -299,9 +200,9 @@
                   </i>
                 </span>
 
-                <h3 class="text-lh-xs mb-3">Looking for a place to stay<br class="d-none d-lg-inline-block"> or a property to rent?</h3>
-                <p class="text-muted mb-5">We guarantee you every aspect that you like on<br class="d-none d-lg-inline-block"> your property is available in here</p>
-                <a class="btn btn-sm btn-primary" href="#">Give it a try now</a>
+                <h3 class="text-lh-xs mb-3">Visualizar los requisitos de tramite<br class="d-none d-lg-inline-block"> </h3>
+                <p class="text-muted mb-5">Detalle de los requitos para<br class="d-none d-lg-inline-block">empezar los tramites de vivienda</p>
+                <a class="btn btn-sm btn-primary" href="#">Ver tramites</a>
               </div>
             </article>
             <!-- End Card -->
@@ -322,9 +223,9 @@
                   </i>
                 </span>
 
-                <h3 class="text-lh-xs mb-3">Wants to sell or rent<br class="d-none d-lg-inline-block"> your property?</h3>
-                <p class="text-muted mb-5">Sell your property in a quick time and<br class="d-none d-lg-inline-block"> less effort than ever</p>
-                <a class="btn btn-sm btn-primary" href="#">Let's get started</a>
+                <h3 class="text-lh-xs mb-3">Proyecto det<br class="d-none d-lg-inline-block">vivienda</h3>
+                <p class="text-muted mb-5">Vivienda de la población<br class="d-none d-lg-inline-block"> Boliviana</p>
+                <a class="btn btn-sm btn-primary" href="#">Empecemos</a>
               </div>
             </article>
             <!-- End Card -->

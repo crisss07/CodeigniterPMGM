@@ -84,7 +84,7 @@
                     </div>
                     <div class="modal-body">
 
-                        <embed src="<?php echo base_url().'public/assets/files/inspeccion/'.$mt->acta_inspeccion; ?>"
+                        <embed src="<?php echo base_url().'public/assets/archivos/inspecciones/'.$mt->acta_inspeccion; ?>"
                                frameborder="0" width="100%" height="708px">
 
                         <div class="modal-footer">
@@ -108,7 +108,7 @@
                     </div>
                     <div class="modal-body">
 
-                        <embed src="<?php echo base_url().'public/assets/files/inspeccion/'.$mt->acta_notificacion; ?>"
+                        <embed src="<?php echo base_url().'public/assets/archivos/inspecciones/'.$mt->acta_notificacion; ?>"
                                frameborder="0" width="100%" height="708px">
 
                         <div class="modal-footer">

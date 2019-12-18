@@ -276,4 +276,10 @@ class Oficina_virtual extends CI_Controller
         }
     }
 
+    public function visualizar_predio(){
+            $this->load->view('oficina/header');
+            $this->load->view('oficina/visualizar_predio');
+            $this->load->view('oficina/footer');
+    }
+
 }

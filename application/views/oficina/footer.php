@@ -2,69 +2,7 @@
 <footer class="bg-dark pt-9">
     <div class="container space-2">
       <div class="row justify-content-md-between">
-        <div class="col-6 col-md-3 col-lg-2 order-lg-3 mb-7 mb-lg-0">
-          <h3 class="h6 text-white mb-3">About</h3>
-
-          <!-- List Group -->
-          <div class="list-group list-group-flush list-group-transparent">
-            <a class="list-group-item list-group-item-action" href="../pages/about-agency.html">About Agency</a>
-            <a class="list-group-item list-group-item-action" href="../pages/about-start-up.html">About Start-Up</a>
-            <a class="list-group-item list-group-item-action" href="../pages/services-agency.html">Services Agency</a>
-            <a class="list-group-item list-group-item-action" href="../pages/services-start-up.html">Services Start-Up</a>
-          </div>
-          <!-- End List Group -->
-        </div>
-
-        <div class="col-6 col-md-3 col-lg-2 order-lg-4 mb-7 mb-lg-0">
-          <h3 class="h6 text-white mb-3">Company</h3>
-
-          <!-- List Group -->
-          <div class="list-group list-group-flush list-group-transparent">
-            <a class="list-group-item list-group-item-action" href="../pages/contacts-agency.html">Contact Us</a>
-            <a class="list-group-item list-group-item-action" href="../pages/help.html">Help</a>
-            <a class="list-group-item list-group-item-action" href="../pages/careers.html">Careers</a>
-            <a class="list-group-item list-group-item-action" href="../pages/terms.html">Terms &amp; Conditions</a>
-            <a class="list-group-item list-group-item-action" href="../pages/privacy.html">Privacy &amp; Policy</a>
-          </div>
-          <!-- End List Group -->
-        </div>
-
-        <div class="col-6 col-md-3 col-lg-2 order-lg-5 mb-7 mb-lg-0">
-          <h3 class="h6 text-white mb-3">Shop</h3>
-
-          <!-- List Group -->
-          <div class="list-group list-group-flush list-group-transparent">
-            <a class="list-group-item list-group-item-action" href="../shop/classic.html">Classic</a>
-            <a class="list-group-item list-group-item-action" href="../shop/single-product.html">Single Product</a>
-            <a class="list-group-item list-group-item-action" href="../shop/checkout.html">Checkout</a>
-          </div>
-          <!-- End List Group -->
-        </div>
-
-        <div class="col-6 col-md-3 col-lg-2 order-lg-6 mb-7 mb-lg-0">
-          <h3 class="h6 text-white mb-3">Social</h3>
-
-          <!-- List -->
-          <div class="list-group list-group-flush list-group-transparent">
-            <a class="list-group-item list-group-item-action" href="#">
-              <span class="fab fa-facebook-f min-width-3 text-center mr-2"></span>
-              Facebook
-            </a>
-            <a class="list-group-item list-group-item-action" href="#">
-              <span class="fab fa-twitter min-width-3 text-center mr-2"></span>
-              Twitter
-            </a>
-            <a class="list-group-item list-group-item-action" href="#">
-              <span class="fab fa-dribbble min-width-3 text-center mr-2"></span>
-              Dribbble
-            </a>
-            <a class="list-group-item list-group-item-action" href="#">
-              <span class="fab fa-github min-width-3 text-center mr-2"></span>
-              GitHub
-            </a>
-          </div>
-          <!-- End List -->
-        </div>
+       
 
         <div class="col-lg-4 order-lg-1 d-flex align-items-start flex-column">
           <!-- Logo -->
@@ -73,90 +11,9 @@
           </a>
           <!-- End Logo -->
 
-          <!-- Language -->
-          <div class="btn-group d-block position-relative mb-4 mb-lg-auto">
-            <a id="footerLanguageInvoker" class="btn-text-secondary d-flex align-items-center u-unfold--language-btn rounded py-2 px-3" href="javascript:;" role="button"
-               aria-controls="footerLanguage"
-               aria-haspopup="true"
-               aria-expanded="false"
-               data-unfold-event="click"
-               data-unfold-target="#footerLanguage"
-               data-unfold-type="css-animation"
-               data-unfold-duration="300"
-               data-unfold-delay="300"
-               data-unfold-hide-on-scroll="false"
-               data-unfold-animation-in="slideInUp"
-               data-unfold-animation-out="fadeOut">
-              <span class="font-size-14">English</span>
-              <span class="fa fa-angle-down u-unfold__icon-pointer u-unfold--language-icon-pointer ml-4"></span>
-            </a>
+     
 
-            <!-- Content -->
-            <div id="footerLanguage" class="u-unfold u-unfold--language bottom-0 left-0" aria-labelledby="footerLanguageInvoker">
-              <div class="py-6 px-5">
-                <h4 class="h6 mb-4">Select your language</h4>
-
-                <div class="row">
-                  <div class="col-6">
-                    <!-- List of Languages -->
-                    <div class="list-group list-group-borderless list-group-flush">
-                      <a class="active d-flex align-items-center list-group-item list-group-item-action" href="#">
-                        <img class="max-width-3 mr-2" src="<?php echo base_url(); ?>public/oficina_virtual/assets/vendor/flag-icon-css/flags/4x3/us.svg" alt="United States Flag">
-                        English
-                      </a>
-                      <a class="d-flex align-items-center list-group-item list-group-item-action" href="#">
-                        <img class="max-width-3 mr-2" src="<?php echo base_url(); ?>public/oficina_virtual/assets/vendor/flag-icon-css/flags/4x3/fr.svg" alt="France Flag">
-                        Français
-                      </a>
-                      <a class="d-flex align-items-center list-group-item list-group-item-action" href="#">
-                        <img class="max-width-3 mr-2" src="<?php echo base_url(); ?>public/oficina_virtual/assets/vendor/flag-icon-css/flags/4x3/de.svg" alt="Germany Flag">
-                        Deutsch
-                      </a>
-                      <a class="d-flex align-items-center list-group-item list-group-item-action" href="#">
-                        <img class="max-width-3 mr-2" src="<?php echo base_url(); ?>public/oficina_virtual/assets/vendor/flag-icon-css/flags/4x3/pt.svg" alt="Portugal Flag">
-                        Português
-                      </a>
-                    </div>
-                    <!-- End List of Languages -->
-                  </div>
-
-                  <div class="col-6">
-                    <!-- List of Languages -->
-                    <div class="list-group list-group-borderless list-group-flush">
-                      <a class="d-flex align-items-center list-group-item list-group-item-action" href="#">
-                        <img class="max-width-3 mr-2" src="<?php echo base_url(); ?>public/oficina_virtual/assets/vendor/flag-icon-css/flags/4x3/es.svg" alt="Spain Flag">
-                        Español
-                      </a>
-                      <a class="d-flex align-items-center list-group-item list-group-item-action" href="#">
-                        <img class="max-width-3 mr-2" src="<?php echo base_url(); ?>public/oficina_virtual/assets/vendor/flag-icon-css/flags/4x3/it.svg" alt="Italy Flag">
-                        Italiano
-                      </a>
-                      <a class="d-flex align-items-center list-group-item list-group-item-action" href="#">
-                        <img class="max-width-3 mr-2" src="<?php echo base_url(); ?>public/oficina_virtual/assets/vendor/flag-icon-css/flags/4x3/ru.svg" alt="Russian Flag">
-                        Русский
-                      </a>
-                      <a class="d-flex align-items-center list-group-item list-group-item-action" href="#">
-                        <img class="max-width-3 mr-2" src="<?php echo base_url(); ?>public/oficina_virtual/assets/vendor/flag-icon-css/flags/4x3/tr.svg" alt="Turkey Flag">
-                        Türkçe
-                      </a>
-                    </div>
-                    <!-- End List of Languages -->
-                  </div>
-                </div>
-              </div>
-
-              <!-- Signup -->
-              <a class="u-unfold--language__link p-5" href="../pages/signup-simple.html">
-                <small class="d-block text-muted mb-1">More languages coming soon.</small>
-                <small class="d-block">Signup to get notified <span class="fa fa-arrow-right u-unfold__icon-pointer"></span></small>
-              </a>
-              <!-- End Signup -->
-            </div>
-            <!-- End Content -->
-          </div>
-          <!-- End Language -->
-
-          <p class="small text-muted">All rights reserved. &copy; Space. 2019 Htmlstream.</p>
+          <p class="small text-muted">Todos los derechos reservados. &copy; 2019.</p>
         </div>
       </div>
     </div>
@@ -174,17 +31,16 @@
 
     <!-- Content -->
     <div class="p-5">
-      <form class="js-validate">
-        <!-- Signin -->
+      <!--<form class="js-validate">
+      
         <div id="signin" data-target-group="idForm">
-          <!-- Title -->
+        
           <header class="text-center mb-5">
             <h2 class="h4 mb-0">Please sign in</h2>
             <p>Signin to manage your account.</p>
           </header>
-          <!-- End Title -->
-
-          <!-- Input -->
+          
+   
           <div class="js-form-message mb-3">
             <div class="js-focus-state input-group form">
               <div class="input-group-prepend form__prepend">
@@ -200,9 +56,9 @@
                      data-success-class="u-has-success">
             </div>
           </div>
-          <!-- End Input -->
+       
 
-          <!-- Input -->
+ 
           <div class="js-form-message mb-3">
             <div class="js-focus-state input-group form">
               <div class="input-group-prepend form__prepend">
@@ -218,18 +74,17 @@
                      data-success-class="u-has-success">
             </div>
           </div>
-          <!-- End Input -->
-
+        
           <div class="row mb-3">
             <div class="col-6">
-              <!-- Checkbox -->
+            
               <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
                 <input type="checkbox" class="custom-control-input" id="rememberMeCheckbox">
                 <label class="custom-control-label" for="rememberMeCheckbox">
                   Remember Me
                 </label>
               </div>
-              <!-- End Checkbox -->
+           
             </div>
 
             <div class="col-6 text-right">
@@ -255,13 +110,11 @@
             </p>
           </div>
 
-          <!-- Divider -->
+
           <div class="text-center u-divider-wrapper my-3">
             <span class="u-divider u-divider--xs u-divider--text">OR</span>
           </div>
-          <!-- End Divider -->
-
-          <!-- Signin Social Buttons -->
+    
           <div class="row mx-gutters-2 mb-4">
             <div class="col-sm-6 mb-2 mb-sm-0">
               <button type="button" class="btn btn-block btn-facebook text-nowrap">
@@ -276,20 +129,18 @@
               </button>
             </div>
           </div>
-          <!-- End Signin Social Buttons -->
-        </div>
-        <!-- End Signin -->
 
-        <!-- Signup -->
+        </div>
+   
+
+
         <div id="signup" style="display: none; opacity: 0;" data-target-group="idForm">
-          <!-- Title -->
+ 
           <header class="text-center mb-5">
             <h2 class="h4 mb-0">Please sign up</h2>
             <p>Fill out the form to get started.</p>
           </header>
-          <!-- End Title -->
-
-          <!-- Input -->
+         
           <div class="js-form-message mb-3">
             <div class="js-focus-state input-group form">
               <div class="input-group-prepend form__prepend">
@@ -305,9 +156,7 @@
                      data-success-class="u-has-success">
             </div>
           </div>
-          <!-- End Input -->
-
-          <!-- Input -->
+      
           <div class="js-form-message mb-3">
             <div class="js-focus-state input-group form">
               <div class="input-group-prepend form__prepend">
@@ -323,9 +172,7 @@
                      data-success-class="u-has-success">
             </div>
           </div>
-          <!-- End Input -->
-
-          <!-- Input -->
+      
           <div class="js-form-message mb-3">
             <div class="js-focus-state input-group form">
               <div class="input-group-prepend form__prepend">
@@ -341,7 +188,7 @@
                      data-success-class="u-has-success">
             </div>
           </div>
-          <!-- End Input -->
+    
 
           <div class="mb-3">
             <button type="submit" class="btn btn-block btn-primary">Signup</button>
@@ -358,13 +205,11 @@
             </p>
           </div>
 
-          <!-- Divider -->
+
           <div class="text-center u-divider-wrapper my-3">
             <span class="u-divider u-divider--xs u-divider--text">OR</span>
           </div>
-          <!-- End Divider -->
-
-          <!-- Signup Social Buttons -->
+      
           <div class="row mx-gutters-2 mb-4">
             <div class="col-sm-6 mb-2 mb-sm-0">
               <button type="button" class="btn btn-block btn-facebook text-nowrap">
@@ -379,20 +224,17 @@
               </button>
             </div>
           </div>
-          <!-- End Signup Social Buttons -->
+  
         </div>
-        <!-- End Signup -->
 
-        <!-- Forgot Password -->
+
         <div id="forgotPassword" style="display: none; opacity: 0;" data-target-group="idForm">
-          <!-- Title -->
+
           <header class="text-center mb-5">
             <h2 class="h4 mb-0">Recover account</h2>
             <p>Enter your email address and an email with instructions will be sent to you.</p>
           </header>
-          <!-- End Title -->
-
-          <!-- Input -->
+ 
           <div class="js-form-message mb-3">
             <div class="js-focus-state input-group form">
               <div class="input-group-prepend form__prepend">
@@ -408,7 +250,7 @@
                      data-success-class="u-has-success">
             </div>
           </div>
-          <!-- End Input -->
+  
 
           <div class="mb-3">
             <button type="submit" class="btn btn-block btn-primary">Recover Account</button>
@@ -425,8 +267,8 @@
             </p>
           </div>
         </div>
-        <!-- End Forgot Password -->
-      </form>
+  
+      </form> -->
     </div>
     <!-- End Content -->
   </div>

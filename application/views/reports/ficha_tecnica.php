@@ -163,7 +163,7 @@
 </head>
 <body>
 
-    <div class="encabezado ">
+
         <table width="100%" border="0">
             <tr border="0">
                 <td align="left" style="width: 20%;" border="0">             
@@ -179,7 +179,7 @@
         </td>
     </tr>
 </table>
-</div>
+
 
 <div class="invoice">        
   <table width="100%" class="bordes_tabla">
@@ -376,20 +376,5 @@
 
 </div>
 
-<div class="information" style="position: absolute; bottom: 0;">
-    <table width="100%">
-        <tr>
-            <td align="left" style="width: 80%;" class="pie_pagina">
-                GOBIERNO AUTONOMO MUNICIPAL “EL TORNO”
-                <br>
-                DEPARTAMENTO DE CATASTRO
-                <br>
-                Telf.: (591)-XXXXXXXX
-                
-             
-            </td>            
-        </tr>
-    </table>
-</div>
 </body>
 </html>
