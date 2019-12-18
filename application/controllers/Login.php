@@ -72,8 +72,8 @@ class Login extends CI_Controller {
 					// $errors = curl_error($CURL);
 					// $response = curl_getinfo($CURL, CURLINFO_HTTP_CODE);
 					// vdebug($errors, false, false, true);
-					vdebug($response, false, false, true);
-					vdebug($dataAGETIC, false, false, true);
+					// vdebug($response, false, false, true);
+					vdebug($informacionAGETIC, false, false, true);
 					// vdebug($informacionAGETIC, true, false, true);
 					// echo "datos json";	
 		} else {
