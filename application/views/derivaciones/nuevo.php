@@ -33,7 +33,7 @@
         <!-- Start Page Content -->
         <!-- ============================================================== -->
 
-        <?php echo form_open_multipart('derivaciones/guarda', array('method'=>'POST')); ?>
+        <?php echo form_open_multipart('Derivaciones/guarda', array('method'=>'POST')); ?>
         <div class="row">
             <div class="col-md-12">
             <?php //vdebug($tramite, false, false, true); ?>
@@ -48,11 +48,27 @@
                             </div>
                             <div class="col-6 align-self-center display-8 text-info text-right">Fecha: <?php echo date("Y-m-d",strtotime($tramite->fecha)); ?></div>
                         </div>
+                        <?php   $cite_archivo = $tramite->cite;
+                                $partes = explode("/", $cite_archivo); 
+                                $citee = end($partes);
 
+                                $resi = $this->db->get_where('archivo.documentos', array('nombre' => $citee, 'activo' => 1))->row();
+
+                                $url1 = $resi->url;
+                                $partes1 = explode("./", $url1); 
+                                $citee1 = end($partes1);
+
+                        ?>
+                        <div class="col-9">
+                            <input type="text" hidden="" id="url" name="url" value="<?php echo $url1; ?>">
+                        </div>
+                        <div class="col-6">
+                            <input type="text" hidden="" id="cite_sin" name="cite_sin" value="<?php echo $citee; ?>">
+                        </div>
                         <div class="row">
                             <div class="col-6">
                                 REMITENTE: <?php echo $tramite->remitente; ?><br />
-                                ARCHIVO: <a href="<?php echo base_url(); ?>public/assets/images/tramites/<?php echo $tramite->adjunto; ?>.pdf" target='_blank'><?php echo $tramite->adjunto; ?></a>
+                                ARCHIVO: <a href="<?php echo base_url(); ?><?php echo $citee1.'/';?><?php echo $resi->nombre.'.pdf';?>" target='_blank'><?php echo $resi->nombre.'.pdf'; ?></a>
                             </div>
                             <div class="col-6">
                                 PROCEDENCIA: <?php echo $tramite->procedencia; ?>
