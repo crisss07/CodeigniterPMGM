@@ -48,9 +48,9 @@ class Login extends CI_Controller {
 	public function login()
 	{	
 	 // Recibir el code de la URL que envia la AGETIC PASO (2) 
-		$code = $_GET['code'];
+/*		$code = $_GET['code'];
 		if ($code) {
-			// echo 'llego';	
+			echo 'llego';	
 			// echo "El codigo de acceso:".$code."<br />";
 			$secret             		=	urlencode("WXqlbS8J+X92+1fx2QWzTR0JlT6QMwqKjDsm6j9o0C29WOjvL66kxganY+nNvQK+");
 			$client_id 					=	"68d55a97-cec0-45e7-b0d3-1a1b1eaedba2";
@@ -73,13 +73,13 @@ class Login extends CI_Controller {
 					// $response = curl_getinfo($CURL, CURLINFO_HTTP_CODE);
 					// vdebug($errors, false, false, true);
 					// vdebug($response, false, false, true);
-					vdebug($informacionAGETIC, false, false, true);
+					vdebug($informacionAGETIC, true, false, true);
 					// vdebug($informacionAGETIC, true, false, true);
 					// echo "datos json";	
 		} else {
 			echo 'no hace nada';
 		}
-			
+*/			
 		
 		
 		 /*$code="adfsdf46a5sd4f6a5sd4f";
