@@ -206,6 +206,21 @@ class Menu extends CI_Controller {
 		}
 	}
 
+	public function info()
+	{
+		if($this->session->userdata("login")){
+			$this->load->view('admin/header');
+			$this->load->view('admin/menu');
+			$this->load->view('admin/index');
+			$this->load->view('admin/footer');
+
+		}
+		else{
+			redirect(base_url());
+        }	
+		
+	}
+
 }
 
 	

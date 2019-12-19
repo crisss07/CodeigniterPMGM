@@ -12,6 +12,7 @@ class Predios extends CI_Controller {
         $this->load->model("Ddrr_model");
 		$this->load->model("Archivos_Model");
 		$this->load->model("Auditoria_Model");
+		$this->load->model("Dashboard_model");
         $this->load->helper('url_helper');
         $this->load->helper('vayes_helper');
         $this->load->library('cart');
@@ -65,11 +66,65 @@ class Predios extends CI_Controller {
 						persona_perfil_id = '$persona_perfil_id'")->row();
 			$perfil = $persona_perfil->perfil_id;
 
+			$data['data_personas'] = $this->Dashboard_model->get_datospersona();
+            $data['data_tramite_ini'] = $this->Dashboard_model->get_datotramite();
+            $data['data_tramite_fin'] = $this->Dashboard_model->get_datotramite_concluido();
+            $data['data_predio_reg'] = $this->Dashboard_model->get_data_predios();
+            $anio=date('Y');
+            $mes=date('m');
+            $dia=date('d');
 
-					$this->load->view('admin/header');
-					$this->load->view('admin/menu');
-					$this->load->view('admin/index');
-					$this->load->view('admin/footer');
+            //tramites iniciados por mes
+            for ($x = 1; $x <= 12; $x++) {
+                $dato = $this->Dashboard_model->get_tramite_mes($x,$anio);
+                $rows[]=$dato->mes;               
+            }
+            
+            //predios registrados por mes
+            for ($x = 1; $x <= 12; $x++) {
+                $dato = $this->Dashboard_model->get_predios_mes($x,$anio);
+                $predios[]=$dato->mes;               
+            }
+
+            //valida el mes anterior
+            if($dia>0 and $dia<32){
+                $mes=$mes-1;
+
+            }
+
+            //inspecciones concluidas por mes
+            for ($x = 1; $x <= 12; $x++) {
+                $dato = $this->Dashboard_model->get_inspeccion_mes($x,$anio);
+                $inspecciones[]=$dato->total_ins;               
+            }
+           
+
+            
+
+            $array = array(65,68,75,81,95,105,45,22,58,56,89,36);
+
+            $data['data_tram_ini_ant'] = $this->Dashboard_model->get_tramite_mes($mes,$anio);
+            $data['data_tram_fin_ant'] = $this->Dashboard_model->get_tramite_concluido_mes($mes);
+
+              
+
+            $data['data_tramites'] = $res = json_encode($rows);
+            $data['data_predios'] = $res = json_encode($predios);
+
+            $data['data_inspecciones'] = $res = json_encode($inspecciones);
+              
+
+            $this->load->view('dashboard/header');
+            $this->load->view('dashboard/menu');
+            $this->load->view('dashboard/dashboard_test',$data);
+            //$this->load->view('dashboard/validar');         
+            //$this->load->view('dashboard/jtables');
+
+
+					// $this->load->view('admin/header');
+					// $this->load->view('admin/menu');
+					// $this->load->view('admin/index');
+					// $this->load->view('admin/footer');
 
 		}
 		else{
@@ -111,6 +166,7 @@ class Predios extends CI_Controller {
 
 			// $informaciom = $this->predio_model->lista_predio();
 			// print_r($informaciom);
+
 			
 			$this->load->view('admin/header');
 			$this->load->view('admin/menu');

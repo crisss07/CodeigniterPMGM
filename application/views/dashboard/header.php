@@ -8,11 +8,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url(); ?>public/assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url(); ?>public/assets/images/ico_logo.png">
 
     <link href="<?php echo base_url(); ?>public/assets/fullcalendar/fullcalendar.min.css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>public/assets/fullcalendar/fullcalendar.print.min.css" rel="stylesheet" media="print" />
-    <title>SEICU - LIBRE</title>
+    <title>SEICU 2.0</title>
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url(); ?>public/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     
@@ -79,7 +79,7 @@
                          <!-- dark Logo text 
                          <img src="<?php echo base_url(); ?>public/assets/images/logo-text.png" alt="homepage" class="dark-logo" />-->
                          <!-- Light Logo text -->    
-                         <img src="<?php echo base_url(); ?>public/assets/images/seicu-libre.png" class="light-logo" alt="homepage" /></span>
+                         <img src="<?php echo base_url(); ?>publico/assets/app/media/img/logos/logo_seicu_1.png" class="light-logo" alt="homepage" /></span>
                     </a>
 
 

@@ -9,8 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url(); ?>public/assets/images/favicon.png">
-    <title>LOGIN</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url(); ?>public/assets/images/ico_logo.png">
+    <title>SEICU 2.0</title>
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url(); ?>public/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -57,7 +57,7 @@
             <div class="login-box card">
                <div class="m-login__logo btn btn-block">
                             <a href="">
-                                <img src="<?php echo base_url().'publico/assets/app/media/img/logos/logo2.png' ;?>">
+                                <img src="<?php echo base_url().'publico/assets/app/media/img/logos/logo_seicu.png' ;?>">
                             </a>
                 </div> 
 
