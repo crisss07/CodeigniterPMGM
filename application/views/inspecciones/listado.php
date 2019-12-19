@@ -41,7 +41,7 @@
                                         <td><?php echo $asig->fin; ?></td>
                                         <td>
                                             <a href="<?php echo base_url(); ?>Reporteseicu/ficha_tecnica" class="btn btn-info " title="Registrar Predio" target=_blank>
-                                                    <span class="fas fa-external-link-alt" aria-hidden="true"></span>
+                                                    <span class="fas fa-file-pdf" aria-hidden="true"></span>
                                             </a> 
                                             <a href="<?php echo base_url(); ?>Predios/registra_predio" class="btn btn-info " title="Registrar Predio">
                                                     <span class="fas fa-external-link-alt" aria-hidden="true"></span>
