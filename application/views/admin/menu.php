@@ -133,9 +133,11 @@
     <!-- Bottom points-->
     <div class="sidebar-footer">
         <!-- item-->
-       
+       <a href="" class="link" data-toggle="tooltip" title="Settings"></a>
         <!-- item-->
         <a href="<?php echo base_url(); ?>Menu/info" class="link" data-toggle="tooltip" title="Informaci&oacute;n"><i class="mdi mdi-information-outline"></i></a>
+
+        <a href="" class="link" data-toggle="tooltip" title="Logout"></a>
     </div>
     <!-- End Bottom points-->
 </aside>
