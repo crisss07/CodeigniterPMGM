@@ -10,9 +10,13 @@ class Predio_model extends CI_Model {
         // $this->load->model("persona_model");
     }
 
-    public function guarda_predio($datos_predio = null, $fotos = null, $servicios = null, $calles = null, $material_via = null){
+    public function guarda_predio($datos_predio = null, $fotos = null, $direccion = null, $servicios = null, $calles = null, $material_via = null){
 
         // vdebug($calles, true, false, true);   
+        $this->db->insert('catastro.direcion', $direccion);
+        $id_direccion = $this->db->insert_id();
+
+
         $this->db->insert('catastro.predio', $datos_predio);
         $id_cod_catastral = $this->db->insert_id();
 

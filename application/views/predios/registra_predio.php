@@ -177,19 +177,18 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md-2">
-                                                            <div class="form-group">
-                                                            <?php //echo vdebug($dc_tipos_predio); ?>
-                                                                <label for="zonaurb_id"> Zona urbana: <span class="text-danger">*</span> </label>
-                                                                <select class="custom-select form-control" id="zonaurb_id" name="zonaurb_id" required />
-                                                                    <option value="">Seleccione zona</option>
-                                                                    <?php foreach ($dc_zona_urbana as $d): ?>
-                                                                        <option value="<?php echo $d->zonaurb_id; ?>"><?php echo $d->descripcion; ?></option>
-                                                                    <?php endforeach; ?>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
+<!--                                                         <div class="col-md-2">
+    <div class="form-group">
+        <label for="zonaurb_id"> Zona urbana: <span class="text-danger">*</span> </label>
+        <select class="custom-select form-control" id="zonaurb_id" name="zonaurb_id" required />
+            <option value="">Seleccione zona</option>
+            <?php //foreach ($dc_zona_urbana as $d): ?>
+                <option value="<?php //echo $d->zonaurb_id; ?>"><?php //echo $d->descripcion; ?></option>
+            <?php //endforeach; ?>
+        </select>
+    </div>
+</div>
+ -->
                                                         <div class="col-md-2">
                                                             <div class="form-group">
                                                                 <label for="n_puerta"> Numero puerta : <span class="text-danger">*</span> </label>
@@ -321,21 +320,42 @@
 
                                                     <div class="row">
 
-                                                        <div class="col-md-9">
+                                                        <div class="col-md-4">
                                                             <div class="form-group">
-                                                                <label for="c_principal">Calle Principal : <span class="text-danger">*</span></label>
+                                                                <label for="c_principal">Calle : <span class="text-danger">*</span></label>
                                                                 <div id="predio_vias"></div>
-                                                                <input type="hidden" name="calles_colindantes" id="calles_colindantes">
-                                                                <!-- <input type="text" class="form-control" id="c_principal" name="principal" required /> -->
+
+                                                                <!-- <input type="hidden" name="calles_colindantes" id="calles_colindantes"> -->
+                                                                <input type="text" class="form-control" id="calle" name="calle" required />
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md-3">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="c_principal">Zona : <span class="text-danger">*</span></label>
+                                                                <div id="predio_vias"></div>
+
+                                                                <!-- <input type="hidden" name="calles_colindantes" id="calles_colindantes"> -->
+                                                                <input type="text" class="form-control" id="zona" name="zona" required />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <label for="c_principal">Numero : <span class="text-danger">*</span></label>
+                                                                <div id="predio_vias"></div>
+
+                                                                <!-- <input type="hidden" name="calles_colindantes" id="calles_colindantes"> -->
+                                                                <input type="text" class="form-control" id="numero" name="numero" required />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-2">
                                                             <div class="form-group">
                                                                 <label for="zona">Material : <span class="text-danger">*</span></label>
                                                                 <!-- <input type="text" class="form-control" id="zona" name="zona" required /> -->
                                                                 <select class="custom-select form-control" id="mat_via_id" name="mat_via_id" required />
-                                                                    <option value="">Seleccione material</option>
+                                                                    <option value="">Material</option>
                                                                     <?php foreach ($dc_materiales_via as $v): ?>
                                                                     <option value="<?php echo $v->matvia_id; ?>">
                                                                         <?php echo $v->descripcion; ?>
@@ -400,18 +420,18 @@
                                                             </div>
                                                         </div>
 
-                                                        <!-- <div class="col-md-2">
+                                                        <div class="col-md-2">
                                                             <div class="form-group">
-                                                            <?php //echo vdebug($dc_tipos_predio); ?>
-                                                                <label for="forma_id"> Edificio : <span class="text-danger">*</span> </label>
+                                                            <?php //vdebug($dc_estado, false, false, true); ?>
+                                                                <label for="forma_id"> Estado : <span class="text-danger">*</span> </label>
                                                                 <select class="custom-select form-control" id="forma_id" name="edificio_id" required />
                                                                     <option value="">Seleccione edificio</option>
-                                                                    <?php //foreach ($dc_edificio as $d): ?>
-                                                                        <option value="<?php //echo $d->edificio_id; ?>"><?php //echo $d->descripcion; ?></option>
-                                                                    <?php //endforeach; ?>
+                                                                    <?php foreach ($dc_estado as $e): ?>
+                                                                        <option value="<?php echo $e->estado_id; ?>"><?php echo $e->descripcion; ?></option>
+                                                                    <?php endforeach; ?>
                                                                 </select>
                                                             </div>
-                                                        </div> -->
+                                                        </div>
 
                                                     </div>
 

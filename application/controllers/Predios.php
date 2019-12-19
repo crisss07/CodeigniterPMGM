@@ -248,7 +248,7 @@ class Predios extends CI_Controller {
 				$this->db->order_by('descripcion', 'ASC');
 				$this->db->where('activo', 1);
 				$query = $this->db->get('catastro.estado');
-				$data['dc_edificio'] = $query->result();
+				$data['dc_estado'] = $query->result();
 
 				$this->db->select('servicio_id, descripcion');
 				$this->db->order_by('descripcion', 'ASC');
@@ -313,6 +313,12 @@ class Predios extends CI_Controller {
 
 			$latitud_longitud = $this->input->post('latitud').', '.$this->input->post('longitud');
 
+			$direccion = array(
+				'calle'=>$this->input->post('calle'),
+				'zona'=>$this->input->post('zona'),
+				'numero'=>$this->input->post('numero'),
+			);
+
 			$datos_predio = array(
 
 				'codcatas'=>$this->input->post('codigo_catastral'),
@@ -355,7 +361,7 @@ class Predios extends CI_Controller {
 			$calles = $this->input->post('calles_colindantes');
 			$material_via = $this->input->post('mat_via_id');
 
-			$predio_id = $this->predio_model->guarda_predio($datos_predio, $fotos, $servicios, $calles, $material_via);
+			$predio_id = $this->predio_model->guarda_predio($datos_predio, $fotos, $direccion, $servicios, $calles, $material_via);
 
 			redirect(base_url("/edificacion/nuevo/$predio_id"));
 
