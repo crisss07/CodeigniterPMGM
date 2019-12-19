@@ -23,7 +23,6 @@ class Predios extends CI_Controller {
 
     public function index(){
 
-
 		if($this->session->userdata("login"))
 		{
 			$listas = $this->db->get_where('archivo.archivo' , array('nombre' => 'tramites','padre' => '0', 'nivel' => '1', 'activo' => '1'))->row();
