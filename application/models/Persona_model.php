@@ -80,5 +80,18 @@ class Persona_model extends CI_Model {
         );
         $this->db->where('persona_id', $persona_id);
         return $this->db->update('public.persona', $data);
-    }
+	}
+	
+	//Verificar si el usuario tiene la opcion de crear registro predio
+	public function opcion_crear_predio ($persona_perfil_id){  
+		$registro_predio_id = 6;
+		$this->db->select ('menu.url');
+		$this->db->from   ('credencial');
+		$this->db->join   ('credencial_menu', 'credencial.credencial_id = credencial_menu.credencial_id');
+		$this->db->join   ('menu', 'credencial_menu.menu_id = menu.menu_id');
+		$this->db->where  ('persona_perfil_id',$persona_perfil_id);
+		$this->db->where  ('menu.menu_id',$registro_predio_id);
+		$consulta = $this->db->get()->row();
+		if($consulta){return $consulta;}else {return false;}
+	}
 }

@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">ASIGNADOS</h4>
-                        <table id="bandeja_entrada" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                        <table hnhf="bandeja_entrada" class="table table-bordered table-striped" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -13,7 +13,9 @@
                                     <th>CITE</th>
                                     <th>REMITENTE</th>
                                     <th>REFERENCIA</th>
-                                    <th>ACCIONES</th>
+                                    <th>ACCIONES</th>                       
+                                  
+
                                 </tr>
                             </thead>
                             <tfoot>
@@ -40,12 +42,12 @@
                                     <td>
                                         <?php 
                                             // echo $mt->fuente; 
-                                            $organigrama_persona = $this->db->get_where('tramite.organigrama_persona', array('organigrama_persona_id'=>$mt->fuente))->result_array();
+                                            /*$organigrama_persona = $this->db->get_where('tramite.organigrama_persona', array('organigrama_persona_id'=>$mt->fuente))->result_array();
                                             $persona = $this->db->get_where('persona', array('persona_id'=>$organigrama_persona[0]['persona_id']))->result_array();
                                             // vdebug($persona, false, false, true);
                                             echo $persona[0]['nombres'].'&nbsp;';
                                             echo $persona[0]['paterno'].'&nbsp;';
-                                            echo $persona[0]['materno'].'&nbsp;';
+                                            echo $persona[0]['materno'].'&nbsp;';*/
                                         ?>
                                     </td>
                                     <!-- <td><?php //echo $mt->codcatas_anterior; ?></td> -->
@@ -71,6 +73,14 @@
                                             <a href="<?php echo base_url(); ?>derivaciones/ver/<?php echo $mt->tramite_id; ?>" class="btn btn-primary footable-edit" title="Seguimiento">
                                                 <span class="fas fa-bars" aria-hidden="true"></span>
                                             </a>
+                                            <a href="<?php echo base_url(); ?>Inspeccion/crear/<?php echo $mt->tramite_id; ?>" class="btn btn-info" title="Crear inspeccion">
+                                                <span class="fas fa-eye" aria-hidden="true"></span>
+                                            </a>
+                                            <?php 
+                                                if($opcion_crear_predio){
+                                                    echo "<a href='".base_url().$opcion_crear_predio."/".$mt->tramite_id."' class='btn btn-info btn btn-warning fas fa-check' title='Inspección'> </a>";
+                                                }
+                                            ?>
                                             <!-- <a href="#" type="button" class="btn btn-danger footable-delete" title="Eliminar">
                                                 <span class="fas fa-trash-alt" aria-hidden="true"></span>
                                             </a> -->

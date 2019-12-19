@@ -83,7 +83,7 @@
                                                     }
 
                                                     ?>
-                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('numero_tramite/activo/'. $lis->numero_tramite_id); ?>" type="button" class="btn btn-<?php echo $color ?>"><?php echo $mensaje ?>
+                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('Numero_tramite/activo/'. $lis->numero_tramite_id); ?>" type="button" class="btn btn-<?php echo $color ?>"><?php echo $mensaje ?>
                                                         
                                                     </a>  
 
@@ -124,7 +124,7 @@
                     </div>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>zona_urbana/update" method="POST">-->
-                        <?php echo form_open('numero_tramite/update', array('method'=>'POST')); ?>
+                        <?php echo form_open('Numero_tramite/update', array('method'=>'POST')); ?>
 
                             
                             <div class="form-group">
@@ -168,7 +168,7 @@
                     </div>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>zona_urbana/insertar" method="POST">-->
-                        <?php echo form_open('numero_tramite/insertar', array('method'=>'POST')); ?>
+                        <?php echo form_open('Numero_tramite/insertar', array('method'=>'POST')); ?>
 
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Tipo</label>

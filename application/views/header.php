@@ -974,7 +974,7 @@
 												</div>
 												<div class="m-card-user__details">
 													<span class="m-card-user__name m--font-weight-500">
-														<?php echo $this->session->userdata("usuario")?>
+														<?php echo $this->session->userdata("Usuario")?>
 													</span>
 													<!-- <a href="" class="m-card-user__email m--font-weight-300 m-link">
 														mark.andre@gmail.com
@@ -1036,7 +1036,7 @@
 													</li>
 													<li class="m-nav__separator m-nav__separator--fit"></li>
 													<li class="m-nav__item">
-														<a href="<?php echo base_url(); ?>login/logout" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">
+														<a href="<?php echo base_url(); ?>Login/logout" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">
 															Cerrar Sesión
 														</a>
 													</li>
@@ -1100,7 +1100,7 @@
 															<?php 
 																//$id = $this->session->userdata("persona_perfil_id");
 																$id = $_SESSION['persona_perfil_id'];
-																$this->load->model('usuario_model');
+																$this->load->model('Usuario_model');
 																$res = $this->usuario_model->getUsuario($id);
 																/*
 																$datos = $this->db->query("select * from persona_perfil ")->result();

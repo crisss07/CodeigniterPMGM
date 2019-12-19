@@ -37,10 +37,10 @@
                             
                             <div class="card">
                                 <center>
-                                    <img class="card-title" src="<?php echo base_url(); ?>public/assets/images/seicu-libre1.png" alt="Card image cap">
+                                    <img class="card-title" src="<?php echo base_url(); ?>publico/assets/app/media/img/logos/logo_seicu.png" alt="Card image cap">
                                 </center>
                                 <div class="card-body">
-                                    <h3 class="card-title" align="center">Versi&oacute;n 1.1</h3>
+                                    <h3 class="card-title" align="center">Versi&oacute;n 2.0</h3>
                                     <h1 class="card-title" align="center"><b>Sistema Espacial de Informaci&oacute;n Catastral</b></h1>
                                     <h1 class="card-title" align="center"><b>Urbana</b></h1>
                                     <p class="card-text" align="center">Aplicaci&oacute;n desarrollada bajo est&aacute;ndares abiertos y software libre</p>

@@ -7,9 +7,11 @@ class Edificacion extends CI_Controller
     {
         parent::__construct();
         $this->load->model("Edificacion_model");
+        $this->load->model("Audit_model");
+        $this->load->model("Auditoria_model");
         $this->load->library('session');
         $this->load->model('Tipopredio_model');
-        //$this->load->model("logacceso_model");
+        $this->load->model("Logacceso_model");
         $this->load->helper('url_helper');
         $this->load->helper('vayes_helper');
         $this->load->model("Rol_model");
@@ -30,7 +32,7 @@ class Edificacion extends CI_Controller
             //$credencial_id = $this->session->userdata("persona_perfil_id");
             //$acceso_inicio = date("Y-m-d H:i:s");
 
-            //$ip = $this->logacceso_model->ip_publico();
+            $ip = $this->Logacceso_model->ip_publico();
             //$this->logacceso_model->insertar_logacceso($credencial_id, $acceso_inicio, $ip);
             //$cod='123456789';
             $data['verifica'] = $this->Rol_model->verifica();
@@ -91,7 +93,10 @@ class Edificacion extends CI_Controller
             $data['nro_bloque'] = $total_bloq;
             $data['anio_actual'] = $anio_act;
             $data['predio_id'] = $predio_id;
-            $data['estado_fis']  = array('Bueno', 'Regular', 'Malo','Muy Malo (En ruinas)');
+            //$data['estado_fis']  = array('Bueno', 'Regular', 'Malo','Muy Malo (En ruinas)');
+            $data['estado_fis']  = $this->Edificacion_model->get_estado();
+            //var_dump($this->Edificacion_model->get_estado());
+            //exit;
             $this->load->view('admin/header');
             $this->load->view('admin/menu');
             $this->load->view('bloque/bloque_nuevo', $data);
@@ -116,25 +121,38 @@ class Edificacion extends CI_Controller
             $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id_us))->row();
             $usu_creacion = $resi->persona_id;
 
+            $ip = $this->Logacceso_model->ip_publico();
+
             $data = array(
 
             //'codcatas' => $this->input->post('cod_catastral'), //input
             'predio_id' => $this->input->post('predio_id'), //input
             'nro_bloque' => $this->input->post('nro_bloque'), //crear
             'nom_bloque' => $this->input->post('nom_bloque'),
-            'estado_fisico' => $this->input->post('estado_fisico'),
+            'estado_id' => $this->input->post('estado_fisico'),
+            //'estado_fisico' => $this->input->post('estado_fisico'),
             'altura' => $this->input->post('altura'),
             'anio_cons' => $this->input->post('anio_cons'),
             'anio_remo' => $this->input->post('anio_remo'),
             'porcentaje_remo' => $this->input->post('porcentaje_remo'), //validar
             'destino_bloque_id' => $this->input->post('destino_bloque_id'),
             'uso_bloque_id' => $this->input->post('uso_bloque_id'),
-            'activo' => '1',
-            'tipolo_id' => '12', //no existe relacion en la bd
-            'usu_creacion' =>$usu_creacion //aun no captura el usuario
+            'activo' => '1',            
+            'usu_creacion' =>$usu_creacion //
         );
+            
             $this->db->insert('catastro.bloque', $data);
+            $id_s=$this->db->insert_id();            
             //fin de insercion de datos en la tabla bloque
+
+            //inserta datos en la tabla auditoria
+            $datos_log = array('datos_insertados' => $data,'bloque_id'=>$id_s);            
+            //$this->Audit_model->insert($usu_creacion,'catastro.bloque',$datos_log,$ip);
+            $this->Auditoria_Model->auditoria_insertar(json_encode($data), 'catastro.bloque');
+            //var_dump($datos_log);
+            //exit;
+            //
+            
 
             //captura el bloque_id del nro de bloque guardado
             $nro_bloq = $this->input->post('nro_bloque');
@@ -153,34 +171,47 @@ class Edificacion extends CI_Controller
             $altura_p = $this->input->post('alturas');
             for ($j = 0; $j < count($id_tipo_planta); $j++) {
                 $bloque_piso = array(
-                'nro_bloque' => $this->input->post('nro_bloque'),
+                //'nro_bloque' => $this->input->post('nro_bloque'),
                 'nivel' => $nivel_a[$j],
                 'tipo_planta_id' => $id_tipo_planta[$j],
                 'superficie' => $superficie_a[$j],
                 'altura' => $altura_p[$j],
                 'bloque_id' => $bloque_id_form, //id del bloque nro x
-                'usu_creacion' =>$usu_creacion  //aun no captura el usuario
+                'usu_creacion' =>$usu_creacion  //
             );
                 $this->db->insert('catastro.bloque_piso', $bloque_piso);
+                $id_s=$this->db->insert_id(); 
+                //inserta datos en la tabla auditoria
+                $datos_bloque_piso = array('datos_insertados' => $bloque_piso,'bloque_piso_id'=>$id_s);            
+                //$this->Audit_model->insert($usu_creacion,'catastro.bloque_piso',$datos_bloque_piso,$ip);
+                $this->Auditoria_Model->auditoria_insertar(json_encode($bloque_piso), 'catastro.bloque');
             }
 
             //fin de insertar datos en tabla bloque_piso
+
+            
 
             //insercion en la tabla elementos_cons
             $tam = $this->input->post('tam_grup_sub');
             for ($i = 0; $i < $tam; $i++) {
                 $bloque_elem_cons = array(
                 'bloque_id' => $bloque_id_form, //cargar de la BD
-                'nro_bloque' => $this->input->post('nro_bloque'),
+                //'nro_bloque' => $this->input->post('nro_bloque'),
                 'grupo_mat_id' => $this->input->post($i . 'a'),
                 'mat_item_id' => $this->input->post($i . 'b'),
                 'cantidad' => $this->input->post($i . 'c'),
-                'usu_creacion' => $usu_creacion //aun no captura el usuario
+                'usu_creacion' => $usu_creacion //
             );
                 $this->db->insert('catastro.bloque_elemento_cons', $bloque_elem_cons);
+                $id_s=$this->db->insert_id(); 
+                //inserta datos en la tabla auditoria
+                $datos_bloque_piso = array('datos_insertados' => $bloque_piso,'bloque_elemento_cons_id'=>$id_s);            
+                //$this->Audit_model->insert($usu_creacion,'catastro.bloque_elemento_cons',$datos_bloque_piso,$ip);
+                $this->Auditoria_Model->auditoria_insertar(json_encode($bloque_elem_cons), 'catastro.bloque_elemento_cons');
             }
+            
             // fin guardamos los servicios
-            redirect(base_url() . 'Edificacion/nuevo/' . $this->input->post('predio_id') .'/1');
+            redirect(base_url() . 'Edificacion/nuevo/' . $this->input->post('predio_id'));
            
         } else {
             redirect(base_url());
@@ -212,7 +243,7 @@ class Edificacion extends CI_Controller
             $data['tipo_planta'] = $this->Edificacion_model->get_tipo_planta();
             $data['cod_catastral'] = $this->Edificacion_model->get_cod_catastral($predio_id); 
             
-            $data['estado_fis']  = array('Bueno', 'Regular', 'Malo','Muy Malo (En ruinas)');
+            $data['estado_fis']  = $this->Edificacion_model->get_estado();
             $this->load->view('admin/header');
             $this->load->view('admin/menu');
             $this->load->view('bloque/bloque_edicion', $data);
@@ -231,6 +262,8 @@ class Edificacion extends CI_Controller
             $usu_eliminacion = $resi->persona_id;
             $fec_eliminacion = date("Y-m-d H:i:s");
 
+            $ip = $this->Logacceso_model->ip_publico();
+
             $data = array(
                 'activo' => 0, //input
                 'usu_eliminacion' => $usu_eliminacion, //input
@@ -238,6 +271,10 @@ class Edificacion extends CI_Controller
             );
             $this->db->where('bloque_id', $id);
             $this->db->update('catastro.bloque', $data);
+            $data_bloque_eliminados = $this->db->query("SELECT * from catastro.bloque WHERE bloque_id=$id and activo=0")->result();
+            //$this->Audit_model->delete($usu_eliminacion,'catastro.bloque',$datos_eliminados,$ip);
+            $this->Auditoria_Model->auditoria_eliminar(json_encode($data_bloque_eliminados), 'catastro.bloque');
+
 
             $data_be = array(
                 'activo' => 0, //input
@@ -247,6 +284,10 @@ class Edificacion extends CI_Controller
             $this->db->where('bloque_id', $id);
             $this->db->update('catastro.bloque_elemento_cons', $data_be);
 
+            $data_bloque_elemento_eliminados = $this->db->query("SELECT * from catastro.bloque_elemento_cons WHERE bloque_id=$id and activo=0")->result();
+            //$this->Audit_model->delete($usu_eliminacion,'catastro.bloque',$data_bloque_elemento_eliminados,$ip);
+            $this->Auditoria_Model->auditoria_eliminar(json_encode($data_bloque_elemento_eliminados), 'catastro.bloque_elemento_cons');
+
             $data_p = array(
                 'activo' => 0, //input
                 'usu_eliminacion' => $usu_eliminacion, //input
@@ -254,6 +295,11 @@ class Edificacion extends CI_Controller
             );
             $this->db->where('bloque_id', $id);
             $this->db->update('catastro.bloque_piso', $data_p);
+
+            $data_bloque_piso_eliminados = $this->db->query("SELECT * from catastro.bloque_piso WHERE bloque_id=$id and activo=0")->result();
+            //$this->Audit_model->delete($usu_eliminacion,'catastro.bloque',$data_bloque_piso_eliminados,$ip);
+            $this->Auditoria_Model->auditoria_eliminar(json_encode($data_bloque_elemento_eliminados), 'catastro.bloque_piso');
+
 
             /*$query = $this->db->query("UPDATE catastro.bloque SET activo = 0  WHERE bloque_id='$id'");
             $query = $this->db->query("UPDATE catastro.bloque_elemento_cons SET activo =0  WHERE bloque_id='$id'");
@@ -274,14 +320,23 @@ class Edificacion extends CI_Controller
             $usu_modificacion = $resi->persona_id;
             $fec_modificacion = date("Y-m-d H:i:s");
 
+
+
             $bloque_id=$this->input->post('bloque_id');
+            $ip = $this->Logacceso_model->ip_publico();
+
+
+
+            
+            //var_dump(json_encode($datos_bloque));
+            //exit;
 
             $data = array(
 
             //'codcatas' => $this->input->post('cod_catastral'), //input
             'nro_bloque' => $this->input->post('nro_bloque'), //crear
             'nom_bloque' => $this->input->post('nom_bloque'),
-            'estado_fisico' => $this->input->post('estado_fisico'),
+            'estado_id' => $this->input->post('estado_fisico'),
             'altura' => $this->input->post('altura'),
             'anio_cons' => $this->input->post('anio_cons'),
             'anio_remo' => $this->input->post('anio_remo'),
@@ -295,9 +350,21 @@ class Edificacion extends CI_Controller
             $this->db->update('catastro.bloque', $data);
             //fin de insercion de datos en la tabla bloque
 
+            //inserta datos en la tabla auditoria
+            //datos bloque anterior
+            $datos_bloque_anterior = $this->Edificacion_model->get_datos_bloque($bloque_id);            
+            $datos_bloque_nuevos = array('datos_nuevos' => $data,'bloque__id'=>$bloque_id);            
+            //$this->Audit_model->update($usu_modificacion,'catastro.bloque',$datos_bloque_nuevos,$datos_bloque_anterior,$ip);
+            $this->Auditoria_Model->auditoria_modificar(json_encode($datos_bloque_anterior), json_encode($data), 'catastro.bloque');
+            //fin de auditoria
+
+
             //borramos de la base de datos los registros de la tablas bloque_piso
 
             $data_bloquep = $this->db->query("SELECT * from catastro.bloque_piso WHERE bloque_id=$bloque_id limit 1");
+            $data_bloque_piso_anterior = $this->db->query("SELECT * from catastro.bloque_piso WHERE bloque_id=$bloque_id and activo=1")->result();
+           
+            
             foreach ($data_bloquep ->result() as $row) {
                 $usr_create=$row->usu_creacion;
                 $fec_create=$row->fec_creacion;
@@ -322,23 +389,28 @@ class Edificacion extends CI_Controller
             $altura_p = $this->input->post('alturas');
             for ($j = 0; $j < count($id_tipo_planta); $j++) {
                 $bloque_piso = array(
-                'nro_bloque' => $this->input->post('nro_bloque'),
+                //'nro_bloque' => $this->input->post('nro_bloque'),
                 'nivel' => $nivel_a[$j],
                 'tipo_planta_id' => $id_tipo_planta[$j],
                 'superficie' => $superficie_a[$j],
                 'altura' => $altura_p[$j],
                 'bloque_id' => $bloque_id, //id del bloque nro x
-                'usu_creacion' => $usr_create, //aun no captura el usuario
-                'fec_creacion' => $fec_create, //aun no captura el usuario
+                'usu_creacion' => $usr_create, //
+                'fec_creacion' => $fec_create, //
                 'usu_modificacion' => $usu_modificacion, //input
                 'fec_modificacion' => $fec_modificacion, //input
             );
                 $this->db->insert('catastro.bloque_piso', $bloque_piso);
             }
             //fin de insertar datos en tabla bloque_piso
+            //insercion de datos en auditoria 
+            $data_bloque_piso_nuevos_datos = $this->db->query("SELECT * from catastro.bloque_piso WHERE bloque_id=$bloque_id")->result();
+            //$this->Audit_model->update($usu_modificacion,'catastro.bloque_piso',$data_bloque_piso_nuevos_datos,$data_bloque_piso_anterior,$ip);
+            $this->Auditoria_Model->auditoria_modificar(json_encode($data_bloque_piso_anterior), json_encode($data_bloque_piso_nuevos_datos), 'catastro.bloque_piso');
 
             //borramos todos los datos anteriores de la tabla bloque_elemento_cons por el id
             $data_bloque_cons = $this->db->query("SELECT * from catastro.bloque_elemento_cons WHERE bloque_id=$bloque_id limit 1");
+            $data_bloque_elementos_cons_anterior = $this->db->query("SELECT * from catastro.bloque_elemento_cons WHERE bloque_id=$bloque_id and activo=1")->result();
             foreach ($data_bloque_cons ->result() as $row) {
                 $usr_create_c=$row->usu_creacion;
                 $fec_create_c=$row->fec_creacion;
@@ -352,19 +424,26 @@ class Edificacion extends CI_Controller
             for ($i = 0; $i < $tam; $i++) {
                 $bloque_elem_cons = array(
                 'bloque_id' => $bloque_id, //cargar de la BD
-                'nro_bloque' => $this->input->post('nro_bloque'),
+                //'nro_bloque' => $this->input->post('nro_bloque'),
                 'grupo_mat_id' => $this->input->post($i . 'a'),
                 'mat_item_id' => $this->input->post($i . 'b'),
                 'cantidad' => $this->input->post($i . 'c'),
-                'usu_creacion' => $usr_create_c, //aun no captura el usuario
-                'fec_creacion' => $fec_create_c, //aun no captura el usuario
+                'usu_creacion' => $usr_create_c, //
+                'fec_creacion' => $fec_create_c, //
                 'usu_modificacion' => $usu_modificacion, //input
                 'fec_modificacion' => $fec_modificacion, //input
             );
                 $this->db->insert('catastro.bloque_elemento_cons', $bloque_elem_cons);
             }
+
+            //insercion de datos en auditoria 
+            $data_bloque_elementos_cons_nuevo = $this->db->query("SELECT * from catastro.bloque_elemento_cons WHERE bloque_id=$bloque_id and activo=1")->result();
+            //$this->Audit_model->update($usu_modificacion,'catastro.bloque_elemento_cons',$data_bloque_elementos_cons_nuevo,$data_bloque_elementos_cons_anterior,$ip);
+            $this->Auditoria_Model->auditoria_modificar(json_encode($data_bloque_elementos_cons_anterior), json_encode($data_bloque_elementos_cons_nuevo), 'catastro.bloque_elemento_cons');
         
             // fin guardamos los servicios
+
+            
             redirect(base_url() . 'Edificacion/nuevo/' . $this->input->post('predio_id'));
         } else {
             redirect(base_url());

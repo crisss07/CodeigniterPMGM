@@ -98,9 +98,17 @@
 
                                         <div class="col-sm-5 col-sm-offset-2 col-md-8 col-md-offset-0" style="background-color:Ivory">
                                             <small><i>
-                                                    <?php 
-                                                    print_r($grupos_subgrupos[$i]['desc_item']);
-                                                    ?></i></small>
+                                                <!--impresion de items-->
+
+                                                    <?php
+
+                                                    echo "<pre>".htmlspecialchars($grupos_subgrupos[$i]['desc_item'])."</pre>";
+                                                  
+                                                   
+
+                                                    ?> </i>
+                                                  <!--impresion de items-->
+                                            </small>
                                         </div>
                                         <div class="col-sm-5 col-sm-offset-2 col-md-4 col-md-offset-0" style="background-color:Ivory;">
 
@@ -123,7 +131,7 @@
                                         </div>
                                         <div class="col-sm-5 col-sm-offset-2 col-md-4 col-md-offset-0" style="background-color:White;">
                                             <input type="text" class="form-control total<?php echo $count ?>" value="" readonly />
-                                            <div class="form-control-feedback" Style="color:red;"><small id="validsuma<?php echo $count ?>"><i></i></small>
+                                            <div class="form-control-feedback" Style="color:red;"><small id="validsuma<?php echo $count ?>"></small>
                                             </div>
                                         </div>
                                     </div>                                   
@@ -140,7 +148,7 @@
                                         </div>
                                         <div class="col-sm-5 col-sm-offset-2 col-md-4 col-md-offset-0 " style="background-color:White;">
                                             <input type="text" class="form-control total<?php echo $count ?>" value="" readonly />
-                                            <div class="form-control-feedback" Style="color:red;"><small id="validsuma<?php echo $count ?>"><i></i></small>
+                                            <div class="form-control-feedback" Style="color:red;"><small id="validsuma<?php echo $count ?>"></small>
                                             </div>
                                         </div>
                                     </div>
@@ -154,7 +162,7 @@
                                     <div class="row" style="background-color:White;">
                                         <div class="col-sm-5 col-md-8" style="background-color:Ivory">
                                             <h6> <b><?php 
-                                                    print_r($grupos_subgrupos[$j]['desc_grupo']);
+                                                    print_r ($grupos_subgrupos[$j]['desc_grupo']);
                                                     ?></h6></b>
                                         </div>
                                         <div class="col-sm-5 col-sm-offset-2 col-md-4 col-md-offset-0" style="background-color:White;"><small><i>Porcentaje %</i></small>
@@ -181,7 +189,7 @@
 
 
                             </div>
-                            <!--col-lg-10-->
+                            <!--fin columna 2-->
 
 
                             <div class="col-lg-3">
@@ -223,7 +231,8 @@
                                         <div class="col-sm-5 col-sm-offset-2 col-md-8 col-md-offset-0" style="background-color:Ivory">
                                             <small><i>
                                                     <?php 
-                                                    print_r($grupos_subgrupos[$i]['desc_item']);
+                                                    echo "<pre>".htmlspecialchars($grupos_subgrupos[$i]['desc_item'])."</pre>";
+                                                    //print_r($grupos_subgrupos[$i]['desc_item']);
                                                     ?>
                                                 </i></small>
                                         </div>
@@ -343,8 +352,12 @@
 
                                         <div class="col-sm-5 col-sm-offset-2 col-md-8 col-md-offset-0" style="background-color:Ivory">
                                             <small><i> <?php 
-                                                        print_r($grupos_subgrupos[$i]['desc_item']);
-                                                        ?></i></small>
+                                                        //print_r($grupos_subgrupos[$i]['desc_item']);
+                                                        echo "<pre>".htmlspecialchars($grupos_subgrupos[$i]['desc_item'])."</pre>";
+                                                        ?>
+                                                            
+                                                   </i>
+                                            </small>
                                         </div>
                                         <div class="col-sm-5 col-sm-offset-2 col-md-4 col-md-offset-0" style="background-color:Ivory;">
                                             <input type="hidden" class="form-control required" id="<?php echo $i; ?>a" name="<?php echo $i; ?>a" readonly="" value="<?php 
@@ -477,7 +490,7 @@
                                             <label for="wfirstName2">Estado Fisico : <span class="text-danger"> *  <small> </small> </span> </label>
                                             <select class="custom-select form-control" id="estado_fisico" name="estado_fisico" required>                                            
                                                 <?php foreach ($estado_fis as $ef) : ?>                                             
-                                                <option value="<?php echo $ef; ?>"><?php echo $ef; ?></option>                                            
+                                                <option value="<?php echo $ef->estado_id; ?>"><?php echo $ef->descripcion; ?></option>                                            
                                                 <?php endforeach; ?>
                                             </select>
                                             <!--<input type="text" class="form-control"  id="estado_fisico" name="estado_fisico"  required>-->

@@ -61,11 +61,15 @@
                                                 <td><?php echo $i++;?></td>
                                                 <td><?php echo $lis->perfil;?></td>
                                                 <td>
+                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('Perfil/asignar_perfil_menu/'. $lis->perfil_id); ?>" type="button" class="btn btn-info button">
+                                                        <span disabled class="fas fa-tasks" aria-hidden="true">
+                                                        </span>
+                                                    </a>
                                                     <button <?php echo $verifica['modificacion']; ?> type="button" class="btn btn-warning footable-edit" data-toggle="modal" data-target="#modalEdicion" onclick="agregarform('<?php echo $datos ?>')">
                                                             <span class="fas fa-pencil-alt" aria-hidden="true">
                                                             </span>
                                                     </button> 
-                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('perfil/eliminar/'. $lis->perfil_id); ?>" type="button" class="btn btn-danger footable-delete button">
+                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('Perfil/eliminar/'. $lis->perfil_id); ?>" type="button" class="btn btn-danger footable-delete button">
                                                         <span disabled class="fas fa-trash-alt" aria-hidden="true">
                                                         </span>
                                                     </a>                                                    
@@ -98,7 +102,7 @@
                     </div>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>zona_urbana/update" method="POST">-->
-                        <?php echo form_open('perfil/update', array('method'=>'POST', 'id'=>'editar')); ?>
+                        <?php echo form_open('Perfil/update', array('method'=>'POST', 'id'=>'editar')); ?>
 
                             
                             <div class="form-group">
@@ -130,7 +134,7 @@
                     </div>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>zona_urbana/insertar" method="POST">-->
-                        <?php echo form_open('perfil/insertar', array('method'=>'POST', 'id'=>'insertar')); ?>
+                        <?php echo form_open('Perfil/insertar', array('method'=>'POST', 'id'=>'insertar')); ?>
 
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">perfil</label>

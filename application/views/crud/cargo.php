@@ -42,10 +42,10 @@
                                                 <td><?php echo $row->descripcion; ?></td>
                                                 <td>                                                                                               
                                                     <?php if (($row->activo)==1):?>
-                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('cargo/delete'); ?>/<?php echo $row->cargo_id; ?>"><button type="button" class="btn btn-success"><span class="fas fa-arrow-alt-circle-up" aria-hidden="true"></span> Activo</button></a>                                                          
+                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('Cargo/delete'); ?>/<?php echo $row->cargo_id; ?>"><button type="button" class="btn btn-success"><span class="fas fa-arrow-alt-circle-up" aria-hidden="true"></span> Activo</button></a>                                                          
                                                     <?php endif ?>
                                                     <?php if (($row->activo)==0):?>
-                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('cargo/delete'); ?>/<?php echo $row->cargo_id; ?>"><button type="button" class="btn btn-danger"><span class="fas fa-arrow-alt-circle-down" aria-hidden="true"></span> Inactivo</button></a>
+                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('Cargo/delete'); ?>/<?php echo $row->cargo_id; ?>"><button type="button" class="btn btn-danger"><span class="fas fa-arrow-alt-circle-down" aria-hidden="true"></span> Inactivo</button></a>
                                                     <?php endif ?>
                                                 </td>                                                                                                             
                                                 <td>
@@ -72,7 +72,7 @@
                             </div>
                             <div class="modal-body">
                                 <!--<form action="<?php echo base_url();?>zona_urbana/insertar" method="POST">-->
-                                    <?php echo form_open('cargo/create', array('method'=>'POST', 'id'=>'insertar')); ?>
+                                    <?php echo form_open('Cargo/create', array('method'=>'POST', 'id'=>'insertar')); ?>
 
                                     <div class="form-group">
                                         <label for="recipient-name" class="control-label">Descripcion</label>
@@ -96,7 +96,7 @@
                                 <h4 class="modal-title" id="exampleModalLabel1">Editar Grupo Material</h4>
                             </div>
                             <div class="modal-body">                        
-                                <?php echo form_open('cargo/update', array('method'=>'POST')); ?>                            
+                                <?php echo form_open('Cargo/update', array('method'=>'POST')); ?>                            
                                 <div class="form-group">
                                     <input type="text" class="form-control" hidden="" id="cargo_id" name="cargo_id">
                                 </div>

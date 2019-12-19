@@ -73,7 +73,7 @@
      
         <!-- Modal -->
         <div id="Modaluno" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-xl">
 
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -84,8 +84,8 @@
                     </div>
                     <div class="modal-body">
 
-                        <embed src="<?php echo base_url().'public/assets/files/inspeccion/'.$mt->acta_inspeccion; ?>"
-                               frameborder="0" width="100%" height="400px">
+                        <embed src="<?php echo base_url().'public/assets/archivos/inspecciones/'.$mt->acta_inspeccion; ?>"
+                               frameborder="0" width="100%" height="708px">
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -98,7 +98,7 @@
     </div>
 
     <div id="Modaldos" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-xl">
 
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -108,8 +108,8 @@
                     </div>
                     <div class="modal-body">
 
-                        <embed src="<?php echo base_url().'public/assets/files/inspeccion/'.$mt->acta_notificacion; ?>"
-                               frameborder="0" width="100%" height="400px">
+                        <embed src="<?php echo base_url().'public/assets/archivos/inspecciones/'.$mt->acta_notificacion; ?>"
+                               frameborder="0" width="100%" height="708px">
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

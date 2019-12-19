@@ -66,7 +66,7 @@
                                                             <span class="fas fa-pencil-alt" aria-hidden="true">
                                                             </span>
                                                     </button> 
-                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('clase_predio/eliminar/'. $lis->clase_predio_id); ?>" type="button" class="btn btn-danger footable-delete">
+                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('Clase_predio/eliminar/'. $lis->clase_predio_id); ?>" type="button" class="btn btn-danger footable-delete">
                                                         <span class="fas fa-trash-alt" aria-hidden="true">
                                                         </span>
                                                     </a>
@@ -101,7 +101,7 @@
                     </div>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>clase_predio/update" method="POST">-->
-                            <?php echo form_open('clase_predio/update', array('method'=>'POST')); ?>
+                            <?php echo form_open('Clase_predio/update', array('method'=>'POST')); ?>
                              <div class="form-group">
                                 <input type="text" hidden="" id="clase_predio_id" name="clase_predio_id">
                             </div>
@@ -136,7 +136,7 @@
                     </div>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>clase_predio/insertar" method="POST">-->
-                        <?php echo form_open('clase_predio/insertar', array('method'=>'POST')); ?>    
+                        <?php echo form_open('Clase_predio/insertar', array('method'=>'POST')); ?>    
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Descripci&oacute;n</label>
                                 <input type="text" class="form-control" id="recipient-name1" name="descripcion">

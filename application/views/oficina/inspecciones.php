@@ -2,6 +2,9 @@
     p{
         display: inline-block;
     }
+    .codigo_tramite{
+        background:#fff;
+    }
 </style>
 <section class="breadcrumb_area blog_banner_two">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
@@ -15,7 +18,36 @@
         </div>
     </div>
 </section>
+
 <div class="whole-wrap">
+<!--<div class="row justify-content-center">
+    <div class="col-12">
+        <label for="staticTramite" class="sr-only">Email</label>
+        <input type="text" readonly class="form-control-plaintext" id="staticTramite" value="TM-254">      
+        <label for="inputcodigo_tramite" class="sr-only">CodigoTramite</label>
+        <input type="text" class="form-control" id="inputcodigo_tramite" placeholder="Ingrese el codigo de trámite">      
+    </div>
+</div>
+<form class="form-inline seccion_tramite">
+        <div class="form-group mb-2">
+            <label for="staticTramite" class="sr-only">Email</label>
+            <input type="text" readonly class="form-control-plaintext" id="staticTramite" value="TM-254">
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="inputcodigo_tramite" class="sr-only">CodigoTramite</label>
+            <input type="text" class="form-control" id="inputcodigo_tramite" placeholder="Ingrese el codigo de trámite">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Buscar trámite</button>
+</form>-->
+
+<div class="row justify-content-right">
+    <div class="col-12">
+        <label> Codigo tramite (TM-GMP-GMV): </label>
+        <input type="text"  class="codigo_tramite" placeholder="Ingrese el codigo de trámite">
+        <button type="button" class="btn btn-success">Buscar trámite</button>
+    </div>
+
+</div>
     <div class="container">
        
         <div class="section-top-border">

@@ -18,7 +18,7 @@
                                 <button <?php echo $verifica['alta']; ?> type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_insertar"><i class="mdi mdi-plus"></i> Nuevo</button>
                             </div>
                             <div class="col-md-6" align="right">                                        
-                                <a  class=" btn btn-warning" <?php echo $verifica['alta1'];?>="<?php echo site_url('organigrama/chart'); ?>" align="right"><i class="mdi mdi-printer"></i> visualizar organigrama</a>
+                                <a  class=" btn btn-warning" <?php echo $verifica['alta1'];?>="<?php echo site_url('Organigrama/chart'); ?>" align="right"><i class="mdi mdi-printer"></i> visualizar organigrama</a>
                             </div>
                         </div>
                         <div class="card">
@@ -61,14 +61,14 @@
                                                 </td>  
                                                 <td>                                           
                                                 <?php if (($row->activo)==1):?>
-                                                        <a <?php echo $verifica['baja']; ?>="<?php echo site_url('organigrama/delete'); ?>/<?php echo $row->organigrama_id; ?>"><button type="button" class="btn btn-success"><span class="fas fa-arrow-alt-circle-up" aria-hidden="true"></span> Activo</button></a>                                                          
+                                                        <a <?php echo $verifica['baja']; ?>="<?php echo site_url('Organigrama/delete'); ?>/<?php echo $row->organigrama_id; ?>"><button type="button" class="btn btn-success"><span class="fas fa-arrow-alt-circle-up" aria-hidden="true"></span> Activo</button></a>                                                          
                                                     <?php endif ?>
                                                     <?php if (($row->activo)==0):?>
-                                                        <a <?php echo $verifica['baja']; ?>="<?php echo site_url('organigrama/delete'); ?>/<?php echo $row->organigrama_id; ?>"><button type="button" class="btn btn-danger"><span class="fas fa-arrow-alt-circle-down" aria-hidden="true"></span> Inactivo</button></a>                                                          
+                                                        <a <?php echo $verifica['baja']; ?>="<?php echo site_url('Organigrama/delete'); ?>/<?php echo $row->organigrama_id; ?>"><button type="button" class="btn btn-danger"><span class="fas fa-arrow-alt-circle-down" aria-hidden="true"></span> Inactivo</button></a>                                                          
                                                     <?php endif ?>
                                                 </td>                     
                                                 <td>
-                                                    <a <?php echo $verifica['baja']; ?>="<?php echo site_url('organigrama/edit'); ?>/<?php echo $row->organigrama_id; ?>"><button type="button" class="btn btn-warning"><span class="fas fas fa-edit" aria-hidden="true"></span></button></a>                                                  
+                                                    <a <?php echo $verifica['baja']; ?>="<?php echo site_url('Organigrama/edit'); ?>/<?php echo $row->organigrama_id; ?>"><button type="button" class="btn btn-warning"><span class="fas fas fa-edit" aria-hidden="true"></span></button></a>                                                  
                                                     <button <?php echo $verifica['modificacion']; ?> type="button" class="btn btn-info" data-toggle="modal" data-target="#modalEdicion" onclick="agregarform('<?php echo $datos ?>')">
                                                             <span class="fas fa-plus" aria-hidden="true"> 
                                                             </span> CITE
@@ -95,7 +95,7 @@
                     </div>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>nivel/update" method="POST">-->
-                        <?php echo form_open('organigrama/cite', array('method'=>'POST')); ?>
+                        <?php echo form_open('Organigrama/cite', array('method'=>'POST')); ?>
                             <div class="form-group">
                                 <input type="text" hidden="" id="organigrama_id_e" name="organigrama_id_e">
                             </div>
@@ -139,7 +139,7 @@
                     </div>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>nivel/update" method="POST">-->
-                        <?php echo form_open('organigrama/cite', array('method'=>'POST')); ?>
+                        <?php echo form_open('Organigrama/cite', array('method'=>'POST')); ?>
                             <div class="form-group">
                                 <input type="text" hidden="" id="organigrama_id_e" name="organigrama_id_e">
                             </div>
@@ -185,7 +185,7 @@
                             </div>
                             <div class="modal-body">
                                 <!--<?php echo form_open('organigrama/create', array('method'=>'POST', 'id'=>'insertar')); ?>-->
-                                <?php echo form_open_multipart('organigrama/do_upload'); ?>
+                                <?php echo form_open_multipart('Organigrama/do_upload'); ?>
                                 <div class="form-group">
                                     <label for="location1">Nivel Superior :<span class="text-danger"> *</span></label>
                                     <select class="custom-select form-control" id="organigrama_id" name="organigrama_id">

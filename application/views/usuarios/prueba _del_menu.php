@@ -62,7 +62,7 @@
                 <div class="col-lg-4 col-md-12">
                     <div class="card">
                         <div class="card-body">
-                                <?php echo form_open('usuario/update', array('method'=>'POST')); ?>
+                                <?php echo form_open('Usuario/update', array('method'=>'POST')); ?>
                                     <h4 class="card-title">Men&uacute; Administrador</h4>
                           
                                             <input type="text" hidden="" value="<?php echo $credencial_id; ?>" name="credencial">

@@ -25,7 +25,8 @@
                         $predio_id = $row->predio_id;
                         $nro_bloque = $row->nro_bloque;
                         $nom_bloque = $row->nom_bloque;
-                        $estado_fisico = $row->estado_fisico;
+                        $estado_fisico = $row->estado_id;
+                        $estado_descripcion = $row->descripcion;
                         $altura = $row->altura;
                         $anio_cons= $row->anio_cons;
                         $anio_remo= $row->anio_remo;
@@ -110,7 +111,8 @@
                                         <div class="col-sm-5 col-sm-offset-2 col-md-8 col-md-offset-0" style="background-color:Ivory">
                                             <small><i>
                                                     <?php 
-                                                    print_r($grupos_subgrupos[$i]['desc_item']);
+                                                    //print_r($grupos_subgrupos[$i]['desc_item']);
+                                                    echo "<pre>".htmlspecialchars($grupos_subgrupos[$i]['desc_item'])."</pre>";
                                                     ?></i></small>
                                         </div>
                                         <div class="col-sm-5 col-sm-offset-2 col-md-4 col-md-offset-0" style="background-color:Ivory;">
@@ -236,7 +238,8 @@
                                         <div class="col-sm-5 col-sm-offset-2 col-md-8 col-md-offset-0" style="background-color:Ivory">
                                             <small><i>
                                                     <?php 
-                                                    print_r($grupos_subgrupos[$i]['desc_item']);
+                                                    echo "<pre>".htmlspecialchars($grupos_subgrupos[$i]['desc_item'])."</pre>";
+                                                    //print_r($grupos_subgrupos[$i]['desc_item']);
                                                     ?>
                                                 </i></small>
                                         </div>
@@ -360,7 +363,8 @@
 
                                         <div class="col-sm-5 col-sm-offset-2 col-md-8 col-md-offset-0" style="background-color:Ivory">
                                             <small><i> <?php 
-                                                        print_r($grupos_subgrupos[$i]['desc_item']);
+                                                        //print_r($grupos_subgrupos[$i]['desc_item']);
+                                                        echo "<pre>".htmlspecialchars($grupos_subgrupos[$i]['desc_item'])."</pre>";
                                                         ?></i></small>
                                         </div>
                                         <div class="col-sm-5 col-sm-offset-2 col-md-4 col-md-offset-0" style="background-color:Ivory;">
@@ -500,10 +504,10 @@
                                             <label for="wfirstName2">Estado Fisico : <span class="text-danger"> *  <small> </small> </span> </label>
 
                                             <select class="custom-select form-control" id="estado_fisico" name="estado_fisico" required>
-                                            <option value="<?php echo $estado_fisico; ?>" selected><?php echo $estado_fisico; ?></option>
+                                            <option value="<?php echo $estado_fisico; ?>" selected><?php echo $estado_descripcion; ?></option>
                                                 <?php foreach ($estado_fis as $ef) : ?>
-                                                <?php if (($ef) != $estado_fisico): ?>
-                                                <option value="<?php echo $ef; ?>"><?php echo $ef; ?></option>
+                                                <?php if (($ef) != $estado_id): ?>
+                                                <option value="<?php echo $ef->estado_id; ?>"><?php echo $ef->descripcion; ?></option>
                                                 <?php endif; ?>
                                                 <?php endforeach; ?>
                                             </select>

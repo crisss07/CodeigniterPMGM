@@ -76,7 +76,7 @@
                                                     }
 
                                                     ?>
-                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('bloque_grupo_mat/activo/'. $lis->grupo_mat_id); ?>" type="button" class="btn btn-<?php echo $color ?>"><?php echo $mensaje ?>
+                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('Bloque_grupo_mat/activo/'. $lis->grupo_mat_id); ?>" type="button" class="btn btn-<?php echo $color ?>"><?php echo $mensaje ?>
                                                         
                                                     </a>  
 
@@ -86,7 +86,7 @@
                                                             <span class="fas fa-pencil-alt" aria-hidden="true">
                                                             </span>
                                                     </button> 
-                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('bloque_grupo_mat/eliminar/'. $lis->grupo_mat_id); ?>" type="button" class="btn btn-danger footable-delete">
+                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('Bloque_grupo_mat/eliminar/'. $lis->grupo_mat_id); ?>" type="button" class="btn btn-danger footable-delete">
                                                         <span class="fas fa-trash-alt" aria-hidden="true">
                                                         </span>
                                                     </a>
@@ -120,7 +120,7 @@
                     </div>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>zona_urbana/update" method="POST">-->
-                        <?php echo form_open('bloque_grupo_mat/update', array('method'=>'POST')); ?>
+                        <?php echo form_open('Bloque_grupo_mat/update', array('method'=>'POST')); ?>
 
                             
                             <div class="form-group">
@@ -152,7 +152,7 @@
                     </div>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>zona_urbana/insertar" method="POST">-->
-                        <?php echo form_open('bloque_grupo_mat/insertar', array('method'=>'POST')); ?>
+                        <?php echo form_open('Bloque_grupo_mat/insertar', array('method'=>'POST')); ?>
 
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Descripci&oacute;n</label>

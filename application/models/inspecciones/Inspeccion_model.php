@@ -16,14 +16,20 @@ class Inspeccion_model extends CI_Model {
 		$id = $this->session->userdata("persona_perfil_id");
 	    $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
 	    $usu_creacion = $resi->persona_id;
-		$lista = $this->db->query("SELECT ins.* 
-									FROM inspeccion.asignacion ins, public.persona_perfil pub, public.perfil per
-									WHERE ins.persona_id = $usu_creacion 
-									AND pub.persona_id = $usu_creacion
-									AND pub.perfil_id = per.perfil_id
-									AND per.perfil = 'Inspector'
-									AND ins.activo=1
-									ORDER BY inicio desc")->result();
+	    $lista = $this->db->query("SELECT i.*,a.*,t.*,p.* FROM inspeccion.asignacion i
+	    	LEFT JOIN
+	    	inspeccion.tipo_asignacion a
+	    	on i.tipo_asignacion_id=a.tipo_asignacion_id
+	    	LEFT JOIN
+	    	tramite.tramite t
+	    	on i.tramite_id=t.tramite_id
+	    	LEFT JOIN
+	    	persona p
+	    	on t.solicitante_id=p.persona_id
+
+	    	where i.persona_id=73 and i.activo=1
+
+	    	")->result();
 		if ($lista > 0) {
 			return $lista;
 		}

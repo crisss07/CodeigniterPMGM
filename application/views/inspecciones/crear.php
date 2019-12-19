@@ -31,37 +31,53 @@
                         <?php echo form_open('Inspeccion/create', array('method'=>'POST')); ?>
                             <h4 class="card-title">Registro de Inspeccion</h4>
                             <div class="form-row">
+
+                                <?php echo 'Nro de tramite '. $solicitante->cite ?>
+                                <input type="hidden" class="form-control" id="tramite_id" name="tramite_id" value="<?php echo  $solicitante->tramite_id ?>"  readonly="">
                                 
                                 <div class="col-md-12 form-group" id="listas"> 
                                 </div>
                                 <div class="form-row col-md-12">
                                     <div class="col-sm-6">
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" id="tipo_solicitante1" name="tipo_solicitante" class="custom-control-input" value="Propietario">
-                                            <label class="custom-control-label" for="tipo_solicitante1">Solicitante propietario</label>
+                                            <input type="radio" id="tipo_solicitante1" name="tipo_solicitante" class="custom-control-input" value="Propietario" checked="" readonly="">
+                                            <label class="custom-control-label" for="tipo_solicitante1"><?php echo 'Solicitante '.$solicitante->tipo_solicitante ?></label>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" id="tipo_solicitante2" name="tipo_solicitante" class="custom-control-input" value="Legal">
-                                            <label class="custom-control-label" for="tipo_solicitante2">Solicitante legal</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <div class="form-group">
-                                        <label> Cedula de identidad del solicitante <span class="text-danger">*</span> </label>
-                                        <input type="integer" class="form-control" id="cedula" name="cedula" required pattern="[0-9]{1,40}">
-                                    </div>
+                                    </div>                             
                                 </div>
                                  <div class="col-md-12 form-group">
-                                    <div class="form-group">
-                                        <label> Nombre del solicitante<span class="text-danger">*</span> </label>
-                                        <input type="text" class="form-control" id="remitente" name="remitente"  required >
-                                        <input type="hidden" name="solicitante_id" id="solicitante_id">
-                                    </div>
+                                
+                                        <label> Nombre del solicitante</label>
+                                        <input type="text" class="form-control" id="remitente" name="remitente" value="<?php echo $solicitante->nombres.' '.$solicitante->paterno.' '.$solicitante->materno ?>" readonly="" >
+                                      
+                                 
                                 </div>
+                                 <div class="col-md-12 form-group">
+                                   
+                                        <label> Direccion</label>
+                                        <input type="text" class="form-control" id="remitente" name="remitente" value="<?php echo $solicitante->direccion ?>"  readonly="">
+                            
+                                </div>
+                                <div class="row pt-3">
+                                    <div class="col-md-4">
+                                        <label> Cedula de identidad del solicitante  </label>
+                                        <input type="integer" class="form-control" id="cedula" name="cedula" value="<?php echo $solicitante->ci ?>" required pattern="[0-9]{1,40}" readonly="">
+                                    </div>
+                                    <div class="col-nd-4">
+                                        <label> Nro de Celular del solicitante  </label>
+                                        <input type="integer" class="form-control" id="celular" value="<?php echo $solicitante->telefono_celular ?>" name="celular" required pattern="[0-9]{1,40}" readonly="">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label> Nro Telefonico del solicitante  </label>
+                                        <input type="integer" class="form-control" id="telefono" name="telefono" value="<?php echo $solicitante->telefono_fijo ?>" required pattern="[0-9]{1,40}" readonly="">
+                                    </div>
+                                </div>                                
                             </div>
+
+
+
+
+
                             <div class="form-row">
                                 <?php 
                                     $año = date("Y");
@@ -87,23 +103,19 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-md-12 mb-form-group">
-                                    <label >Observaciones<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="observaciones" name="observaciones" required>
+                                    <label >Descripcion</label>
+                                    <input type="text" class="form-control" id="descripcion" value="" name="descripcion" required>
                                 </div>
                                
                                 <div class="col-md-12 form-group"> 
-                                     <label >Derivar a </label>
+                                     <label >Inspector Asignado </label>
                                     <select class="custom-select form-control" id="destino" name="destino" />
-                                        <option value=""></option>
-                                        <?php foreach ($personas as $key => $p): ?>
-                                            <option value="<?php echo $p['id'] ?>"><?php echo $p['nombre']; ?> - <?php echo $p['cargo']; ?> (<?php echo $p['unidad']; ?>)</option>
-                                        <?php endforeach ?>
+                                        <option value="<?php echo $personas->persona_id; ?>"><?php echo $personas->nombres.' '.$personas->paterno.' '.$personas->materno.'- Tecnico (Inspector)'; ?></option>                                       
                                     </select>  
                                 </div>
                             </div>
-                            <div class="row">
-                                
-                                <div class="col-md-6">
+                            <div class="row">                                
+                                <div class="col-md-1">
                                     <button type="submit" name="boton" value="derivar" class="btn waves-effect waves-light btn-block btn-success">Crear</button>
                                 </div>
                             </div>

@@ -31,7 +31,8 @@
                                                 <th>Tipo Tramite</th>
                                                 <th>Persona</th>
                                                 <th>Orden</th>
-                                                <th>Flujo</th>                                                
+                                                <th>Flujo</th>
+                                                <th>Registro predio</th>                                              
                                                 <th>Estado</th>                                                         
                                                 <th>Acciones</th>
                                             </tr>
@@ -49,12 +50,13 @@
                                                 <td><?php echo $row->nombreusuer; ?></td>
                                                 <td><?php echo $row->orden; ?></td>
                                                 <td><?php echo $row->flujo; ?></td>
+                                                <td><?php echo $row->flujo; ?></td>
                                                 <td>                                                                                               
                                                     <?php if (($row->activo)==1):?>
-                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('flujo/delete'); ?>/<?php echo $row->flujo_id; ?>"><button type="button" class="btn btn-success"><span class="fas fa-arrow-alt-circle-up" aria-hidden="true"></span> Activo</button></a>                                                          
+                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('Flujo/delete'); ?>/<?php echo $row->flujo_id; ?>"><button type="button" class="btn btn-success"><span class="fas fa-arrow-alt-circle-up" aria-hidden="true"></span> Activo</button></a>                                                          
                                                     <?php endif ?>
                                                     <?php if (($row->activo)==0):?>
-                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('flujo/delete'); ?>/<?php echo $row->flujo_id; ?>"><button type="button" class="btn btn-danger"><span class="fas fa-arrow-alt-circle-down" aria-hidden="true"></span> Inactivo</button></a>
+                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('Flujo/delete'); ?>/<?php echo $row->flujo_id; ?>"><button type="button" class="btn btn-danger"><span class="fas fa-arrow-alt-circle-down" aria-hidden="true"></span> Inactivo</button></a>
                                                     <?php endif ?>
                                                 </td>                                                                                                             
                                                 <td>
@@ -84,7 +86,7 @@
                                     <?php echo form_open('Flujo/create', array('method'=>'POST', 'id'=>'insertar')); ?>
                                     <div class="form-group">
                                     <label for="location1">Tipo tramite :<span class="text-danger"> *</span></label>
-                                    <select class="custom-select form-control" id="tipo_tramite_id" name="tipo_tramite_id">
+                                    <select class="custom-select form-control" id="tipo_tramite_id" name="tipo_tramite_id" required>
                                         <option value="">Seleccione Opcion</option>
                                         <?php foreach ($data_tramite as $tp) : ?>
                                             <option value="<?php echo $tp->tipo_tramite_id; ?>"><?php echo $tp->tramite; ?></option>
@@ -94,20 +96,20 @@
 
                                     <div class="form-group">
                                     <label for="location1">Persona :<span class="text-danger"> *</span></label>
-                                    <select class="custom-select form-control" id="organigrama_id" name="organigrama_id">
+                                    <select class="custom-select form-control" id="organigrama_id" name="organigrama_id" required>
                                         <option value="">Seleccione Opcion</option>
                                         <?php foreach ($data_org as $tp) : ?>
-                                            <option value="<?php echo $tp->organigrama_persona_id; ?>"><?php echo $tp->nombreusuer; ?></option>
-                                        <?php endforeach; ?>
+                                            <option value="<?php echo $tp->organigrama_persona_id; ?>"><?php echo $tp->nombreusuer.' ('.$tp->cargo.')'; ?></option>
+                                        <?php endforeach; ?> 
                                     </select>
                                     </div>
                                     <div class="form-group">
                                     <label for="recipient-name" class="control-label">Orden</label>
-                                    <input type="number" class="form-control" id="orden" name="orden" >
+                                    <input type="number" class="form-control" id="orden" name="orden" required>
                                     </div>
                                     <div class="form-group">
                                     <label for="recipient-name" class="control-label">Flujo</label>
-                                    <input type="text" class="form-control" id="flujo" name="flujo" >
+                                    <input type="text" class="form-control" id="flujo" name="flujo" required>
                                     </div>
 
                                     <div class="modal-footer">
@@ -145,7 +147,7 @@
                                     <select class="custom-select form-control" id="organigrama_id_e" name="organigrama_id_e">
                                         <option value="">Seleccione Opcion</option>
                                         <?php foreach ($data_org as $tp) : ?>
-                                            <option value="<?php echo $tp->organigrama_persona_id; ?>"><?php echo $tp->nombreusuer; ?></option>
+                                            <option value="<?php echo $tp->organigrama_persona_id; ?>"><?php echo $tp->nombreusuer .' ('.$tp->cargo.')'; ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                     </div>

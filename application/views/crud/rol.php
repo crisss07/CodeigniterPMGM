@@ -60,7 +60,7 @@
                                                             <span class="fas fa-pencil-alt" aria-hidden="true">
                                                             </span>
                                                     </button> 
-                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('rol/eliminar/'. $lis->rol_id); ?>" type="button" class="btn btn-danger footable-delete">
+                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('Rol/eliminar/'. $lis->rol_id); ?>" type="button" class="btn btn-danger footable-delete">
                                                         <span class="fas fa-trash-alt" aria-hidden="true">
                                                         </span>
                                                     </a>
@@ -93,7 +93,7 @@
                     </div>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>zona_urbana/update" method="POST">-->
-                        <?php echo form_open('rol/update', array('method'=>'POST')); ?>
+                        <?php echo form_open('Rol/update', array('method'=>'POST')); ?>
 
                             
                             <div class="form-group">
@@ -125,7 +125,7 @@
                     </div>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>zona_urbana/insertar" method="POST">-->
-                        <?php echo form_open('rol/insertar', array('method'=>'POST')); ?>
+                        <?php echo form_open('Rol/insertar', array('method'=>'POST')); ?>
 
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Rol</label>

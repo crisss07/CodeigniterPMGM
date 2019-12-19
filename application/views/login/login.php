@@ -9,8 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url(); ?>public/assets/images/favicon.png">
-    <title>LOGIN</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url(); ?>public/assets/images/ico_logo.png">
+    <title>SEICU 2.0</title>
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url(); ?>public/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -26,6 +26,19 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+<style type="text/css">
+        .botonimagen{
+            background:
+    url(data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7)
+    no-repeat
+    left center;
+            background-repeat:no-repeat;
+            height:50px;
+            width:300px;
+            background-position:center;
+        }
+    </style>
 </head>
 
 <body>
@@ -40,18 +53,19 @@
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
     <section id="wrapper">
-        <div class="login-register" style="background-image: url(public/assets/images/background/2.jpg);">        
+        <div class="login-register" style="background-image: url(public/assets/images/background/catastro.jpeg);">        
             <div class="login-box card">
                <div class="m-login__logo btn btn-block">
                             <a href="">
-                                <img src="<?php echo base_url().'publico/assets/app/media/img/logos/logo2.png' ;?>">
+                                <img src="<?php echo base_url().'publico/assets/app/media/img/logos/logo_seicu.png' ;?>">
                             </a>
                 </div> 
 
             <div class="card-body">
                 
                 <!--<form class="form-horizontal form-material" action="<?php echo base_url();?>login/login" method="POST">-->
-                <?php echo form_open('login/login', array('class'=>'form-horizontal form-material', 'method'=>'POST')); ?>
+                <?php echo form_open('Login/login', array('class'=>'form-horizontal form-material', 'method'=>'POST')); ?>
+                <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
                     <h3 class="box-title mb-3">Inicia Sesi&oacute;n</h3>
                     <div class="form-group ">
                         <div class="col-xs-12">
@@ -67,10 +81,18 @@
                             <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Ingresar</button>
                         </div>
                     </div>
+
                    
-                    
+                    <div class="form-group text-center mt-3">
+                        <div class="col-xs-12"> 
+                            <?php //echo vdebug($direccion, true, false, false); ?>
+                            <a href="<?PHP ECHO $direccion; ?>" class="btn btn-secondary col-xs-12">INGRESAR CON AGETIC</a>
+                        </div>
+                        <!--<div class="col-xs-12"> 
+                            <a href="http://localhost/CodeigniterPMGM/login/login" class="btn btn-secondary col-xs-12" >INGRESAR CON PRUEBA </a>
+                        </div>-->
+                    </div>                               
                 </form>
-               
             </div>
           </div>
         </div>
@@ -106,5 +128,4 @@
     <script src="<?php echo base_url(); ?>public/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
 
 </body>
-
 </html>

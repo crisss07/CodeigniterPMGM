@@ -11,6 +11,7 @@ class Cargo extends CI_Controller
         $this->load->helper('url_helper');
         $this->load->helper('vayes_helper');
         $this->load->model("Rol_model");
+        $this->load->model("Auditoria_Model");
     }
 
     public function index()
@@ -48,6 +49,13 @@ class Cargo extends CI_Controller
             'usu_creacion' => $usu_creacion,
         );
             $this->db->insert('tramite.cargo', $data);
+            
+            //AUDITORIA
+            $tabla = 'tramite.cargo';
+            $ultimoId = $this->db->query("SELECT MAX(cargo_id) as max FROM tramite.cargo")->row();
+            $data1 = $this->db->get_where('tramite.cargo', array('cargo_id' => $ultimoId->max))->row();
+            $this->Auditoria_Model->auditoria_insertar(json_encode($data1), $tabla);
+
             redirect(base_url() . 'cargo/nuevo/');
         } else {
             redirect(base_url());
@@ -61,14 +69,22 @@ class Cargo extends CI_Controller
             $usu_modificacion = $resi->persona_id;
             $fec_modificacion = date("Y-m-d H:i:s");
 
+            $id_cargo = $this->input->post('cargo_id');
+            $data1 = $this->db->get_where('tramite.cargo', array('cargo_id' => $id_cargo))->row();
+
             $data = array(
                 'descripcion' => $this->input->post('descripcion_e'), //input
                 'usu_modificacion' => $usu_modificacion, //input
                 'fec_modificacion' => $fec_modificacion, //input
             );
-            $id_cargo=$this->input->post('cargo_id');
+            
             $this->db->where('cargo_id', $id_cargo);
             $this->db->update('tramite.cargo', $data);
+
+            //AUDITORIA
+            $tabla = 'tramite.cargo';
+            $data2 = $this->db->get_where('tramite.cargo', array('cargo_id' => $id_cargo))->row();
+            $this->Auditoria_Model->auditoria_modificar(json_encode($data1), json_encode($data2), $tabla);
 
 
             redirect(base_url() . 'cargo/nuevo/');
@@ -88,7 +104,7 @@ class Cargo extends CI_Controller
             foreach ($activo ->result() as $row) {
                 $valor=$row->activo;
             }
-            $valor=1-$valor;
+            $valor = 1-$valor;
             $data = array(
                 'activo' => $valor, //input
                 'usu_eliminacion' => $usu_eliminacion, //input
@@ -96,6 +112,13 @@ class Cargo extends CI_Controller
             );
             $this->db->where('cargo_id', $ida);
             $this->db->update('tramite.cargo', $data);
+
+            //AUDITORIA
+            $tabla = 'tramite.cargo';
+            $data1 = $this->db->get_where('tramite.cargo', array('cargo_id' => $ida))->row();
+            $this->Auditoria_Model->auditoria_eliminar(json_encode($data1), $tabla);
+
+            
             redirect(base_url() . 'cargo/nuevo/');
         } else {
             redirect(base_url());

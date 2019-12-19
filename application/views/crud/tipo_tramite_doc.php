@@ -51,10 +51,10 @@
                                                 <td><?php echo $row->tramite; ?></td>
                                                 <td>                                           
                                                 <?php if (($row->activo)==1):?>
-                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('tipo_tramite_doc/delete'); ?>/<?php echo $row->tipo_tramite_id; ?>"><button type="button" class="btn btn-success"><span class="fas fa-arrow-alt-circle-up" aria-hidden="true"></span> Activo</button></a>                                                          
+                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('Tipo_tramite_doc/delete'); ?>/<?php echo $row->tipo_tramite_id; ?>"><button type="button" class="btn btn-success"><span class="fas fa-arrow-alt-circle-up" aria-hidden="true"></span> Activo</button></a>                                                          
                                                     <?php endif ?>
                                                     <?php if (($row->activo)==0):?>
-                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('tipo_tramite_doc/delete'); ?>/<?php echo $row->tipo_tramite_id; ?>"><button type="button" class="btn btn-danger"><span class="fas fa-arrow-alt-circle-down" aria-hidden="true"></span> Inactivo</button></a>                                                          
+                                                        <a <?php echo $verifica['baja'];?>="<?php echo site_url('Tipo_tramite_doc/delete'); ?>/<?php echo $row->tipo_tramite_id; ?>"><button type="button" class="btn btn-danger"><span class="fas fa-arrow-alt-circle-down" aria-hidden="true"></span> Inactivo</button></a>                                                          
                                                     <?php endif ?>
                                                 </td>                                                                                                              
                                                 <td>
@@ -80,7 +80,7 @@
                                 <h4 class="modal-title" id="exampleModalLabel1">Insertar nuevo tipo de  tramite</h4>
                             </div>
                             <div class="modal-body">                                
-                                    <?php echo form_open('tipo_tramite_doc/create', array('method'=>'POST', 'id'=>'insertar')); ?>
+                                    <?php echo form_open('Tipo_tramite_doc/create', array('method'=>'POST', 'id'=>'insertar')); ?>
                                     <div class="form-group">
                                         <label for="recipient-name" class="control-label">Correspondencia</label>
                                         <input type="text" class="form-control" id="correspondencia" name="correspondencia">
@@ -101,7 +101,7 @@
                                 <h4 class="modal-title" id="exampleModalLabel1">Editar tipo de  tramite</h4>
                             </div>
                             <div class="modal-body">                        
-                                <?php echo form_open('tipo_tramite_doc/update', array('method'=>'POST')); ?>                            
+                                <?php echo form_open('Tipo_tramite_doc/update', array('method'=>'POST')); ?>                            
                                 <div class="form-group">
                                     <input type="text" class="form-control" hidden="" id="tipo_correspondencia_e" name="tipo_correspondencia_e">
                                 </div>

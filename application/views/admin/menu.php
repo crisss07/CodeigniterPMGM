@@ -4,14 +4,7 @@
 <!-- ============================================================== -->
 <!-- Left Sidebar - style you can find in sidebar.scss  -->
 <!-- ============================================================== -->
-<aside class="left-sidebar">
-    <!-- Sidebar scroll-->
-    <div class="scroll-sidebar">
-        <!-- User profile -->
-        <div class="user-profile">
-            <!-- User profile image -->
-            <div class="profile-img"> <img src="<?php echo base_url(); ?>public/assets/images/users/perfil1.jpg" alt="user" /> </div>
-            <!-- User profile text-->
+<!-- User profile text-->
              <?php
                     $id = $this->session->userdata("persona_perfil_id");
                     $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
@@ -23,10 +16,19 @@
 
                     $credencial = $this->db->get_where('credencial', array('persona_perfil_id' => $id))->row();
                     $id_credencial = $credencial->credencial_id;
+                    $avartar = $credencial->avartar;
              ?>
+<aside class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- User profile -->
+        <div class="user-profile">
+            <!-- User profile image -->
+            <div class="profile-img"> <img src="<?php echo base_url(); ?>public/assets/images/users/<?php echo $avartar ?>" alt="user" /> </div>
+            
             <div class="profile-text"> <a href="#" class="dropdown-toggle link u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">USUARIO <?php echo strtoupper($res1->perfil);?> <span class="caret"></span></a>
                 <div class="dropdown-menu animated flipInY">
-                    <div class="dropdown-divider"></div> <a href="<?php echo base_url(); ?>login/logout" class="dropdown-item"><i class="fa fa-power-off"></i> Cerrar Sesi&oacute;n</a>
+                    <div class="dropdown-divider"></div> <a href="<?php echo base_url(); ?>Login/logout" class="dropdown-item"><i class="fa fa-power-off"></i> Cerrar Sesi&oacute;n</a>
                 </div>
             </div>
         </div>
@@ -131,11 +133,11 @@
     <!-- Bottom points-->
     <div class="sidebar-footer">
         <!-- item-->
-        <a href="" class="link" data-toggle="tooltip" title="Settings"><i class="ti-settings"></i></a>
+       <a href="" class="link" data-toggle="tooltip" title="Settings"></a>
         <!-- item-->
-        <a href="" class="link" data-toggle="tooltip" title="Email"><i class="mdi mdi-gmail"></i></a>
-        <!-- item-->
-        <a href="" class="link" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a>
+        <a href="<?php echo base_url(); ?>Menu/info" class="link" data-toggle="tooltip" title="Informaci&oacute;n"><i class="mdi mdi-information-outline"></i></a>
+
+        <a href="" class="link" data-toggle="tooltip" title="Logout"></a>
     </div>
     <!-- End Bottom points-->
 </aside>

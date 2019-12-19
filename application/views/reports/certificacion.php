@@ -11,7 +11,10 @@
 
         body {
 
-            margin: 15pt 15pt 15pt 15pt;
+            /*margin: 15pt 15pt 15pt 15pt;*/
+            background-image: url('<?php echo base_url(); ?>public/assets/images/reportes/menbrete_reporte.png');
+
+           background-repeat: no-repeat; 
 
         }
 
@@ -66,7 +69,10 @@
         }
 
         .invoice table {
-            margin: 0px;
+            margin-top: 0px;
+            margin-left: 80px;
+            margin-right:  60px;
+            margin-bottom: 0px;
         }
 
         .invoice h3 {
@@ -152,7 +158,8 @@
 
 </head>
 <body>
-    <div class="encabezado">
+
+  <!--  <div class="encabezado">
         <table width="100%" class="no_bordes" >
             <tr class="no_bordes" >
                   <td align="left" class="no_bordes" >
@@ -166,11 +173,15 @@
              </td>
     </tr>
 </table>
+</div>-->
+<div >
+    <br><br><br><br><br><br>
+
 </div>
 
 <div class="invoice">  
 <br> 
-  <table width="100%">     
+ <!-- <table width="100%">     
       <tr >   
       <td align="justify"  class="titulo" height="0">
         Solicitado por:  <br>
@@ -187,7 +198,7 @@
 
       </td>   
   </tr>  
-</table> 
+</table> -->
 
   <table width="100%">     
       <tr >   
@@ -249,7 +260,7 @@
       Manzana : <?php echo $datos_predio->manzana; ?>
       </td>
         <td align="justify"  class="titulo" height="0">
-      Zona: CENTRAL 
+      Zona: <?php echo $datos_predio->zona; ?>
       </td>
        
        <td align="justify"  class="titulo" height="0">
@@ -264,7 +275,7 @@
         Lote: Nº24
       </td>   
         <td align="justify"  class="titulo" height="0">
-        Calle : INNOMINADA
+        Calle : <?php echo $datos_predio->calle; ?>
       </td>
         <td align="justify"  class="titulo" height="0">
       Urbanizacion: LOMA PAMPA
@@ -299,7 +310,7 @@
  <table width="100%">     
       <tr >   
       <td align="center"  class="titulo" height="0" width="50%">
-          <img src="<?php echo base_url(); ?>public/assets/images/reportes/predio.png" alt="Logo" width="350"  class="logo"/>
+          <img src="<?php echo base_url(); ?><?php echo $foto_plano_ubi; ?>" alt="Logo" width="300"  class="logo"/>
       </td>  
       <td align="justify"  class="titulo" height="0">
         <u> DATOS TECNICOS</u>  <p>
@@ -332,8 +343,8 @@
  <table width="100%">     
       <tr >   
       <td align="justify"  class="titulo" height="0">
-      NOTA.- Se aclara, que la manzana S-968 pertenece a la codificación ANTIGUA, actualmente corresponde a la manzana <?php echo $datos_predio->manzana; ?> de acuerdo al Plano General del Área Urbana de El Torno aprobado según Ley Municipal 0159/2016 del 2/09/2016.
-      <p></p>
+      NOTA.-
+     
       <br> La presente certificación no define el derecho Propietario.
         es cuanto se certifica para fines consiguientes.
       </td>       
@@ -343,8 +354,7 @@
 
 
 </div>
-
-
+<!--
 <div class="information" style="position: absolute; bottom: 0;">
     <table width="100%">
         <tr>
@@ -359,6 +369,6 @@
             </td>            
         </tr>
     </table>
-</div>
+</div>-->
 </body>
 </html>

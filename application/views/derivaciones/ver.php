@@ -12,12 +12,23 @@
                             </div>
                             <div class="col-6 align-self-center display-8 text-info text-right">Fecha: <?php echo date("d-m-Y",strtotime($tramite->fecha)); ?></div>
                         </div>
+                         <?php   $cite_archivo = $tramite->cite;
+                                $partes = explode("/", $cite_archivo); 
+                                $citee = end($partes);
+
+                                $resi = $this->db->get_where('archivo.documentos', array('nombre' => $citee, 'activo' => 1))->row();
+
+                                $url1 = $resi->url;
+                                $partes1 = explode("./", $url1); 
+                                $citee1 = end($partes1);
+
+                        ?>
                         <!-- <form class="floating-labels mt-5"> -->
                         <?php echo form_open('tipo_tramite/editar', array('method'=>'POST')); ?>
                             <div class="row floating-labels mt-5">
                                 <div class="col-6">
                                     <div class="form-group mb-5">
-                                        ARCHIVO : &nbsp; &nbsp; <a href="<?php echo base_url(); ?>public/assets/images/tramites/<?php echo $tramite->adjunto.'.pdf';?>" target='_blank'><?php echo $tramite->adjunto.'.pdf'; ?></a>
+                                        ARCHIVO : &nbsp; &nbsp; <a href="<?php echo base_url(); ?><?php echo $citee1.'/';?><?php echo $resi->nombre.'.pdf';?>" target='_blank'><?php echo $resi->nombre.'.pdf'; ?></a>
                                      </div>
                                     <div class="form-group mb-5">
                                         TIPO DE TRAMITE : <?php echo $tipo_tramite->tramite;?>

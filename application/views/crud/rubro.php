@@ -65,7 +65,7 @@
                                                             <span class="fas fa-pencil-alt" aria-hidden="true">
                                                             </span>
                                                     </button> 
-                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('rubro/eliminar/'. $lis->rubros_id); ?>" type="button" class="btn btn-danger footable-delete button">
+                                                    <a <?php echo $verifica['baja'];?>="<?= base_url('Rubro/eliminar/'. $lis->rubros_id); ?>" type="button" class="btn btn-danger footable-delete button">
                                                         <span disabled class="fas fa-trash-alt" aria-hidden="true">
                                                         </span>
                                                     </a>                                                    
@@ -98,7 +98,7 @@
                     </div>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>zona_urbana/update" method="POST">-->
-                        <?php echo form_open('rubro/update', array('method'=>'POST', 'id'=>'editar')); ?>
+                        <?php echo form_open('Rubro/update', array('method'=>'POST', 'id'=>'editar')); ?>
 
                             
                             <div class="form-group">
@@ -130,7 +130,7 @@
                     </div>
                     <div class="modal-body">
                         <!--<form action="<?php echo base_url();?>zona_urbana/insertar" method="POST">-->
-                        <?php echo form_open('rubro/insertar', array('method'=>'POST', 'id'=>'insertar')); ?>
+                        <?php echo form_open('Rubro/insertar', array('method'=>'POST', 'id'=>'insertar')); ?>
 
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Rubro</label>

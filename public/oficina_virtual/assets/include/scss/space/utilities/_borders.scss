@@ -1,0 +1,39 @@
+/*------------------------------------
+  Borders
+------------------------------------*/
+
+.rounded-pill {
+  border-radius: $border-radius-pill !important;
+}
+
+// Border Width
+.border-1 {
+  border-width: 1px !important;
+}
+
+.border-3 {
+  border-width: 3px !important;
+}
+
+// Border Colors
+.border-white-opacity-0_3 {
+  border-color: rgba($white, .3);
+}
+
+// Pseudo options
+.rounded-pseudo {
+  @include border-radius($border-radius);
+
+  &::before,
+  &::after {
+    @include border-radius($border-radius);
+  }
+}
+
+// Border Radiuses
+@include media-breakpoint-up(lg) {
+  .rounded-lg-right-0 {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+}
