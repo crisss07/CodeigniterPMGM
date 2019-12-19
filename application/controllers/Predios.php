@@ -198,10 +198,10 @@ class Predios extends CI_Controller {
 				
 				$data['dc_tipos_predio'] = $query->result();
 
-				$this->db->select('direccion_id, calle, zona, numero, edificio');
-				$this->db->where('activo', 1);
-				$query = $this->db->get('catastro.direccion');
-				$data['dc_zona_urbana'] = $query->result();
+				// $this->db->select('direccion_id, calle, zona, numero, edificio');
+				// $this->db->where('activo', 1);
+				// $query = $this->db->get('catastro.direccion');
+				// $data['dc_zona_urbana'] = $query->result();
 
 				// $this->db->select('via_id, codcatas');
 				// $this->db->where('activo', 1);
