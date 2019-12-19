@@ -129,7 +129,7 @@
                                     vdebug($vertices, false, false, true);
                                     // 32720
 
-                                    $vertices2 = $this->db->query("SELECT ST_AsGML(geom) as area
+                                    $vertices2 = $this->db->query("SELECT ST_AsKML(geom) as area
                                         FROM catastro.geo_distritos
                                         WHERE id = $cod_predio;")->row_array();
                                     vdebug($vertices2, true, false, true);
