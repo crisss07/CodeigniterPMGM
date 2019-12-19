@@ -214,7 +214,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="card card-outline-info">
-                                                <div class="card-header"  onclick="muestraDatosSuperficie();">
+                                                <div class="card-header" onclick="muestraDatosSuperficie();">
                                                     <h4 class="mb-0 text-white">DATOS SUPERFICIE</h4>
                                                 </div>
                                                 <div class="card-body" style="display: none;" id="bloqueDatosSuperficie">
