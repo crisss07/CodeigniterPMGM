@@ -313,6 +313,53 @@ class Restserver extends CI_Controller{
         }          
     }
 
+     public function subirfoto_get(){
+        $this->load->helper(array('form', 'url'));
+        $id = $this->get('file');
+        $name = $this->get('file');
+        var_dump('hola'.$name);
+        exit;
+             
+        $user = TRUE;
+         //$user = $this->ApiRest_model->getdata( 7);
+        if($user)
+        {
+            $this->response( $user, 200); // 200 being the HTTP response code
+        } 
+        else
+        {
+            $this->response(NULL, 404);
+        }
+    }
+
+    public function upload_post()
+{
+    $this->load->helper(array('form', 'url'));
+
+    $config = array(
+        'upload_path' => "./uploads/",
+        'allowed_types' => "gif|jpg|png|jpeg|pdf",
+        'overwrite' => TRUE,
+        'max_size' => "2048000",
+        'max_height' => "768",
+        'max_width' => "1024"
+    );
+
+    $this->load->library('upload',$config);
+
+    if($this->upload->do_upload('file'))
+    {
+        $data = array('upload_data' => $this->upload->data());
+        $this->set_response($data, REST_Controller::HTTP_CREATED);
+    }
+    else
+    {
+        $error = array('error' => $this->upload->display_errors());
+        $this->response($error, REST_Controller::HTTP_BAD_REQUEST);
+    }
+
+}
+
 
     
 }

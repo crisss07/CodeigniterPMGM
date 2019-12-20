@@ -206,7 +206,7 @@
 
  <script>
     var s= <?php echo 200; ?>;
-    new Chart(document.getElementById("chart_tramite"),
+    /*new Chart(document.getElementById("chart_tramite"),
         {
             "type":"line",
             "data":{"labels":["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
@@ -217,8 +217,24 @@
                             "borderColor":"rgb(86, 192, 216)",
                             "lineTension":0.1
                         }]
-        },"options":{}});
+        },"options":{}});*/
 
+    new Chart(document.getElementById("chart_tramite"),
+        {
+            "type":"bar",
+            "data":{"labels":["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
+            "datasets":[{
+                            "label":"Tramites por Mes",
+                            "data":<?php echo $data_tramites; ?>,
+                            "fill":false,
+                            "backgroundColor":["rgba(255, 99, 132, 0.2)","rgba(255, 159, 64, 0.2)","rgba(255, 205, 86, 0.2)","rgba(75, 192, 192, 0.2)","rgba(54, 162, 235, 0.2)","rgba(153, 102, 255, 0.2)","rgba(201, 203, 207, 0.2)","rgba(201, 203, 207, 0.2)","rgba(201, 203, 207, 0.2)","rgba(18, 166, 196, 1)","rgba(196, 119, 18, 1)","rgba(190, 196, 18, 1)"],
+                           
+                            "borderWidth":1}
+                        ]},
+            "options":{
+                "scales":{"yAxes":[{"ticks":{"beginAtZero":true}}]}
+            }
+        });
 
     new Chart(document.getElementById("chart_predrios"),
         {
@@ -255,7 +271,27 @@
             }
         });
 
-       new Chart(document.getElementById("chart_inspecciones_mes"),
+
+
+    new Chart(document.getElementById("chart_inspecciones_mes"),
+        {
+            "type":"bar",
+            "data":{"labels":["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
+            "datasets":[{
+                            "label":"Inspecciones por Mes",
+                            "data":<?php echo $data_inspecciones; ?>,
+                            "fill":false,
+                            "backgroundColor":["rgba(255, 99, 132, 0.2)","rgba(255, 159, 64, 0.2)","rgba(255, 205, 86, 0.2)","rgba(75, 192, 192, 0.2)","rgba(54, 162, 235, 0.2)","rgba(153, 102, 255, 0.2)","rgba(201, 203, 207, 0.2)","rgba(201, 203, 207, 0.2)","rgba(201, 203, 207, 0.2)","rgba(18, 166, 196, 1)","rgba(196, 119, 18, 1)","rgba(190, 196, 18, 1)"],
+                           
+                            "borderWidth":1}
+                        ]},
+            "options":{
+                "scales":{"yAxes":[{"ticks":{"beginAtZero":true}}]}
+            }
+        });
+
+
+       /*new Chart(document.getElementById("chart_inspecciones_mes"),
         {
             "type":"line",
             "data":{"labels":["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
@@ -299,7 +335,7 @@
                     }]
                 }
 
-        }});
+        }});*/
 
 
 

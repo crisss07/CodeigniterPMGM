@@ -47,7 +47,8 @@ class Dashboard_model extends CI_Model {
 
     public function get_predios_mes($id,$year){  
 		$this->db->select('count(EXTRACT(MONTH FROM fec_creacion)) as mes');
-        $data=$this->db->get_where('catastro.predio',array('EXTRACT(MONTH FROM fec_creacion) =' => $id,'EXTRACT(YEAR FROM fec_creacion) =' => $year,'activo >='=>3))->row();
+        //$data=$this->db->get_where('catastro.predio',array('EXTRACT(MONTH FROM fec_creacion) =' => $id,'EXTRACT(YEAR FROM fec_creacion) =' => $year,'activo >='=>3))->row();
+        $data=$this->db->get_where('catastro.predio',array('EXTRACT(MONTH FROM fec_creacion) =' => $id,'EXTRACT(YEAR FROM fec_creacion) =' => $year,'activo >='=>1))->row();
         return $data;
     }
 
