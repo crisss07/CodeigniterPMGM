@@ -29,11 +29,11 @@ class Ubicacion extends CI_Controller
     {
         if ($this->session->userdata("login")) {
            
-            //$this->load->view('admin/header');
-            //$this->load->view('admin/menu');
+            $this->load->view('admin/header');
+            $this->load->view('admin/menu');
             $this->load->view('maps/Ubicacion');
-            //$this->load->view('bloque/validar');        
-            //$this->load->view('bloque/jtables');
+            $this->load->view('admin/footer');        
+            
             
         } else {
             redirect(base_url());
