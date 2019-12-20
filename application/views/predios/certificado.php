@@ -3,6 +3,7 @@
         .left-sidebar {display: none;}
     }
 </style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" crossorigin=""/>
 <?php require_once(APPPATH.'libraries/coordinates.php'); ?>
 <!-- ============================================================== -->
 <!-- Start Page Content -->
@@ -28,7 +29,7 @@
                                 <address>
                                     <!-- <h3> &nbsp;<b class="text-danger">Monster Admin</b></h3> -->
                                     <!-- <b class="text-muted ml-1">La Paz, 28 de febrero de 2019</b> -->
-                                        La Paz, 13 de Diciembre de 2019
+                                        La Paz, 13 de Diciembre de 2020
                                         <br/> Tramite No 321456,
                                         <br/> <b>Certificacion de Datos Tecnicos No. 1245/2019</b>
                                         <br/> Matricula: <?php //echo $ddrr->nro_matricula_folio ?>
@@ -123,16 +124,27 @@
                                 <?php $cod_predio = $predio[0]->predio_id; ?>
                                 <?php //vdebug($cod_predio, false, false, true); ?>
                                 <?php 
-                                    $vertices = $this->db->query("SELECT ST_AsText(geom) as area
+                                    /*$vertices = $this->db->query("SELECT ST_AsText(geom) as area
                                         FROM catastro.geo_distritos
                                         WHERE id = $cod_predio;")->row_array();
-                                    vdebug($vertices, false, false, true);
+                                    vdebug($vertices, false, false, true);*/
                                     // 32720
 
-                                    $vertices2 = $this->db->query("SELECT ST_AsKML(geom) as area
-                                        FROM catastro.geo_distritos
-                                        WHERE id = $cod_predio;")->row_array();
-                                    vdebug($vertices2, true, false, true);
+                                    $vertices2 = $this->db->query("SELECT ST_AsText(geom) as area
+                                        FROM catastro.geo_predios
+                                        WHERE predio_id = $cod_predio;")->row_array();
+                                    $quitado_texto_1 = str_replace("MULTIPOLYGON(((", "", $vertices2);
+                                    $quitado_texto_2 = str_replace(")))", "", $quitado_texto_1);
+                                    $coordenadas = explode(",", $quitado_texto_2['area']);
+                                    $cambio_coordenadas = str_replace(" ", ",", $coordenadas);
+                                    // $el_primero = substr($coordenadas[1], 21);
+                                    $coordenadas_json = json_encode($cambio_coordenadas);
+                                    // vdebug($vertices2, false, false, true);
+                                    // vdebug($cambio_coordenadas, false, false, true);
+                                    // vdebug($coordenadas, false, false, true);
+                                    // vdebug($el_primero, false, false, true);
+                                    // vdebug($coordenadas_json, false, false, true);
+
                                     // $utm_zona = '32720';
 
                                 ?>
@@ -177,33 +189,33 @@
                         </div>            
 
 
-                    <table class="table table-responsive ">
-                                                <thead>
-                                                    <tr>
-                                                       
-                                                        <th><small><i><b>Nro</i></small></th>
-                                                        <th> <small><i><b> Nombre</i></small></th>
-                                                        <th><small><i><b> Estado fisico</i></small></th>
-                                                        <th><small><i><b> Año construccion</i></small></th>                                                     
-                                                        <th><small><i><b> Destino</i></small></th>
-                                                        <th><small><i><b> Uso</i></small></th>                                                       
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php foreach ($bloques as $row) { ?>
-                                                    <tr>
-                                                     
-                                                        <td><small><i><?php echo $row->nro_bloque; ?></i></small></td>
-                                                        <td><small><i><?php echo $row->nom_bloque; ?></i></small></td>
-                                                        <td><small><i><?php echo $row->estado_fisico; ?></i></small></td>
-                                                        <td><small><i><?php echo $row->anio_cons; ?></i></small></td>                                                       
-                                                        <td><small><i><?php echo $row->desc_bloque_dest; ?></i></small></td>
-                                                        <td><small><i><?php echo $row->desc_bloque_uso; ?></i></small> </td>                                                        
-                                                    </tr>
-                                                    <?php 
-                                                } ?>
-                                                </tbody>
-                                            </table>
+                        <table class="table table-responsive ">
+                            <thead>
+                                <tr>
+                                   
+                                    <th><small><i><b>Nro</i></small></th>
+                                    <th> <small><i><b> Nombre</i></small></th>
+                                    <th><small><i><b> Estado fisico</i></small></th>
+                                    <th><small><i><b> Año construccion</i></small></th>                                                     
+                                    <th><small><i><b> Destino</i></small></th>
+                                    <th><small><i><b> Uso</i></small></th>                                                       
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($bloques as $row) { ?>
+                                <tr>
+                                 
+                                    <td><small><i><?php echo $row->nro_bloque; ?></i></small></td>
+                                    <td><small><i><?php echo $row->nom_bloque; ?></i></small></td>
+                                    <td><small><i><?php echo $row->estado_fisico; ?></i></small></td>
+                                    <td><small><i><?php echo $row->anio_cons; ?></i></small></td>                                                       
+                                    <td><small><i><?php echo $row->desc_bloque_dest; ?></i></small></td>
+                                    <td><small><i><?php echo $row->desc_bloque_uso; ?></i></small> </td>                                                        
+                                </tr>
+                                <?php 
+                            } ?>
+                            </tbody>
+                        </table>
                            
                         </div>
                     </div>
@@ -233,7 +245,7 @@
                             <hr>
                             <div class="text-right d-print-none">
                                 <button id="print" class="btn btn-default btn-outline" type="button"> <span><i class="fa fa-print"></i> Impresion</span> </button>
-                                <a href="<?php echo base_url(); ?>Predios/pdf_certificado/<?php echo $predio[0]->codcatas; ?>" class="btn btn-warning footable-edit" title="Imprimir" >
+                                <a href="<?php //echo base_url(); ?>Predios/pdf_certificado/<?php //echo $predio[0]->codcatas; ?>" class="btn btn-warning footable-edit" title="Imprimir" >
                                     <span class="fas fa-print" aria-hidden="true"></span>
                                 </a>
                             </div>
@@ -294,4 +306,20 @@ var map = L.map('map', {
     worldCopyJump: false
 });*/
 
+</script>
+<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet-src.js" crossorigin=""></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.3/proj4.js"></script>
+<script src="<?php echo base_url(); ?>public/js/L.LatLng.UTM.js"></script>
+<script type="text/javascript">
+    var item = L.utm({x: 460011.878, y: 8011211.607, zone: 20, band: 'K'});
+    var coord = item.latLng();
+    var coordenadas = <?php echo $coordenadas_json; ?>;
+
+    for(i=0;i<coordenadas.length;i++)
+    {
+        var separador = coordenadas[i].split(',');
+        var item = L.utm({x: separador[0], y: separador[1], zone: 20, band: 'K'});
+        var coord = item.latLng();
+        console.log(coord);
+    }
 </script>
