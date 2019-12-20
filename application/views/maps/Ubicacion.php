@@ -45,18 +45,14 @@
 </head>
 
 <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
+          
             <div class="container-fluid">
 
 <div class="row">
-                    <!-- Column -->
-                 
-                    <!-- Column -->
+                  
                     <div class="col-lg-6">
 
-
+<!--
   <div id="map" style='width: 700px; height: 600px;'></div>
 <script>
   mapboxgl.accessToken = 'pk.eyJ1Ijoicm9kcmlnb3NlY2tvIiwiYSI6ImNrNGNyZDBlaDByY28zbW12Yzh6dWV5ZHAifQ.25V_qs5OhVMoudUXm36kZw';
@@ -80,26 +76,94 @@ trackUserLocation: true
 
 new mapboxgl.Marker().setLngLat([-63.377706, -17.987004]).addTo(map);
 
+console.log(map);
 
 
 window.onload = function() {
-        document.getElementByID('latitud').innerHTML="text";
+        document.getElementByID('latitud').value="text";
         };
 </script>
+
+<script>
+ function get_value(){
+  var BrowserName = 'objbrowserName';
+  document.getElementById('latitud').value = BrowserName;
+  document.getElementById('longitud').value = mapboxgl;
+ }
+ </script>
+ -->
+
+ <style>
+  body { margin: 0; padding: 0; }
+  #map { position: absolute; top: 0; bottom: 0; width: 100%; };
+</style>
+</head>
+<body>
+<style type="text/css">
+#info {
+display: block;
+position: relative;
+margin: 0px auto;
+width: 50%;
+padding: 10px;
+border: none;
+border-radius: 3px;
+font-size: 12px;
+text-align: center;
+color: #222;
+background: #fff;
+}
+</style>
+<div id="map" style='width: 700px; height: 600px;'></div>
+<pre id="info"></pre>
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1Ijoicm9kcmlnb3NlY2tvIiwiYSI6ImNrNGNyZDBlaDByY28zbW12Yzh6dWV5ZHAifQ.25V_qs5OhVMoudUXm36kZw';
+var map = new mapboxgl.Map({
+container: 'map', // container id
+style: 'mapbox://styles/mapbox/streets-v11',
+center: [<?php echo $coordinates->longitud; ?>, <?php echo $coordinates->latitud; ?>], // starting position longitud,latitud
+
+
+zoom: 16 // starting zoom
+});
  
+map.on('mousemove', function(e) {
+document.getElementById('info').innerHTML =
+// e.point is the x, y coordinates of the mousemove event relative
+// to the top-left corner of the map
+JSON.stringify(e.point) +
+'<br />' +
+// e.lngLat is the longitude, latitude geographical position of the event
+JSON.stringify(e.lngLat.wrap());
+console.log(JSON.stringify(e.lngLat.wrap()));
+ document.getElementById('latitud').value = JSON.stringify(e.lngLat.lat);
+ document.getElementById('longitud').value = JSON.stringify(e.lngLat.lng);
+});
+
+// Add geolocate control to the map.
+map.addControl(
+new mapboxgl.GeolocateControl({
+positionOptions: {
+enableHighAccuracy: true
+},
+trackUserLocation: true
+})
+);
+</script>
 </div>
 
 
 <div class="col-lg-6">
-  <h2>Posicion</h2>
-  <?php echo form_open('Notificacion/enviar', array('method'=>'POST', 'id'=>'insertar')); ?>
-                                    <div class="form-group">
-                                        <label for="recipient-name" class="control-label">Latitud</label>
-                                        <input type="text" class="form-control" id="latitud" name="latitud">
-                                    </div>
+  <h2>Posicion  </h2>
+  <?php echo form_open('Ubicacion/guardar', array('method'=>'POST', 'id'=>'insertar')); ?>
+                                    
                                     <div class="form-group">
                                         <label for="recipient-name" class="control-label">Longitud</label>
-                                        <input type="text" class="form-control" id="longitud" name="longitud">
+                                        <input type="text" class="form-control" id="longitud" name="longitud" readonly="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label">Latitud</label>
+                                        <input type="text" class="form-control" id="latitud" name="latitud" readonly="">
                                     </div>
                                     <div class="form-group">
                                         <label for="recipient-name" class="control-label">Calle</label>
@@ -111,9 +175,14 @@ window.onload = function() {
                                         <button type="submit" class="btn btn-info">Guardar Ubicacion</button>
                                     </div>
                             </form> 
+
+                            <div id="mydiv"></div>
+ <button type="button" onclick="get_value();">Get Position</button>
 </div>
 
 </div>
+
+
 
 
 
