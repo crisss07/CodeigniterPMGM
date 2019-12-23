@@ -148,6 +148,60 @@
                     <!-- column -->
                 </div>
 
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex no-block">
+                                    <h4 class="card-title">Comparativo Inspecciones</h4>
+                                    <div class="ml-auto">
+                                        <select class="custom-select">
+                                            <option selected>Enero</option>
+                                            <option value="1">Febrero</option>
+                                            <option value="2">Marzo</option>
+                                            <option value="3">Abril</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="table-responsive mt-5">
+                                    <table class="table stylish-table">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Inspectores</th>
+                                                <th>Asignadas</th>
+                                                <th>Reprogramados</th>
+                                                <th>Concluidas</th>
+                                                <th>Rendimiento</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="width:50px;"><span class="round">S</span></td>
+                                                <td>
+                                                    <h6>Sunil Joshi</h6><small class="text-muted">Web Designer</small></td>
+                                                <td>1</td>
+                                                <td><span class="label label-light-success">2</span></td>
+                                                <td>4</td>
+                                                <td><span class="label label-light-success">Low</span></td>
+                                            </tr>
+                                            <tr class="active">
+                                                <td style="width:50px;"><span class="round">S</span></td>
+                                                <td>
+                                                    <h6>Andrew</h6><small class="text-muted">Project Manager</small></td>
+                                                <td>2</td>
+                                                <td><span class="label label-light-info">5</span></td>
+                                                <td>4</td>
+                                                <td><span class="label label-light-success">Low</span></td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div style="width: 75%"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
         <canvas id="canvas" style="display: block; width: 696px; height: 348px;" width="696" height="348" class="chartjs-render-monitor"></canvas>
     </div>
