@@ -360,6 +360,34 @@ class Restserver extends CI_Controller{
 
 }
 
+  public function prueba_get(){
+        $this->load->model("ApiRest_model");
+
+              
+        
+        
+        $user = array('respuesta' => $this->ApiRest_model->prueba());        
+        if($user)
+        {
+            $this->response( $user, 200); // 200 being the HTTP response code
+        } 
+        else
+        {
+            $this->response(NULL, 404);
+        }
+        
+
+
+
+
+
+
+        
+
+        
+    }
+
+
 
     
 }

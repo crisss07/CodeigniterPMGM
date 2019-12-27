@@ -162,5 +162,11 @@ WHERE vigencia_final>=now() and codigo_seguridad='$id' and activo=1");
 
     }
 
+    function prueba()
+    {         
+        $resultado = $this->db->query("SELECT * FROM prueba");
+        return $resultado->result_array();
+    }
+
 
 }
