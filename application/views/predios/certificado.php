@@ -124,11 +124,16 @@
                                 <?php $cod_predio = $predio[0]->predio_id; ?>
                                 <?php //vdebug($cod_predio, false, false, true); ?>
                                 <?php 
-                                    /*$vertices = $this->db->query("SELECT ST_AsText(geom) as area
-                                        FROM catastro.geo_distritos
-                                        WHERE id = $cod_predio;")->row_array();
-                                    vdebug($vertices, false, false, true);*/
-                                    // 32720
+                                   
+                                    $centroide = $this->db->query("SELECT ST_AsText(ST_Centroid(geom)) as area
+                                        FROM catastro.geo_predios
+                                        WHERE predio_id = $cod_predio;")->row_array();
+                                    $centroide_texto_1 = str_replace("POINT(", "", $centroide);
+                                    $centroide_texto_2 = str_replace(")", "", $centroide_texto_1);
+                                    $cambio_coordenadas_centroide = str_replace(" ", ",", $centroide_texto_2);
+
+                                    $centroide_json = json_encode($cambio_coordenadas_centroide);
+                                    // vdebug($centroide_json, false, false, true);
 
                                     $vertices2 = $this->db->query("SELECT ST_AsText(geom) as area
                                         FROM catastro.geo_predios
@@ -271,55 +276,57 @@
 <script src="<?php echo base_url(); ?>public/js/proj4-compressed.js"></script>
 <script src="<?php echo base_url(); ?>public/js/proj4leaflet.js"></script>
 
+<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet-src.js" crossorigin=""></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.3/proj4.js"></script>
+<script src="<?php echo base_url(); ?>public/js/L.LatLng.UTM.js"></script>
+
 <script type="text/javascript">
-var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+
+    var centroide = '<?php echo $centroide_json; ?>';
+    var obj_centroide = JSON.parse(centroide);
+    var descomp_centroide = obj_centroide.area.split(',');
+    var geo_centroide = L.utm({x: descomp_centroide[0], y: descomp_centroide[1], zone: 20, band: 'K'});
+    var coord_centroide = geo_centroide.latLng();
+    // obj_coord_centroide = JSON.parse(coord_centroide);
+
+    console.log(coord_centroide);
+    var mymap = L.map('mapid').setView([coord_centroide['lat'], coord_centroide['lng']], 18);
+
+    var item = L.utm({x: 460011.878, y: 8011211.607, zone: 20, band: 'K'});
+    var coord = item.latLng();
+    var coordenadas = <?php echo $coordenadas_json; ?>;
+    // console.log(coordenadas);
+    var array_poligono = [];
+    for(i=0;i<coordenadas.length;i++)
+    {
+        var separador = coordenadas[i].split(',');
+        var item = L.utm({x: separador[0], y: separador[1], zone: 20, band: 'K'});
+        var coord = item.latLng();
+        array_poligono.push([coord['lat'], coord['lng']]);
+        // console.log(coord);
+    }
+    // console.log(array_poligono);
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-        maxZoom: 18,
+        maxZoom: 22,
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
             '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
             'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         id: 'mapbox/streets-v11'
     }).addTo(mymap);
 
-// SWEREF 99 TM with map's pixel origin at (218128.7031, 6126002.9379)
-/*var crs = new L.Proj.CRS('EPSG:3006',
-  '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
-  {
-    origin: [218128.7031, 6126002.9379],
-    resolutions: [8192, 4096, 2048] // 3 example zoom level resolutions
-  }
-);
+    var marker = L.marker([coord_centroide['lat'], coord_centroide['lng']]).addTo(mymap);
 
-var map = L.map('map', {
-    center: [57.74, 11.94],
-    zoom: 13,
-    crs: L.Proj.CRS('EPSG:2400',
-      '+lon_0=15.808277777799999 +lat_0=0.0 +k=1.0 +x_0=1500000.0 ' +
-      '+y_0=0.0 +proj=tmerc +ellps=bessel +units=m ' +
-      '+towgs84=414.1,41.3,603.1,-0.855,2.141,-7.023,0 +no_defs',
-      {
-        resolutions: [8192, 4096, 2048] // 3 example zoom level resolutions
-      }
-    ),
-    continuousWorld: true,
-    worldCopyJump: false
-});*/
+/*    var polygon = L.polygon([
+        [-17.999559202197545, -63.38726487769021],
+        [-17.999633481585207, -63.3872968256511],
+        [-17.99970452616239, -63.38732738462532],
+        [-17.999550216722362, -63.38750240432171],
+        [-17.9994858330758, -63.387463482194335],
+        [-17.999557268347363, -63.387270113168206],
+        [-17.999559202197545, -63.38726487769021]
+    ]).addTo(mymap);
+*/
+    var polygon = L.polygon(array_poligono).addTo(mymap);
 
-</script>
-<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet-src.js" crossorigin=""></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.3/proj4.js"></script>
-<script src="<?php echo base_url(); ?>public/js/L.LatLng.UTM.js"></script>
-<script type="text/javascript">
-    var item = L.utm({x: 460011.878, y: 8011211.607, zone: 20, band: 'K'});
-    var coord = item.latLng();
-    var coordenadas = <?php echo $coordenadas_json; ?>;
-
-    for(i=0;i<coordenadas.length;i++)
-    {
-        var separador = coordenadas[i].split(',');
-        var item = L.utm({x: separador[0], y: separador[1], zone: 20, band: 'K'});
-        var coord = item.latLng();
-        console.log(coord);
-    }
 </script>
