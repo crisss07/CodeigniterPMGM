@@ -68,6 +68,25 @@ class Dashboard_model extends CI_Model {
         return $data;
     }  
 
+    public function get_inspecciones_user($persona_id)
+    {
+        $datos=$this->db->query('SELECT x.*,y.*,z.* FROM
+
+(SELECT count(asignacion_id) as concluidos FROM
+inspeccion.asignacion
+WHERE persona_id=345 and activo=0) as x,
+
+(SELECT count(asignacion_id) as pendientes FROM
+inspeccion.asignacion
+WHERE persona_id=345 and activo=1) as y,
+
+(SELECT count(asignacion_id) as reprogramadas FROM
+inspeccion.asignacion
+WHERE persona_id=345 and activo=1 and tipo_asignacion_id=2) as z');
+        return $datos->row();
+    }
+
+
 }
 
 ?>

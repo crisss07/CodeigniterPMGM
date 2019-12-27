@@ -124,10 +124,16 @@ style: 'mapbox://styles/mapbox/streets-v11',
 center: [<?php echo $coordinates->longitud; ?>, <?php echo $coordinates->latitud; ?>], // starting position longitud,latitud
 
 
-zoom: 16 // starting zoom
+zoom: 12 // starting zoom
 });
+
+var marker = new mapboxgl.Marker({
+draggable: true
+})
+.setLngLat([<?php echo $coordinates->longitud; ?>, <?php echo $coordinates->latitud; ?>])
+.addTo(map);
  
-map.on('mousemove', function(e) {
+map.on('click', function(e) {
 document.getElementById('info').innerHTML =
 // e.point is the x, y coordinates of the mousemove event relative
 // to the top-left corner of the map
@@ -138,6 +144,12 @@ JSON.stringify(e.lngLat.wrap());
 console.log(JSON.stringify(e.lngLat.wrap()));
  document.getElementById('latitud').value = JSON.stringify(e.lngLat.lat);
  document.getElementById('longitud').value = JSON.stringify(e.lngLat.lng);
+
+marker.setLngLat([e.lngLat.lat, e.lngLat.lng])
+.addTo(map);
+
+
+
 });
 
 // Add geolocate control to the map.
@@ -149,6 +161,12 @@ enableHighAccuracy: true
 trackUserLocation: true
 })
 );
+
+map.addControl(new mapboxgl.NavigationControl());
+
+
+
+
 </script>
 </div>
 
