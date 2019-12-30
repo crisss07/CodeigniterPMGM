@@ -34,19 +34,36 @@
                         <?php // echo form_open('predios/guarda', array('method'=>'POST', 'enctype'=>"multipart/form-data")); ?>
                         <?php echo form_open_multipart('Tipo_tramite/do_upload', array('method'=>'POST', 'name'=>'informacion')); ?>
                             <h4 class="card-title">Registro de Tramite</h4>
-                            <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationCustomUsername">Tipo de Tramite</label>
-                                    <!-- CONSULTA POR LA TABLA TIPO DE DOCUMENTO -->
-                                    <?php $lista2 = $this->db->query("SELECT * FROM tramite.tipo_tramite  WHERE activo = '1' ORDER BY tipo_tramite_id ASC")->result();
-                                    ?> 
-                                    <div class="input-group">
-                                        <select class="custom-select form-control" id="tipo_tramite_id" name="tipo_tramite_id" onchange="CargarProductos(this.value);" required />
-                                            <option value="" class="placeholderselect" disabled selected>Seleccione un tramite</option>
-                                            <?php foreach ($lista2 as $tc): ?>
-                                                <option value="<?php echo $tc->tipo_tramite_id; ?>"><?php echo $tc->tramite; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>  
+                            <div class="form-row col-md-12">
+                                    <div class="col-sm-6">
+                                        <label for="validationCustomUsername">Tipo de Tramite</label>
+                                        <!-- CONSULTA POR LA TABLA TIPO DE DOCUMENTO -->
+                                        <?php $lista2 = $this->db->query("SELECT * FROM tramite.tipo_tramite  WHERE activo = '1' ORDER BY tipo_tramite_id ASC")->result();
+                                        ?> 
+                                        <div class="input-group">
+                                            <select class="custom-select form-control" id="tipo_tramite_id" name="tipo_tramite_id" onchange="CargarProductos(this.value);" required />
+                                                <option value="">Seleccione tipo</option>
+                                                <?php foreach ($lista2 as $tc): ?>
+                                                    <option value="<?php echo $tc->tipo_tramite_id; ?>"><?php echo $tc->tramite; ?></option>
+                                                <?php endforeach; ?>
+                                            </select>  
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="col-sm-6">
+                                            <label>Buscar por geocodigo</label>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="row"> 
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" id="geocodigo" name="geocodigo"  required>
+                                                    <div id="resultado"></div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label id="buscar_geocodigo" class="btn btn-info"> Buscar geocodigo </label> 
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12 form-group" id="listas"> 
@@ -430,3 +447,42 @@
 
   <!-- validacion de campos de entrada -->
   <script src="<?php echo base_url(); ?>public/js/validacion_formulario.js"></script>
+  
+  <!-- verificar si el geocodigo existe -->
+
+<script>
+    $(document).ready(function(){
+        var consulta;
+        var cadena;
+        var numero_caracteres=0;
+        //comprobamos si se pulsa una tecla
+        $("#geocodigo").keyup(function(e){
+             //obtenemos el texto introducido en el campo
+             consulta = $("#geocodigo").val();typeof(consulta);
+             cadena =  consulta.split(" ");
+             numero_caracteres = cadena[0].length;
+            if(numero_caracteres == 22){
+                console.log("ingresa a buscar geocodigo");
+                //hace la búsqueda
+                $("#resultado").delay(1000).queue(function(n) {      
+                                            
+                    $("#resultado").html('<img src="<?php echo base_url();?>public/img/ajax-loader.gif"/>');
+                        console.log("ingresa la peticon en timepo real");
+                            $.ajax({
+                                type: "POST",
+                                url: "<?php echo base_url();?>Tipo_tramite/verificar_geocodigo",
+                                data: "b="+consulta,
+                                dataType: "html",
+                                error: function(){
+                                        console.log("error petición ajax");
+                                },
+                                success: function(data){                                                      
+                                        $("#resultado").html(data);
+                                        n();
+                                }
+                        });                           
+                    });
+            }else{console.log("numero inferior o mayor que el geocodigo")}                       
+        });                      
+    });
+</script>

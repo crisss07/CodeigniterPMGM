@@ -326,4 +326,14 @@ class Tramite_model extends CI_Model {
 			);
 		$this->db->insert('tramite.proforma', $array);
 	}
+
+	public function verificar_geocodigo($geocodigo){
+		$this->db->select("geocodigo, predio_id");
+    	$this->db->from  ("catastro.predio");
+    	$this->db->where ("geocodigo", $geocodigo);
+    	$resultados = $this->db->get();
+    	return $resultados->result();
+	}
+
+	
 }

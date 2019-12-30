@@ -22,4 +22,10 @@ class Oficina_virtual_model extends CI_Model {
         return false;
         }
     }
+    public function coordenadas_predio($id_usuario){
+        $query = $this->db->query ("SELECT pd.predio_id
+                                    FROM catastro.predio_ddrr pd, catastro.predio_titular pt, public.persona pe
+                                    WHERE pe.ci = '$id_usuario' AND pd.ddrr_id = pt.ddrr_id AND pt.persona_id = pe.persona_id");
+        return $query->result_array();
+    }
 }

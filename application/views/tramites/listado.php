@@ -5,7 +5,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Lista de tramites</h4><span><input type="number" name="gestion_tramite" id="gestion_tramite"></span>
+                        <h4 class="card-title">Lista de tramites<span><input type="number" name="gestion_tramite" id="gestion_tramite"></span></h4>
                         <?php //vdebug($mis_tramites, true, false, true); ?>
                         <table id="tabla_din" class="table table-bordered table-striped" cellspacing="0" width="100%">
                             <thead>
@@ -108,4 +108,41 @@
           }
         });
     });    
+</script>
+
+<script>
+    $(document).ready(function(){
+        var consulta;
+        var cadena;
+        var numero_caracteres=0;
+        //comprobamos si se pulsa una tecla
+        $("#gestion_tramite").keyup(function(e){
+             //obtenemos el texto introducido en el campo
+             consulta = $("#gestion_tramite").val();typeof(consulta);
+             cadena =  consulta.split(" ");
+             numero_caracteres = cadena[0].length;
+            if(numero_caracteres == 22){
+                console.log("Listar tramites por gestion");
+                //hace la búsqueda
+                $("#resultado").delay(1000).queue(function(n) {      
+                                            
+                    $("#resultado").html('<img src="<?php echo base_url();?>public/img/ajax-loader.gif"/>');
+                        console.log("ingresa la peticon en timepo real");
+                            $.ajax({
+                                type: "POST",
+                                url: "<?php echo base_url();?>Tipo_tramite/verificar_geocodigo",
+                                data: "b="+consulta,
+                                dataType: "html",
+                                error: function(){
+                                        console.log("error petición ajax");
+                                },
+                                success: function(data){                                                      
+                                        $("#resultado").html(data);
+                                        n();
+                                }
+                        });                           
+                    });
+            }else{console.log("numero inferior o mayor que el geocodigo")}                       
+        });                      
+    });
 </script>

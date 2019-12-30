@@ -855,5 +855,24 @@ class Tipo_tramite extends CI_Controller {
 
 //***************************************FIN DE INFORME TECNICO***********************************************
 
+public function verificar_geocodigo ($geocodigo=null){
+	$geocodigo = $this->input->post("b");
+	if(!empty($geocodigo)) {
+		$consulta =  $this->Tramite_model->verificar_geocodigo ($geocodigo);
+		// $predio_id_array   =  array_column($consulta, 'predio_id');
+		// $predio_id_string  = $predio_id_array[0];
+		// $predio_id_integer = intval($predio_id_string);
+		// echo (gettype($predio_id_integer)); 
+		if(!empty($consulta)){
+			echo "<span style='font-weight:bold;color:green;'>Geocodigo aceptado.</span>";
+		}else{
+			echo "<span style='font-weight:bold;color:red;'>No existe el geocodigo.</span>";
+		}
+	  }else{
+		  echo "No llegan los datos";
+	}
+	
+}
+
 
 }
