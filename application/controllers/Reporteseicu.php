@@ -199,11 +199,13 @@ class Reporteseicu extends CI_Controller
             //var_dump('datos_nulos');
         //exit;
             $data['foto_fachada'] ='public/assets/images/reportes/nodisponible.jpeg';
-            $data['foto_plano_ubi'] = 'public/assets/images/reportes/nodisponible.jpeg';
+            //$data['foto_plano_ubi'] = 'public/assets/images/reportes/nodisponible.jpeg';
+            $data['foto_plano_ubi'] = 'public/assets/files/predios/predio.jpg';
         }else{
 
             $data['foto_fachada'] = 'public/assets/files/predios/'.$valida_foto->foto_fachada;
-            $data['foto_plano_ubi'] = 'public/assets/files/predios/'.$valida_foto->foto_plano_ubi;
+            //$data['foto_plano_ubi'] = 'public/assets/files/predios/'.$valida_foto->foto_plano_ubi;
+            $data['foto_plano_ubi'] = 'public/assets/files/predios/predio.jpg';
 
         }
 
@@ -282,11 +284,13 @@ WHERE predio_id=$id ORDER BY b.nro_bloque")->result();
             //var_dump('datos_nulos');
         //exit;
             $data['foto_fachada'] ='public/assets/images/reportes/nodisponible.jpeg';
-            $data['foto_plano_ubi'] = 'public/assets/images/reportes/nodisponible.jpeg';
+            //$data['foto_plano_ubi'] = 'public/assets/images/reportes/nodisponible.jpeg';
+            $data['foto_plano_ubi'] = 'public/assets/files/predios/predio.jpg';
         }else{
 
             $data['foto_fachada'] = 'public/assets/files/predios/'.$valida_foto->foto_fachada;
-            $data['foto_plano_ubi'] = 'public/assets/files/predios/'.$valida_foto->foto_plano_ubi;
+//            $data['foto_plano_ubi'] = 'public/assets/files/predios/'.$valida_foto->foto_plano_ubi;
+            $data['foto_plano_ubi'] = 'public/assets/files/predios/predio.jpg';
 
         }
 

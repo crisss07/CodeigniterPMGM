@@ -254,6 +254,7 @@
         <td align="center"  class="titulo_tres" height="0"  width="60%"  rowspan="3">
           PLANO CATASTRAL <br>
       <img src="<?php echo base_url(); ?><?php echo $foto_plano_ubi; ?>" alt="Logo" width="200"  class="logo"/>
+      
       </td>  
   </tr>
 
