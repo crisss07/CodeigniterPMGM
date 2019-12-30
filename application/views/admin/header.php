@@ -32,6 +32,8 @@
     <link href="<?php echo base_url(); ?>public/assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>public/assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
     <script src="<?php echo base_url(); ?>public/assets/plugins/jquery/jquery.min.js"></script>
+    <!-- estilos tramite -->
+    <script src="<?php echo base_url(); ?>public/css/estilos_tramite.js"></script>
     
     <!-- DataTable Service Side-->
   

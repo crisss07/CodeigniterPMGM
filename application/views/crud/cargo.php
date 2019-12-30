@@ -1,4 +1,7 @@
 <link href="<?php echo base_url(); ?>public/assets/plugins/wizard/steps.css" rel="stylesheet">
+<!-- estilos personalizados de tramite -->
+<link href="<?php echo base_url(); ?>public/css/estilos_tramite.css" rel="stylesheet">
+
 <div class="page-wrapper">
     <!-- ============================================================== -->
     <!-- Container fluid  -->
@@ -72,16 +75,16 @@
                             </div>
                             <div class="modal-body">
                                 <!--<form action="<?php echo base_url();?>zona_urbana/insertar" method="POST">-->
-                                    <?php echo form_open('Cargo/create', array('method'=>'POST', 'id'=>'insertar')); ?>
+                                    <?php echo form_open('Cargo/create', array('method'=>'POST', 'id'=>'insertar', 'name'=>'informacion')); ?>
 
                                     <div class="form-group">
                                         <label for="recipient-name" class="control-label">Descripcion</label>
-                                        <input type="text" class="form-control" id="descripcion" name="descripcion">
+                                        <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese el nuevo cargo" required>
                                     </div>
 
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                        <button type="submit" class="btn btn-primary" in="enviar">Guardar</button>
                                     </div>
                                 </form>
                             </div>
@@ -93,7 +96,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title" id="exampleModalLabel1">Editar Grupo Material</h4>
+                                <h4 class="modal-title" id="exampleModalLabel1">Editar Cargo</h4>
                             </div>
                             <div class="modal-body">                        
                                 <?php echo form_open('Cargo/update', array('method'=>'POST')); ?>                            
@@ -101,8 +104,8 @@
                                     <input type="text" class="form-control" hidden="" id="cargo_id" name="cargo_id">
                                 </div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="control-label">Documento</label>
-                                    <input type="text" class="form-control" id="descripcion_e" name="descripcion_e" >
+                                    <label for="recipient-name" class="control-label">Cargo</label>
+                                    <input type="text" class="form-control" id="descripcion_e" name="descripcion_e" placeholder="Ingrese el cargo" required>
                                 </div>                            
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -149,3 +152,5 @@
         },
     });
     </script>
+    <!-- validadicon de campos de entrada -->
+    <script src="<?php echo base_url(); ?>public/js/validacion_formulario.js"></script>

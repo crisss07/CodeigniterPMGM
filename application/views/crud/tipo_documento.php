@@ -1,5 +1,7 @@
 <link href="<?php echo base_url(); ?>public/assets/plugins/wizard/steps.css" rel="stylesheet">
 <link href="<?php echo base_url(); ?>public/assets/plugins/bootstrap-switch/bootstrap-switch.min.css" rel="stylesheet">
+<!-- estilos personalizados de tramite -->
+<link href="<?php echo base_url(); ?>public/css/estilos_tramite.css" rel="stylesheet">
 <div class="page-wrapper">
     <div class="container-fluid">        
         <div class="row">
@@ -68,14 +70,14 @@
                                 <h4 class="modal-title" id="exampleModalLabel1">Insertar Nuevo Tipo de Documento</h4>
                             </div>
                             <div class="modal-body">                                
-                                    <?php echo form_open('Tipo_documento/create', array('method'=>'POST', 'id'=>'insertar')); ?>
+                                    <?php echo form_open('Tipo_documento/create', array('method'=>'POST', 'id'=>'insertar', 'name'=>'informacion')); ?>
                                     <div class="form-group">
                                         <label for="recipient-name" class="control-label">Documento</label>
-                                        <input type="text" class="form-control" id="documento" name="documento">
+                                        <input type="text" class="form-control" id="documento" name="documento" placeholder='Ingrese nombre de tramite' required>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                        <button type="submit" class="btn btn-primary" id='enviar'>Guardar</button>
                                     </div>
                                 </form>
                             </div>
@@ -95,7 +97,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="recipient-name" class="control-label">Documento</label>
-                                    <input type="text" class="form-control" id="documento_e" name="documento" >
+                                    <input type="text" class="form-control" id="documento_e" name="documento" placeholder="ingrese nombre documento" required>
                                 </div>                            
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -145,3 +147,5 @@
     });
     </script>
 
+    <!-- validadicon de campos de entrada -->
+    <script src="<?php echo base_url(); ?>public/js/validacion_formulario.js"></script>

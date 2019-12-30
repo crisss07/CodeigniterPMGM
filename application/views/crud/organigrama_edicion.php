@@ -3,6 +3,9 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/pasos.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>public/assets/plugins/dropify/dist/css/dropify.min.css">
 
+<!-- estilos personalizados de tramite -->
+<link href="<?php echo base_url(); ?>public/css/estilos_tramite.css" rel="stylesheet">
+
 <div class="page-wrapper">
     <div class="container-fluid">      
         <div class="row">
@@ -15,21 +18,21 @@
                             </div>
                         </div>						
                         <div class="col-lg-3">
-                          <?php echo form_open_multipart('Organigrama/do_upload'); ?>                            
+                          <?php echo form_open_multipart('Organigrama/do_upload', array('name'=>'informacion')); ?>                            
                           <div class="form-group">
                             <label for="location1">Nivel Superior :<span class="text-danger"> *</span></label>
-                            <select class="custom-select form-control" id="padre_id_e" name="padre_id_e">
+                            <select class="custom-select form-control" id="padre_id_e" name="padre_id_e" requied >
                                 <option value="<?php echo $datos->padre_id; ?>" selected><?php echo $datos->jefe; ?></option>                                                                    
                                 <?php foreach ($data_grupo as $tp) : ?>
                                     <?php if (($datos->padre_id) != ($tp->organigrama_id)): ?>
                                     <option value="<?php echo $tp->organigrama_id; ?>"><?php echo $tp->unidad; ?></option>
                                 <?php endif; ?>
-                            <?php endforeach; ?>
-                        </select>                                               
+                                <?php endforeach; ?>
+                            </select>                                               
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">Unidad</label>
-                        <input type="text" class="form-control" id="unidad" name="unidad" value="<?php echo $datos->unidad; ?>">
+                        <input type="text" class="form-control" id="unidad" name="unidad" value="<?php echo $datos->unidad;?>" required>
                         <input type="hidden" class="form-control" id="unidad_old" name="unidad_old" value="<?php echo $datos->unidad; ?>">
                     </div>
                     <input type="hidden" class="form-control" id="organigrama_id_e" name="organigrama_id_e" value="<?php echo $datos->organigrama_id; ?>">
@@ -38,11 +41,11 @@
                         <div class="card">                                    
                             <label for="recipient-name" class="control-label">Foto</label>
                             <label for="input-file-now-custom-3">OJO Solo archivos png</label>                                        
-                            <input type="file" id="input-file-now-custom-3" class="dropify" name="foto_org" data-allowed-file-extensions="png" data-default-file="<?php echo base_url(); ?><?php echo $datos->url; ?>/<?php echo $datos->imagen ?>" />                                                                         
+                            <input type="file" id="input-file-now-custom-3" class="dropify" name="foto_org" data-allowed-file-extensions="png" data-default-file="<?php echo base_url(); ?><?php echo $datos->url; ?>/<?php echo $datos->imagen ?>" requied/>                                                                         
                         </div>
                     </div>                        
                     <a class="btn btn-danger" href="<?php echo site_url('Organigrama/nuevo'); ?>" align="right">Cancelar</a>
-                    <button type="submit" class="btn btn-primary">Guardar</button>                          
+                    <button type="submit" class="btn btn-primary" id="enviar">Guardar</button>                          
                 </form>
             </div>
         </div>
@@ -107,6 +110,9 @@
         })
     });
 </script>
+
+<!-- validadicon de campos de entrada -->
+<script src="<?php echo base_url(); ?>public/js/validacion_formulario.js"></script>
 
 
 

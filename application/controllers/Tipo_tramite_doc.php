@@ -1,4 +1,4 @@
-T<?php
+<?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Tipo_tramite_doc extends CI_Controller
@@ -39,12 +39,12 @@ class Tipo_tramite_doc extends CI_Controller
             $id = $this->session->userdata("persona_perfil_id");
             $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
             $usu_creacion = $resi->persona_id;
-            $data = array(
+            $datos = array(
             'tramite' => $this->input->post('correspondencia'), //input
             'activo' => '1',
             'usu_creacion' => $usu_creacion,
         );
-            $this->db->insert('tramite.tipo_tramite', $data);
+            $this->db->insert('tramite.tipo_tramite', $datos);
             redirect(base_url() . 'Tipo_tramite_doc/nuevo/');
         } else {
             redirect(base_url());

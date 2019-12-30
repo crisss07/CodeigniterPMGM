@@ -1,4 +1,6 @@
 <link href="<?php echo base_url(); ?>public/assets/plugins/wizard/steps.css" rel="stylesheet">
+<!-- estilos personalizados de tramite -->
+<link href="<?php echo base_url(); ?>public/css/estilos_tramite.css" rel="stylesheet">
 <div class="page-wrapper">
     <!-- ============================================================== -->
     <!-- Container fluid  -->
@@ -83,7 +85,7 @@
                             </div>
                             <div class="modal-body">
                                 <!--<form action="<?php echo base_url();?>zona_urbana/insertar" method="POST">-->
-                                    <?php echo form_open('Flujo/create', array('method'=>'POST', 'id'=>'insertar')); ?>
+                                    <?php echo form_open('Flujo/create', array('method'=>'POST', 'id'=>'insertar', 'name'=>'informacion')); ?>
                                     <div class="form-group">
                                     <label for="location1">Tipo tramite :<span class="text-danger"> *</span></label>
                                     <select class="custom-select form-control" id="tipo_tramite_id" name="tipo_tramite_id" required>
@@ -114,7 +116,7 @@
 
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                        <button type="submit" class="btn btn-primary" id="enviar">Guardar</button>
                                     </div>
                                 </form>
                             </div>
@@ -209,3 +211,6 @@
         },
     });
     </script>
+
+    <!-- validadicon de campos de entrada -->
+    <script src="<?php echo base_url(); ?>public/js/validacion_formulario.js"></script>

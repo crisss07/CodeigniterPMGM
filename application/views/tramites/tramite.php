@@ -15,6 +15,10 @@
     </select>  
 -->
 <!-- ============================================================== -->
+
+<!-- estilos personalizados de tramite -->
+<link href="<?php echo base_url(); ?>public/css/estilos_tramite.css" rel="stylesheet">
+
 <div class="page-wrapper">
     <div class="container-fluid">
         <div class="row">
@@ -28,7 +32,7 @@
                         <!-- <h6 class="card-subtitle">Ingrese los datos del predio </h6> -->
                         <!-- <form action="#" class="validation-wizard wizard-circle"> -->
                         <?php // echo form_open('predios/guarda', array('method'=>'POST', 'enctype'=>"multipart/form-data")); ?>
-                        <?php echo form_open_multipart('Tipo_tramite/do_upload', array('method'=>'POST')); ?>
+                        <?php echo form_open_multipart('Tipo_tramite/do_upload', array('method'=>'POST', 'name'=>'informacion')); ?>
                             <h4 class="card-title">Registro de Tramite</h4>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
@@ -38,7 +42,7 @@
                                     ?> 
                                     <div class="input-group">
                                         <select class="custom-select form-control" id="tipo_tramite_id" name="tipo_tramite_id" onchange="CargarProductos(this.value);" required />
-                                            <option value="">Seleccione tipo</option>
+                                            <option value="" class="placeholderselect" disabled selected>Seleccione un tramite</option>
                                             <?php foreach ($lista2 as $tc): ?>
                                                 <option value="<?php echo $tc->tipo_tramite_id; ?>"><?php echo $tc->tramite; ?></option>
                                             <?php endforeach; ?>
@@ -101,7 +105,7 @@
                             <div class="form-row">
                                 <div class="col-md-12 mb-form-group">
                                     <label >Observaciones<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="observaciones" name="observaciones" required>
+                                    <input type="text" class="form-control" id="observaciones" name="observaciones">
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <div class="form-group">
@@ -136,7 +140,7 @@
                             </div>
                             <div class="row" id="bloque_botones">
                                 <div class="col-md-6">
-                                    <button type="submit" name="boton" value="generar" class="btn waves-effect waves-light btn-block btn-info">Generar</button>
+                                    <button type="submit" name="boton" value="generar" id="enviar" class="btn waves-effect waves-light btn-block btn-info">Generar</button>
                                 </div>
                                 <div class="col-md-6">
                                     <button type="submit" name="boton" value="derivar" class="btn waves-effect waves-light btn-block btn-success">Generar y derivar</button>
@@ -423,3 +427,6 @@
 </script>
 <script src="<?php echo base_url(); ?>public/assets/plugins/jquery/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw8R4L-CtMu9XuQBiymIEs6UEc715P2eA&callback=initMap&libraries=drawing" async defer></script>
+
+  <!-- validacion de campos de entrada -->
+  <script src="<?php echo base_url(); ?>public/js/validacion_formulario.js"></script>

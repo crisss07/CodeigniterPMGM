@@ -1,4 +1,6 @@
 <link href="<?php echo base_url(); ?>public/assets/plugins/wizard/steps.css" rel="stylesheet">
+<!-- estilos personalizados de tramite -->
+<link href="<?php echo base_url(); ?>public/css/estilos_tramite.css" rel="stylesheet">
 <div class="page-wrapper">
     <!-- ============================================================== -->
     <!-- Container fluid  -->
@@ -36,8 +38,8 @@
                                     <table id="tabla_din1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>nro</th>
-                                                <th>correspondencia</th>
+                                            <th>nro</th>
+                                               <th>correspondencia</th>
                                                 <th>Estado</th>                                                           
                                                 <th>Acciones</th>
                                             </tr>
@@ -80,16 +82,16 @@
                                 <h4 class="modal-title" id="exampleModalLabel1">Insertar nuevo tipo de  tramite</h4>
                             </div>
                             <div class="modal-body">                                
-                                    <?php echo form_open('Tipo_tramite_doc/create', array('method'=>'POST', 'id'=>'insertar')); ?>
-                                    <div class="form-group">
-                                        <label for="recipient-name" class="control-label">Correspondencia</label>
-                                        <input type="text" class="form-control" id="correspondencia" name="correspondencia">
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
-                                    </div>
-                                </form>
+                                    <?php echo form_open('Tipo_tramite_doc/create', array('method'=>'POST', 'id'=>'insertar', 'name'=>'informacion')); ?>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="control-label">Tramite</label>
+                                            <input type="text" class="form-control" id="correspondencia" name="correspondencia" placeholder="Ingrese nombre de tramite" required>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary" id='enviar'>Guardar</button>
+                                        </div>
+                                    </form>
                             </div>
                         </div>
                     </div>
@@ -98,7 +100,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title" id="exampleModalLabel1">Editar tipo de  tramite</h4>
+                                <h4 class="modal-title" id="exampleModalLabel1">Editar tipo de tramite</h4>
                             </div>
                             <div class="modal-body">                        
                                 <?php echo form_open('Tipo_tramite_doc/update', array('method'=>'POST')); ?>                            
@@ -106,8 +108,8 @@
                                     <input type="text" class="form-control" hidden="" id="tipo_correspondencia_e" name="tipo_correspondencia_e">
                                 </div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="control-label">Documento</label>
-                                    <input type="text" class="form-control" id="correspondencia_e" name="correspondencia_e" >
+                                    <label for="recipient-name" class="control-label">Tramite</label>
+                                    <input type="text" class="form-control" id="correspondencia_e" name="correspondencia_e" placeholder="Ingrese el nombre de tramite" required>
                                 </div>                            
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -155,3 +157,6 @@
         },
     });
     </script>
+
+    <!-- validadicon de campos de entrada -->
+    <script src="<?php echo base_url(); ?>public/js/validacion_formulario.js"></script>

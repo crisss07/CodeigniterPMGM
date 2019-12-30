@@ -1,6 +1,8 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>public/assets/plugins/wizard/steps.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/pasos.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>public/assets/plugins/dropify/dist/css/dropify.min.css">
+<!-- estilos personalizados de tramite -->
+<link href="<?php echo base_url(); ?>public/css/estilos_tramite.css" rel="stylesheet">
 <div class="page-wrapper">    
     <div class="container-fluid">
         <div class="row">
@@ -105,23 +107,26 @@
                             </div>
                             <div class="form-group">
                             <label for="recipient-name" class="control-label">Tipo</label>
-                            <input type="text" class="form-control" id="tipo" name="tipo">
+                            <input type="text" class="form-control" id="tipo" name="tipo" required="Ingrese tipo">
                                                                           
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Gestion</label>
-                                <input type="text" class="form-control" id="gestion" name="gestion" >
+                                <input type="text" class="form-control" id="gestion" name="gestion" required="Ingrese gestion">
                             </div>
+
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Observaciones</label>
-                                <input type="text" class="form-control" id="observaciones" name="observaciones">
+                                <input type="text" class="form-control" id="observaciones" name="observaciones" required="Ingrese observacion">
                             </div>
+
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Correlativo</label>
-                                <input type="number" class="form-control" id="correlativo" name="correlativo" min=1>
+                                <input type="number" class="form-control" id="correlativo" name="correlativo" min=1 required="Ingrese numero">
                             </div>
+
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                 <button type="submit" class="btn btn-primary">Guardar</button>
                             </div>
                         </form>
@@ -165,7 +170,7 @@
                                 <input type="number" class="form-control" id="correlativo" name="correlativo" readonly>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                 <button type="submit" class="btn btn-primary">Guardar</button>
                             </div>
                         </form>
@@ -185,11 +190,11 @@
                             </div>
                             <div class="modal-body">
                                 <!--<?php echo form_open('organigrama/create', array('method'=>'POST', 'id'=>'insertar')); ?>-->
-                                <?php echo form_open_multipart('Organigrama/do_upload'); ?>
+                                <?php echo form_open_multipart('Organigrama/do_upload', array('method'=>'POST', 'name'=>'informacion')); ?>
                                 <div class="form-group">
                                     <label for="location1">Nivel Superior :<span class="text-danger"> *</span></label>
-                                    <select class="custom-select form-control" id="organigrama_id" name="organigrama_id">
-                                        <option value="">Seleccione Unidad Superior</option>
+                                    <select class="custom-select form-control" id="organigrama_id" name="organigrama_id" required>
+                                        <option value="" class="placeholderselect" disabled selected>Seleccione unidad superior</option>
                                         <?php foreach ($data_grupo as $tp) : ?>
                                             <option value="<?php echo $tp->organigrama_id; ?>"><?php echo $tp->unidad; ?></option>
                                         <?php endforeach; ?>
@@ -197,7 +202,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="recipient-name" class="control-label">Unidad</label>
-                                    <input type="text" class="form-control" id="unidad" name="unidad" required>
+                                    <input type="text" class="form-control" id="unidad" name="unidad" placeholder="Ingrese nombre de la unidad...." required>
                                     <input type="hidden" class="form-control" id="opcion" name="opcion" value="1">
                                 </div>
                                 <div class="form-group">
@@ -213,8 +218,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-primary" id="enviar">Guardar</button>
                                 </div>
                             </form>
                         </div><!--modal-body-->
@@ -300,6 +305,8 @@
              $('#observaciones').val(d[2]);
          }
 </script>
+  <!-- validacion de campos de entrada -->
+  <script src="<?php echo base_url(); ?>public/js/validacion_formulario.js"></script>
 
 
 

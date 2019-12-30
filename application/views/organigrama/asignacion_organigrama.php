@@ -1,4 +1,5 @@
-
+<!-- estilos personalizados de tramite -->
+<link href="<?php echo base_url(); ?>public/css/estilos_tramite.css" rel="stylesheet">
 <div class="page-wrapper">
     <div class="container-fluid">
         <div class="row">
@@ -68,11 +69,11 @@
                         <h4 class="modal-title" id="exampleModalLabel1">Insertar Nueva Asignacion de oficina</h4>
                     </div>
                     <div class="modal-body">
-                        <?php echo form_open('Organigrama_persona/insertar', array('method'=>'POST')); ?>
+                        <?php echo form_open('Organigrama_persona/insertar', array('method'=>'POST', 'name'=>'informacion')); ?>
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Personal</label>
-                                <select class="select2 " style="width: 100%" name="persona_id" id="persona_id">
-                                    <option>Seleccionar personal</option>
+                                <select class="custom-select form-control" style="width: 100%" name="persona_id" id="persona_id" required>
+                                    <option value="" class="placeholderselect" disabled selected>Seleccione persona</option>
                                     <?php foreach($personas as $plista){ ?>
                                         <option value="<?php echo $plista->persona_id; ?>"><?php echo $plista->nombres.' '.$plista->paterno.' '.$plista->materno; ?></option>
                                     <?php } ?>
@@ -80,8 +81,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Oficina</label>
-                                <select class="select2" style="width: 100%" name="organigrama_id" id="organigrama_id">
-                                    <option>Seleccionar oficina</option>
+                                <select class="custom-select form-control" style="width: 100%" name="organigrama_id" id="organigrama_id" required>
+                                    <option value="" class="placeholderselect" disabled selected>Seleccione oficina</option>
                                     <?php foreach($organigramas as $olista){ ?>
                                         <option value="<?php echo $olista->organigrama_id; ?>"><?php echo $olista->unidad; ?></option>
                                     <?php } ?>
@@ -89,8 +90,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Cargo</label>
-                                <select class="select2" style="width: 100%" name="cargo_id" id="cargo_id">
-                                    <option>Seleccionar cargo</option>
+                                <select class="custom-select form-control" style="width: 100%" name="cargo_id" id="cargo_id" required>
+                                    <option value="" class="placeholderselect" disabled selected>Seleccione cargo</option>
                                     <?php foreach($cargos as $clista){ ?>
                                         <option value="<?php echo $clista->cargo_id; ?>"><?php echo $clista->descripcion; ?></option>
                                     <?php } ?>
@@ -99,11 +100,11 @@
                             
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Fecha de alta</label>
-                                <input type="date" class="form-control" id="fec_alta" name="fec_alta">
+                                <input type="date" class="form-control" id="fec_alta" name="fec_alta"  placeholer="Ingrese fecha" required>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <button type="submit" class="btn btn-primary" id="enviar">Guardar</button>
                             </div>
                         </form>
                     </div>
@@ -123,7 +124,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Personal</label>
-                                <select class="select2" style="width: 100%" name="persona_id1" id="persona_id1">
+                                <select class="custom-select form-control" style="width: 100%" name="persona_id1" id="persona_id1" required>
                                     <?php foreach($personas as $plista){ ?>
                                         <option value="<?php echo $plista->persona_id; ?>"><?php echo $plista->nombres.' '.$plista->paterno.' '.$plista->materno; ?></option>
                                     <?php } ?>
@@ -131,7 +132,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Oficina</label>
-                                <select class="select2" style="width: 100%" name="organigrama_id1" id="organigrama_id1">
+                                <select class="custom-select form-control" style="width: 100%" name="organigrama_id1" id="organigrama_id1" required>
                                     <?php foreach($organigramas as $olista){ ?>
                                         <option value="<?php echo $olista->organigrama_id; ?>"><?php echo $olista->unidad; ?></option>
                                     <?php } ?>
@@ -140,7 +141,7 @@
 
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Cargo</label>
-                                <select class="select2" style="width: 100%" name="cargo_id1" id="cargo_id1">
+                                <select class="custom-select form-control" style="width: 100%" name="cargo_id1" id="cargo_id1" required>
                                     <?php foreach($cargos as $clista){ ?>
                                         <option value="<?php echo $clista->cargo_id; ?>"><?php echo $clista->descripcion; ?></option>
                                     <?php } ?>
@@ -148,7 +149,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Fecha de alta</label>
-                                <input type="date" class="form-control" id="fec_alta1" name="fec_alta1">
+                                <input type="date" class="form-control" id="fec_alta1" name="fec_alta1" required>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -382,3 +383,6 @@ $('#guardar_baja').click(function() {
 
 
 </script>
+
+ <!-- validacion de campos de entrada -->
+ <script src="<?php echo base_url(); ?>public/js/validacion_formulario.js"></script>
