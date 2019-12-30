@@ -48,9 +48,10 @@
                                 <button type="button" class="btn waves-effect waves-light btn-success" id="btn_sel_predio">Seleccionar predio</button>
                             </h4> -->
                             <div id="muestra_mapa" style="display: none;">
-                                <div id="map" style="width: 100%; height: 650px;"></div>
+                                <!-- <div id="map" style="height: 650px;"></div> -->
+                                <div id="map" style="width: 800px; height: 600px; border: 1px solid #ccc"></div>
                                 <div style="width: 100%;">
-                                    <button class="btn btn-block btn-warning" type="button" id="btn_finalizado">GENERA CODIGO CATASTRAL CRT</button>
+                                    <button class="btn btn-block btn-warning" type="button" id="btn_finalizado">GENERA CODIGO CATASTRAL</button>
                                 </div>
                             </div>
 
@@ -90,6 +91,7 @@
                                         <div class="col-md-12">
                                         <div class="form-group">
                                                 <label for="codigo_catastral"> Ingrese la Geometria : <span class="text-danger">*</span> </label>
+                                                <div id="mapid" style="height: 480px; width: 100%"></div>
                                                 <textarea rows="4" class="form-control" id="cod_referencial" autofocus ></textarea>
                                                 <div style="width: 100%;">
                                                     <button class="btn btn-block btn-warning" type="button" id="btn_genera_catas">GENERA CODIGO CATASTRAL</button>
@@ -536,7 +538,6 @@
     <script src="<?php echo base_url(); ?>public/assets/plugins/jquery/jquery.min.js"></script>
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw8R4L-CtMu9XuQBiymIEs6UEc715P2eA&callback=initMap&libraries=drawing" async defer></script> -->
 
-
     <script type="text/javascript">
 
          var contador_eliminados = 0;
@@ -798,7 +799,87 @@ function muestraServiciosBasicos() {
     $('#bloqueServiciosBasicos').toggle('slow');
 }
 
+</script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+   crossorigin=""></script>
+
+<!-- <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet-src.js" crossorigin=""></script> -->
+<!-- <script src="<?php echo base_url(); ?>public/ll/leaflet-src.js"></script> -->
+<!-- <script src="libs/leaflet-src.js"></script> -->
+<!-- <link rel="stylesheet" href="<?php echo base_url(); ?>public/ll/leaflet.css"/> -->
+
+<script src="<?php echo base_url(); ?>public/ll/Leaflet.draw.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/Leaflet.Draw.Event.js"></script>
+<link rel="stylesheet" href="<?php echo base_url(); ?>public/ll/leaflet.draw.css"/>
+
+<script src="<?php echo base_url(); ?>public/ll/Toolbar.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/Tooltip.js"></script>
+
+<script src="<?php echo base_url(); ?>public/ll/GeometryUtil.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/LatLngUtil.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/LineUtil.Intersect.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/Polygon.Intersect.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/Polyline.Intersect.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/TouchEvents.js"></script>
+
+<script src="<?php echo base_url(); ?>public/ll/DrawToolbar.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/Draw.Feature.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/Draw.SimpleShape.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/Draw.Polyline.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/Draw.Marker.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/Draw.Circle.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/Draw.CircleMarker.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/Draw.Polygon.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/Draw.Rectangle.js"></script>
+
+<script src="<?php echo base_url(); ?>public/ll/EditToolbar.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/EditToolbar.Edit.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/EditToolbar.Delete.js"></script>
+
+<script src="<?php echo base_url(); ?>public/ll/Control.Draw.js"></script>
+
+<script src="<?php echo base_url(); ?>public/ll/Edit.Poly.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/Edit.SimpleShape.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/Edit.Rectangle.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/Edit.Marker.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/Edit.CircleMarker.js"></script>
+<script src="<?php echo base_url(); ?>public/ll/Edit.Circle.js"></script>
 
 
+<script>
+    var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib }),
+            map = new L.Map('mapid', { center: new L.LatLng(-17.998636933474735, -63.38950296727439), zoom: 20 }),
+            drawnItems = L.featureGroup().addTo(map);
+    L.control.layers({
+        'osm': osm.addTo(map),
+        "google": L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
+            attribution: 'google'
+        })
+    }, { 'drawlayer': drawnItems }, { position: 'topleft', collapsed: false }).addTo(map);
+    map.addControl(new L.Control.Draw({
+        edit: {
+            featureGroup: drawnItems,
+            poly: {
+                allowIntersection: false
+            }
+        },
+        draw: {
+            polygon: {
+                allowIntersection: false,
+                showArea: true
+            }
+        }
+    }));
+
+    map.on(L.Draw.Event.CREATED, function (event) {
+        var layer = event.layer;
+
+        drawnItems.addLayer(layer);
+    });
 
 </script>
