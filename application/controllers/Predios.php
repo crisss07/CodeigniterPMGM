@@ -19,6 +19,7 @@ class Predios extends CI_Controller {
         $this->load->model("rol_model");
         $this->load->library('email');
         $this->load->library('pdf');
+        $this->load->model("Reportes_model");
     }
 
     public function index(){
@@ -445,7 +446,25 @@ class Predios extends CI_Controller {
 		$data['ddrr']= $this->db->query("SELECT * FROM catastro.predio_ddrr as pd WHERE pd.predio_id = '$predio_id'")->row();
 		$data['personas'] =$this->db->query("SELECT p.nombres, p.paterno, p.materno FROM catastro.predio_ddrr as pd JOIN catastro.predio_titular as pt ON pd.ddrr_id = pt.ddrr_id JOIN persona as p ON pt.persona_id=p.persona_id WHERE pt.activo=1 AND pd.predio_id = '$predio_id'")->result();
 
-		$data['bloques'] = $this->db->query("SELECT y.bloque_id,y.predio_id,y.nro_bloque,y.nom_bloque,y.estado_id,y.altura,y.anio_cons,y.anio_remo,y.porcentaje_remo,y.destino_bloque_id,z.descripcion as desc_bloque_dest,y.uso_bloque_id,x.descripcion as desc_bloque_uso FROM catastro.bloque as y LEFT JOIN catastro.uso_bloque as x on x.uso_bloque_id=y.uso_bloque_id LEFT JOIN catastro.destino_bloque as z on z.destino_bloque_id=y.destino_bloque_id WHERE y.activo=1 and x.activo=1 and z.activo=1 and y.predio_id='$predio_id' order by y.nro_bloque asc")->result();
+		$data['bloques'] = $this->db->query("SELECT b.*,d.descripcion,e.descripcion as estado_fisico_des,u.descripcion as uso FROM catastro.bloque b
+LEFT JOIN
+catastro.destino_bloque d
+on b.destino_bloque_id=d.destino_bloque_id
+LEFT JOIN
+catastro.uso_bloque u
+on b.uso_bloque_id=u.uso_bloque_id
+LEFT JOIN
+catastro.estado e
+on b.estado_id=e.estado_id
+WHERE predio_id=$predio_id ORDER BY b.nro_bloque")->result();
+
+
+		 $data['datos_predio'] = $this->Reportes_model->get_data($predio_id);
+        $data['propietarios'] = $this->Reportes_model->get_propietarios($predio_id);
+
+
+
+
 
 		$queryf = $this->db->from('catastro.predio_foto');
 		$queryf = $this->db->where('predio_id', $predio_id);

@@ -78,28 +78,28 @@
                     <table class="table">
                         <tr>
                             <td>
-                                Distrito No: <b><?php echo $predio[0]->distrito; ?></b>
-                                <br />Predio: <b><?php echo $predio[0]->predio; ?></b>
+                                Distrito No:    <b><?php echo $datos_predio->distrito; ?></b>
+                                <br />Predio: <b><?php echo $datos_predio->predio_id; ?></b>
                                 
                             </td>
                             <td>
-                                Sub Distrito No: <b>34</b>
-                                <br />Lote No: <b>34</b>
+                                 Manzana Act: <b><?php echo $datos_predio->manzana; ?></b>
+                                <br />Lote No: <b>24</b>
                             </td>
                             <td>
-                                Zona: <b>CENTRAL</b>
+                                Zona: <b><?php echo $datos_predio->zona; ?></b>
                                 <br>Calle: <b>Innominada</b>
                             </td>
                             <td>
-                                Manzana Act: <b>125</b>
-                                <br />Organizacion: <b>LOMA PAMPA</b>
+                               
+                                
                             </td>
                         </tr>
                     </table>
 
                     <div class="row" style="text-align: center;">
                         <div class="col-md-12">
-                            <div class="text-black" style="font-size: 28pt;">CODIGO CATASTRAL:  <?php print_r($predio[0]->codcatas); ?></div>
+                            <div class="text-black" style="font-size: 28pt;">GEOCODIGO:  <?php echo $datos_predio->geocodigo;?></div>
                         </div>
                     </div>
 
@@ -118,7 +118,7 @@
 
                                 <br />CROQUIS DEL PREDIO
                                 <?php //echo ll2utm(36.311665575277935,59.55385813725379); ?>
-                                <?php echo utm2ll(451603.0487,7994746.7977,20,true);  ?>
+                                <?php //echo utm2ll(451603.0487,7994746.7977,20,true);  ?>
                                 <div id="mapid" style="height: 380px;"></div>
                                 <!-- <div id="mapid" style="height: 180px;"></div> -->
                                 <?php $cod_predio = $predio[0]->predio_id; ?>
@@ -159,29 +159,46 @@
                                     // $foto_64_fachada = base64_encode($foto_bytea_fachada);
                                 ?>
                                 <?php //echo "<img src='data:image/jpeg;base64, $foto_64_fachada' width='350px' />"; ?>
-                                    <?php if ($fotos==0){$imagen_fachada="";}else{$fotof = $fotos[0]->foto_fachada; $imagen_fachada=base_url("/public/assets/files/predios/".$fotof);}?>
-                                    <img src="<?php $imagen_fachada ?>" style="width: 610px;">
+                                    <?php //if ($fotos==0){$imagen_fachada="";}else{$fotof = $fotos[0]->foto_fachada; $imagen_fachada=base_url("/public/assets/files/predios/".$fotof);}?>
+                                    <!--<img src="<?php $imagen_fachada ?>" style="width: 610px;">
 
                                     <input type="file" id="input-file-now" class="dropify" name="foto_plano" data-allowed-file-extensions="png jpg jpeg" data-default-file="<?php echo $imagen_plano; ?>" />
                                 
-                                    <br />FOTO DE FACHADA
+                                    <br />FOTO DE FACHADA-->
                             </td>
                             <td>
                                 <div class="text-black" style="font-size: 18pt; text-decoration: underline;">DATOS TECNICOS</div>
-                                <br />RELACION SUPERFICIES
+                                <br />SUPERFICIE
                                 <div class="row">
                                     <div class="col-md-6">
-                                        Sup Lote No 24
+                                        Sup. Lote N° 24: <?php echo $datos_predio->superficie_legal ?> m2 
+                                        <br>
+                                        <p>
+                                             FRENTE<p>
+           <?php echo $datos_predio->frente.' m2' ?><p>
+            FONDO<p>
+           <?php echo $datos_predio->fondo.' m2' ?><p>
                                     </div>
                                     <div class="col-md-6">
-                                        200.00 m
+                                        
+           
                                     </div>
                                 </div>
                                 <P>&nbsp;</P>
                                 <div class="text-black" style="font-size: 18pt; text-decoration: underline;">LIMITES COLINDANTES</div>
                                 <div class="row">
-                                    <div class="col-md-6">Norte</div>
-                                    <div class="col-md-6">200.00 m</div>
+                                    <div class="col-md-6"> <p>
+        
+        <p>
+        Norte: Lote N° 11
+        <p>
+        Este:  Lote N° 25
+        <p>
+        Sud: Calle Inominada
+        <p>
+        Oeste: Lote N° 23
+        <p></div>
+                                    <div class="col-md-6"></div>
                                 </div>
                             </td>
                         </tr>
@@ -212,10 +229,10 @@
                                  
                                     <td><small><i><?php echo $row->nro_bloque; ?></i></small></td>
                                     <td><small><i><?php echo $row->nom_bloque; ?></i></small></td>
-                                    <td><small><i><?php echo $row->estado_fisico; ?></i></small></td>
+                                    <td><small><i><?php echo $row->estado_fisico_des; ?></i></small></td>
                                     <td><small><i><?php echo $row->anio_cons; ?></i></small></td>                                                       
-                                    <td><small><i><?php echo $row->desc_bloque_dest; ?></i></small></td>
-                                    <td><small><i><?php echo $row->desc_bloque_uso; ?></i></small> </td>                                                        
+                                    <td><small><i><?php echo $row->descripcion; ?></i></small></td>
+                                    <td><small><i><?php echo $row->uso; ?></i></small> </td>                                                        
                                 </tr>
                                 <?php 
                             } ?>
