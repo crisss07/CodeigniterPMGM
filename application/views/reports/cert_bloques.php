@@ -246,7 +246,8 @@
 
         <td align="center"  class="titulo_tres" height="0"  width="40%">
           VISTA FOTOGRAFICA <br>
-      <img src="<?php echo base_url(); ?><?php echo $foto_fachada; ?>" alt="Logo" width="200"  class="logo"/>
+      <!--<img src="<?php echo base_url(); ?><?php echo $foto_fachada; ?>" alt="Logo" width="200"  class="logo"/>-->
+      <img src="https://res.cloudinary.com/ddcnjlkev/image/upload/v1577673300/yhbnildmm60u3ggwg3r6.jpg" alt="Logo" width="200"  class="logo"/>
       </td>  
   </tr>
 

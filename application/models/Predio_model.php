@@ -109,11 +109,12 @@ class Predio_model extends CI_Model {
         // vdebug($calles, true, false, true);   
     }
 
+  
     //Listar predio segun a los valores de inicio y longitud enviados por el metodo get del plugin de datatable
     public function lista_predioDataTable($start, $length){
-                    $this->db->select('predio_id, fec_creacion, geocodigo, codcatas, direccion_id');
+                    $this->db->select("predio_id, codcatas, geocodigo, superficie_geo, superficie_campo, 'Calle: ' || COALESCE(calle, 'S/D') || ', Zona: ' || COALESCE(zona,'S/D') || ', Numero: ' || COALESCE(numero, 'S/D') AS direccion");
                     $this->db->limit($length, $start);
-                    $this->db->from('catastro.predio');
+                    $this->db->from('catastro.vista_predio_geografico_persona');
         $consulta = $this->db->get();
         return $consulta->result();
     }

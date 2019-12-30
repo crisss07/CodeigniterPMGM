@@ -234,6 +234,15 @@ class Inspecciones_model extends CI_Model {
 		
 	}
 
+	//productos
+
+	public function productos($id)
+	{	
+	    $productos = $this->db->query("SELECT * FROM productos WHERE id=$id")->row();
+		return $productos;
+		
+	}
+
 
 
 

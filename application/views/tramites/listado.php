@@ -5,7 +5,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">ASIGNADOS</h4></h4>
+                        <h4 class="card-title">Lista de tramites</h4><span><input type="number" name="gestion_tramite" id="gestion_tramite"></span>
                         <?php //vdebug($mis_tramites, true, false, true); ?>
                         <table id="tabla_din" class="table table-bordered table-striped" cellspacing="0" width="100%">
                             <thead>
