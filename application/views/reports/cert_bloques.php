@@ -149,6 +149,12 @@
           border-right:  1px solid white;
           
         }
+
+        .titulo_diez {
+            font-size: 10px;
+            line-height:14px;
+            
+        }
     </style>
 
 
@@ -188,11 +194,13 @@
  <table width="100%">     
       <tr >   
       <td align="left"  class="titulo_tres" height="0">
-       CÓDIGO CATASTRAL:    
+       <!--CÓDIGO CATASTRAL:    -->
+       GEOCODIGO
       </td>  
         <td align="left"  class="titulo_tres" height="0">
      
-         <?php echo $datos_predio->distrito.'-'.$datos_predio->manzana.'-'.$datos_predio->predio; ?>
+       <!--  <?php echo $datos_predio->distrito.'-'.$datos_predio->manzana.'-'.$datos_predio->predio; ?>-->
+       <?php echo $datos_predio->geocodigo;?>
       </td>  
   </tr>
 </table>
@@ -211,7 +219,13 @@
         <p>       
         NOMBRE DE VIA <br>
         <?php echo $datos_predio->calle ?><br><p>
+
+        Distrito Nº: <?php echo $datos_predio->distrito; ?>
         <br>       
+        Manzana : <?php echo $datos_predio->manzana; ?>
+        <br>
+        Predio:    <?php echo $datos_predio->predio; ?>
+        <br>
       </td> 
         <td align="left"  class="titulo" height="0">        
      CI:<br>
@@ -222,12 +236,15 @@
        <?php  } ?>
         <br>
         N° <br>
-        <?php echo $datos_predio->nro_inmueble ?> <br><p>  
+        <?php echo $datos_predio->nro_puerta ?> <br><p>  
         <br>
+        <br><br>
+    
+
 
       </td>
 
-        <td align="center"  class="titulo_tres" height="0"  width="35%">
+        <td align="center"  class="titulo_tres" height="0"  width="40%">
           VISTA FOTOGRAFICA <br>
       <img src="<?php echo base_url(); ?><?php echo $foto_fachada; ?>" alt="Logo" width="200"  class="logo"/>
       </td>  
@@ -239,55 +256,64 @@
 
 
 <br>
-
- <table width="100%">     
+<table width="100%">     
+      <tr >   
+      <td align="center"  class="titulo" height="0" width="50%">
+          <img src="<?php echo base_url(); ?><?php echo $foto_plano_ubi; ?>" alt="Logo" width="300"  class="logo"/>
+      </td>  
+      <td align="justify"  class="titulo" height="0">
+        <u> DATOS TECNICOS</u>  
+        <p>SUPERFICIE<p>
+         
+          Sup. Lote N° 24: <?php echo $datos_predio->superficie_legal ?> m2 <p>
+            <br>
+       
+       <p>
+        LIMITES Y COLINDANTES
+        <p>
+        Norte: Lote N° 11
+        <p>
+        Este:  Lote N° 25
+        <p>
+        Sud: Calle Inominada
+        <p>
+        Oeste: Lote N° 23
+        <p>
         
 
-
-  
-
-    <tr>     
-      <td align="left"  class="titulo" height="0">
-       OBSERVACIONES:<br>
-     
-      </td> 
-        <td align="center"  class="titulo_tres" height="0"  width="60%"  rowspan="3">
-          PLANO CATASTRAL <br>
-      <img src="<?php echo base_url(); ?><?php echo $foto_plano_ubi; ?>" alt="Logo" width="200"  class="logo"/>
+           
+      </td>
+      <td >
       
-      </td>  
-  </tr>
-
-      <tr>     
-      <td align="left"  class="titulo" height="0">
-      <!-- SE EXPIDE EL SIGUIENTE CERTIFICADO A SOLICITUD DE: <br>   
-       HERNAN YUCRA MASIAS <br>   -->
+            
+        
+      </td>
+      <td align="justify"  class="titulo" height="0">
+      
+            FRENTE<p>
+           <?php echo $datos_predio->frente.' m2' ?><p>
+            FONDO<p>
+           <?php echo $datos_predio->fondo.' m2' ?><p>
+               UBICACION<p>
+           <?php echo $datos_predio->desc_ubi ?><p>
+            <br><br><br><br><br>
+        
       </td> 
-  
   </tr>
-        <tr>     
-      <td align="center"  class="titulo" height="0">
-       FIRMA Y SELLO<br>
-
-      </td> 
-  
-  </tr>
-
-
 </table>
 <br>     
 
   <table width="100%">     
       <tr >   
       <td align="center"  class="titulo_tres" height="0">
-    CONSTRUCCIONES     
+    EDIFICACIONES     
       </td>    
   </tr>  
 
 </table> 
 <br>
 
-     <table width="100%" >
+     <table width="100%">
         <thead>
             <tr>
               
@@ -304,13 +330,13 @@
             <?php foreach ($data_bloques as $row) { ?>
                 <tr>                    
              
-                    <td><?php echo $row->nro_bloque; ?></td>                                                      
-                    <td><?php echo $row->nom_bloque; ?></td> 
+                    <td align="left"  class="titulo_diez" height="0" ><?php echo $row->nro_bloque; ?></td>                                                      
+                    <td align="left"  class="titulo_diez" height="0"><?php echo $row->nom_bloque; ?></td> 
                    
-                    <td><?php echo $row->estado_fisico_des; ?></td>    
-                     <td><?php echo $row->altura; ?></td> 
-                         <td><?php echo $row->descripcion; ?></td> 
-                             <td><?php echo $row->uso; ?></td> 
+                    <td align="left"  class="titulo_diez" height="0"><?php echo $row->estado_fisico_des; ?></td>    
+                     <td align="left"  class="titulo_diez" height="0"><?php echo $row->altura; ?></td> 
+                         <td align="left"  class="titulo_diez" height="0"><?php echo $row->descripcion; ?></td> 
+                             <td align="left"  class="titulo_diez" height="0"><?php echo $row->uso; ?></td> 
                      
                 </tr>
                 <?php 
