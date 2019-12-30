@@ -51,20 +51,22 @@
                                 <thead>
                                     <tr>
                                         <th id="indentificador_predio">CODIGO PREDIO</th>
-                                        <th>FECHA CREACION</th>
+                                        <th>CODCATAS</th>
                                         <th>GEOCODIGO</th>
-                                        <th>COD CATASTRAL</th>
-                                        <th>DIRECCION</th>
+                                        <th>SUPERFICIE GEOMETRICA</th>
+                                        <th>SUPERFICIE CAMPO</th>
+                                        <th>DIRECCIÓN</th>
                                         <th>ACCION</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>CODIGO PREDIO</th>
-                                        <th>FECHA CREACION</th>
+                                        <th id="indentificador_predio">CODIGO PREDIO</th>
+                                        <th>CODCATAS</th>
                                         <th>GEOCODIGO</th>
-                                        <th>COD CATASTRAL</th>
-                                        <th>DIRECCION</th>
+                                        <th>SUPERFICIE GEOMETRICA</th>
+                                        <th>SUPERFICIE CAMPO</th>
+                                        <th>DIRECCIÓN</th>
                                         <th>ACCION</th>
                                     </tr>
                                 </tfoot>
