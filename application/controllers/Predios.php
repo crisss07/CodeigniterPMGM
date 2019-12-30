@@ -748,19 +748,21 @@ WHERE predio_id=$predio_id ORDER BY b.nro_bloque")->result();
 		$data = array();
         foreach($predio_consulta as $rows)
         {
-            $data[]= array(
+			$data[]= array(
 				$rows->predio_id,
-				$rows->fec_creacion,
-				$rows->geocodigo,
 				$rows->codcatas,
-                $rows->direccion_id,
+				$rows->geocodigo,
+				$rows->superficie_geo,
+				$rows->superficie_campo,
+                $rows->direccion,
 				'
-					<a href="'. $url .'predios/editar'. $rows->predio_id.'" class="btn btn-warning footable-edit fas fas fa-edit" aria-hidden="true" title="Editar"> </a>
+					<a href="'. $url .'predios/modificar_predio/'. $rows->predio_id.'" class="btn btn-warning footable-edit fas fas fa-edit" aria-hidden="true" title="Editar"> </a>
 					<a href="'. $url .'predios/certificado/'. $rows->predio_id.'" class="btn btn-secondary  fas fa-certificate" aria-hidden="true" title="Certificacion tecnica"> </a>			 
 					<a href="'. $url .'predios/form_fusion/'. $rows->predio_id.'" class="btn btn-success footable-edit fas fas fa-object-group" aria-hidden="true" title="Fusionar"> </a>			 
 					<a href="'. $url .'Reporteseicu/certificacion_bloques/'. $rows->predio_id.'" class="btn btn-dark footable-edit fas fas fa-object-ungroup" aria-hidden="true" title="Particionar"> </a>			  
 					<a href="'. $url .'Reporteseicu/certificacion_bloques/'. $rows->predio_id.'" class="btn btn-info footable-edit fas fas fa-print" aria-hidden="true" title="Certificación catastral" target="_blank"> </a>			 
-					<a href="'. $url .'Reporteseicu/certificacion/'. $rows->predio_id.'" class="btn btn-warning footable-edit fas fas fa-print" aria-hidden="true" title="Certificacion tecnica" target="_blank"> </a>			
+					<a href="'. $url .'predio/estado/'. $rows->predio_id.'" class="btn btn-success" aria-hidden="true" title="Certificacion tecnica" target="_blank"><span class="fas fa-arrow-alt-circle-up" aria-hidden="true"></span> Activo </a>		
+			
 				'
             );     
         }	
@@ -773,5 +775,115 @@ WHERE predio_id=$predio_id ORDER BY b.nro_bloque")->result();
         );
         echo json_encode($output);
 		exit();
-    }
+	}
+	
+	public function modificar_predio($id_predio){
+
+		if($this->session->userdata("login")){
+
+			if ($this->input->post()) {
+				$datos = $this->input->post();
+				// $data = array(
+				// );
+				vdebug($datos['data']['codigo_catastral']);
+			}else{
+				$this->db->select('tipo_predio_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.tipo_predio');
+				
+				$data['dc_tipos_predio'] = $query->result();
+
+				// $this->db->select('direccion_id, calle, zona, numero, edificio');
+				// $this->db->where('activo', 1);
+				// $query = $this->db->get('catastro.direccion');
+				// $data['dc_zona_urbana'] = $query->result();
+
+				// $this->db->select('via_id, codcatas');
+				// $this->db->where('activo', 1);
+				// $query = $this->db->get('catastro.predio_via');
+				// $data['dc_predio_via'] = $query->result();
+
+				$this->db->select('ubicacion_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.ubicacion');
+				$data['dc_ubicacion'] = $query->result();
+
+				$this->db->select('pendiente_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.pendiente');
+				$data['dc_pendiente'] = $query->result();
+
+				$this->db->select('nivel_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.nivel');
+				$data['dc_nivel'] = $query->result();
+
+				$this->db->select('forma_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.forma');
+				$data['dc_forma'] = $query->result();
+
+				$this->db->select('clase_predio_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.clase_predio');
+				$data['dc_clase_predio'] = $query->result();
+
+				$this->db->select('uso_suelo_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.uso_suelo');
+				$data['dc_uso_suelo'] = $query->result();
+
+				$this->db->select('estado_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.estado');
+				$data['dc_estado'] = $query->result();
+
+				$this->db->select('servicio_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.servicio');
+				$data['listado_servicios'] = $query->result();
+
+				$this->db->select('matvia_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.matvia');
+				$data['dc_materiales_via'] = $query->result();
+
+				// $data['dc'] = $this->tipopredio_model->listado_combo();
+				// vdebug($this->tipopredio_model->hola());
+
+				// $data['hola'] = "Mi cuate es un Pillin";
+				$con = $this->db->get('catastro.tipo_predio');
+				// log_message('debug', print_r($con,TRUE));
+				// vdebug($con);
+				// $this->load->model('Tipopredio');
+				// $tipos_predios = $this->db->query('SELECT * FROM catastro.tipo_predio');
+				// $tp = $tipos_predios->result();
+				// vdebug($tp);
+				// die();
+				// print_r($tipos_predios);die;
+				// echo $tipos_predios; die;
+
+				$this->load->view('admin/header');
+				$this->load->view('admin/menu');
+				// $this->load->view('predios/nuevo', $data);
+				$this->load->view('predios/registra_predio', $data);
+				$this->load->view('admin/footer');
+				$this->load->view('predios/registra_js');
+			}
+		}
+		else{
+			redirect(base_url());
+		}
+
+	}
 }
