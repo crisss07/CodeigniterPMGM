@@ -295,7 +295,7 @@ WHERE predio_id=$id ORDER BY b.nro_bloque")->result();
         }
 
         //$data['foto'] = ;
-        
+        $data['foto_plano_ubi'] = 'public/assets/files/predios/'.$id.'.jpg';
 
         $data['datos_predio'] = $this->Reportes_model->get_data($id);
         $data['propietarios'] = $this->Reportes_model->get_propietarios($id);

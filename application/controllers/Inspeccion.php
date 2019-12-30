@@ -25,6 +25,110 @@ class Inspeccion extends CI_Controller {
         }			
 	}	
 
+	public function movil($id_tramite=null){
+		if($this->session->userdata("login")){
+			//$lista['verifica'] = $this->rol_model->verifica();
+			//$lista['zona_urbana'] = $this->zona_urbana_model->index();
+			$id = $this->session->userdata("persona_perfil_id");
+            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+            $dato = $resi->persona_id;
+            $res = $this->db->get_where('persona', array('persona_id' => $dato))->row();
+            $consulta = $this->db->query("SELECT organigrama_persona_id FROM tramite.organigrama_persona WHERE fec_baja is NULL AND persona_id = '$res->persona_id'")->row();
+
+
+            $this->db->select('tipo_predio_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.tipo_predio');
+				
+				$data['dc_tipos_predio'] = $query->result();
+
+				// $this->db->select('direccion_id, calle, zona, numero, edificio');
+				// $this->db->where('activo', 1);
+				// $query = $this->db->get('catastro.direccion');
+				// $data['dc_zona_urbana'] = $query->result();
+
+				// $this->db->select('via_id, codcatas');
+				// $this->db->where('activo', 1);
+				// $query = $this->db->get('catastro.predio_via');
+				// $data['dc_predio_via'] = $query->result();
+
+				$this->db->select('ubicacion_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.ubicacion');
+				$data['dc_ubicacion'] = $query->result();
+
+				$this->db->select('pendiente_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.pendiente');
+				$data['dc_pendiente'] = $query->result();
+
+				$this->db->select('nivel_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.nivel');
+				$data['dc_nivel'] = $query->result();
+
+				$this->db->select('forma_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.forma');
+				$data['dc_forma'] = $query->result();
+
+				$this->db->select('clase_predio_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.clase_predio');
+				$data['dc_clase_predio'] = $query->result();
+
+				$this->db->select('uso_suelo_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.uso_suelo');
+				$data['dc_uso_suelo'] = $query->result();
+
+				$this->db->select('estado_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.estado');
+				$data['dc_estado'] = $query->result();
+
+				$this->db->select('servicio_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.servicio');
+				$data['listado_servicios'] = $query->result();
+
+				$this->db->select('matvia_id, descripcion');
+				$this->db->order_by('descripcion', 'ASC');
+				$this->db->where('activo', 1);
+				$query = $this->db->get('catastro.matvia');
+				$data['dc_materiales_via'] = $query->result();
+
+				// $data['dc'] = $this->tipopredio_model->listado_combo();
+				// vdebug($this->tipopredio_model->hola());
+
+				// $data['hola'] = "Mi cuate es un Pillin";
+				$con = $this->db->get('catastro.tipo_predio');
+
+				$data['prod'] = $this->Inspecciones_model->productos(22);  
+				
+           
+
+
+            	$this->load->view('admin/header');
+		        $this->load->view('admin/menu');
+		        $this->load->view('inspecciones/listado_movil',$data);
+		        $this->load->view('inspecciones/footer');
+		        
+          
+       	}else{
+			redirect(base_url());
+        }	
+	}
+
 
     public function crear($id_tramite=null){
 		if($this->session->userdata("login")){
