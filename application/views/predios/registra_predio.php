@@ -308,7 +308,7 @@
                                                                 <?php //echo vdebug($dc_tipos_predio); ?>
                                                                 <label for="forma_id"> Forma : <span class="text-danger">*</span> </label>
                                                                 <select class="custom-select form-control" id="forma_id" name="forma_id" required />
-                                                                    <option value="">Seleccione forma</option>
+                                                                     <option value="<?php echo $prod->forma; ?>"><?php echo $prod->forma; ?></option>
                                                                     <?php foreach ($dc_forma as $d): ?>
                                                                     <option value="<?php echo $d->forma_id; ?>">
                                                                         <?php echo $d->descripcion; ?>
@@ -328,7 +328,7 @@
                                                                 <div id="predio_vias"></div>
 
                                                                 <!-- <input type="hidden" name="calles_colindantes" id="calles_colindantes"> -->
-                                                                <input type="text" class="form-control" id="calle" name="calle" required />
+                                                                <input type="text" class="form-control" id="calle" name="calle" value="<?php echo $prod->calle; ?>" required />
                                                             </div>
                                                         </div>
 
@@ -338,7 +338,7 @@
                                                                 <div id="predio_vias"></div>
 
                                                                 <!-- <input type="hidden" name="calles_colindantes" id="calles_colindantes"> -->
-                                                                <input type="text" class="form-control" id="zona" name="zona" required />
+                                                                <input type="text" class="form-control" id="zona" name="zona" value="<?php echo $prod->zona; ?>" required />
                                                             </div>
                                                         </div>
 
@@ -348,7 +348,7 @@
                                                                 <div id="predio_vias"></div>
 
                                                                 <!-- <input type="hidden" name="calles_colindantes" id="calles_colindantes"> -->
-                                                                <input type="text" class="form-control" id="numero" name="numero" required />
+                                                                <input type="text" class="form-control" id="numero" name="numero" value="<?php echo $prod->numero; ?>" required />
                                                             </div>
                                                         </div>
 
@@ -374,14 +374,14 @@
                                                         <div class="col-md-2">
                                                             <div class="form-group">
                                                                 <label for="frente">Frente : <span class="text-danger">*</span></label>
-                                                                <input type="number" class="form-control" step='0.01' value="0.00" id="frente" name="frente" />
+                                                                <input type="number" class="form-control" step='0.01' value="<?php echo $prod->frente; ?>" id="frente" name="frente" />
                                                             </div>
                                                         </div>
 
                                                         <div class="col-md-2">
                                                             <div class="form-group">
                                                                 <label for="fondo">Fondo : <span class="text-danger">*</span></label>
-                                                                <input type="number" class="form-control" step='0.01' value="0.00" id="fondo" name="fondo" />
+                                                                <input type="number" class="form-control" step='0.01' value="<?php echo $prod->fondo; ?>" id="fondo" name="fondo" />
                                                             </div>
                                                         </div>
 
@@ -427,7 +427,7 @@
                                                             <?php //vdebug($dc_estado, false, false, true); ?>
                                                                 <label for="forma_id"> Estado : <span class="text-danger">*</span> </label>
                                                                 <select class="custom-select form-control" id="forma_id" name="edificio_id" required />
-                                                                    <option value="">Seleccione edificio</option>
+                                                                    <option value="<?php echo $prod->estado; ?>" selected><?php echo $prod->estado; ?></option>
                                                                     <?php foreach ($dc_estado as $e): ?>
                                                                         <option value="<?php echo $e->estado_id; ?>"><?php echo $e->descripcion; ?></option>
                                                                     <?php endforeach; ?>
@@ -503,13 +503,7 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <h4 class="card-title">Foto Fachada</h4>
-                                                <label for="input-file-now">
-                                                <button type="button" class="btn waves-effect waves-light btn-sm btn-info">
-                                                    <i class="fas fa-exclamation"></i>
-                                                </button>
-                                                    OJO Solo archivos jpg
-                                                </label>
-                                                <input type="file" id="input-file-now" class="dropify" name="foto_fachada" data-allowed-file-extensions="jpg" required />
+                                                <img src="https://res.cloudinary.com/ddcnjlkev/image/upload/v1577673300/yhbnildmm60u3ggwg3r6.jpg" alt="Logo" width="300"  class="logo"/>
                                             </div>
                                         </div>
 

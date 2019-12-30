@@ -20,6 +20,7 @@ class Predios extends CI_Controller {
         $this->load->library('email');
         $this->load->library('pdf');
         $this->load->model("Reportes_model");
+        $this->load->model("Inspecciones_model");
     }
 
     public function index(){
@@ -277,6 +278,8 @@ class Predios extends CI_Controller {
 				// die();
 				// print_r($tipos_predios);die;
 				// echo $tipos_predios; die;
+
+				$data['prod'] = $this->Inspecciones_model->productos(22);
 
 				$this->load->view('admin/header');
 				$this->load->view('admin/menu');
