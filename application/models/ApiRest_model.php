@@ -164,8 +164,73 @@ WHERE vigencia_final>=now() and codigo_seguridad='$id' and activo=1");
 
     function prueba()
     {         
-        $resultado = $this->db->query("SELECT * FROM prueba");
+        $resultado = $this->db->query("SELECT * FROM productos");
         return $resultado->result_array();
+    }
+
+
+    function insertar_predio($propietario,$frente,$fondo,$fotoUrl,$luz,$agua,$pluvial,$sanitario,$alumbrado,$gas,$basura,$telefono,$transporte,$estado,$forma,$calle,$zona,$numero)
+    {         
+        $data = array(        
+        
+        'propietario'     => $propietario,
+        'frente'      => $frente,
+        'fondo' => $fondo,
+        'luz' => $luz,
+        'agua' => $agua,
+        'pluvial' => $pluvial,
+        'sanitario' => $sanitario,
+        'alumbrado' => $alumbrado,
+        'gas' => $gas,
+        'basura' => $basura,
+        'telefono' => $telefono,
+        'transporte' => $transporte,
+        'estado' => $estado,
+        'forma' => $forma,
+        'calle' => $calle,
+        'zona' => $zona,
+        'numero' => $numero,
+        'fotoUrl'    => $fotoUrl,
+        );
+        $this->db->insert('productos', $data);
+
+    }
+
+    function borrar_predio($id)
+    {         
+        
+        
+        $this->db->where('id', $id);
+        $this->db->delete('productos');
+
+    }
+       function actualiza_predio($id,$propietario,$frente,$fondo,$fotoUrl,$luz,$agua,$pluvial,$sanitario,$alumbrado,$gas,$basura,$telefono,$transporte,$estado,$forma,$calle,$zona,$numero)
+    {      
+        $data = array(        
+        
+        'propietario'     => $propietario,
+        'frente'      => $frente,
+        'fondo' => $fondo,
+        'luz' => $luz,
+        'agua' => $agua,
+        'pluvial' => $pluvial,
+        'sanitario' => $sanitario,
+        'alumbrado' => $alumbrado,
+        'gas' => $gas,
+        'basura' => $basura,
+        'telefono' => $telefono,
+        'transporte' => $transporte,
+        'estado' => $estado,
+        'forma' => $forma,
+        'calle' => $calle,
+        'zona' => $zona,
+        'numero' => $numero,
+        'fotoUrl'    => $fotoUrl,
+        );
+
+        $this->db->where('id', $id);
+        $this->db->update('productos', $data);
+
     }
 
 

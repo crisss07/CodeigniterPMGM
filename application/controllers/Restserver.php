@@ -361,10 +361,8 @@ class Restserver extends CI_Controller{
 }
 
   public function prueba_get(){
-        $this->load->model("ApiRest_model");
-
-              
-        
+        $this->load->model("ApiRest_model");             
+        $titulo = $this->get('id');
         
         $user = array('respuesta' => $this->ApiRest_model->prueba());        
         if($user)
@@ -375,20 +373,102 @@ class Restserver extends CI_Controller{
         {
             $this->response(NULL, 404);
         }
-        
-
-
-
-
-
-
-        
-
-        
     }
 
+     public function insertainspeccion_get(){      
+        
+        $propietario = $this->get('propietario');        
+        $frente = $this->get('frente');
+        $fondo = $this->get('fondo');
+        $fotoUrl = $this->get('fotoUrl');
+        $luz = $this->get('luz');
+        $agua = $this->get('agua');
+        $pluvial = $this->get('pluvial');
+        $sanitario = $this->get('sanitario');
+        $alumbrado = $this->get('alumbrado');
+        $gas = $this->get('gas');
+        $basura = $this->get('basura');
+        $telefono = $this->get('telefono');
+        $transporte = $this->get('transporte');
+        $estado = $this->get('estado');
+        $forma = $this->get('forma');
+        $calle = $this->get('calle');
+        $zona = $this->get('zona');
+        $numero = $this->get('numero');
+        
+        $this->load->model("ApiRest_model"); 
+            $this->ApiRest_model->insertar_predio($propietario,$frente,$fondo,$fotoUrl,$luz,$agua,$pluvial,$sanitario,$alumbrado,$gas,$basura,$telefono,$transporte,$estado,$forma,$calle,$zona,$numero );//inserta el token             
+            $user = array('mensaje'=>'Datos insertados correctamente','bool'=>'TRUE');           
+            if($user)
+            {
+                $this->response( $user, 200); // 200 being the HTTP response code
+            } 
+            else
+            {
+               
+                $this->response($message, 404);
+            }
 
+               
+    }
 
-    
+    public function deleteinspeccion_get(){
+        
+        $id = $this->get('id');
+        
+        
+        $this->load->model("ApiRest_model"); 
+            $this->ApiRest_model->borrar_predio($id);//inserta el token             
+            $user = array('mensaje'=>'Datos borrados correctamente','bool'=>'TRUE');           
+            if($user)
+            {
+                $this->response( $user, 200); // 200 being the HTTP response code
+            } 
+            else
+            {
+               
+                $this->response($message, 404);
+            }
+
+               
+    }
+
+    public function updateinspeccion_get(){
+        $id = $this->get('id');
+         $propietario = $this->get('propietario');        
+        $frente = $this->get('frente');
+        $fondo = $this->get('fondo');
+        $fotoUrl = $this->get('fotoUrl');
+        $luz = $this->get('luz');
+        $agua = $this->get('agua');
+        $pluvial = $this->get('pluvial');
+        $sanitario = $this->get('sanitario');
+        $alumbrado = $this->get('alumbrado');
+        $gas = $this->get('gas');
+        $basura = $this->get('basura');
+        $telefono = $this->get('telefono');
+        $transporte = $this->get('transporte');
+        $estado = $this->get('estado');
+        $forma = $this->get('forma');
+        $calle = $this->get('calle');
+        $zona = $this->get('zona');
+        $numero = $this->get('numero');
+        
+        $this->load->model("ApiRest_model"); 
+            $this->ApiRest_model->actualiza_predio($id,$propietario,$frente,$fondo,$fotoUrl,$luz,$agua,$pluvial,$sanitario,$alumbrado,$gas,$basura,$telefono,$transporte,$estado,$forma,$calle,$zona,$numero );//inserta el token             
+            $user = array('mensaje'=>'Datos modificados correctamente','bool'=>'TRUE');           
+            if($user)
+            {
+                $this->response( $user, 200); // 200 being the HTTP response code
+            } 
+            else
+            {
+               
+                $this->response($message, 404);
+            }
+
+               
+    }
+
 }
      
