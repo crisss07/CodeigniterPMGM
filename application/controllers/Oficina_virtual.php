@@ -291,4 +291,23 @@ class Oficina_virtual extends CI_Controller
         $this->load->view('oficina/footer');
     }
 
+    public function ver_noticia($noticias_id){
+         if ($this->session->userdata("login")) {
+            $id = $this->session->userdata("persona_perfil_id");
+            $resi = $this->db->get_where('persona_perfil', array('persona_perfil_id' => $id))->row();
+            $dato = $resi->persona_id;
+            $data['nombre']=$this->db->query("SELECT nombres||' '||paterno||' '||materno nombre FROM public.persona WHERE persona_id='$dato'")->row();
+            $data['logueado']= "si";
+
+        }else{
+            $data['logueado']= "no";
+        }
+
+        $datos['noticias'] = $this->db->get_where('noticias', array('noticias_id' => $noticias_id))->row();
+
+        $this->load->view('oficina/header');
+        $this->load->view('oficina/ver_noticia', $datos);
+        $this->load->view('oficina/footer');
+    }
+
 }

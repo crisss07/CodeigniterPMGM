@@ -49,7 +49,7 @@
       <div class="container">
         <div class="row no-gutters align-items-center">
           <div class="col-lg-5 mb-5 mb-lg-0">
-            <h6 class="text-uppercase font-weight-medium letter-spacing-0_06 mb-3">Experiencias recientes</h6>
+            <h6 class="text-uppercase font-weight-medium letter-spacing-0_06 mb-3">Noticias recientes</h6>
             <h2 class="text-lh-xs mb-4">Encuentra el aspecto para tu<br class="d-none d-lg-inline-block">nuevo hogar</h2>
             <p class="text-white-70">Comenzar una nueva vida con una mejor experiencia<br class="d-none d-lg-inline-block"></p>
 
@@ -123,53 +123,22 @@
                        "slidesToShow": 1
                      }
                    }]'>
+                <?php  
+                    $noticias = $this->db->get_where('public.noticias', array('activo' => '1'))->result(); 
+                    foreach ($noticias as $val) {
+                    $url = 'public/assets/images/noticias/'.$val->adjunto.'.jpg';
+                ?>
                 <div class="js-slide my-3 lift-lg shadow-2-sm-hover">
-                  <a class="w-100 card bg-img-hero border-0 gradient-overlay-half-black-v2 min-height-320 text-white rounded-pseudo p-3" href="#" style="background-image: url(<?php echo base_url(); ?>public/oficina_virtual/assets/img/proyectovivienda/edificio.jpg);">
+                  <a class="w-100 card bg-img-hero border-0 gradient-overlay-half-black-v2 min-height-320 text-white rounded-pseudo p-3" href="<?php echo base_url(); ?>Oficina_virtual/ver_noticia/<?php echo $val->noticias_id ?>" style="background-image: url(<?php echo base_url(); ?><?php echo $url?>);">
                     <div class="mt-auto text-center">
-                      <h5 class="font-weight-normal">Vivienda</h5>
+                      <h5 class="font-weight-normal"><?php echo $val->titulo ?></h5>
                     </div>
-                  </a>
-                </div>
 
-                <div class="js-slide my-3 lift-lg shadow-2-sm-hover">
-                  <a class="w-100 card bg-img-hero border-0 gradient-overlay-half-black-v2 min-height-320 text-white rounded-pseudo p-3" href="#" style="background-image: url(<?php echo base_url(); ?>public/oficina_virtual/assets/img/proyectovivienda/viviendas.jpg);">
-                    <div class="mt-auto text-center">
-                      <h5 class="font-weight-normal">Casa</h5>
-                    </div>
                   </a>
                 </div>
+                <?php  }  ?>
 
-                <div class="js-slide my-3 lift-lg shadow-2-sm-hover">
-                  <a class="w-100 card bg-img-hero border-0 gradient-overlay-half-black-v2 min-height-320 text-white rounded-pseudo p-3" href="#" style="background-image: url(<?php echo base_url(); ?>public/oficina_virtual/assets/img/demo/real-estate/gallery-4.jpg);">
-                    <div class="mt-auto text-center">
-                      <h5 class="font-weight-normal">Infrestructura</h5>
-                    </div>
-                  </a>
-                </div>
-
-                <div class="js-slide my-3 lift-lg shadow-2-sm-hover">
-                  <a class="w-100 card bg-img-hero border-0 gradient-overlay-half-black-v2 min-height-320 text-white rounded-pseudo p-3" href="#" style="background-image: url(<?php echo base_url(); ?>public/oficina_virtual/assets/img/demo/real-estate/gallery-3.jpg);">
-                    <div class="mt-auto text-center">
-                      <h5 class="font-weight-normal">Patio</h5>
-                    </div>
-                  </a>
-                </div>
-
-                <div class="js-slide my-3 lift-lg shadow-2-sm-hover">
-                  <a class="w-100 card bg-img-hero border-0 gradient-overlay-half-black-v2 min-height-320 text-white rounded-pseudo p-3" href="#" style="background-image: url(<?php echo base_url(); ?>public/oficina_virtual/assets/img/demo/real-estate/gallery-5.jpg);">
-                    <div class="mt-auto text-center">
-                      <h5 class="font-weight-normal">Transport</h5>
-                    </div>
-                  </a>
-                </div>
-
-                <div class="js-slide my-3 lift-lg shadow-2-sm-hover">
-                  <a class="w-100 card bg-img-hero border-0 gradient-overlay-half-black-v2 min-height-320 text-white rounded-pseudo p-3" href="#" style="background-image: url(<?php echo base_url(); ?>public/oficina_virtual/assets/img/demo/real-estate/gallery-6.jpg);">
-                    <div class="mt-auto text-center">
-                      <h5 class="font-weight-normal">Services</h5>
-                    </div>
-                  </a>
-                </div>
+                
               </div>
               <!-- End Slick Carousel -->
             </div>
