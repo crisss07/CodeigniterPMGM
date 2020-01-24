@@ -11,18 +11,18 @@
         <!-- End Title -->
 
         <!-- Search -->
-        <div class="input-group rounded-pill bg-white overflow-hidden p-2 mb-6">
+        <!-- <div class="input-group rounded-pill bg-white overflow-hidden p-2 mb-6">
           <input type="search" class="form-control form-control-sm rounded-pill border-0 mr-1" placeholder="Buscar" aria-label="Bucar">
           <!--<input type="search" class="form-control form-control-sm rounded-pill border-0 mr-1" placeholder="Search what kind of property do you like?" aria-label="Search what kind of property do you like?">-->
 
           <div class="input-group-append">
-            <button type="button" class="btn btn-sm btn-primary rounded-pill font-weight-medium px-4 py-2 mr-2">Buscar</button>
+            <!-- <button type="button" class="btn btn-sm btn-primary rounded-pill font-weight-medium px-4 py-2 mr-2">Buscar</button> -->
             <!--<button type="button" class="btn btn-sm btn-primary rounded-pill font-weight-medium px-4 py-2">For Rent</button>-->
           </div>
         </div>
         <!-- End Search -->
 
-        <a class="js-fancybox text-white" href="javascript:;"
+        <!-- <a class="js-fancybox text-white" href="javascript:;"
            data-src="//youtube.com/embed/5ksBQ9jevAI"
            data-speed="700"
            data-animate-in="zoomIn"
@@ -39,7 +39,7 @@
               </svg>
             </i>
           </i>
-        </a>
+        </a> -->
       </div>
     </div>
     <!-- End Hero Section -->
@@ -50,7 +50,7 @@
         <div class="row no-gutters align-items-center">
           <div class="col-lg-5 mb-5 mb-lg-0">
             <h6 class="text-uppercase font-weight-medium letter-spacing-0_06 mb-3">Noticias recientes</h6>
-            <h2 class="text-lh-xs mb-4">Encuentra el aspecto para tu<br class="d-none d-lg-inline-block">nuevo hogar</h2>
+            <h2 class="text-lh-xs mb-4">Encuentra las noticias<br class="d-none d-lg-inline-block">destecadas</h2>
             <p class="text-white-70">Comenzar una nueva vida con una mejor experiencia<br class="d-none d-lg-inline-block"></p>
 
             <!-- Gallarie's arrows -->
@@ -126,7 +126,7 @@
                 <?php  
                     $noticias = $this->db->get_where('public.noticias', array('activo' => '1'))->result(); 
                     foreach ($noticias as $val) {
-                    $url = 'public/assets/images/noticias/'.$val->adjunto.'.jpg';
+                    $url = 'public/assets/images/noticias/'.$val->adjunto.'';
                 ?>
                 <div class="js-slide my-3 lift-lg shadow-2-sm-hover">
                   <a class="w-100 card bg-img-hero border-0 gradient-overlay-half-black-v2 min-height-320 text-white rounded-pseudo p-3" href="<?php echo base_url(); ?>Oficina_virtual/ver_noticia/<?php echo $val->noticias_id ?>" style="background-image: url(<?php echo base_url(); ?><?php echo $url?>);">
@@ -171,7 +171,7 @@
 
                 <h3 class="text-lh-xs mb-3">Visualizar los requisitos de tramite<br class="d-none d-lg-inline-block"> </h3>
                 <p class="text-muted mb-5">Detalle de los requitos para<br class="d-none d-lg-inline-block">empezar los tramites de vivienda</p>
-                <a class="btn btn-sm btn-primary" href="#">Ver tramites</a>
+                <a class="btn btn-sm btn-primary" href="<?php echo base_url(); ?>Oficina_virtual/listar_tramites">Ver tramites</a>
               </div>
             </article>
             <!-- End Card -->
@@ -192,9 +192,9 @@
                   </i>
                 </span>
 
-                <h3 class="text-lh-xs mb-3">Proyecto det<br class="d-none d-lg-inline-block">vivienda</h3>
-                <p class="text-muted mb-5">Vivienda de la población<br class="d-none d-lg-inline-block"> Boliviana</p>
-                <a class="btn btn-sm btn-primary" href="#">Empecemos</a>
+                <h3 class="text-lh-xs mb-3">Visualizar<br class="d-none d-lg-inline-block">predio</h3>
+                <p class="text-muted mb-5">Modtra la localizacion de un<br class="d-none d-lg-inline-block"> bien imueble</p>
+                <a class="btn btn-sm btn-primary" href="<?php echo base_url(); ?>Oficina_virtual/visualizar_predio">Empecemos</a>
               </div>
             </article>
             <!-- End Card -->

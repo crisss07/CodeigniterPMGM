@@ -56,7 +56,7 @@
                                         <div class="col-sm-6">
                                             <div class="row"> 
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" id="geocodigo" name="geocodigo"  required>
+                                                    <input type="text" class="form-control" id="geocodigo" name="geocodigo">
                                                     <div id="resultado"></div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -71,13 +71,13 @@
                                 <div class="form-row col-md-12">
                                     <div class="col-sm-6">
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" id="tipo_solicitante1" name="tipo_solicitante" class="custom-control-input" value="Propietario">
+                                            <input type="radio" id="tipo_solicitante1" name="tipo_solicitante" class="custom-control-input" value="Propietario" required/>
                                             <label class="custom-control-label" for="tipo_solicitante1">Solicitante propietario</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" id="tipo_solicitante2" name="tipo_solicitante" class="custom-control-input" value="Juridico">
+                                            <input type="radio" id="tipo_solicitante2" name="tipo_solicitante" class="custom-control-input" value="Juridico" required/>
                                             <label class="custom-control-label" for="tipo_solicitante2">Solicitante Juridico</label>
                                         </div>
                                     </div>
