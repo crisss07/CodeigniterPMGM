@@ -1,19 +1,33 @@
+<style>
+	#header{
+  z-index: 100000;
+    background-color: #fff;
+    transition: background-color 0.3s ease-in-out;
+    border-bottom: 1px solid #e3e6f0;
+}
+#usuarioHEADER{
+  color:#fff;
+}
+#header_usuario{
+    color:#fff;
+
+}
+#menu_oficina li a{
+  color:#646F79;
+}
+</style>
+	</style>
+
 <br />
+<br /><br />
 
 <!-- ========== MAIN CONTENT ========== -->
-<main id="content">
-
-	<div class="gradient-overlay-half-white-v2 bg-img-hero"
-		style="background-image: url(../../assets/img/demo/hotel/jumbotron.jpg);">
-		<div class="container space-2 space-2--sm space-2--lg">
-
-			<div class="w-lg-80 mb-4 mb-sm-1 pb-1">
-				<h2 class="display-5 font-size-28--md-down mb-2">Lista de tramites<br
-						class="d-none d-lg-inline-block">Visualizar&nbsp;<strong class="text-primary">requisitos</strong></h2>
-			</div>
-
-		</div>
-	</div>
+ <!-- Title -->
+ <div class="text-center w-md-80 w-lg-60 mx-md-auto mb-7">
+                <h2>Tramites</h2>
+                <p class="mb-0">Información, requisitos y flujo de tramites</p>
+            </div>
+      </div>
 
 	<div class="contenedor_tramites">
 		<?php foreach ($tramites as $listas): ?>

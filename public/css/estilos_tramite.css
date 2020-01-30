@@ -145,3 +145,23 @@
 
 
 /*---------- ESTILOS PARA MOSTRAR LA IMAGEN FIN -----------*/
+
+/* estilos footer*/
+.pie {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: #000;
+	height: 50px;
+
+	padding-left: 5%;
+	padding-right: 5%;
+	width: 90;
+}
+
+.pie_redes {
+	display: flex;
+}
+.gam{
+color:#fff;
+}

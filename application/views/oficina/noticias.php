@@ -1,7 +1,24 @@
 </br>
 </br>
 </br>
+<style>
+#header{
+  z-index: 10000;
+    background-color: #fff;
+    transition: background-color 0.3s ease-in-out;
+    border-bottom: 1px solid #e3e6f0;
+}
+#usuarioHEADER{
+  color:#fff;
+}
+#header_usuario{
+    color:#fff;
 
+}
+#menu_oficina li a{
+  color:#646F79;
+}
+</style>
 <div class="page-wrapper">
 	<div class="container-fluid">
 		<div class="row">

@@ -71,7 +71,7 @@
 
           <!-- Navigation -->
           <div id="navBar" class="collapse navbar-collapse u-header__navbar-collapse py-0">
-            <ul class="navbar-nav u-header__navbar-nav">
+            <ul id="menu_oficina" class="navbar-nav u-header__navbar-nav">
               <!-- Home -->
               <li class="nav-item hs-has-sub-menu u-header__nav-item"
                   data-event="hover"
@@ -441,11 +441,11 @@
 
               <!-- Button -->
               <li class="nav-item u-header__nav-item-btn">
-                <a class="btn btn-sm btn-primary" href="#signupModal" role="button"
+                <a  class="btn btn-sm btn-primary" href="#signupModal" role="button"
                    data-modal-target="#signupModal"
                    data-overlay-color="#151b26">
-                  <span class="fa fa-user-circle mr-1"></span>
-                  Usuario
+                  <span id="usuarioHEADER" class="fa fa-user-circle mr-1"></span>
+                  <span id="header_usuario">Usuario</span>
                 </a>
               </li>
               <!-- End Button -->

@@ -277,15 +277,15 @@ class Oficina_virtual extends CI_Controller
     }
 
     public function visualizar_predio(){
-        //Buscar predio de un determinado usuario
-        $id_usuario = "3838910"; //id_usuario de reserva
+        $id_usuario = "3856156";
         $data = $this->Oficina_virtual_model->coordenadas_predio($id_usuario);
-        // print_r($data);
         $id_predio = $data[0];
         $numero = $id_predio['predio_id'];
-        // print_r( $id_predio);
-        // echo $numero;
+        $titular = $id_predio['nombres']." ".$id_predio['paterno']." ".$id_predio['materno'];
+        $direccion = $id_predio['direccion'];
         $data["predio_id"] = $numero;
+        $data['titular'] =  $titular;
+        $data['direccion'] =  $direccion;
         $this->load->view('oficina/header');
         $this->load->view('oficina/visualizar_predio', $data);
         $this->load->view('oficina/footer');
