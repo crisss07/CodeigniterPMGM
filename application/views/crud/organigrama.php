@@ -70,15 +70,7 @@
                                                     <?php endif ?>
                                                 </td>                     
                                                 <td>
-                                                    <a <?php echo $verifica['baja']; ?>="<?php echo site_url('Organigrama/edit'); ?>/<?php echo $row->organigrama_id; ?>"><button type="button" class="btn btn-warning"><span class="fas fas fa-edit" aria-hidden="true"></span></button></a>                                                  
-                                                    <button <?php echo $verifica['modificacion']; ?> type="button" class="btn btn-info" data-toggle="modal" data-target="#modalEdicion" onclick="agregarform('<?php echo $datos ?>')">
-                                                            <span class="fas fa-plus" aria-hidden="true"> 
-                                                            </span> CITE
-                                                    </button>                                                    
-                                                    <button <?php echo $verifica['modificacion']; ?> type="button" class="btn btn-info" data-toggle="modal" data-target="#modalvistacite" onclick="agregarform('<?php echo $datos ?>')">
-                                                            <span class="far fa-check-circle" aria-hidden="true"> 
-                                                            </span> VER CITE
-                                                    </button>                                                    
+                                                    <a <?php echo $verifica['baja']; ?>="<?php echo site_url('Organigrama/edit'); ?>/<?php echo $row->organigrama_id; ?>"><button type="button" class="btn btn-warning"><span class="fas fas fa-edit" aria-hidden="true"></span></button></a>                                                     
                                                 </td>                                                
                                             </tr>
                                             <?php } ?>

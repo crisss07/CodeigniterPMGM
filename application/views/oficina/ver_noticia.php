@@ -17,7 +17,7 @@
             <div class="cbp-item">
               <div class="cbp-caption">
                 <?php
-                  $url = 'public/assets/images/noticias/'.$noticias->adjunto.'.jpg';
+                  $url = 'public/assets/images/noticias/'.$noticias->adjunto.'';
                  ?>
                 <img class="w-100 card bg-img-hero border-0 gradient-overlay-half-black-v2 min-height-320 text-white rounded-pseudo p-3" src="<?php echo base_url(); ?><?php echo $url; ?>" alt="Image Description">
               </div>

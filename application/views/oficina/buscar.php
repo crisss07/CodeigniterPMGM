@@ -1,3 +1,22 @@
+<style>
+#header{
+  z-index: 10000;
+    background-color: #fff;
+    transition: background-color 0.3s ease-in-out;
+    border-bottom: 1px solid #e3e6f0;
+}
+#usuarioHEADER{
+  color:#fff;
+}
+#header_usuario{
+    color:#fff;
+
+}
+#menu_oficina li a{
+  color:#646F79;
+}
+</style>
+
 <!-- ========== MAIN CONTENT ========== -->
 <main id="content" role="main">
         
@@ -40,12 +59,13 @@
         <!-- End CTA -->
 
         <!-- formalities Section -->
-        <div class="container align-items-md-center">
+        
+        <div class="container text-center ">
             
                
-                <div class="col-md-5 order-md-1">
-                <img class="w-100" src="<?php echo base_url(); ?>public/oficina_virtual/assets/svg/components/information-icon.svg" alt="Image Description">
-                </div>
+                
+                <img class="w-50" src="<?php echo base_url(); ?>public/oficina_virtual/assets/svg/components/information-icon.svg" alt="Image Description">
+             
           
         </div>
         <br />

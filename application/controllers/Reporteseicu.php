@@ -284,18 +284,18 @@ WHERE predio_id=$id ORDER BY b.nro_bloque")->result();
             //var_dump('datos_nulos');
         //exit;
             $data['foto_fachada'] ='public/assets/images/reportes/nodisponible.jpeg';
-            //$data['foto_plano_ubi'] = 'public/assets/images/reportes/nodisponible.jpeg';
-            $data['foto_plano_ubi'] = 'public/assets/files/predios/predio.jpg';
+            $data['foto_plano_ubi'] = 'public/assets/images/reportes/nodisponible.jpeg';
+            //$data['foto_plano_ubi'] = 'public/assets/files/predios/predio.jpg';
         }else{
 
             $data['foto_fachada'] = 'public/assets/files/predios/'.$valida_foto->foto_fachada;
-//            $data['foto_plano_ubi'] = 'public/assets/files/predios/'.$valida_foto->foto_plano_ubi;
-            $data['foto_plano_ubi'] = 'public/assets/files/predios/predio.jpg';
+            $data['foto_plano_ubi'] = 'public/assets/files/predios/'.$valida_foto->foto_plano_ubi;
+            //$data['foto_plano_ubi'] = 'public/assets/files/predios/predio.jpg';
 
         }
 
         //$data['foto'] = ;
-        $data['foto_plano_ubi'] = 'public/assets/files/predios/'.$id.'.jpg';
+       // $data['foto_plano_ubi'] = 'public/assets/files/predios/'.$id.'.jpg';
 
         $data['datos_predio'] = $this->Reportes_model->get_data($id);
         $data['propietarios'] = $this->Reportes_model->get_propietarios($id);

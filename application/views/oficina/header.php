@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <!-- Title -->
-  <title>Real Estate | Space - Responsive Website Template</title>
+  <title>Oficina virtual</title>
 
   <!-- Required Meta Tags Always Come First -->
   <meta charset="utf-8">
@@ -26,6 +26,9 @@
 
   <!-- CSS Space Template -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>public/oficina_virtual/assets/css/theme.css">
+
+  <!-- CSS Estilos tramite -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/estilos_tramite.css">
 </head>
 
 <body>
@@ -45,9 +48,9 @@
         <nav class="js-mega-menu navbar navbar-expand-lg u-header__navbar">
           <!-- Logo -->
           <div class="u-header__navbar-brand-wrapper">
-            <a class="navbar-brand u-header__navbar-brand" href="../../html/home/index.html" aria-label="Space">
-              <img class="u-header__navbar-brand-default" src="<?php echo base_url(); ?>public/oficina_virtual/assets/svg/logos/logo-white.svg" alt="Logo">
-              <img class="u-header__navbar-brand-on-scroll" src="<?php echo base_url(); ?>public/oficina_virtual/assets/svg/logos/logo.svg" alt="Logo">
+            <a class="navbar-brand u-header__navbar-brand" href="<?php echo base_url(); ?>Oficina_virtual" aria-label="Space">
+              <img class="u-header__navbar-brand-default" src="<?php echo base_url(); ?>public/oficina_virtual/assets/svg/logos/seicu_blanco.svg" alt="Logo">
+              <img class="u-header__navbar-brand-on-scroll" src="<?php echo base_url(); ?>public/oficina_virtual/assets/svg/logos/seicu_negro.svg" alt="Logo">
               <img class="u-header__navbar-brand-mobile" src="<?php echo base_url(); ?>public/oficina_virtual/assets/svg/logos/logo-short.svg" alt="Logo">
             </a>
           </div>
@@ -68,7 +71,7 @@
 
           <!-- Navigation -->
           <div id="navBar" class="collapse navbar-collapse u-header__navbar-collapse py-0">
-            <ul class="navbar-nav u-header__navbar-nav">
+            <ul id="menu_oficina" class="navbar-nav u-header__navbar-nav">
               <!-- Home -->
               <li class="nav-item hs-has-sub-menu u-header__nav-item"
                   data-event="hover"
@@ -219,11 +222,11 @@
                     <ul id="navSubmenuWorksBoxedLayout" class="hs-sub-menu list-unstyled u-header__sub-menu u-header__sub-menu-offset" style="min-width: 220px;"
                         aria-labelledby="navLinkWorksBoxedLayout">
                       <li class="dropdown-item u-header__sub-menu-list-item">
-                        <a class="nav-link u-header__sub-menu-nav-link" href="../portfolio/boxed-classic.html">Listar tramites</a>
+                        <a class="nav-link u-header__sub-menu-nav-link" href="<?php echo base_url(); ?>Oficina_virtual/listar_tramites">Listar tramites</a>
                       </li>
-                      <li class="dropdown-item u-header__sub-menu-list-item">
+                      <!-- <li class="dropdown-item u-header__sub-menu-list-item">
                         <a class="nav-link u-header__sub-menu-nav-link" href="../portfolio/boxed-grid.html">Costo tramites</a>
-                      </li>
+                      </li> -->
                       <!--<li class="dropdown-item u-header__sub-menu-list-item">
                         <a class="nav-link u-header__sub-menu-nav-link" href="../portfolio/boxed-masonry.html">Portfolio Masonry</a>
                       </li>
@@ -315,9 +318,9 @@
                     <!-- Submenu (level 2) -->
                     <ul id="navSubmenuWorksBoxedLayout" class="hs-sub-menu list-unstyled u-header__sub-menu u-header__sub-menu-offset" style="min-width: 220px;"
                         aria-labelledby="navLinkWorksBoxedLayout">
-                      <li class="dropdown-item u-header__sub-menu-list-item">
+                      <!-- <li class="dropdown-item u-header__sub-menu-list-item">
                         <a class="nav-link u-header__sub-menu-nav-link" href="../portfolio/boxed-classic.html">Vivienda</a>
-                      </li>
+                      </li> -->
                       <li class="dropdown-item u-header__sub-menu-list-item">
                         <a class="nav-link u-header__sub-menu-nav-link" href="../portfolio/boxed-grid.html">Segumiento</a>
                       </li>
@@ -399,7 +402,7 @@
                 <!-- Docs - Submenu -->
                 <ul id="docsSubMenu" class="list-inline hs-sub-menu u-header__sub-menu mb-0" style="min-width: 260px;"
                     aria-labelledby="docsMegaMenu">
-                  <li class="dropdown-item u-header__sub-menu-list-item py-0">
+                  <!-- <li class="dropdown-item u-header__sub-menu-list-item py-0">
                     <a class="nav-link d-block u-header__sub-menu-nav-link" href="../../documentation/index.html">
                       <div class="media align-items-center">
                         <img class="max-width-5 mr-3" src="<?php echo base_url(); ?>public/oficina_virtual/assets/svg/components/news-dark-icon.svg" alt="Image Description">
@@ -420,6 +423,17 @@
                         </div>
                       </div>
                     </a>
+                  </li> -->
+                  <li class="dropdown-item u-header__sub-menu-list-item py-0">
+                    <a class="nav-link d-block u-header__sub-menu-nav-link" href="<?php echo base_url(); ?>Oficina_virtual/noticias">
+                      <div class="media align-items-center">
+                        <img class="max-width-5 mr-3" src="<?php echo base_url(); ?>public/oficina_virtual/assets/svg/business-icons/iStar_Design_Business_LineIcons_Live-34.svg" >
+                        <div class="media-body">
+                          <span class="d-block text-dark font-weight-medium">Noticias</span>
+                          <small class="d-block">Seccion noticias</small>
+                        </div>
+                      </div>
+                    </a>
                   </li>
                 </ul>
               </li>
@@ -427,11 +441,11 @@
 
               <!-- Button -->
               <li class="nav-item u-header__nav-item-btn">
-                <a class="btn btn-sm btn-primary" href="#signupModal" role="button"
+                <a  class="btn btn-sm btn-primary" href="#signupModal" role="button"
                    data-modal-target="#signupModal"
                    data-overlay-color="#151b26">
-                  <span class="fa fa-user-circle mr-1"></span>
-                  Usuario
+                  <span id="usuarioHEADER" class="fa fa-user-circle mr-1"></span>
+                  <span id="header_usuario">Usuario</span>
                 </a>
               </li>
               <!-- End Button -->

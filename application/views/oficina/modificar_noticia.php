@@ -1,3 +1,6 @@
+<br />
+<br />
+
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -45,7 +48,7 @@
 				<?php endforeach; ?>
 
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					<a class="btn btn-default" href="<?php echo base_url(); ?>Oficina_virtual/noticias">Volver</a>
 					<button type="submit" class="btn btn-primary">Guardar</button>
 
 				</div>
@@ -85,7 +88,7 @@
 				}
 				fileReader.readAsDataURL(fileToLoad);
 			}
-		} else if (formato_imagen.type === "image/jpg") {
+		} else if (formato_imagen.type === "image/jpeg") {
 			if (filesSelected.length > 0) {
 				var fileToLoad = filesSelected[0];
 				var fileReader = new FileReader();

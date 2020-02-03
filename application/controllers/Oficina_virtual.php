@@ -32,14 +32,14 @@ class Oficina_virtual extends CI_Controller
     }
 
     public function noticias(){
-        if ($this->session->userdata("login")) {
+        // if ($this->session->userdata("login")) {
+            $datos['noticias'] = $this->Oficina_virtual_model->noticias_oficina_virtual();
             $this->load->view('oficina/header');
-            
-            $this->load->view('oficina/noticias');
+            $this->load->view('oficina/noticias',$datos);
             $this->load->view('oficina/footer');
-        }else{
-            redirect(base_url());
-        }
+        // }else{
+        //     redirect(base_url());
+        // }
     }
 
     public function requisitos(){
@@ -277,15 +277,15 @@ class Oficina_virtual extends CI_Controller
     }
 
     public function visualizar_predio(){
-        //Buscar predio de un determinado usuario
-        $id_usuario = "3838910"; //id_usuario de reserva
+        $id_usuario = "3856156";
         $data = $this->Oficina_virtual_model->coordenadas_predio($id_usuario);
-        print_r($data);
         $id_predio = $data[0];
         $numero = $id_predio['predio_id'];
-        print_r( $id_predio);
-        echo $numero;
+        $titular = $id_predio['nombres']." ".$id_predio['paterno']." ".$id_predio['materno'];
+        $direccion = $id_predio['direccion'];
         $data["predio_id"] = $numero;
+        $data['titular'] =  $titular;
+        $data['direccion'] =  $direccion;
         $this->load->view('oficina/header');
         $this->load->view('oficina/visualizar_predio', $data);
         $this->load->view('oficina/footer');
@@ -309,5 +309,102 @@ class Oficina_virtual extends CI_Controller
         $this->load->view('oficina/ver_noticia', $datos);
         $this->load->view('oficina/footer');
     }
+
+    public function almacenar_noticia(){
+
+        $id_tramite = $this->Oficina_virtual_model->numero_noticias() + 1;
+        if ($_FILES['archivo_seleccionado']['name']<>""){
+            $nombre_imagen = $_FILES['archivo_seleccionado']['name'];
+            $ruta="./public/assets/images/noticias/".$_FILES['archivo_seleccionado']['name'];
+            move_uploaded_file($_FILES['archivo_seleccionado']['tmp_name'], $ruta);
+            $imagen_nombre = $nombre_imagen;
+        }else{
+            $imagen_nombre = "nohayimagen.png";
+        }
+        $data = array(
+            'noticias_id'   =>  $id_tramite,              
+            'titulo'        =>  $organigrama_id=$this->input->post('titulo'), //input 
+            'contenido'     =>  $organigrama_id=$this->input->post('contenido'), //input          
+            'adjunto'       =>  $imagen_nombre, //input
+            'activo'        =>  1, //input                                                       
+        );
+        $this->Oficina_virtual_model->almacenar_noticias($data);
+        redirect('Oficina_virtual/noticias'); 
+    }
+
+    public function modificar_noticia(){
+       $id= $this->input->get('noticia_id'); 
+    //    echo "la noticia a modificar es: ".$id;
+    //    $noticia  = $this->Oficina_virtual_model->buscar_noticia($id);
+    //  print_r($noticia);
+        $data['noticia']  = $this->Oficina_virtual_model->buscar_noticia($id);
+        $this->load->view('oficina/header');
+        $this->load->view('oficina/modificar_noticia', $data);
+        $this->load->view('oficina/footer');
+    }
+
+    public function actualizar_noticia(){
+        $imagen_nombre="";
+        if ($_FILES['archivo_seleccionado']['name']<>""){
+                $nombre_imagen = $_FILES['archivo_seleccionado']['name'];
+                $ruta="./public/assets/images/noticias/".$_FILES['archivo_seleccionado']['name'];
+                move_uploaded_file($_FILES['archivo_seleccionado']['tmp_name'], $ruta);
+                $imagen_nombre = $nombre_imagen;
+        }else{
+            $imagen_nombre = $this->input->post('nombre_imagen_noticia');
+        }
+            $data = array(                
+                'titulo'    => $this->input->post('titulo'), //input 
+                'contenido' => $this->input->post('contenido'), //input          
+                'adjunto' => $imagen_nombre, //input                                                       
+            );
+        $noticia_id =  $this->input->post('noticia_id');    
+        $this->Oficina_virtual_model->actualizar_noticia($noticia_id, $data);
+        redirect('Oficina_virtual/noticias');      
+    }
+
+    public function estado_noticia(){
+        $tramite_id=$this->input->get('noticia_id');
+        $estado=$this->input->get('estado');
+        if ($estado=="1") {
+        	$estado_noticia=0;
+        }elseif ($estado=="0") {
+        	$estado_noticia=1; 
+        }
+        $data = array(                
+            'activo'    => $estado_noticia,                                                   
+        );
+        $this->Oficina_virtual_model->estado_noticia($tramite_id, $data);
+        redirect('Oficina_virtual/noticias');
+    }
+
+    public function listar_tramites(){
+        // codigo que me permite obtener el flujo de tramite sin repetir los pasos que se agregan agregarr un nuevo perfil de la persona
+        $lista_tramites = $this->Oficina_virtual_model->listar_tramites();
+        $flujo_tramite = [];       
+        $proceso = [];
+        foreach ($lista_tramites as $dato){
+            $id_tramite = $dato["tipo_tramite_id"];
+            $flujos_tramite      =      $this->Oficina_virtual_model->numero_flujo($id_tramite);
+            foreach ($flujos_tramite as $orden_flujo) {              
+                $orden             =   $orden_flujo["orden"];           
+                $proceso     =   $this->Oficina_virtual_model->proceso_flujo($id_tramite, $orden);        
+                array_push($flujo_tramite, $proceso);
+            }
+        }
+        // $f=$this->Oficina_virtual_model->flujo_tramite();
+        // echo "<pre>";print_r($f);echo "<pre>"."<br>";
+        // echo "<pre>";
+        // print_r($flujo_tramite);        
+        // echo "</pre>";
+        $data['flujo']       = $flujo_tramite;
+        $data['tramites']    = $this->Oficina_virtual_model->listar_tramites();
+        $data['requisitos']  = $this->Oficina_virtual_model->listar_requisitos();
+        $this->load->view('oficina/header');
+        $this->load->view('oficina/requisitos',$data);
+         $this->load->view('oficina/footer');
+
+    }
+    
 
 }
