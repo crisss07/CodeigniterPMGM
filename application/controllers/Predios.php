@@ -893,10 +893,18 @@ WHERE predio_id=$predio_id ORDER BY b.nro_bloque")->result();
 
 	public function formulario_division($id_predio = null)
 	{
+		$data['predio']=$this->db->get_where('catastro.predio', array('predio_id' => $id_predio))->row_array();
+		$this->db->select('p.*');
+		$this->db->from('catastro.historico as h');
+		$this->db->join('catastro.predio as p', 'h.predio_id_hijo=p.predio_id');
+		$this->db->where('h.predio_id_padre', $id_predio);
+		$data['hijos'] = $this->db->get()->result_array();
+		// $data['hijos']=$this->db->get_where('catastro.historico', array('predio_id_padre' => $id_predio))->result_array();
+		// vdebug($hijos, true, false, true);
 		$this->load->view('admin/header');
 		$this->load->view('admin/menu');
 		// $this->load->view('predios/nuevo', $data);
-		$this->load->view('predios/form_fusion');
+		$this->load->view('predios/formulario_division', $data);
 		$this->load->view('admin/footer');
 		$this->load->view('predios/registra_js');
 	}
