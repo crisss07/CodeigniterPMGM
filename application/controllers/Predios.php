@@ -891,13 +891,16 @@ WHERE predio_id=$predio_id ORDER BY b.nro_bloque")->result();
 
 	}
 
-	public function formulario_division($id_predio = null)
+	public function formulario_division($id_predio = null, $estado = null)
 	{
 		$data['predio']=$this->db->get_where('catastro.predio', array('predio_id' => $id_predio))->row_array();
+		$data['estado']=$estado;
 		$this->db->select('p.*');
 		$this->db->from('catastro.historico as h');
 		$this->db->join('catastro.predio as p', 'h.predio_id_hijo=p.predio_id');
-		$this->db->where('h.predio_id_padre', $id_predio);
+		$this->db->where(array(
+			'h.predio_id_padre'=>$id_predio, 
+			'h.fec_eliminacion is NULL' => NULL));
 		$data['hijos'] = $this->db->get()->result_array();
 		// $data['hijos']=$this->db->get_where('catastro.historico', array('predio_id_padre' => $id_predio))->result_array();
 		// vdebug($hijos, true, false, true);
@@ -907,5 +910,30 @@ WHERE predio_id=$predio_id ORDER BY b.nro_bloque")->result();
 		$this->load->view('predios/formulario_division', $data);
 		$this->load->view('admin/footer');
 		$this->load->view('predios/registra_js');
+	}
+
+	public function guarda_division()
+	{
+		$codigo = $this->input->post('cod_catastral');
+		$id = $this->input->post('id_codigo');
+		$cod_catastral = $this->db->get_where('catastro.predio', array('codcatas'=>$codigo))->row_array();
+		// $hoy = date('y-mm-dd HH:mm:ss');
+		if (!empty($cod_catastral)) {
+			$estado='Si';
+			$datos_historico = array(
+				'predio_id_padre'=>$id,
+				'predio_id_hijo'=>$cod_catastral['predio_id'],
+			);
+			$this->db->insert('catastro.historico', $datos_historico);
+		} else {
+			$estado='No';
+		}
+		redirect(base_url("/predios/formulario_division/$id/$estado"));
+		// vdebug($cod_catastral, true, false, true);
+	}
+
+	public function elimina_fusion($id_fusion = null)
+	{
+
 	}
 }

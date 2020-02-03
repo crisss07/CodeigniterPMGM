@@ -15,7 +15,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Division del predio</h4>
                         <div class="row">
-                          <?php //vdebug($predio, false, false, true); ?>
+                          <?php //vdebug($estado, false, false, true); ?>
                             <div class="col-md-3 col-xs-6 border-right"> <strong>Cod CATASTRAL</strong>
                                 <br>
                                 <p class="text-muted"><?php echo $predio['codcatas'] ?></p>
@@ -37,13 +37,20 @@
                         <p></p>
     
                         <div class="row">
-                            <div class="col-md-3">
-                                <h4 class="card">Ingrese el codigo catastral</h4>
-                                <input type="text" class="form-control" name="">
-                                <p></p>
-                                <a href="#" class="btn btn-info" onclick="muestraDetalle();">Buscar</a>
-                            </div>
-
+                          <div class="col-md-3">
+                            <form action="<?php echo base_url() ?>predios/guarda_division" method="POST">
+                              <h4 class="card">Ingrese el codigo catastral</h4>
+                              <input type="text" class="form-control" name="cod_catastral">
+                              <input type="hidden" name="id_codigo" value="<?php echo $predio['predio_id']; ?>">
+                              <?php if ($estado != null): ?>
+                                <?php if ($estado == 'No'): ?>
+                                  <small class="form-control-feedback" style="color: #f00;"> Codigo catastral no existe!!! </small>
+                                <?php endif ?>
+                              <?php endif ?>
+                              <br>
+                              <button type="submit" class="btn btn-info">Buscar</button>
+                            </form>  
+                          </div>
                             <div class="col-md-9" style="display: block;" id="resultado">
                               <div class="row">
                                 Predios Hijos
