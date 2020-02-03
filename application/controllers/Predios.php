@@ -762,7 +762,7 @@ WHERE predio_id=$predio_id ORDER BY b.nro_bloque")->result();
 					<a href="'. $url .'predios/modificar_predio/'. $rows->predio_id.'" class="btn btn-warning footable-edit fas fas fa-edit" aria-hidden="true" title="Editar"> </a>
 					<a href="'. $url .'predios/certificado/'. $rows->predio_id.'" class="btn btn-secondary  fas fa-certificate" aria-hidden="true" title="Certificacion tecnica"> </a>			 
 					<a href="'. $url .'predios/form_fusion/'. $rows->predio_id.'" class="btn btn-success footable-edit fas fas fa-object-group" aria-hidden="true" title="Fusionar"> </a>			 
-					<a href="'. $url .'Reporteseicu/certificacion_bloques/'. $rows->predio_id.'" class="btn btn-dark footable-edit fas fas fa-object-ungroup" aria-hidden="true" title="Particionar"> </a>			  
+					<a href="'. $url .'predios/formulario_division/'. $rows->predio_id.'" class="btn btn-dark footable-edit fas fas fa-object-ungroup" aria-hidden="true" title="Particionar"> </a>			  
 					<a href="'. $url .'Reporteseicu/certificacion_bloques/'. $rows->predio_id.'" class="btn btn-info footable-edit fas fas fa-print" aria-hidden="true" title="Certificación catastral" target="_blank"> </a>			 
 					<a href="'. $url .'Reporteseicu/certificacion/'. $rows->predio_id.'" class="btn btn-warning footable-edit fas fas fa-print" aria-hidden="true" title="Certificacion tecnica" target="_blank"> </a>			
 					<a href="'. $url .'predio/estado/'. $rows->predio_id.'" class="btn btn-success" aria-hidden="true" title="Certificacion tecnica" target="_blank"><span class="fas fa-arrow-alt-circle-up" aria-hidden="true"></span> Activo </a>
@@ -889,5 +889,15 @@ WHERE predio_id=$predio_id ORDER BY b.nro_bloque")->result();
 			redirect(base_url());
 		}
 
+	}
+
+	public function formulario_division($id_predio = null)
+	{
+		$this->load->view('admin/header');
+		$this->load->view('admin/menu');
+		// $this->load->view('predios/nuevo', $data);
+		$this->load->view('predios/form_fusion');
+		$this->load->view('admin/footer');
+		$this->load->view('predios/registra_js');
 	}
 }
