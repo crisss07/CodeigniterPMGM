@@ -48,7 +48,7 @@
                                 <?php endif ?>
                               <?php endif ?>
                               <br>
-                              <button type="submit" class="btn btn-info">Buscar</button>
+                              <button type="submit" class="btn btn-info">Dividir predio</button>
                             </form>  
                           </div>
                             <div class="col-md-9" style="display: block;" id="resultado">
@@ -66,11 +66,14 @@
                                   </thead>
                                   <tbody>
                                     <?php foreach ($hijos as $key => $h): ?>
+                                      <?php $id = $h['historico_id'] ?>
                                       <tr>
                                           <td><?php echo ++$key; ?></td>
                                           <td><?php echo $h['codcatas'] ?></td>
                                           <td><?php echo $h['geocodigo'] ?></td>
-                                          <td><span class="label label-danger">admin</span> </td>
+                                          <td>
+                                            <a href="<?php echo base_url() ?>predios/elimina_fusion/<?php echo $id ?>/<?php echo $h['predio_id_padre']; ?>" class="btn btn-danger fas fas fa-trash" title="Eliminar"></a>
+                                          </td>
                                       </tr>
                                     <?php endforeach ?>
                                   </tbody>

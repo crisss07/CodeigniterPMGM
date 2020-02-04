@@ -895,7 +895,7 @@ WHERE predio_id=$predio_id ORDER BY b.nro_bloque")->result();
 	{
 		$data['predio']=$this->db->get_where('catastro.predio', array('predio_id' => $id_predio))->row_array();
 		$data['estado']=$estado;
-		$this->db->select('p.*');
+		$this->db->select('h.historico_id, h.predio_id_padre, p.*');
 		$this->db->from('catastro.historico as h');
 		$this->db->join('catastro.predio as p', 'h.predio_id_hijo=p.predio_id');
 		$this->db->where(array(
@@ -932,8 +932,10 @@ WHERE predio_id=$predio_id ORDER BY b.nro_bloque")->result();
 		// vdebug($cod_catastral, true, false, true);
 	}
 
-	public function elimina_fusion($id_fusion = null)
+	public function elimina_fusion($id_fusion = null, $id_padre = null)
 	{
-
+		$hoy = date("Y-m-d H:i:s");
+		$this->db->update('catastro.historico', array('fec_eliminacion'=>$hoy), array('historico_id'=>$id_fusion));
+		redirect(base_url("/predios/formulario_division/$id_padre"));
 	}
 }
